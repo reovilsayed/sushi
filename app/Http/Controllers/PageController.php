@@ -24,5 +24,11 @@ class PageController extends Controller
     public function contact(){
         return view('user.contact');
     }
+    public function userLogin(){
+        return view('user.auth.login');
+    }
+    public function userRegister(){
+        return view('user.auth.register');
+    }
 
 }
