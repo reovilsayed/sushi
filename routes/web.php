@@ -54,9 +54,9 @@ Auth::routes();
 
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'userIndex')->name('restaurant.home');
-    Route::get('/menu', 'menu')->name('restaurant.menu');
+    Route::get('/menu/{slug}', 'menu')->name('restaurant.menu');
     Route::get('/product', 'singleProduct')->name('restaurant.product');
-    Route::get('/restaurant', 'restaurant')->name('restaurants');
+    Route::get('/restaurants', 'restaurant')->name('restaurants');
     Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
     Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/user/login', 'userLogin')->name('user.login');

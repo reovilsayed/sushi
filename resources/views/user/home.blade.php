@@ -1,3 +1,4 @@
+{{-- @dd($restaurants) --}}
 <x-user>
     <section id="hero" class="hero section dark-background">
 
@@ -43,5 +44,5 @@
         </div>
 
     </section><!-- / Section -->
-    <x-user.restaurant />
+    <x-user.restaurant :restaurants="$restaurants"/>
 </x-user>
