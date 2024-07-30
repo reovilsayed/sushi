@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Extra;
 use App\Models\Product;
+use App\Models\Restaurant;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -34,8 +36,25 @@ Route::get('/old-db', function () {
             'slug'=>Str::slug($product->prod_name).'-'.substr(Str::uuid()->toString(8), 0, 10),
         ];
     });
+    $resturent_old=DB::connection('mysql_old')->table('restaurents')->get()->map(function ($restaurent) {
+  
+        return [
+          'name'=>$restaurent->restaurent_name,
+          'slug'=>Str::slug($restaurent->restaurent_name),
+        ];
+    });
+    $extras_old=DB::connection('mysql_old')->table('extras')->get()->map(function ($extra) {
+  
+        return [
+          'name'=>$extra->extra_name,
+          'type'=>$extra->extra_type,
+        ];
+    });
+
     Category::latest()->delete();
     Product::latest()->delete();
+    Restaurant::latest()->delete();
+    Extra::latest()->delete();
 
     foreach ($categories_old as $category) {
         Category::create($category);
@@ -45,5 +64,11 @@ Route::get('/old-db', function () {
     }
     foreach ($products_old as $product) {
         Product::create($product);
+    }
+    foreach ($resturent_old as $resturent) {
+        Restaurant::create($resturent);
+    }
+    foreach ($extras_old as $extra) {
+        Extra::create($extra);
     }
 });
