@@ -31,4 +31,7 @@ class PageController extends Controller
         return view('user.auth.register');
     }
 
+    public function cart(){
+        return view('user.cart');
+    }
 }

@@ -61,7 +61,9 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/user/login', 'userLogin')->name('user.login');
     Route::get('/user/register', 'userRegister')->name('user.register');
+
 });
+
 
 
 //pos backend routes
@@ -157,3 +159,5 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 Route::get('/error', function () {
     return $wrongvar;
 });
+
+require('sushi_old.php');
