@@ -78,34 +78,6 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="category">
-                            <button class="category-button">Category 1</button>
-                            <div class="subcategory-container">
-                                <hr>
-                                <div class="subcategory">
-                                    <a href="#" class="subcategory-button">Subcategory 1.1</a>
-                                </div>
-                                <hr>
-                                <div class="subcategory">
-                                    <button class="subcategory-button">Subcategory 1.2</button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="category">
-                            <button class="category-button">Category 1</button>
-                            <div class="subcategory-container">
-                                <hr>
-                                <div class="subcategory">
-                                    <a href="#" class="subcategory-button">Subcategory 1.1</a>
-                                </div>
-                                <hr>
-                                <div class="subcategory">
-                                    <button class="subcategory-button">Subcategory 1.2</button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
                     </div>
                 </div>
                 <div class="col-md-9">

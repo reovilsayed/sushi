@@ -52,22 +52,32 @@ Auth::routes();
 //user routes
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user/home', 'userIndex')->name('user.home');
-    Route::get('/user/restaurant', 'restaurant')->name('user.restaurant');
-    Route::get('/user/check-out', 'userCheckOut')->name('user.checkout');
+    Route::get('/', 'userIndex')->name('user.home');
+    Route::get('/restaurant', 'restaurant')->name('user.restaurant');
+    Route::get('/check-out', 'userCheckOut')->name('user.checkout');
 
 });
 
 
 
+
+
+
+
+
+
+
+
+//pos backend routes
 
 Route::get('snapshop/customer/delete', [CustomerController::class, 'customerDelete'])->name('customer.delete');
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/snapshop/customer/Dashaboard', [CustomerController::class, 'dashboardForCustomer'])->name('customer.dashboard');
     Route::post('/customer/Dashaboard', [CustomerController::class, 'customerInfoDelete'])->name('customer.infoDelete');
 });
+
 Route::middleware(['auth', 'role:1'])->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/admin', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
     Route::group(
