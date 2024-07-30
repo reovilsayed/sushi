@@ -1,0 +1,55 @@
+
+            .category {
+                margin: 10px 0;
+            }
+
+            .category-button {
+                padding: 10px;
+                border: none;
+                background-color:transparent;
+                /* border: 1px solid var(--accent-color); */
+                color: var(--accent-color);
+                cursor: pointer;
+                width: 100%;
+                text-align: left;
+                display: block;
+                border-radius: 10px;
+            }
+
+            .subcategory-button {
+
+                border: none;
+                background-color: transparent;
+                color: var(--accent-color);
+                cursor: pointer;
+                width: 100%;
+                text-align: left;
+                display: block;
+            }
+
+            .category-button:focus,
+            .subcategory-button:focus {
+                outline: none;
+            }
+
+            .subcategory-container {
+                display: none;
+            }
+
+            .subcategory-button {
+                padding-left: 30px;
+            }
+            .text-colour {
+                color: var(--accent-color);
+            }
+            .menu-header{
+                margin-top: 20px;
+            }
+            
+            .price h2{
+                font-size: 2rem;
+                font-weight: 500;
+                line-height: 1.2;
+                font-family: "Nexa Text W05 Extra Light";
+            }
+        

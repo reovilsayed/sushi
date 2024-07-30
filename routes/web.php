@@ -54,6 +54,7 @@ Auth::routes();
 Route::controller(UserController::class)->group(function () {
     Route::get('/', 'userIndex')->name('user.home');
     Route::get('/restaurant', 'restaurant')->name('user.restaurant');
+    Route::get('/product', 'singleProduct')->name('single.product');
     Route::get('/check-out', 'userCheckOut')->name('user.checkout');
 
 });
