@@ -35,11 +35,11 @@ class Handler extends ExceptionHandler
           
 
             // if (env('APP_ENV') == 'production') {
-              return  Mail::send('emails.errors', ['exception' => $exception], function ($message) {
-                    foreach (['rahmanabdur64870@gmail.com',  'reovilsayed@gmail.com'] as $email) {
-                        $message->to($email)->subject('Error in  POS');
-                    }
-                });
+            //   return  Mail::send('emails.errors', ['exception' => $exception], function ($message) {
+            //         foreach (['rahmanabdur64870@gmail.com',  'reovilsayed@gmail.com'] as $email) {
+            //             $message->to($email)->subject('Error in  POS');
+            //         }
+            //     });
             // }
         }
 

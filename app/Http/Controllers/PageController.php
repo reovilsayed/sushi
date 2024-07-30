@@ -25,4 +25,7 @@ class PageController extends Controller
         return view('user.contact');
     }
 
+    public function cart(){
+        return view('user.cart');
+    }
 }
