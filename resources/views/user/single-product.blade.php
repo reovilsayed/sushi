@@ -15,10 +15,13 @@
                         COMPOSITION | Homemade tuna rillettes, avocado, sesame seeds on a bed of vinegared rice
                     </p>
 
-                    <div class="price">
+                    <div class="price mb-5">
                         <h2>12.90€</h2>
+                        <div class="my-4">
+                            <a href="#" class="btn-orange">Add To Cart</a>
+                        </div>
                     </div>
-
+                    <hr >
                     <ul>
                         <li><span class="text-colour">ALLERGENS</span></li>
                         <li><i class="bi bi-check2-all"></i> <span>fish</span></li>
@@ -27,11 +30,7 @@
                         <li><i class="bi bi-check2-all"></i> <span>soy</span></li>
                     </ul>
                     <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in
-                        voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident
+                        Recipe cannot be modified. Dish prepared to order. Keep refrigerated. Consume within 24 hours.
                     </p>
                 </div>
             </div>
