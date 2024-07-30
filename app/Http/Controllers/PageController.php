@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function userIndex(){
+        
         return view('user.home');
     }
     public function menu(){
+        
         return view('user.menu');
     }
     public function userCheckout(){
