@@ -7,7 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenericsController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\PriscriptionController;
 use App\Http\Controllers\ProductController;
@@ -52,21 +52,12 @@ Auth::routes();
 
 //user routes
 
-Route::controller(PagesController::class)->group(function () {
+Route::controller(PageController::class)->group(function () {
     Route::get('/', 'userIndex')->name('user.home');
     Route::get('/restaurant', 'restaurant')->name('user.restaurant');
     Route::get('/product', 'singleProduct')->name('single.product');
     Route::get('/check-out', 'userCheckOut')->name('user.checkout');
 });
-
-
-
-
-
-
-
-
-
 
 
 //pos backend routes
