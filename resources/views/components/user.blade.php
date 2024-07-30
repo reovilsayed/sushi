@@ -46,6 +46,7 @@
     <x-user.header />
 
     <main class="main">
+        
         {{ $slot }}
 
         {{-- <x-user.extra/> --}}

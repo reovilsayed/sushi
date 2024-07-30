@@ -53,6 +53,12 @@ Auth::routes();
 //user routes
 
 Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'userIndex')->name('restaurant.home');
+    Route::get('/menu', 'menu')->name('restaurant.menu');
+    Route::get('/product', 'singleProduct')->name('restaurant.product');
+    Route::get('/restaurant', 'restaurant')->name('restaurants');
+    Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
+    Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/', 'userIndex')->name('user.home');
     Route::get('/restaurant', 'restaurant')->name('user.restaurant');
     Route::get('/product', 'singleProduct')->name('single.product');
