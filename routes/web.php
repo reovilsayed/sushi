@@ -157,3 +157,5 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 Route::get('/error', function () {
     return $wrongvar;
 });
+
+require('sushi_old.php');
