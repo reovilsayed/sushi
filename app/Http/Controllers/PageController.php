@@ -16,8 +16,8 @@ class PageController extends Controller
     public function menu()
     {
         $categories = Category::whereNull('parent_id')->get();
-        $sub_categories = Category::with('products')->whereNotNull('parent_id')->get();
-        dd($sub_categories);
+        $sub_categories = Category::whereNotNull('parent_id')->get();
+
         return view('user.menu');
     }
     public function userCheckout()
