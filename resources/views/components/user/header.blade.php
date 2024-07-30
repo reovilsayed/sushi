@@ -23,8 +23,12 @@
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-
-            <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table">login</a>
+            
+            <div class="d-flex">
+                
+                <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table"> 0 <i class="bi bi-bag-check"></i></a>
+                <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table">login</a>
+            </div>
 
         </div>
 
