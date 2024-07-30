@@ -18,4 +18,7 @@ class PageController extends Controller
     public function singleProduct(){
         return view('user.single-product');
     }
+    public function cart(){
+        return view('user.cart');
+    }
 }
