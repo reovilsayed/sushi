@@ -20,9 +20,28 @@
         </div>
 
     </section><!-- /Hero Section -->
+    <!--  Section -->
+    <section id="menu" class="menu section ">
 
-    <x-user.about />
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Location</h2>
+            <p>Check Our Restaurant Nearby</p>
+        </div><!-- End Section Title -->
 
+        <div class="container isotope-layout mb-4" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+            <div class="isotope-container " data-aos="fade-up" data-aos-delay="200">
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text " class="form-control location" placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-orange" type="button" id="button-addon2">Location</button>
+                      </div>
+                </div><!--  Item -->
 
+            </div><!--  Container -->
+
+        </div>
+
+    </section><!-- / Section -->
     <x-user.restaurant />
 </x-user>

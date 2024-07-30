@@ -9,8 +9,8 @@ class PageController extends Controller
     public function userIndex(){
         return view('user.home');
     }
-    public function restaurant(){
-        return view('user.restaurant');
+    public function menu(){
+        return view('user.menu');
     }
     public function userCheckout(){
         return view('user.checkout');
@@ -18,4 +18,11 @@ class PageController extends Controller
     public function singleProduct(){
         return view('user.single-product');
     }
+    public function restaurant(){
+        return view('user.restaurant');
+    }
+    public function contact(){
+        return view('user.contact');
+    }
+
 }

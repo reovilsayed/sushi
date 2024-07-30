@@ -2,7 +2,7 @@
     <div class="branding d-flex align-items-cente">
 
         <div class="container position-relative d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+            <a href="{{route('restaurant.home')}}" class="logo d-flex align-items-center me-auto me-xl-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="assets/img/logo.png" alt=""> -->
                 <h1 class="sitename">Restaurantly</h1>
@@ -10,23 +10,21 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#" class="active">Home<br></a></li>
-                    <li class="dropdown"><a href="#"><span>Restaurants</span> <i
+                    <li><a href="{{route('restaurant.home')}}" class="active">Home<br></a></li>
+                    <li class="dropdown"><a href="{{route('restaurants')}}"><span>Restaurants</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href="#">Restaurant 1</a></li>
-                            <li><a href="#">Restaurant 2</a></li>
-                            <li><a href="#">Restaurant 3</a></li>
+                            <li><a href="{{route('restaurant.menu')}}">Restaurant 1</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{route('restaurant.contact')}}">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-            
+
             <div class="d-flex">
-                
-                <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table"> 0 <i class="bi bi-bag-check"></i></a>
+
+                <a class="fs-4 " href="#book-a-table"><i class="bi bi-bag-check "></i><span class="fw-bold custom-cart  ">1</span></a>
                 <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table">login</a>
             </div>
 

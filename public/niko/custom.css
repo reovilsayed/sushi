@@ -1,69 +1,102 @@
+.category {
+    margin: 10px 0;
+}
 
-            .category {
-                margin: 10px 0;
-            }
+.category-button {
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    /* border: 1px solid var(--accent-color); */
+    color: var(--accent-color);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: block;
+    border-radius: 10px;
+}
 
-            .category-button {
-                padding: 10px;
-                border: none;
-                background-color:transparent;
-                /* border: 1px solid var(--accent-color); */
-                color: var(--accent-color);
-                cursor: pointer;
-                width: 100%;
-                text-align: left;
-                display: block;
-                border-radius: 10px;
-            }
+.subcategory-button {
 
-            .subcategory-button {
+    border: none;
+    background-color: transparent;
+    color: var(--accent-color);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: block;
+}
 
-                border: none;
-                background-color: transparent;
-                color: var(--accent-color);
-                cursor: pointer;
-                width: 100%;
-                text-align: left;
-                display: block;
-            }
+.category-button:focus,
+.subcategory-button:focus {
+    outline: none;
+}
 
-            .category-button:focus,
-            .subcategory-button:focus {
-                outline: none;
-            }
+.subcategory-container {
+    display: none;
+}
 
-            .subcategory-container {
-                display: none;
-            }
+.subcategory-button {
+    padding-left: 30px;
+}
 
-            .subcategory-button {
-                padding-left: 30px;
-            }
-            .text-colour {
-                color: var(--accent-color);
-            }
-            .menu-header{
-                margin-top: 20px;
-            }
-            
-            .price h2{
-                font-size: 2rem;
-                font-weight: 500;
-                line-height: 1.2;
-                font-family: "Nexa Text W05 Extra Light";
-            }
-            .btn-orange{
-                color: var(--default-color);
-                border: 2px solid var(--accent-color);
-                background: transparent;
-                padding: 14px 60px;
-                transition: 0.4s;
-                border-radius: 50px;
-                
-            }
-            .btn-orange:hover{
-                background: var(--accent-color);
-                color: #fff;
-            }
-            
-        
+.text-colour {
+    color: var(--accent-color);
+}
+
+.menu-header {
+    margin-top: 20px;
+}
+
+.price h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-family: "Nexa Text W05 Extra Light";
+}
+
+.btn-orange {
+    color: var(--default-color);
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    padding: 14px 60px;
+    transition: 0.4s;
+    border-radius: 50px;
+
+}
+
+.btn-orange:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.btn-outline-orange {
+    color: var(--accent-color);
+    border-color: var(--accent-color)
+}
+
+.btn-outline-orange:hover {
+    color: #fff;
+    background-color: var(--accent-color);
+    border-color: var(--accent-color)
+}
+
+.location {
+    background: transparent;
+    color: #fff;
+    border: 1px solid var(--accent-color);
+}
+
+.location:focus {
+    background: transparent;
+    color: #fff;
+    border: 1px solid var(--accent-color);
+}
+.custom-cart {
+    background-color: var(--accent-color); 
+    color: #fff;
+    border-radius: 50%; 
+    padding: 4px 8px;
+    position: relative;
+    top: -13px;
+    font-size: 13px;
+}
