@@ -25,7 +25,8 @@
             <div class="d-flex">
 
                 <a class="fs-4 " href="#book-a-table"><i class="bi bi-bag-check "></i><span class="fw-bold custom-cart  ">1</span></a>
-                <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table">login</a>
+                
+                <a class="btn-book-a-table d-none d-xl-block" href="#">login</a>
             </div>
 
         </div>
