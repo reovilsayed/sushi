@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
     use HasFactory;
-    use HasFilter;
     protected $guarded = [];
-    protected $with = ['category', 'supplier', 'generic', 'batches'];
+    // protected $with = ['category', 'supplier', 'generic', 'batches'];
 
     public function imageUrl(): Attribute
     {

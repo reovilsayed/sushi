@@ -28,6 +28,17 @@ class Category extends Model
 
     public function image(): Attribute
     {
-        return Attribute::make(get: fn ($value) => $this->image_url);
+        return Attribute::make(get: fn($value) => $this->image_url);
     }
+    public function childs()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class,'category_id');
+    }
+
+
+
 }

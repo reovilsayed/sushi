@@ -1,3 +1,6 @@
+<?php
+$restaurants = App\Models\Restaurant::all();
+?>
 <header id="header" class="header fixed-top">
     <div class="branding d-flex align-items-cente">
 
@@ -11,10 +14,15 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{route('restaurant.home')}}" class="active">Home<br></a></li>
+
                     <li class="dropdown"><a href="{{route('restaurants')}}"><span>Restaurants</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href="{{route('restaurant.menu')}}">Restaurant 1</a></li>
+                            @foreach ($restaurants as $restaurant)
+                                
+                            <li><a href="{{route('restaurant.menu',$restaurant->slug)}}">{{$restaurant->name}}</a></li>
+                            @endforeach
+
                         </ul>
                     </li>
                     <li><a href="{{route('restaurant.contact')}}">Contact</a></li>
@@ -25,7 +33,8 @@
             <div class="d-flex">
 
                 <a class="fs-4 " href="#book-a-table"><i class="bi bi-bag-check "></i><span class="fw-bold custom-cart  ">1</span></a>
-                <a class="btn-book-a-table d-none d-xl-block" href="#book-a-table">login</a>
+                
+                <a class="btn-book-a-table d-none d-xl-block" href="#">login</a>
             </div>
 
         </div>

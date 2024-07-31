@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->string('sku')->nullable();
             $table->text('composition')->nullable();
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->boolean('featured')->default(false);
             $table->integer('order')->nullable();
             $table->integer('quantity')->default(0);
-            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->bigInteger('category_id')->nullable();
             $table->timestamps();
         });
     }
