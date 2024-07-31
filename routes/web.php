@@ -61,6 +61,8 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/user/login', 'userLogin')->name('user.login');
     Route::get('/user/register', 'userRegister')->name('user.register');
+    Route::get('/cart', 'cart')->name('restaurant.cart');
+    
 
 });
 
