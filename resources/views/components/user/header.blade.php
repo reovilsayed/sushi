@@ -33,8 +33,12 @@ $restaurants = App\Models\Restaurant::all();
             <div class="d-flex">
 
                 <a class="fs-4 " href="#book-a-table"><i class="bi bi-bag-check "></i><span class="fw-bold custom-cart  ">1</span></a>
+                @auth
+                <a class="btn-book-a-table d-none d-xl-block" href="{{route('dashboard')}}">{{auth()->user()->name}}</a>
+                @else
+                <a class="btn-book-a-table d-none d-xl-block" href="{{route('login')}}">login</a>
+                @endauth
                 
-                <a class="btn-book-a-table d-none d-xl-block" href="#">login</a>
             </div>
 
         </div>

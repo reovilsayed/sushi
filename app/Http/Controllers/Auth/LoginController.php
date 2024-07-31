@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -12,13 +13,21 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected function authenticated(Request $request, $user)
+    public function redirectTo()
     {
-        if ($user->role_id == 2) {
-            return redirect()->route('customer.dashboard');
-        } else {
-            return redirect()->route('dashboard');
+        switch (auth()->user()->role_id) {
+            case 1:
+                return RouteServiceProvider::ADMIN;
+                break;
+            case 2:
+                return RouteServiceProvider::USER;
+                break;
+            default:
+                return RouteServiceProvider::HOME;
+                break;
+
         }
+
     }
 
     public function login(Request $request)

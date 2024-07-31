@@ -64,7 +64,7 @@
                 };
                 $('.products-ajax').select2({
                     ajax: {
-                        url:  `${baseUrl}/api/products`,
+                        url: `${baseUrl}/api/products`,
 
                         processResults: function(data) {
                             // Transforms the top-level key of the response object from 'items' to 'results'
@@ -154,7 +154,7 @@
                         <div class="card-body">
                             <h6>Customer</h6>
                             <div class="row-cols">
-                                <x-select.customerSelect name="customer_id" required/>
+                                <x-select.customerSelect name="customer_id" required />
                             </div>
                         </div>
                     </div>

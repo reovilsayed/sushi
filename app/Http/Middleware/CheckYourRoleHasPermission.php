@@ -17,9 +17,10 @@ class CheckYourRoleHasPermission
 
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (in_array(auth()->user()->role_id, $roles)){
+
+        if (in_array(auth()->user()->role_id, $roles)) {
             return $next($request);
         }
-        abort(403,'Permission Denied');
+        abort(403, 'Permission Denied');
     }
 }
