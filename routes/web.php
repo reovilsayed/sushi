@@ -59,6 +59,8 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/restaurant', 'restaurant')->name('restaurants');
     Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
     Route::get('/contact', 'contact')->name('restaurant.contact');
+    Route::get('/cart', 'cart')->name('restaurant.cart');
+    
 
 });
 
