@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
@@ -17,16 +18,18 @@ class PageController extends Controller
     {
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
-
-        return view('user.menu');
+        // dd($sub_categories[0]->products);
+        return view('user.menu', compact('categories', 'sub_categories'));
     }
     public function userCheckout()
     {
         return view('user.checkout');
     }
-    public function singleProduct()
+    public function singleProduct($id)
     {
-        return view('user.single-product');
+        $product = Product::where('id', $id)->first();
+
+        return view('user.single-product', compact('product'));
     }
     public function restaurant()
     {

@@ -29,7 +29,7 @@ class Product extends Model
 
     public function image(): Attribute
     {
-        return Attribute::make(get: fn ($value) => $this->image_url);
+        return Attribute::make(get: fn($value) => $this->image_url);
     }
     // public function imageUrl(): Attribute
     // {
@@ -83,15 +83,15 @@ class Product extends Model
     public function price(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
     public function tradePrice(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
 
@@ -123,5 +123,12 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_product')->withPivot(['quantity', 'price']);
+    }
+
+    public function getAllergenesAttribute($vlaue)
+    {
+        return explode(',', $vlaue);
+
+
     }
 }
