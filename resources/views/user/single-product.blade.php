@@ -1,5 +1,7 @@
 <x-user>
 
+    
+
     <!-- product  Section -->
     <section id="about" class="about section ">
 
@@ -18,7 +20,15 @@
                     <div class="price mb-5">
                         <h2>{{ $product->price }}€</h2>
                         <div class="my-4">
-                            <a href="#" class="btn-orange">Add To Cart</a>
+                            <!-- Add to Cart -->
+                            <form action="{{ route('cart.store') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
+                                <button type="submit" class="btn-orange">ADD TO CART</a>
+                            </form>
+                            {{-- <a href="#" class="btn-orange">Add To Cart</a> --}}
                         </div>
                     </div>
                     

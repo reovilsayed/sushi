@@ -2,6 +2,7 @@
 
 use App\Facades\Settings\SettingsFacade;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -55,7 +56,7 @@ Auth::routes();
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'userIndex')->name('restaurant.home');
     Route::get('/menu/{slug}', 'menu')->name('restaurant.menu');
-    Route::get('/product/{id}', 'singleProduct')->name('restaurant.product');
+    Route::get('/product/{restaurant}/{product}', 'singleProduct')->name('restaurant.product');
     Route::get('/restaurants', 'restaurant')->name('restaurants');
     Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
     Route::get('/contact', 'contact')->name('restaurant.contact');
@@ -65,6 +66,13 @@ Route::controller(PageController::class)->group(function () {
     
 
 });
+
+//cart routes
+Route::post('/add-cart', [CartController::class, 'add'])->name('cart.store');
+Route::post('/buynow', [CartController::class, 'buynow'])->name('cart.buynow');
+Route::post('/add-update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
+Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 
 
