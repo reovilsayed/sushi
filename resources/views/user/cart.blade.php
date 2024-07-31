@@ -28,80 +28,62 @@
                             <thead class="table_head text-dark">
                                 <th class="cart-product-remove" style="padding-left:20px;">Remove</th>
                                 <th class="cart-product-image">Image</th>
-                                <th class="cart-product-info">Product</th>
+                                <th class="cart-product-info text-center">Name</th>
                                 <th class="cart-product-price">Price</th>
-                                <th class="cart-product-quantity">Quantity</th>
-                                <th class="cart-product-subtotal">Subtotal</th>
+                                <th class="cart-product-quantity text-center">Quantity</th>
+                                <th class="cart-product-subtotal text-center">Subtotal</th>
                             </thead>
                             <tbody class="table_body">
-                                <tr class="text-centr">
-                                    <td class="cart-product-remove text-center">x</td>
-                                    <td class="cart-product-image">
-                                        <a href="product-details.html"><img src="{{ asset('img/1.png') }}"
-                                                alt="#"></a>
-                                    </td>
-                                    <td class="cart-product-info">
-                                        <h4><a href="product-details.html">Vegetables Juices</a></h4>
-                                    </td>
-                                    <td class="cart-product-price">$149.00</td>
-                                    <td class="cart-product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton">-</div>
-                                            <input type="text" value="02" name="qtybutton"
-                                                class="cart-plus-minus-box">
-                                            <div class="inc qtybutton">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="cart-product-subtotal">$298.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="cart-product-remove text-center">x</td>
-                                    <td class="cart-product-image">
-                                        <a href="product-details.html"><img src="{{ asset('img/2.png') }}"
-                                                alt="#"></a>
-                                    </td>
-                                    <td class="cart-product-info">
-                                        <h4><a href="product-details.html">Orange Sliced Mix</a></h4>
-                                    </td>
-                                    <td class="cart-product-price">$85.00</td>
-                                    <td class="cart-product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton">-</div>
-                                            <input type="text" value="02" name="qtybutton"
-                                                class="cart-plus-minus-box">
-                                            <div class="inc qtybutton">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="cart-product-subtotal">$170.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="cart-product-remove text-center">x</td>
-                                    <td class="cart-product-image">
-                                        <a href="product-details.html"><img src="{{ asset('img/3.png') }}"
-                                                alt="#"></a>
-                                    </td>
-                                    <td class="cart-product-info">
-                                        <h4><a href="product-details.html">Red Hot Tomato</a></h4>
-                                    </td>
-                                    <td class="cart-product-price">$75.00</td>
-                                    <td class="cart-product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton">-</div>
-                                            <input type="text" value="02" name="qtybutton"
-                                                class="cart-plus-minus-box">
-                                            <div class="inc qtybutton">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="cart-product-subtotal">$150.00</td>
-                                </tr>
-    
+                                @forelse (Cart::getContent() as $item)
+                                    {{-- @dd($item) --}}
+                                    <tr>
+                                        <td class="cart-product-remove text-start ps-4">
+                                            <a class="cart-product-remove text-center"
+                                                href="{{ url('/cart-destroy/' . $item->id) }}">x</a>
+                                        </td>
+                                        <td class="cart-product-image">
+                                            <a href="product-details.html"><img src="{{ asset('img/3.png') }}"
+                                                    alt="#"></a>
+                                        </td>
+
+
+                                        <td class="cart-product-info text-center">
+                                            @if (isset($item->attributes['resturent']))
+                                                @php
+                                                    $restuarant = App\Models\Restaurant::find(
+                                                        $item->attributes['resturent'],
+                                                    );
+                                                @endphp
+                                                <h4><a
+                                                        href="{{ route('restaurant.product', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">{{ $item->name }}</a>
+                                                </h4>
+                                            @endif
+                                        </td>
+                                        <td class="cart-product-price">{{ $item->price }}€</td>
+                                        <td class="cart-product-quantity d-flex justify-content-center mt-3">
+                                            <div class="cart-plus-minus">
+                                                <div class="dec qtybutton"
+                                                    onclick="changeQuantity(-1, '{{ $item->id }}')">-</div>
+                                                <input type="text" value="{{ $item->quantity }}" name="qtybutton"
+                                                    class="cart-plus-minus-box" id="{{ $item->id }}" min="1"
+                                                    readonly>
+                                                <div class="inc qtybutton"
+                                                    onclick="changeQuantity(1, '{{ $item->id }}')">+</div>
+                                            </div>
+                                        </td>
+                                        <td class="cart-product-subtotal text-center">
+                                            {{ $item->price * $item->quantity }} €</td>
+                                    </tr>
+
+                                @empty
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0">
+                <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 270px;">
                     <div class="cart_total_section">
-                        <h4 class="ms-3 pt-2" style="color:rgb(19, 16, 16)">Cart Totals</h4>
+                        <h4 class="ms-3 pt-2" style="color: var(--accent-color);">Cart Totals</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table-responsive" style="width: 100%;">
@@ -125,9 +107,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="btn-wrapper text-end pe-md-3">
-                        <a href="checkout.html" class="btn" style="background: 
-color-mix(in srgb, var(--accent-color), transparent 20%);">Checkout</a>
+                    <div class="btn-wrapper text-center pe-md-3">
+                        <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">Proceed to checkout</a>
                     </div>
 
                 </div>
@@ -268,4 +249,28 @@ color-mix(in srgb, var(--accent-color), transparent 20%);">Checkout</a>
 
 
     </section>
+
+    @push('js')
+        <script>
+            function changeQuantity(change, id) {
+                // Get the input field by its id
+                const quantityInput = document.getElementById(id);
+                let currentQuantity = parseInt(quantityInput.value);
+
+                // Calculate the new quantity
+                let newQuantity = currentQuantity + change;
+
+                // Ensure the quantity doesn't go below 1
+                if (newQuantity < 1) {
+                    newQuantity = 1;
+                }
+
+                // Update the value in the input field
+                quantityInput.value = newQuantity;
+
+                // Optionally, update the server with the new quantity
+                // Example: updateCart(id, newQuantity);
+            }
+        </script>
+    @endpush
 </x-user>
