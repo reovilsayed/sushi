@@ -178,9 +178,11 @@
 
                     <div class="col-md-4 col-sm-12 col-sm-12">
 
-                        <div class="checkout_main_body">
-                            <div class="container content mb-3 mt-3" data-aos="fade-up">
-                                <h2 class="text-colour">Your Order</h2>
+                        <div class="container content mb-5" data-aos="fade-up">
+                            <h2 class="text-colour">Login with Us</h2>
+                            <div class="d-flex gap-3">
+                                <p class="fst-italic">don't have a account?</p>
+                                <a href="{{ route('user.register') }}">Register</a>
                             </div>
 
                             <div class="table-responsive">

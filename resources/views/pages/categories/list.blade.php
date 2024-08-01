@@ -42,19 +42,17 @@
                             <table class="list_table all">
                                 <thead>
                                     <tr>
-                                        {{-- <th scope="col">#</th> --}}
-                                        <th scope="col">Image</th>
+                                        <th scope="col">#</th>
+                                        {{-- <th scope="col">Image</th> --}}
                                         <th scope="col">Name</th>
                                         <th scope="col">Created At</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @foreach ($categories as $key=>$category)
                                         <tr>
-                                            {{-- <td>{{ $loop->index + 1 }}</td> --}}
-                                            <td> <img src="{{ $category->image_url }}"
-                                                    style="height:100px; width:100px;" alt=""></td>
+                                            <td>{{ $key + 1 }}</td>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->created_at }}</td>
                                             <td class="d-flex">

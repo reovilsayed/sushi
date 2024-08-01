@@ -59,8 +59,8 @@ Auth::routes();
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'userIndex')->name('restaurant.home');
     Route::get('/menu/{slug}', 'menu')->name('restaurant.menu');
-    Route::get('/product/{restaurant}/{product}', 'singleProduct')->name('restaurant.product');
-    Route::get('/restaurants', 'restaurant')->name('restaurants');
+    Route::get('/product/{restaurant}/{product}', 'singleProduct')->name('single.restaurant');
+    Route::get('/restaurants', 'restaurant')->name('user.restaurants');
     Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
     Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/cart', 'cart')->name('restaurant.cart');
@@ -116,7 +116,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
             Route::get('create-or-edit/{product?}', 'createOrEdit')->name('createOrEdit');
             Route::post('duplicate', 'duplicateProduct')->name('duplicate');
             Route::post('save/{product?}', 'save')->name('save');
-            Route::get('list', 'index')->name('index');
+            // Route::get('list', 'index')->name('index');
             Route::delete('delete/{product}', 'destroy')->name('delete');
         }
     );
@@ -133,7 +133,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::resource('suppliers', SupplierController::class)->parameters(['suppliers' => 'supplier'])->names('suppliers');
 
 
-    Route::resource('categories', CategoryController::class);
+  
     Route::resource('settings', SettingController::class);
     Route::resource('priscription', PriscriptionController::class);
 

@@ -15,7 +15,7 @@ $restaurants = App\Models\Restaurant::all();
                 <ul>
                     <li><a href="{{route('restaurant.home')}}" class="active">Home<br></a></li>
 
-                    <li class="dropdown"><a href="{{route('restaurants')}}"><span>Restaurants</span> <i
+                    <li class="dropdown"><a href="{{route('user.restaurants')}}"><span>Restaurants</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             @foreach ($restaurants as $restaurant)
