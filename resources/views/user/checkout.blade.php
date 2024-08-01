@@ -64,7 +64,7 @@
                             <h2 class="text-colour">Billing address</h2>
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">Returning customer?</p>
-                                <a href="{{ route('user.login') }}"> Login</a>
+                                <a href=""> Login</a>
                             </div>
 
                         </div>
@@ -169,7 +169,7 @@
 
 
                             <div class="col-md-12 text-start mt-5">
-                                <button type="submit" class="btn">Order </button>
+                                <button type="submit">Order </button>
                             </div>
 
                             {{-- </div> --}}
@@ -178,11 +178,9 @@
 
                     <div class="col-md-4 col-sm-12 col-sm-12">
 
-                        <div class="container content mb-5" data-aos="fade-up">
-                            <h2 class="text-colour">Login with Us</h2>
-                            <div class="d-flex gap-3">
-                                <p class="fst-italic">don't have a account?</p>
-                                <a href="{{ route('user.register') }}">Register</a>
+                        <div class="checkout_main_body">
+                            <div class="container content mb-3 mt-3" data-aos="fade-up">
+                                <h2 class="text-colour">Your Order</h2>
                             </div>
 
                             <div class="table-responsive">
