@@ -16,6 +16,9 @@
                     <p class="fst-italic">
                         COMPOSITION | {{ $product->composition }}
                     </p>
+                    <p class="fst-italic">
+                        Allergenes | {{ $product->allergenes }}
+                    </p>
 
                     <div class="price mb-5">
                         <h2>{{ $product->price }}€</h2>
@@ -106,14 +109,7 @@
 
 
                     <hr>
-                    <ul>
-                        <li><span class="text-colour">ALLERGENS</span></li>
-                        @foreach ($product->allergenes as $allergene)
-                            <li><i class="bi bi-check2-all"></i> <span>{{ $allergene }}</span></li>
-                        @endforeach
-
-
-                    </ul>
+                    
                     <p>
                         Recipe cannot be modified. Dish prepared to order. Keep refrigerated. Consume within 24 hours.
                     </p>

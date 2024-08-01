@@ -59,12 +59,46 @@
 
 
         <x-sidenav.nav name="Dashboard" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
-        <x-sidenav.nav name="Restaurant" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('restaurants')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+        <x-sidenav.nav name="Restaurant" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+        <li class="dropdown">
 
+            <a href="javascript:void(0)" class="dropdown-btn">
+                <i class="mb-2 icon1">
+                    <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="">
+                    <img src="{{ asset('images/fmcg-products-icon-white.svg') }}" alt="">
+                </i>
+                <span class="">Products <i class="fa fa-caret-down text-dark ms-2 " id="updownicon"></i></span>
+
+            </a>
+            <ul class="dropdown-container border-rounded mt-2"
+                style="@if (request()->route()->getName() == 'suppliers.index' || request()->route()->getName() == 'categories.index') display:block @elseif(request()->route()->getName() == 'products.index' ||
+                        request()->route()->getName() == 'generics.index' ||
+                        request()->route()->getName() == 'units.index') display:block  @else display:none @endif">
+
+                <li
+                    class="dropdown-item {{ request()->route()->getName() == 'products.index' ? 'drop-item-active' : '' }}">
+
+                    <a href="{{ route('products.index') }}" class="mb-1" style="padding-left: 0px;">
+                        <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="" style="width: 16px">
+                        Products
+                    </a>
+                </li>
+
+
+                <li
+                    class="dropdown-item {{ request()->route()->getName() == 'categories.index' ? 'drop-item-active' : '' }}">
+                    <a href="{{ route('categories.index') }}" class="mb-1" style="padding-left: 0px;">
+                        <img src="{{ asset('images/category-icon.svg') }}" alt="" style="width: 16px">
+                        Category
+                    </a>
+                </li>
+            </ul>
+        </li>
         <x-sidenav.nav name="Customer" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
         <x-sidenav.nav name="Point Of Sale" :active="request()->is('point-of-sale') ? 'menu-active' : ''" :href="route('pos')" :icon="[asset('images/pos-swipe-icon.svg'), asset('images/pos-swipe-icon-white.svg')]" />
         <x-sidenav.nav name="Orders" :active="request()->is('orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
         <x-sidenav.nav name="Reports" :active="request()->is('reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
+
 
 
 

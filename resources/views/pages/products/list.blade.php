@@ -1,4 +1,73 @@
 <x-layout>
+    {{-- @dd($products) --}}
+
+    <div class="dashboard_content ps-0 mt-2">
+        <div class="dashboard_content_inner">
+            <div class="d-flex justify-content-between mt-1 mb-3">
+                <div style="float"class="mt-2">
+                    <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add new
+                        Product</a>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th scope="col">#</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">price</th>
+                        <th scope="col">status</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($products as $key => $product)
+                        <tr>
+
+
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>
+                                <img class="" height="100" width="100" src="{{ $product->image }}"
+                                    alt="">
+                            </td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }}</td>
+                            <td>
+                                @if ($product->status)
+                                    <span class="badge bg-primary">True</span>
+                                @else
+                                    <span class="badge bg-danger">False</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($product->category)
+                                    {{ $product->name }}
+                                @else
+                                    <span class="badge bg-danger">not found</span>
+                                @endif
+                            </td>
+
+                            <td class="">
+                                <a class="btn btn-sm btn-primary " href="{{ route('show.product', $product) }}"><i
+                                        class="fa fa-eye"></i></a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('edit.product', $product) }}"><i
+                                        class="fa fa-edit"></i></a>
+                                <x-actions.delete :action="route('delete.product', $product)" />
+                            </td>
+                        </tr>
+                    @endforeach
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</x-layout>
+
+{{-- <x-layout>
     @push('styles')
         <style>
             .filter-btns {
@@ -124,8 +193,8 @@
                                     <x-products.table.list :products="$products" />
                                 </div>
                             </div>
-                            {{-- <x-products.grid.deck :products="$products" />
-                            <x-products.table.list :products="$products" /> --}}
+                            <x-products.grid.deck :products="$products" />
+                            <x-products.table.list :products="$products" />
                         </div>
                     </div>
 
@@ -190,4 +259,4 @@
             }
         </script>
     @endpush
-</x-layout>
+</x-layout> --}}

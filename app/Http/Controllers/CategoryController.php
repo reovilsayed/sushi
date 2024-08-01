@@ -6,6 +6,7 @@ use App\Models\Category;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -25,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.categories.create');
+        $categories = Category::whereNull('parent_id')->get();
+        return view('pages.categories.create',compact('categories'));
     }
 
     /**
@@ -35,20 +37,18 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = [
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'parent_id' => $request->parent_id,
         ];
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('public/category');
-        }
 
         Category::create($data);
 
-        return back()->with('message', 'Category Added Successfully');
+        return redirect('/admin/categories')->with('message', 'Category Added Successfully');
     }
 
     /**
@@ -64,7 +64,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('pages.categories.edit', compact('category'));
+        $categories = Category::whereNull('parent_id')->get();
+        return view('pages.categories.edit', compact('category', 'categories'));
     }
 
     /**
@@ -72,17 +73,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        if ($request->has('image')) {
-            $image = $request->file('image')->store('public/category');
-            Storage::delete($request->image);
-        } else {
-            $image = $category->image;
-        }
         $category->update([
             'name' => $request->name,
-            'image' => $image,
+            'slug' => Str::slug($request->name),
+            'parent_id' => $request->parent_id,
         ]);
-        return redirect('/categories')->with('message', 'Category Edit SuccessFull');
+        return redirect('/admin/categories')->with('message', 'Category Edit SuccessFull');
     }
 
     /**
@@ -92,6 +88,6 @@ class CategoryController extends Controller
     {
         Storage::delete($category->image);
         $category->delete();
-        return redirect('/categories')->with('message', 'Category Delete successFull !');
+        return redirect('/admin/categories')->with('message', 'Category Delete successFull !');
     }
 }

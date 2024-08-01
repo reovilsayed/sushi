@@ -8,55 +8,24 @@ use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
 
-class ProductController extends Controller
+class   ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $minutes = 5;
-        $products = Product::with(['category', 'generic', 'supplier'])->filter()->latest()->paginate(30)->withQueryString();
-        $categories = Cache::remember('categories', $minutes, function () {
-            return Category::all()->pluck('name', 'id')->toArray();
-        });
-
-        // Cache the generics
-        $generics = Cache::remember('generics', $minutes, function () {
-            return Generic::all()->pluck('name', 'id')->toArray();
-        });
-
-        // Cache the suppliers
-        $suppliers = Cache::remember('suppliers', $minutes, function () {
-            return Supplier::all()->pluck('name', 'id')->toArray();
-        });
-        $allProductCount = Cache::remember('allProductCount', $minutes, function () {
-            return Product::count();
-        });
-
-        $activeProductCount = Cache::remember('activeProductCount', $minutes, function () {
-            return Product::where('status', 1)->count();
-        });
-        return view('pages.products.list', compact('products', 'categories', 'generics', 'suppliers', 'allProductCount', 'activeProductCount'));
+        
+        $products = Product::latest()->paginate(30)->withQueryString();
+        return view('pages.products.list', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create()
-    // {
-    //     $product =  new Product();
-    //     return view('pages.products.create', compact('product'));
-    // }
-    // public function edit(Product $product)
-    // {
-
-    //     return view('pages.products.edit', compact('product'));
-    // }
+    
     public function createOrEdit(Request $request, Product $product = null)
     {
         $variations = $request->session()->get('variation_array') ?? [];
@@ -73,11 +42,12 @@ class ProductController extends Controller
             'suppliers',
             'units',
             'product'
-        ));
+        )
+        );
     }
     public function save(Request $request, Product $product = null)
     {
-       
+
         $validated = $request->validate([
             'name' => 'required|string',
             'image' => 'nullable|image|max:1024',
@@ -128,8 +98,8 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route('products.createOrEdit',$product->id))->with('success','Product Created Successfully');
-  
+        return redirect(route('products.createOrEdit', $product->id))->with('success', 'Product Created Successfully');
+
     }
     public function duplicateProduct(Request $request)
     {
@@ -166,4 +136,95 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted');
     }
+    
+    public function showProduct(Product $product){
+        // dd('hello');
+        return view('pages.products.single', compact('product'));
+    }
+    public function createProduct(){
+        
+        $categories = Category::whereNotNull('parent_id')->get();
+        return view('pages.products.create',compact('categories'));
+    }
+    public function storeProduct(Request $request){
+        // dd($request);
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'composition' => 'required|string',
+            'allergenes' => 'required|string',
+            'image' => 'nullable|image|max:1024',
+            'price' => 'required|min:1',
+            'status' => 'nullable',
+            'featured' => 'nullable',
+            'category' => 'nullable|exists:categories,id',
+            'description' => 'nullable',
+        ]);
+        $product = new Product;
+
+        $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
+        $product->composition = $request->composition;
+        $product->allergenes = $request->allergenes;
+        $product->price = $request->price;
+        $product->status = $request->status;
+        $product->featured = $request->featured;
+        $product->category_id = $request->category;
+        $product->description = $request->description;
+        if ($request->hasFile('image')) {
+            if ($product->image && Storage::exists($product->image)) {
+                Storage::delete($product->image);
+            }
+            $product->image = $request->file('image')->store('uploads','public');
+        }
+        $product->save();
+
+        return redirect(route('products.index'))->with('success', 'Product Created Successfully');
+
+    }
+    public function editProduct(Product $product){
+        $categories = Category::whereNotNull('parent_id')->get();
+        return view('pages.products.edit',compact('product','categories'));
+    }
+    public function updateProduct(Request $request , Product $product){
+        // dd($request);
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'composition' => 'required|string',
+            'allergenes' => 'required|string',
+            'image' => 'nullable|image',
+            'price' => 'required|min:1',
+            'status' => 'nullable',
+            'featured' => 'nullable',
+            'category' => 'nullable|exists:categories,id',
+            'description' => 'nullable',
+        ]);
+        $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
+        $product->composition = $request->composition;
+        $product->allergenes = $request->allergenes;
+        $product->price = $request->price;
+        $product->status = $request->status;
+        $product->featured = $request->featured;
+        $product->category_id = $request->category;
+        $product->description = $request->description;
+        if ($request->hasFile('image')) {
+            if ($product->image && Storage::exists($product->image)) {
+                Storage::delete($product->image);
+            }
+            $product->image = $request->file('image')->store('uploads','public');
+        }
+        $product->save();
+
+        return redirect(route('products.index'))->with('success', 'Product Updated Successfully');
+    }
+    public function deleteProduct(Product $product)
+    {
+        if ($product->image && Storage::exists($product->image)) {
+            Storage::delete($product->image);
+        }
+
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'Product deleted');
+    }
+    
 }

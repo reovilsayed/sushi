@@ -55,7 +55,7 @@
                                                     );
                                                 @endphp
                                                 <h4><a
-                                                        href="{{ route('restaurant.product', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">{{ $item->name }}</a>
+                                                        href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">{{ $item->name }}</a>
                                                 </h4>
                                             @endif
                                         </td>

@@ -54,10 +54,10 @@
                                             <img src="{{ asset('niko/assets/img/menu/lobster-bisque.jpg') }}"
                                                 class="menu-img" alt="">
                                             <div class="menu-content">
-                                                <a href="{{route('restaurant.product',['restaurant'=>$restaurant->slug,'product'=>$product])}}">{{$product->name}}</a><span>{{$product->price}}€</span>
+                                                <a href="{{route('single.restaurant',['restaurant'=>$restaurant->slug,'product'=>$product])}}">{{$product->name}}</a><span>{{$product->price}}€</span>
                                             </div>
                                             <div class="menu-ingredients">
-                                                {{-- {{$product->allergenes}} --}}
+                                                {{$product->allergenes}}
                                             </div>
                                         </div><!-- Menu Item -->
                                     </div>

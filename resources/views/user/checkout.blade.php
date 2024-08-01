@@ -24,7 +24,7 @@
                             <h2 class="text-colour">Login with Us</h2>
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">don't have a account?</p>
-                                <a href="{{ route('user.register') }}">Register</a>
+                                <a href="{{ route('register') }}">Register</a>
                             </div>
             
                         </div>
@@ -65,7 +65,7 @@
                             <h2 class="text-colour">Login with Us</h2>
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">don't have a account?</p>
-                                <a href="{{ route('user.register') }}">Register</a>
+                                <a href="{{ route('register') }}">Register</a>
                             </div>
             
                         </div>
