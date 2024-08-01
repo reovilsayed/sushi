@@ -35,6 +35,7 @@ use Dompdf\Options;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
 // use App\Http\Controllers\ScrapController;
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// Route::get('/admin/dashboard', function () {
+//     dd(auth()->user());
+// });
 
 Auth::routes();
 
@@ -60,11 +63,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/restaurants', 'restaurant')->name('restaurants');
     Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
     Route::get('/contact', 'contact')->name('restaurant.contact');
-    Route::get('/user/login', 'userLogin')->name('user.login');
-    Route::get('/user/register', 'userRegister')->name('user.register');
     Route::get('/cart', 'cart')->name('restaurant.cart');
-    
-
 });
 
 //cart routes
@@ -74,6 +73,9 @@ Route::post('/add-update', [CartController::class, 'update'])->name('cart.update
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+Route::get('/test', function () {
+
+})->middleware('role:1');
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes
@@ -170,4 +172,6 @@ Route::get('/error', function () {
     return $wrongvar;
 });
 
-require('sushi_old.php');
+require ('sushi_old.php');
+require ('admin.php');
+require ('user.php');

@@ -100,3 +100,7 @@
     top: -13px;
     font-size: 13px;
 }
+.location-button{
+    color: var(--accent-color);
+    background: transparent;
+}

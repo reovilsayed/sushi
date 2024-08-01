@@ -1,4 +1,3 @@
-{{-- @dd($restaurants) --}}
 <x-user>
     <section id="hero" class="hero section dark-background">
 
@@ -30,13 +29,15 @@
             <p>Check Our Restaurant Nearby</p>
         </div><!-- End Section Title -->
 
-        <div class="container isotope-layout mb-4" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+        <div class="container isotope-layout mb-4" data-default-filter="*" data-layout="masonry"
+            data-sort="original-order">
             <div class="isotope-container " data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <input type="text " class="form-control location" placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
+                        <input type="text " class="form-control location" placeholder="Enter Location"
+                            aria-label="Enter Location" aria-describedby="button-addon2">
                         <button class="btn btn-outline-orange" type="button" id="button-addon2">Location</button>
-                      </div>
+                    </div>
                 </div><!--  Item -->
 
             </div><!--  Container -->
@@ -44,5 +45,5 @@
         </div>
 
     </section><!-- / Section -->
-    <x-user.restaurant :restaurants="$restaurants"/>
+    <x-user.restaurant :restaurants="$restaurants" />
 </x-user>
