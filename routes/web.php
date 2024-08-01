@@ -74,7 +74,7 @@ Route::post('/add-update', [CartController::class, 'update'])->name('cart.update
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-
+Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes
 

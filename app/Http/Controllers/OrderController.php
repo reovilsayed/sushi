@@ -93,7 +93,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -101,7 +101,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        Order::create([
+
+        ]);
     }
 
     /**

@@ -1,5 +1,6 @@
 <x-user>
     @push('css')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
     @endpush
     <div class="container main_cart">
@@ -60,17 +61,23 @@
                                             @endif
                                         </td>
                                         <td class="cart-product-price">{{ $item->price }}€</td>
-                                        <td class="cart-product-quantity d-flex justify-content-center mt-3">
-                                            <div class="cart-plus-minus">
-                                                <div class="dec qtybutton"
-                                                    onclick="changeQuantity(-1, '{{ $item->id }}')">-</div>
-                                                <input type="text" value="{{ $item->quantity }}" name="qtybutton"
-                                                    class="cart-plus-minus-box" id="{{ $item->id }}" min="1"
-                                                    readonly>
-                                                <div class="inc qtybutton"
-                                                    onclick="changeQuantity(1, '{{ $item->id }}')">+</div>
-                                            </div>
-                                        </td>
+                                        <form action="{{ route('cart.update') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $item->id }}" />
+                                            <td class="cart-product-quantity d-flex justify-content-center mt-3">
+                                                <div class="text-start d-flex cart_quantity">
+                                                    <div class="cart_quantity_item">
+                                                        <input type="text" value="{{ $item->quantity }}" name="quantity"
+                                                            class="text-center"
+                                                            style="width: 100% !important; height: 100% !important; background-color: transparent !important;  border: 0 !important;outline: none; color:var(--heading-color);">
+                                                    </div>
+                                                    <div class="cart_quantity_item1">
+                                                        <button type="submit" class="update_btn"><i
+                                                                class="fa-solid fa-pen-nib"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </form>
                                         <td class="cart-product-subtotal text-center">
                                             {{ $item->price * $item->quantity }} €</td>
                                     </tr>
