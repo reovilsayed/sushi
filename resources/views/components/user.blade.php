@@ -69,9 +69,13 @@
     <script src="{{ asset('niko/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-
+    {{-- logout  --}}
+    
     <!-- Main JS File -->
     <script src="{{ asset('niko/assets/js/main.js') }}"></script>
+    <script>
+        $('.logout-trigger').click(() => $('#logout-form').submit());
+    </script>
         @stack('js')
 </body>
 
