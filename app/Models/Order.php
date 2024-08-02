@@ -13,6 +13,9 @@ class Order extends Model
     use HasFilter;
 
     protected $guarded = [];
+    protected $casts = [
+        'shipping_info' => 'array',
+    ];
     public function customer()
     {
         return $this->belongsTo(User::class, 'customer_id')->withDefault();
