@@ -76,6 +76,7 @@ Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart
 Route::get('/test', function () {
 
 })->middleware('role:1');
+Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes
 

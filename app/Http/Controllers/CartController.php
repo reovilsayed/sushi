@@ -40,6 +40,7 @@ class CartController extends Controller
 	}
 	public function update(Request $request)
 	{
+		// dd($request->all());
 		Cart::update($request->product_id, array(
 			'quantity' => array(
 				'relative' => false,

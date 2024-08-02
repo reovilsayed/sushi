@@ -93,7 +93,6 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -101,7 +100,29 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $shpping=[
+            'delivery_option'=>$request->delivery_option,
+            'take_f_name'=>$request->take_f_name,
+            'take_l_name'=>$request->take_l_name,
+            'take_email'=>$request->take_email,
+
+            'home_f_name'=>$request->home_f_name,
+            'home_l_name'=>$request->home_l_name,
+            'home_email'=>$request->home_email,
+            'home_address'=>$request->home_address,
+            'home_city'=>$request->home_city,
+            'home_post_cod'=>$request->home_post_cod,
+            'home_zip'=>$request->home_zip,
+            'home_house'=>$request->home_house,
+            'home_phone'=>$request->home_phone,
+            'home_commment'=>$request->home_commment,
+        ];
+        // dd($shpping);
+        Order::create([
+            'shipping_info' => $shpping,
+        ]);
+
+        return redirect()->back()->with('success', 'Order placed successfully!');
     }
 
     /**
