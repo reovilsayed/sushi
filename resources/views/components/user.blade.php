@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Index - Restaurantly Bootstrap Template</title>
+    <title>Sushi</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('niko/assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('niko/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('logo/sushiFav.png') }}" rel="icon">
+    <link href="{{ asset('logo/sushiFav.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -69,9 +69,13 @@
     <script src="{{ asset('niko/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-
+    {{-- logout  --}}
+    
     <!-- Main JS File -->
     <script src="{{ asset('niko/assets/js/main.js') }}"></script>
+    <script>
+        $('.logout-trigger').click(() => $('#logout-form').submit());
+    </script>
         @stack('js')
 </body>
 

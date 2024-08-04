@@ -29,7 +29,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="btn-orange">ADD TO CART</a>
+                                <button type="submit" class="btn-orange">ADD TO CART</button>
                             </form>
                             {{-- <a href="#" class="btn-orange">Add To Cart</a> --}}
                         </div>
