@@ -102,60 +102,7 @@
 
 
 
-        <li class="dropdown">
-
-            <a href="javascript:void(0)" class="dropdown-btn">
-                <i class="mb-2 icon1">
-                    <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="">
-                    <img src="{{ asset('images/fmcg-products-icon-white.svg') }}" alt="">
-                </i>
-                <span class="">Products <i class="fa fa-caret-down text-dark ms-2 " id="updownicon"></i></span>
-
-            </a>
-            <ul class="dropdown-container border-rounded mt-2"
-                style="@if (request()->route()->getName() == 'suppliers.index' || request()->route()->getName() == 'categories.index') display:block @elseif(request()->route()->getName() == 'products.index' ||
-                        request()->route()->getName() == 'generics.index' ||
-                        request()->route()->getName() == 'units.index') display:block  @else display:none @endif">
-
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'products.index' ? 'drop-item-active' : '' }}">
-
-                    <a href="{{ route('products.index') }}" class="mb-1" style="padding-left: 0px;">
-                        <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="" style="width: 16px">
-                        Products
-                    </a>
-                </li>
-
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'units.index' ? 'drop-item-active' : '' }}">
-                    <a href="{{ route('units.index') }}" class="mb-1" style="padding-left: 0px;">
-                        <img src="{{ asset('images/pharmacy-pills-icon.svg') }}" alt="" style="width: 16px">
-                        Box Pattern
-                    </a>
-                </li>
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'suppliers.index' ? 'drop-item-active' : '' }}">
-                    <a href="{{ route('suppliers.index') }}" style="padding-left: 0px;">
-                        <img src="{{ asset('images/truck-icon.svg') }}" alt="" style="width: 16px">
-                        Suppliers
-                    </a>
-                </li>
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'categories.index' ? 'drop-item-active' : '' }}">
-                    <a href="{{ route('categories.index') }}" class="mb-1" style="padding-left: 0px;">
-                        <img src="{{ asset('images/category-icon.svg') }}" alt="" style="width: 16px">
-                        Category
-                    </a>
-                </li>
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'generics.index' ? 'drop-item-active' : '' }}">
-                    <a href="{{ route('generics.index') }}" style="padding-left: 0px;">
-                        <img src="{{ asset('images/generic-icon.svg') }}" alt="" style="width: 16px">
-                        Generics
-                    </a>
-                </li>
-            </ul>
-        </li>
+        
         <x-sidenav.nav name="Purchase" :active="request()->is('purchase') ? 'menu-active' : ''" :href="route('purchase.index')" :icon="[asset('images/cart-arrow-down-icon.svg'), asset('images/cart-arrow-down-icon-white.svg')]" />
 
 
