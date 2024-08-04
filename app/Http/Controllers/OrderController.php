@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Cart;
 
 class OrderController extends Controller
 {
@@ -100,30 +101,62 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $shpping=[
-            'delivery_option'=>$request->delivery_option,
-            'take_f_name'=>$request->take_f_name,
-            'take_l_name'=>$request->take_l_name,
-            'take_email'=>$request->take_email,
+        // Validate the request data
+        // $validatedData = $request->validate([
+        //     'take_f_name' => 'nullable|string|max:255',
+        //     'take_l_name' => 'nullable|string|max:255',
+        //     'take_email' => 'nullable|string|email|max:255',
+        //     'home_f_name' => 'nullable|string|max:255',
+        //     'home_l_name' => 'nullable|string|max:255',
+        //     'home_email' => 'nullable|string|email|max:255',
+        //     'home_address' => 'required|string|max:255',
+        //     'home_city' => 'required|string|max:255',
+        //     'home_post_cod' => 'required|string|max:20',
+        //     'home_zip' => 'required|string|max:20',
+        //     'home_house' => 'required|string|max:255',
+        //     'home_phone' => 'required|string|max:20',
+        //     'comment' => 'nullable|string',
+        //     'delivery_option' => 'required|string',
+        // ]);
 
-            'home_f_name'=>$request->home_f_name,
-            'home_l_name'=>$request->home_l_name,
-            'home_email'=>$request->home_email,
-            'home_address'=>$request->home_address,
-            'home_city'=>$request->home_city,
-            'home_post_cod'=>$request->home_post_cod,
-            'home_zip'=>$request->home_zip,
-            'home_house'=>$request->home_house,
-            'home_phone'=>$request->home_phone,
-            'home_commment'=>$request->home_commment,
+        // Prepare shipping information
+        $shipping = [
+            'name' => $request->take_f_name ?? $request->home_f_name,
+            'l_name' => $request->take_l_name ?? $request->home_l_name,
+            'email' => $request->take_email ?? $request->home_email,
+            'address' => $request->home_address,
+            'city' => $request->home_city,
+            'post_code' => $request->home_post_cod,
+            'zip' => $request->home_zip,
+            'house' => $request->home_house,
+            'phone' => $request->home_phone,
         ];
-        // dd($shpping);
-        Order::create([
-            'shipping_info' => $shpping,
+
+        // Create the order
+        $order = Order::create([
+            'shipping_info' => json_encode($shipping), // Storing as JSON
+            'sub_total' => Cart::getSubTotal(),
+            'total' => Cart::getSubTotal(), // Update this if there are additional charges (like tax or shipping)
+            'comment' => $request->comment,
+            'delivery_option' => $request->delivery_option,
         ]);
 
+        // Attach products to the order
+        foreach (Cart::getContent() as $item) {
+            $order->products()->attach($item->id, [
+                'product_id' => $item->model->id,
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+            ]);
+        }
+
+        // Clear the cart
+        Cart::clear();
+
+        // Redirect back with a success message
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
+
 
     /**
      * Display the specified resource.

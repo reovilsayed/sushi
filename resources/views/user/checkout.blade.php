@@ -72,8 +72,8 @@
                     completing it.</p>
             </div> --}}
             <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
-                <h2>Menu</h2>
-                <p>Checkout form</p>
+                {{-- <h2>Menu</h2> --}}
+                <p class="text-center">Checkout form</p>
             </div>
 
             <!-- Section Title -->

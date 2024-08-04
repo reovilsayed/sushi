@@ -2,6 +2,69 @@
     @push('css')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+
+        <style>
+            .nav-tabs .nav-link.active {
+                color: #e4d4bf !important;
+                background-color: var(--sec-color);
+                border-color: var(--sec-color);
+            }
+
+            .nav-link {
+                color: var(--sec-color);
+            }
+
+            .subcart img {
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+            }
+
+            .subcart h5 {
+                font-size: 14px;
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                background-color: #000;
+            }
+
+            .btn.pbtn {
+                border: none;
+                color: white;
+                padding: 5px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+
+            @media (max-width: 767px) {
+                .carousel-inner .carousel-item>div {
+                    display: none;
+                }
+
+                .carousel-inner .carousel-item>div:first-child {
+                    display: block;
+                }
+            }
+
+            #orderButton {
+                color: var(--default-color);
+                background: none;
+                border: 2px solid var(--accent-color);
+                padding: 5px 10px;
+                transition: 0.4s;
+                border-radius: 0px !important;
+            }
+
+            h5 {
+                color: var(--accent-color);
+            }
+        </style>
     @endpush
     <div class="container main_cart">
         <div class="row">
@@ -67,8 +130,8 @@
                                             <td class="cart-product-quantity d-flex justify-content-center mt-3">
                                                 <div class="text-start d-flex cart_quantity">
                                                     <div class="cart_quantity_item">
-                                                        <input type="text" value="{{ $item->quantity }}" name="quantity"
-                                                            class="text-center"
+                                                        <input type="text" value="{{ $item->quantity }}"
+                                                            name="quantity" class="text-center"
                                                             style="width: 100% !important; height: 100% !important; background-color: transparent !important;  border: 0 !important;outline: none; color:var(--heading-color);">
                                                     </div>
                                                     <div class="cart_quantity_item1">
@@ -132,134 +195,246 @@
             <div class="row gy-4">
                 <div class=" col-md-12">
                     <div class="row text-center p-2">
-                        <div class="col-md-2 d-flex align-items-center subcart2"
-                            style="flex-direction: column; justify-content: space-between;">
-                            <h5 class="ft-16 p-2 seccolr">SOJA SUCRÉE
-                            </h5>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="sidept">
-                                    <button class="btn pbtn decrease-btn" data-item="soja_sucre">-</button>
-                                </div>
-                                <div class="centerinput"><input type="text" value="0" id="soja_sucre"
-                                        disabled=""></div>
-                                <div class="sidelast">
-                                    <button class="btn pbtn increase-btn" data-item="soja_sucre">+</button>
-                                </div>
+                        @foreach ($extras as $extra)
+                            <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
+                                style="flex-direction: column; justify-content: space-between;">
+                                <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
+                                <form action="{{ route('order_store') }}" method="POST">
+                                    @csrf
+                                    <div class="cart-product-quantity d-flex justify-content-center mt-3">
+                                        <div class="cart-plus-minus">
+                                            <div class="dec qtybutton"
+                                                onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }})">
+                                                -</div>
+                                            <input type="text" value="0" name="qtybutton"
+                                                class="cart-plus-minus-box" id="{{ $extra->id }}" min="1"
+                                                placeholder="0" data-price="{{ $extra->price }}">
+                                            <div class="inc qtybutton"
+                                                onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }})">
+                                                +</div>
+                                        </div>
+                                    </div>
+                                    <div class="pricetag justify-content-center">
+                                        <div class="centerinput" style="width: 100px">
+                                            <p style="font-weight: 100;">
+
+                                                <input id="price_{{ $extra->id }}" style="width: 100px"
+                                                    class="p-0 text-center" value="0">
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="pricetag justify-content-center">
-                                <div class="centerinput">
-                                    <p style="font-weight: 100;"><strong id="soja_sucre_price">0.00€</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center subcart2"
-                            style="flex-direction: column; justify-content: space-between;">
-                            <h5 class="ft-16 p-2 seccolr">SOJA SALÉE</h5>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="sidept">
-                                    <button class="btn pbtn decrease-btn" data-item="soja_salee">-</button>
-                                </div>
-                                <div class="centerinput"><input type="text" value="0" id="soja_salee"
-                                        disabled=""></div>
-                                <div class="sidelast">
-                                    <button class="btn pbtn increase-btn" data-item="soja_salee">+</button>
-                                </div>
-                            </div>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="centerinput">
-                                    <p style="font-weight: 100;"><strong id="soja_salee_price">0.00€</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center subcart2"
-                            style="flex-direction: column; justify-content: space-between;">
-                            <h5 class="ft-16 p-2 seccolr">SAUCE SPICY</h5>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="sidept"><button class="btn pbtn decrease-btn"
-                                        data-item="sauce_spicy">-</button></div>
-                                <div class="centerinput"><input type="text" value="0" id="sauce_spicy"
-                                        disabled=""></div>
-                                <div class="sidelast">
-                                    <button class="btn pbtn increase-btn" data-item="sauce_spicy">+</button>
-                                </div>
-                            </div>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="centerinput">
-                                    <p style="font-weight: 100;"><strong id="sauce_spicy_price">0.00€</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center subcart2"
-                            style="flex-direction: column; justify-content: space-between;">
-                            <h5 class="ft-16 p-2 seccolr">BAGUETTES</h5>
-                            <div class="pricetag justify-content-center">
-                                <div class="sidept"><button class="btn pbtn decrease-btn"
-                                        data-item="baguettes">-</button></div>
-                                <div class="centerinput"><input type="text" value="0" id="baguettes"
-                                        disabled=""></div>
-                                <div class="sidelast">
-                                    <button class="btn pbtn increase-btn" data-item="baguettes">+</button>
-                                </div>
-                            </div>
-                            <div class="pricetag justify-content-center">
-                                <div class="centerinput">
-                                    <p style="font-weight: 100;"><strong id="baguettes_price">Gratuit</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center subcart2"
-                            style="flex-direction: column; justify-content: space-between;">
-                            <h5 class="ft-16 p-2 seccolr">WASABI</h5>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="sidept"><button class="btn pbtn decrease-btn"
-                                        data-item="wasabi">-</button></div>
-                                <div class="centerinput"><input type="text" value="0" id="wasabi"
-                                        disabled=""></div>
-                                <div class="sidelast">
-                                    <button class="btn pbtn increase-btn" data-item="wasabi">+</button>
-                                </div>
-                            </div>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="centerinput">
-                                    <p style="font-weight: 100;"><strong id="wasabi_price">0.00€</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center subcart2"
-                            style="flex-direction: column; justify-content: space-between;">
-                            <h5 class="ft-16 p-2 seccolr">GINGEMBRE</h5>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="sidept"><button class="btn pbtn decrease-btn"
-                                        data-item="ginger">-</button></div>
-                                <div class="centerinput"><input type="text" value="0" id="ginger"
-                                        disabled=""></div>
-                                <div class="sidelast">
-                                    <button class="btn pbtn increase-btn" data-item="ginger">+</button>
-                                </div>
-                            </div>
-                            <div class="pricetag pricetag1 justify-content-center">
-                                <div class="centerinput">
-                                    <p style="font-weight: 100;"><strong id="ginger_price">0.00€</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
 
                     </div>
                 </div>
             </div>
         </div>
-
-
     </section>
+
+
+
+    {{-- <section class="pt-0 pb-5">
+        <div class="container">
+            <div class="row mt-5 mb-5">
+                <div class="section-title text-center">
+                    <h2>Menu</h2>
+                    <p>Let yourself be tempted by…</p>
+                </div>
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="accompagnements-tab" data-bs-toggle="tab"
+                                data-bs-target="#accompagnements" type="button" role="tab"
+                                aria-controls="accompagnements" aria-selected="true">ACCOMPANIMENTS</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="deserts-tab" data-bs-toggle="tab" data-bs-target="#deserts"
+                                type="button" role="tab" aria-controls="deserts"
+                                aria-selected="false">DESSERTS</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="boissons-tab" data-bs-toggle="tab"
+                                data-bs-target="#boissons" type="button" role="tab" aria-controls="boissons"
+                                aria-selected="false">DRINKS</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Accompaniments Tab Pane -->
+                        <div class="tab-pane fade show active" id="accompagnements" role="tabpanel"
+                            aria-labelledby="accompagnements-tab">
+                            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <button class="btn btn-outline-secondary btn-sm me-2"
+                                                            disabled>x</button>
+                                                        <input type="text"
+                                                            class="form-control form-control-sm text-center"
+                                                            value="1" style="width: 40px;">
+                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <button class="btn btn-outline-secondary btn-sm me-2"
+                                                            disabled>x</button>
+                                                        <input type="text"
+                                                            class="form-control form-control-sm text-center"
+                                                            value="1" style="width: 40px;">
+                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <button class="btn btn-outline-secondary btn-sm me-2"
+                                                            disabled>x</button>
+                                                        <input type="text"
+                                                            class="form-control form-control-sm text-center"
+                                                            value="1" style="width: 40px;">
+                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <div class="text-center ">
+                                                            <button type="submit" id="orderButton"
+                                                                style="border: 2px solid var(--accent-color)"
+                                                                disabled>Order </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Repeat the col for each product -->
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <button class="btn btn-outline-secondary btn-sm me-2"
+                                                            disabled>x</button>
+                                                        <input type="text"
+                                                            class="form-control form-control-sm text-center"
+                                                            value="1" style="width: 40px;">
+                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <button class="btn btn-outline-secondary btn-sm me-2"
+                                                            disabled>x</button>
+                                                        <input type="text"
+                                                            class="form-control form-control-sm text-center"
+                                                            value="1" style="width: 40px;">
+                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <button class="btn btn-outline-secondary btn-sm me-2"
+                                                            disabled>x</button>
+                                                        <input type="text"
+                                                            class="form-control form-control-sm text-center"
+                                                            value="1" style="width: 40px;">
+                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
+                                                <div class="product-card text-center p-3">
+                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        class="img-fluid" alt="Edamame">
+                                                    <h5 class="mt-3 mb-2">Edamame</h5>
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <div class="text-center ">
+                                                            <button type="submit" id="orderButton"
+                                                                style="border: 2px solid var(--accent-color)"
+                                                                disabled>Order </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Repeat the col for each product -->
+                                        </div>
+                                    </div>
+                                    <!-- Additional carousel items go here -->
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#productCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#productCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    <!-- Desserts Tab Pane -->
+                    <div class="tab-pane fade" id="deserts" role="tabpanel" aria-labelledby="deserts-tab">
+
+                    </div>
+
+                    <!-- Drinks Tab Pane -->
+                    <div class="tab-pane fade" id="boissons" role="tabpanel" aria-labelledby="boissons-tab">
+                        <div class="text-center">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section> --}}
 
     @push('js')
         <script>
-            function changeQuantity(change, id) {
+            function changeQuantity(change, id, price) {
                 // Get the input field by its id
                 const quantityInput = document.getElementById(id);
                 let currentQuantity = parseInt(quantityInput.value);
@@ -275,9 +450,38 @@
                 // Update the value in the input field
                 quantityInput.value = newQuantity;
 
+                // Calculate the new price
+                let newPrice = newQuantity * price;
+
+                // Update the price display
+                const priceElement = document.getElementById(`price_${id}`);
+                priceElement.value = `${newPrice.toFixed(2)}€`;
+
                 // Optionally, update the server with the new quantity
                 // Example: updateCart(id, newQuantity);
             }
         </script>
+
+        {{-- <script>
+            $(document).ready(function() {
+                function initCarousel() {
+                    if ($("#visible").css("display") == "block") {
+                        $(".carousel .carousel-item").each(function() {
+                            var i = $(this).next();
+                            i.length || (i = $(this).siblings(":first")),
+                                i.children(":first-child").clone().appendTo($(this));
+
+                            for (var n = 0; n < 4; n++)
+                                (i = i.next()).length || (i = $(this).siblings(":first")),
+                                i.children(":first-child").clone().appendTo($(this));
+                        });
+                    }
+                }
+                $(window).on({
+                    resize: initCarousel(),
+                    load: initCarousel()
+                });
+            });
+        </script> --}}
     @endpush
 </x-user>

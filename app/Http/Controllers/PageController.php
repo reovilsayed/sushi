@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Extra;
 use App\Models\Product;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -52,6 +53,7 @@ class PageController extends Controller
 
     public function cart()
     {
-        return view('user.cart');
+        $extras=Extra::latest()->where('type','=','cart')->get();
+        return view('user.cart', compact('extras'));
     }
 }
