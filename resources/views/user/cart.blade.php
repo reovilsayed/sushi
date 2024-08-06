@@ -194,19 +194,20 @@
         <div class="container">
             <div class="row gy-4">
                 <div class=" col-md-12">
-                    <div class="row text-center p-2">
-                        @foreach ($extras as $extra)
-                            <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
-                                style="flex-direction: column; justify-content: space-between;">
-                                <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
-                                <form action="{{ route('order_store') }}" method="POST">
-                                    @csrf
+                    <form action="{{ route('order_store') }}" method="POST">
+                        @csrf
+                        <div class="row text-center p-2">
+                            @foreach ($extras as $extra)
+                                <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
+                                    style="flex-direction: column; justify-content: space-between;">
+                                    <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
+
                                     <div class="cart-product-quantity d-flex justify-content-center mt-3">
                                         <div class="cart-plus-minus">
                                             <div class="dec qtybutton"
                                                 onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }})">
                                                 -</div>
-                                            <input type="text" value="0" name="qtybutton"
+                                            <input type="text" value="0" name="extra_quantity[]"
                                                 class="cart-plus-minus-box" id="{{ $extra->id }}" min="1"
                                                 placeholder="0" data-price="{{ $extra->price }}">
                                             <div class="inc qtybutton"
@@ -217,18 +218,19 @@
                                     <div class="pricetag justify-content-center">
                                         <div class="centerinput" style="width: 100px">
                                             <p style="font-weight: 100;">
-
-                                                <input id="price_{{ $extra->id }}" style="width: 100px"
-                                                    class="p-0 text-center" value="0">
+                                                <input name="extra_price[]" id="price_{{ $extra->id }}"
+                                                    style="width: 100px" class="p-0 text-center" value="0">
                                             </p>
-
                                         </div>
                                     </div>
-                                </form>
+                                </div>
+                            @endforeach
+                            <div class="col-md-12 text-start mt-3 p-0">
+                                <button type="submit" id="extraButton">Extra Add</button>
                             </div>
-                        @endforeach
+                        </div>
+                    </form>
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -461,6 +463,17 @@
                 // Example: updateCart(id, newQuantity);
             }
         </script>
+        {{-- <script>
+            function changeQuantity(change, id, price) {
+                const quantityInput = document.getElementById(id);
+                let currentQuantity = parseInt(quantityInput.value);
+                let newQuantity = currentQuantity + change;
+                newQuantity = newQuantity < 1 ? 1 : newQuantity;
+                quantityInput.value = newQuantity;
+                const priceElement = document.getElementById(`price_${id}`);
+                priceElement.value = newQuantity * price;
+            }
+        </script> --}}
 
         {{-- <script>
             $(document).ready(function() {
