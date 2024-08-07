@@ -66,16 +66,7 @@
             }
         </style>
     @endpush
-    <div class="container main_cart">
-        <div class="row">
-            <div class="col-md-8">
 
-            </div>
-            <div class="col-md-4">
-
-            </div>
-        </div>
-    </div>
 
     <section id="about" class="cart_section pb-5">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
@@ -151,9 +142,9 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 270px;">
+                <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 226px;">
                     <div class="cart_total_section">
-                        <h4 class="ms-3 pt-2" style="color: var(--accent-color);">Cart Totals</h4>
+                        <h4 class="ms-3 pt-2" style="">Cart Totals</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table-responsive" style="width: 100%;">
@@ -177,13 +168,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="btn-wrapper text-center pe-md-3">
+                    {{-- <div class="btn-wrapper text-center pe-md-3">
                         @if (Cart::isEmpty())
                             <a href="{{ route('restaurant.home') }}" class="checkout_btn">Proceed to checkout</a>
                         @else
                             <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">Proceed to checkout</a>
                         @endif
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -197,55 +188,105 @@
         </div>
         <div class="container">
             <div class="row gy-4">
-                <div class=" col-md-12">
-                    <form action="{{ route('order_store') }}" method="POST">
+                <div class="col-md-12">
+                    <form action="{{ route('extras') }}" method="POST">
                         @csrf
                         <div class="row text-center p-2">
                             @foreach ($extras as $extra)
                                 <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
                                     style="flex-direction: column; justify-content: space-between;">
                                     <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
-
                                     <div class="cart-product-quantity d-flex justify-content-center mt-3">
                                         <div class="cart-plus-minus">
                                             <div class="dec qtybutton"
-                                                onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }})">
-                                                -
-                                            </div>
-                                            <input type="text" value="0" name="extra_quantity[]"
-                                                class="cart-plus-minus-box" id="{{ $extra->id }}" min="1"
-                                                placeholder="0" data-price="{{ $extra->price }}">
+                                                onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
+                                                -</div>
+                                            <input type="text" value="0"
+                                                name="extras[{{ $extra->id }}][quantity]"
+                                                class="cart-plus-minus-box" id="extra_quantity_{{ $extra->id }}"
+                                                min="1" placeholder="0" data-price="{{ $extra->price }}"
+                                                data-name="{{ $extra->name }}" readonly disabled>
                                             <div class="inc qtybutton"
-                                                onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }})">
-                                                +
-                                            </div>
+                                                onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
+                                                +</div>
                                         </div>
                                     </div>
                                     <div class="pricetag justify-content-center">
                                         <div class="centerinput" style="width: 100px">
                                             <p style="font-weight: 100;">
-                                                <input name="extra_price[]" id="price_{{ $extra->id }}"
-                                                    style="width: 100px" class="p-0 text-center" readonly value="0">
+                                                <input name="" id="price_{{ $extra->id }}"
+                                                    style="width: 100px" class="p-0 text-center" readonly
+                                                    value="0">
                                             </p>
                                         </div>
                                     </div>
+
+                                    <!-- Hidden inputs to store extra details -->
+                                    <input type="hidden" name="extras[{{ $extra->id }}][name]"
+                                        id="name_{{ $extra->id }}" value="" disabled>
+                                    <input type="hidden" name="extras[{{ $extra->id }}][price]"
+                                        id="hidden_price_{{ $extra->id }}" value="" disabled>
+                             
+                                    <input type="hidden" name="product_id" value="" disabled>
+
+
                                 </div>
                             @endforeach
+                            <input type="hidden" name="total_price" id="total_price"
+                            value="{{ Cart::getTotal() }}">
                             <div class="col-md-12 text-start mt-3 p-0">
-                                <button type="submit" id="extraButton" {{ Cart::isEmpty() ? 'disabled' : '' }}>Extra
-                                    Add</button>
+                                <button type="submit" id="extraButton" {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to checkout</button>
                                 @if (Cart::isEmpty())
-                                    <p class="mt-2 text-danger">Please add products to the cart before selecting extras.</p>
+                                    <p class="mt-2 text-danger">Please add products to the cart before selecting
+                                        extras.</p>
                                 @endif
                             </div>
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>
     </section>
+
+    @push('js')
+        <script>
+            function changeQuantity(change, id, price, name) {
+
+
+                const quantityInput = document.getElementById(`extra_quantity_${id}`);
+                const getTotal = document.getElementById('total_price');
+                // console.log(getTotal.value)
+          
+                let currentQuantity = parseInt(quantityInput.value);
+                quantityInput.removeAttribute('disabled');
+                let newQuantity = currentQuantity + change;
+
+                if (newQuantity < 0) {
+                    newQuantity = 0;
+                }
+
+                quantityInput.value = newQuantity;
+
+                let newPrice = newQuantity * price;
+                getTotal.value = parseFloat(getTotal.value) + newPrice;
+
+
+                const priceElement = document.getElementById(`price_${id}`);
+                priceElement.value = `${newPrice.toFixed(2)}€`;
+
+                // Update hidden inputs
+                const hiddenPriceElement = document.getElementById(`hidden_price_${id}`);
+                hiddenPriceElement.removeAttribute('disabled');
+                hiddenPriceElement.value = newPrice;
+
+                const hiddenNameElement = document.getElementById(`name_${id}`);
+                hiddenNameElement.removeAttribute('disabled');
+                hiddenNameElement.value = name;
+            }
+        </script>
+    @endpush
+
+
 
 
 
@@ -445,36 +486,27 @@
         </div>
     </section> --}}
 
-    @push('js')
+    {{-- @push('js')
         <script>
             function changeQuantity(change, id, price) {
-                // Get the input field by its id
                 const quantityInput = document.getElementById(id);
                 let currentQuantity = parseInt(quantityInput.value);
 
-                // Calculate the new quantity
                 let newQuantity = currentQuantity + change;
 
-                // Ensure the quantity doesn't go below 1
                 if (newQuantity < 1) {
                     newQuantity = 1;
                 }
 
-                // Update the value in the input field
                 quantityInput.value = newQuantity;
 
-                // Calculate the new price
                 let newPrice = newQuantity * price;
 
-                // Update the price display
                 const priceElement = document.getElementById(`price_${id}`);
                 priceElement.value = `${newPrice.toFixed(2)}€`;
-
-                // Optionally, update the server with the new quantity
-                // Example: updateCart(id, newQuantity);
             }
         </script>
-        {{-- <script>
+        <script>
             function changeQuantity(change, id, price) {
                 const quantityInput = document.getElementById(id);
                 let currentQuantity = parseInt(quantityInput.value);
@@ -484,9 +516,9 @@
                 const priceElement = document.getElementById(`price_${id}`);
                 priceElement.value = newQuantity * price;
             }
-        </script> --}}
+        </script>
 
-        {{-- <script>
+        <script>
             $(document).ready(function() {
                 function initCarousel() {
                     if ($("#visible").css("display") == "block") {
@@ -506,6 +538,6 @@
                     load: initCarousel()
                 });
             });
-        </script> --}}
-    @endpush
+        </script>
+    @endpush --}}
 </x-user>
