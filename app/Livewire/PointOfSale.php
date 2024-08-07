@@ -367,10 +367,6 @@ class PointOfSale extends Component
         $this->dispatch('genericAdded', $generic);
         $this->fetchProducts();
     }
-    public function render()
-    {
-        return view('livewire.point-of-sale');
-    }
 
 
     private function initializeCart()

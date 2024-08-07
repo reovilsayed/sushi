@@ -82,6 +82,7 @@ class CustomerController extends Controller
         } else {
             $orders = $customer->orders;
         }
+        dd($customer);
         $transactions = Transaction::where('user_id', $customer->id)->latest()->get();
         // dd($customer);
         return view('pages.customers.invoice', compact('customer', 'orders', 'transactions'));

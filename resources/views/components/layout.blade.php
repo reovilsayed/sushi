@@ -77,10 +77,8 @@
                             </g>
                         </svg>
                     </div>
-                    <a href="#" class="logo">
-                        <img style="height: 70px; width: 100px; border-radius: 10px;"
-                            src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('images/logo.png') }}"
-                            alt="" />
+                    <a href="/" class="logo">
+                        <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('logo/mainLogo.png')}}" alt="">
                     </a>
 
                     <div class="search_panel">
