@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
 
 Route::middleware(['api.auth'])->group(function () {
     Route::get('products', [ApiController::class, 'products']);
-    Route::get('point-of-sale', [ApiController::class, 'pos']);
+    // Route::get('point-of-sale', [ApiController::class, 'pos']);
     Route::get('customers', [ApiController::class, 'customers']);
     Route::get('single-customer', [ApiController::class, 'singleCustomer']);
     Route::get('suppliers', [ApiController::class, 'suppliers']);

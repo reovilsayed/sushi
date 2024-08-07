@@ -20,23 +20,23 @@
                     <i class="bi bi-geo-alt flex-shrink-0"></i>
                     <div>
                       <h3>Location</h3>
-                      <p>A108 Adam Street, New York, NY 535022</p>
+                      <p>{{ Settings::option('address')  }}</p>
                     </div>
                   </div><!-- End Info Item -->
       
-                  <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                  {{-- <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
                     <i class="bi bi-telephone flex-shrink-0"></i>
                     <div>
                       <h3>Open Hours</h3>
                       <p>Monday-Saturday:<br>11:00 AM - 2300 PM</p>
                     </div>
-                  </div><!-- End Info Item -->
+                  </div><!-- End Info Item --> --}}
       
                   <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
                     <i class="bi bi-telephone flex-shrink-0"></i>
                     <div>
                       <h3>Call Us</h3>
-                      <p>+1 5589 55488 55</p>
+                      <p>{{ Settings::option('phone') }}</p>
                     </div>
                   </div><!-- End Info Item -->
       
@@ -44,7 +44,7 @@
                     <i class="bi bi-envelope flex-shrink-0"></i>
                     <div>
                       <h3>Email Us</h3>
-                      <p>info@example.com</p>
+                      <p>{{ Settings::option('email') }}</p>
                     </div>
                   </div><!-- End Info Item -->
       

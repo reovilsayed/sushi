@@ -1,14 +1,15 @@
 <?php
-$restaurants = App\Models\Restaurant::all();
+$restaurantNames = App\Models\Restaurant::all();
 ?>
 <header id="header" class="header fixed-top">
     <div class="branding d-flex align-items-cente">
 
         <div class="container position-relative d-flex align-items-center justify-content-between">
+            
             <a href="{{ route('restaurant.home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
-                <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="assets/img/logo.png" alt=""> -->
-                <h1 class="sitename">Sushi</h1>
+                
+                 <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('logo/mainLogo.png')}}" alt="">
+     
             </a>
 
             <nav id="navmenu" class="navmenu">
@@ -18,7 +19,7 @@ $restaurants = App\Models\Restaurant::all();
                     <li class="dropdown"><a href="{{ route('user.restaurants') }}"><span>Restaurants</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            @foreach ($restaurants as $restaurant)
+                            @foreach ($restaurantNames as $restaurant)
                                 <li><a
                                         href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
                                 </li>

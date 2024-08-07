@@ -59,7 +59,7 @@
 
 
         <x-sidenav.nav name="Dashboard" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
-        <x-sidenav.nav name="Restaurant" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+        <x-sidenav.nav name="Restaurant" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
         <li class="dropdown">
 
             <a href="javascript:void(0)" class="dropdown-btn">
@@ -95,20 +95,20 @@
             </ul>
         </li>
         <x-sidenav.nav name="Customer" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
-        <x-sidenav.nav name="Point Of Sale" :active="request()->is('point-of-sale') ? 'menu-active' : ''" :href="route('pos')" :icon="[asset('images/pos-swipe-icon.svg'), asset('images/pos-swipe-icon-white.svg')]" />
+
         <x-sidenav.nav name="Orders" :active="request()->is('orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
         <x-sidenav.nav name="Reports" :active="request()->is('reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
 
 
 
 
-        
+
         <x-sidenav.nav name="Purchase" :active="request()->is('purchase') ? 'menu-active' : ''" :href="route('purchase.index')" :icon="[asset('images/cart-arrow-down-icon.svg'), asset('images/cart-arrow-down-icon-white.svg')]" />
 
 
 
         <x-sidenav.nav name="Settings" :active="request()->is('settings/create') ? 'menu-active' : ''" :href="route('settings.create')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
-        <x-sidenav.nav name="prescriptions" :active="request()->is('priscription') ? 'menu-active' : ''" :href="route('priscription.index')" :icon="[asset('images/prescription-icon.svg'), asset('images/prescription-icon.svg')]" />
+        
 
 
         <li>

@@ -125,7 +125,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::post('deposite-full/{user}', [CustomerController::class, 'deposite_full'])->name('deposite.full');
     // Route::get('/invoice/{customer}', [CustomerController::class, 'invoice'])->name('invoice');
-    Route::get('/point-of-sale', [POSController::class, 'index'])->name('pos');
+    // Route::get('/point-of-sale', [POSController::class, 'index'])->name('pos');
     // Route::view('react-component', 'react-component');
 
     Route::resource('purchase', PurchaseController::class)->names('purchase');

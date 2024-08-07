@@ -13,9 +13,7 @@
                         <a href="#book-a-table" class="cta-btn">Book a Table</a>
                     </div>
                 </div>
-                <div class="col-lg-4 d-flex align-items-center justify-content-center mt-5 mt-lg-0">
-                    <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox pulsating-play-btn"></a> -->
-                </div>
+                
             </div>
         </div>
 
@@ -29,14 +27,13 @@
             <p>Check Our Restaurant Nearby</p>
         </div><!-- End Section Title -->
 
-        <div class="container isotope-layout mb-4" data-default-filter="*" data-layout="masonry"
+        <div class="container isotope-layout mb-5" data-default-filter="*" data-layout="masonry"
             data-sort="original-order">
             <div class="isotope-container " data-aos="fade-up" data-aos-delay="200">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input type="text " class="form-control location" placeholder="Enter Location"
-                            aria-label="Enter Location" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-orange" type="button" id="button-addon2">Location</button>
+                        <input type="text" class="form-control form-control-lg location" placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-orange " type="button" id="button-addon2"><i class="bi bi-geo-alt flex-shrink-0"></i></button>
                     </div>
                 </div><!--  Item -->
 
