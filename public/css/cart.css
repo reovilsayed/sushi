@@ -35,6 +35,7 @@
 
 .table_body tr {
     border-bottom: 1px solid #cda45e;
+    height: 72px;
 }
 
 .cart-product-remove {

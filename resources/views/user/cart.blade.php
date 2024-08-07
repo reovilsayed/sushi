@@ -99,15 +99,15 @@
                             </thead>
                             <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
-                                    {{-- @dd($item) --}}
+                                    {{-- @dd($item->image) --}}
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
                                                 href="{{ url('/cart-destroy/' . $item->id) }}">x</a>
                                         </td>
                                         <td class="cart-product-image">
-                                            <a href="product-details.html"><img src="{{ asset('img/3.png') }}"
-                                                    alt="#"></a>
+                                            <a href="product-details.html"><img src="{{ $item->image ?? '' }}"
+                                                    alt="{{ $item->image }}"></a>
                                         </td>
 
 
@@ -160,11 +160,11 @@
                             <tbody class="me-2 ms-2">
                                 <tr style="height: 40px; ">
                                     <td class="ps-4">Cart Subtotal</td>
-                                    <td>$618.00</td>
+                                    <td>{{ Cart::getSubTotal() }} €</td>
                                 </tr>
                                 <tr style="height: 40px;">
                                     <td class="ps-4">Shipping and Handing</td>
-                                    <td>$15.00</td>
+                                    <td>$00.00</td>
                                 </tr>
                                 <tr style="height: 40px;">
                                     <td class="ps-4">Vat</td>
@@ -172,13 +172,17 @@
                                 </tr>
                                 <tr style="height: 40px;">
                                     <td class="ps-4"><strong>Order Total</strong></td>
-                                    <td><strong>$633.00</strong></td>
+                                    <td><strong>{{ Cart::getTotal() }} €</strong></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="btn-wrapper text-center pe-md-3">
-                        <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">Proceed to checkout</a>
+                        @if (Cart::isEmpty())
+                            <a href="{{ route('restaurant.home') }}" class="checkout_btn">Proceed to checkout</a>
+                        @else
+                            <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">Proceed to checkout</a>
+                        @endif
                     </div>
 
                 </div>
@@ -206,30 +210,37 @@
                                         <div class="cart-plus-minus">
                                             <div class="dec qtybutton"
                                                 onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }})">
-                                                -</div>
+                                                -
+                                            </div>
                                             <input type="text" value="0" name="extra_quantity[]"
                                                 class="cart-plus-minus-box" id="{{ $extra->id }}" min="1"
                                                 placeholder="0" data-price="{{ $extra->price }}">
                                             <div class="inc qtybutton"
                                                 onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }})">
-                                                +</div>
+                                                +
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="pricetag justify-content-center">
                                         <div class="centerinput" style="width: 100px">
                                             <p style="font-weight: 100;">
                                                 <input name="extra_price[]" id="price_{{ $extra->id }}"
-                                                    style="width: 100px" class="p-0 text-center" value="0">
+                                                    style="width: 100px" class="p-0 text-center" readonly value="0">
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                             <div class="col-md-12 text-start mt-3 p-0">
-                                <button type="submit" id="extraButton">Extra Add</button>
+                                <button type="submit" id="extraButton" {{ Cart::isEmpty() ? 'disabled' : '' }}>Extra
+                                    Add</button>
+                                @if (Cart::isEmpty())
+                                    <p class="mt-2 text-danger">Please add products to the cart before selecting extras.</p>
+                                @endif
                             </div>
                         </div>
                     </form>
+
 
                 </div>
             </div>

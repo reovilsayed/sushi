@@ -101,6 +101,11 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if the cart is empty
+        if (Cart::isEmpty()) {
+            return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
+        }
+
         // Prepare shipping information
         $shipping = [
             'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
@@ -113,7 +118,7 @@ class OrderController extends Controller
             'house' => $request->input('home_house'),
             'phone' => $request->input('home_phone'),
         ];
-    
+
         // Handle extras
         $extras = [];
         $extraPrices = $request->input('extra_price', []);
@@ -127,7 +132,7 @@ class OrderController extends Controller
                 ];
             }
         }
-    
+
         // Create the order
         $order = Order::create([
             'shipping_info' => json_encode($shipping), // Storing as JSON
@@ -137,7 +142,7 @@ class OrderController extends Controller
             'comment' => $request->input('comment'),
             'delivery_option' => $request->input('delivery_option'),
         ]);
-    
+
         // Attach products to the order
         foreach (Cart::getContent() as $item) {
             $order->products()->attach($item->id, [
@@ -145,14 +150,15 @@ class OrderController extends Controller
                 'price' => $item->price,
             ]);
         }
-    
+
         // Clear the cart
         Cart::clear();
-    
+
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
-    
+
+
 
 
 
