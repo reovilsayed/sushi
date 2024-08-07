@@ -35,6 +35,7 @@
 
 .table_body tr {
     border-bottom: 1px solid #cda45e;
+    height: 72px;
 }
 
 .cart-product-remove {
@@ -249,12 +250,14 @@ input.cart-plus-minus-box {
     width: 33% !important;
     height: 100% !important;
 }
+
 @media (min-width: 344px) and (max-width: 882px) {
     #card_extra {
         width: 55% !important;
         height: 100% !important;
     }
 }
+
 @media (min-width: 430px) and (max-width: 932px) {
     #card_extra {
         width: 55% !important;
@@ -309,4 +312,16 @@ input.cart-plus-minus-box {
     border-right: 1px solid var(--accent-color) !important;
     border-bottom: 1px solid var(--accent-color) !important;
     border-left: 1px solid var(--accent-color) !important;
+}
+
+#extraButton {
+    color: var(--default-color) !important;
+    background: none !important;
+    border: 2px solid var(--accent-color) !important;
+    padding: 5px 10px !important;
+    transition: 0.4s !important;
+    border-radius: 0px !important
+}
+#extraButton:hover{
+    background-color: var(--accent-color) !important ;
 }

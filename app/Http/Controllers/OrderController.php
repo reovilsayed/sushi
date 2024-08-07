@@ -101,50 +101,51 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data
-        // $validatedData = $request->validate([
-        //     'take_f_name' => 'nullable|string|max:255',
-        //     'take_l_name' => 'nullable|string|max:255',
-        //     'take_email' => 'nullable|string|email|max:255',
-        //     'home_f_name' => 'nullable|string|max:255',
-        //     'home_l_name' => 'nullable|string|max:255',
-        //     'home_email' => 'nullable|string|email|max:255',
-        //     'home_address' => 'required|string|max:255',
-        //     'home_city' => 'required|string|max:255',
-        //     'home_post_cod' => 'required|string|max:20',
-        //     'home_zip' => 'required|string|max:20',
-        //     'home_house' => 'required|string|max:255',
-        //     'home_phone' => 'required|string|max:20',
-        //     'comment' => 'nullable|string',
-        //     'delivery_option' => 'required|string',
-        // ]);
+        // Check if the cart is empty
+        if (Cart::isEmpty()) {
+            return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
+        }
 
         // Prepare shipping information
         $shipping = [
-            'name' => $request->take_f_name ?? $request->home_f_name,
-            'l_name' => $request->take_l_name ?? $request->home_l_name,
-            'email' => $request->take_email ?? $request->home_email,
-            'address' => $request->home_address,
-            'city' => $request->home_city,
-            'post_code' => $request->home_post_cod,
-            'zip' => $request->home_zip,
-            'house' => $request->home_house,
-            'phone' => $request->home_phone,
+            'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
+            'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
+            'email' => $request->input('take_email') ?? $request->input('home_email'),
+            'address' => $request->input('home_address'),
+            'city' => $request->input('home_city'),
+            'post_code' => $request->input('home_post_cod'),
+            'zip' => $request->input('home_zip'),
+            'house' => $request->input('home_house'),
+            'phone' => $request->input('home_phone'),
         ];
+
+        // Handle extras
+        $extras = [];
+        $extraPrices = $request->input('extra_price', []);
+        $extraQuantities = $request->input('extra_quantity', []);
+        foreach ($extraPrices as $index => $price) {
+            $quantity = $extraQuantities[$index] ?? 0;
+            if ($quantity > 0) {
+                $extras[] = [
+                    'price' => $price,
+                    'quantity' => $quantity,
+                ];
+            }
+        }
 
         // Create the order
         $order = Order::create([
             'shipping_info' => json_encode($shipping), // Storing as JSON
+            'extra' => json_encode($extras), // Storing as JSON
             'sub_total' => Cart::getSubTotal(),
             'total' => Cart::getSubTotal(), // Update this if there are additional charges (like tax or shipping)
-            'comment' => $request->comment,
-            'delivery_option' => $request->delivery_option,
+            'comment' => $request->input('comment'),
+            'delivery_option' => $request->input('delivery_option'),
         ]);
 
         // Attach products to the order
         foreach (Cart::getContent() as $item) {
             $order->products()->attach($item->id, [
-                'product_id' => $item->model->id,
                 'quantity' => $item->quantity,
                 'price' => $item->price,
             ]);
@@ -156,6 +157,9 @@ class OrderController extends Controller
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
+
+
+
 
 
     /**

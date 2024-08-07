@@ -233,7 +233,7 @@
                                             <tfoot>
                                                 <tr style="border-top: 1px solid var(--accent-color)">
                                                     <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
-                                                    <td class="fs-6 fw-medium text-center">125 €</td>
+                                                    <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €</td>
                                                 </tr>
                                                 {{-- <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
@@ -263,7 +263,7 @@
                                                 <tr
                                                     style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
                                                     <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                    <td class="fs-5 fw-medium text-center">1254 €</td>
+                                                    <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €</td>
                                                 </tr>
 
 
