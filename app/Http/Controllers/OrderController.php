@@ -154,7 +154,7 @@ class OrderController extends Controller
                 'extra' => json_encode(session('extras')), // Storing as JSON
                 'sub_total' => Cart::getSubTotal(),
                 'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
-                'comment' => $request->input('comment'),
+                'comment' => $request->input('home_commment'),
                 'delivery_option' => $request->input('delivery_option'),
             ]);
 

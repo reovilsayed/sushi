@@ -117,19 +117,22 @@
                                         </div>
 
                                         <div class="row gy-4">
-                                            <div class="col-md-12 ">
+                                            <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="take_f_name"
-                                                    placeholder="Your First Name" required="" value=" ">
+                                                    placeholder="Your First Name" required=""
+                                                    value={{ auth()->user()->name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <input type="text" name="take_l_name" class="form-control"
-                                                    placeholder="Your Last Name" required="">
+                                                    placeholder="Your Last Name" required=""
+                                                    value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <input type="email" name="take_email" class="form-control"
-                                                    placeholder="Your Email" required="" value = {{(auth()->user()->email) ? auth()->user()->email : ''}}>
+                                                    placeholder="Your Email" required=""
+                                                    value={{ auth()->user()->email ?? '' }}>
                                             </div>
                                         </div>
                                     </div>
@@ -145,20 +148,62 @@
                                         </div>
 
                                         <div class="row gy-4">
-                                            <div class="col-md-12 ">
+                                            <div class="col-md-6">
                                                 <input type="text" class="form-control" name="home_f_name"
-                                                    placeholder="Your Name" required="" value = {{(auth()->user()->name) ? auth()->user()->name : ''}}>
+                                                    placeholder="Your Name" required=""
+                                                    value={{ auth()->user()->name ? auth()->user()->name : '' }}>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" name="home_l_name"
+                                                    placeholder="Your Name" required=""
+                                                    value={{ auth()->user()->l_name ? auth()->user()->l_name : '' }}>
+                                            </div>
+
+
+                                            <div class="col-md-12">
+                                                <input type="email" name="home_email" class="form-control"
+                                                    placeholder="Your Email" required=""
+                                                    value={{ auth()->user()->email ? auth()->user()->email : '' }}>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <input type="text" name="home_address" class="form-control"
+                                                    placeholder="Your Address" required="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="home_city" class="form-control"
+                                                    placeholder="Your City" required="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="home_post_cod" class="form-control"
+                                                    placeholder="Your Post Code" required="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="home_zip" class="form-control"
+                                                    placeholder="Your Zip" required="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="number" id="number_type" name="home_phone"
+                                                    class="form-control" placeholder="Your Phone Number">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="text" name="home_house" class="form-control"
+                                                    placeholder="Your House" required="">
                                             </div>
                                             
 
                                             <div class="col-md-12">
-                                                <input type="email" name="home_email" class="form-control"
-                                                    placeholder="Your Email" required="" value = {{(auth()->user()->email) ? auth()->user()->email : ''}}>
+                                                <textarea name="home_commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height:122px;"></textarea>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control form-control-lg location" placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2" required style="border: 2px solid var(--accent-color)">
-                                                <button class="btn btn-outline-orange " type="button" id="button-addon2"><i class="bi bi-geo-alt flex-shrink-0"></i></button>
-                                            </div>
+                                            {{-- <div class="input-group mb-3">
+                                                <input type="text" class="form-control form-control-lg location"
+                                                    placeholder="Enter Location" aria-label="Enter Location"
+                                                    aria-describedby="button-addon2" required
+                                                    style="border: 2px solid var(--accent-color)">
+                                                <button class="btn btn-outline-orange " type="button"
+                                                    id="button-addon2"><i
+                                                        class="bi bi-geo-alt flex-shrink-0"></i></button>
+                                            </div> --}}
                                         </div>
                                     </div>
 
@@ -205,7 +250,8 @@
                                             <tfoot>
                                                 <tr style="border-top: 1px solid var(--accent-color)">
                                                     <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
-                                                    <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €</td>
+                                                    <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €
+                                                    </td>
                                                 </tr>
                                                 {{-- <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
@@ -232,9 +278,11 @@
                                                     </td>
                                                     <td class="fs-5 fw-medium text-center">125 €</td>
                                                 </tr> --}}
-                                                <tr style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
+                                                <tr
+                                                    style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
                                                     <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                    <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €</td>
+                                                    <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €
+                                                    </td>
                                                 </tr>
 
 
