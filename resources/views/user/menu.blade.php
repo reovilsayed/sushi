@@ -55,7 +55,7 @@
                                                         <a
                                                             href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"><img
                                                                 class="img-fluid"
-                                                                src="{{ asset('niko/assets/img/menu/lobster-bisque.jpg') }}"></a>
+                                                                src="{{  $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}"></a>
 
                                                         <h4 class="text-colour"><a
                                                                 href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}">{{ $product->name }}</a>

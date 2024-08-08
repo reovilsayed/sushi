@@ -22,8 +22,11 @@
                     <form method="POST" action="{{ route('register') }}" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
                         @csrf
                         <div class="row gy-4">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="last_name" class="form-control" placeholder="Your Name" required="">
                             </div>
                             {{-- <div class="col-md-12">
                                 <input type="text" name="number" class="form-control" placeholder="Your Number">

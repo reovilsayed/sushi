@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,14 +10,20 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function userIndex(){
-        return view('user-dashboard.dashboard');
+    public function userIndex()
+    {
+        $id = auth()->user()->id;
+        $orders = Order::where('customer_id', $id)->get();
+        //  $orders = Order::all();
+        return view('user-dashboard.dashboard', compact('orders'));
     }
+
     public function UpdateName(Request $request)
     {
         $id = Auth::user()->id;
         $user = User::find($id);
         $user->name = $request->name;
+        $user->last_name = $request->last_name;
         $user->save();
         return redirect()->back()->with('success', 'Name updated successfully');
     }
