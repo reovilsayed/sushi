@@ -28,9 +28,7 @@
                             <div class="col-md-6">
                                 <input type="text" name="last_name" class="form-control" placeholder="Your Name" required="">
                             </div>
-                            {{-- <div class="col-md-12">
-                                <input type="text" name="number" class="form-control" placeholder="Your Number">
-                            </div> --}}
+                            
                             <div class="col-md-12">
                                 <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
                             </div>

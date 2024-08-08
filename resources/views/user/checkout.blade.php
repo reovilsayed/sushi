@@ -120,9 +120,12 @@
                                             
                                             <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="take_f_name"
-                                                    placeholder="Your First Name" required=""
-                                                    value="{{ auth()->check() ? auth()->user()->first_name : '' }}">
+                                                    placeholder="Your First Name" required="" value=" ">
+                                            </div>
 
+                                            <div class="col-md-6">
+                                                <input type="text" name="take_l_name" class="form-control"
+                                                    placeholder="Your Last Name" required="">
                                             </div>
                                             <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="take_l_name"
@@ -249,8 +252,7 @@
                                                     </td>
                                                     <td class="fs-5 fw-medium text-center">125 €</td>
                                                 </tr> --}}
-                                                <tr
-                                                    style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
+                                                <tr style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
                                                     <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
                                                     <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €
                                                     </td>

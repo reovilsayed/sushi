@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-md-10">
                                 <input type="text" name="last_name" class="form-control capitalize-first"
-                                    placeholder="Your Name" required value="{{ ucfirst(auth()->user()->last_name) }}">
+                                    placeholder="Your Name" required value="{{ ucfirst(auth()->user()->l_name) }}">
                             </div>
 
                             <div class="col-md-10">

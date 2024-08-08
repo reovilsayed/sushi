@@ -23,7 +23,7 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $user = User::find($id);
         $user->name = $request->name;
-        $user->last_name = $request->last_name;
+        $user->l_name = $request->last_name;
         $user->save();
         return redirect()->back()->with('success', 'Name updated successfully');
     }
