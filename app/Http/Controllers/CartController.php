@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -32,21 +33,49 @@ class CartController extends Controller
 	public function add(Request $request)
 	{
 
-    //   dd()
 		$product = Product::find($request->product_id);
-		Cart::add($product->id, $product->name, $product->price, $request->quantity, ['resturent' => $request->restaurent_id])->associate('App\Models\Product');
-		//session()->flash('errors', collect(['Please Check Length,Width,Height,Weight again of this product']));
+
+		if (!$product) {
+			return back()->withErrors('Product not found.');
+		}
+
+		Cart::add($product->id, $product->name, $product->price, $request->quantity, ['restaurent' => $request->restaurent_id])->associate('App\Models\Product');
+
+		// Add extras to the cart
+		// dd($request->has('extras'));
+		// if ($request->has('extras')) {
+		// 	foreach ($request->extras as $extraId => $extra) {
+		// 		dd($extra['name']);
+		// 		$extraName = $extra['name'];
+		// 		$extraPrice = $extra['price'];
+		// 		$extraQuantity = $extra['quantity'];
+
+		// 		// Check if extra quantity is greater than 0 before adding to cart
+		// 		if ($extraQuantity > 0) {
+		// 			Cart::add($extraId, $extraName, $extraPrice, $extraQuantity, ['is_extra' => true])->associate('App\Models\Extra');
+		// 		}
+		// 	}
+		// }
+
 		return back()->with('success_msg', 'Item has been added to cart!');
 	}
+
+
 	public function update(Request $request)
 	{
-		// dd($request->all());
+		
+
 		Cart::update($request->product_id, array(
 			'quantity' => array(
 				'relative' => false,
 				'value' => $request->quantity
 			),
+
 		));
+
+		
+
+	
 		return back()->with('success_msg', 'Item has been updated!');
 	}
 	public function destroy($id)
@@ -68,5 +97,11 @@ class CartController extends Controller
 		));
 
 		return back()->with('success_msg', 'Item has been Attribute add!');
+	}
+
+	public function extras(request $request)  {
+		Session::put('extras',$request->extras);
+		Session::put('total',$request->total_price);
+		return redirect()->route('restaurant.checkout');
 	}
 }

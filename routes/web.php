@@ -72,6 +72,7 @@ Route::post('/buynow', [CartController::class, 'buynow'])->name('cart.buynow');
 Route::post('/add-update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 
 Route::get('/test', function () {
 

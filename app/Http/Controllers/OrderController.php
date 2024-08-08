@@ -107,6 +107,7 @@ class OrderController extends Controller
         }
         
         // Prepare shipping information
+       
         $shipping = [
             'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
             'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
@@ -120,25 +121,14 @@ class OrderController extends Controller
         ];
 
         // Handle extras
-        $extras = [];
-        $extraPrices = $request->input('extra_price', []);
-        $extraQuantities = $request->input('extra_quantity', []);
-        foreach ($extraPrices as $index => $price) {
-            $quantity = $extraQuantities[$index] ?? 0;
-            if ($quantity > 0) {
-                $extras[] = [
-                    'price' => $price,
-                    'quantity' => $quantity,
-                ];
-            }
-        }
+      
 
         // Create the order
         $order = Order::create([
             'shipping_info' => json_encode($shipping), // Storing as JSON
-            'extra' => json_encode($extras), // Storing as JSON
+            'extra' => json_encode(session('extras')), // Storing as JSON
             'sub_total' => Cart::getSubTotal(),
-            'total' => Cart::getSubTotal(), // Update this if there are additional charges (like tax or shipping)
+            'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
             'comment' => $request->input('comment'),
             'delivery_option' => $request->input('delivery_option'),
         ]);
@@ -153,10 +143,13 @@ class OrderController extends Controller
 
         // Clear the cart
         Cart::clear();
+        session()->forget('extras');
+        session()->forget('total');
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
+
 
 
 

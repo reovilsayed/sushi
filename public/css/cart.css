@@ -124,6 +124,13 @@ input.cart-plus-minus-box {
 
 .cart_total_section {
     height: 48px;
+    background-color: #cda45e;
+}
+.cart_total_section h4{
+
+    color: var(--heading-color) !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
 }
 
 .quantity_update {
@@ -318,9 +325,11 @@ input.cart-plus-minus-box {
     color: var(--default-color) !important;
     background: none !important;
     border: 2px solid var(--accent-color) !important;
-    padding: 5px 10px !important;
+    padding: 8px 11px;
     transition: 0.4s !important;
-    border-radius: 0px !important
+    border-radius: 0px !important;
+    font-size: 16px;
+    font-weight: 700;
 }
 #extraButton:hover{
     background-color: var(--accent-color) !important ;
