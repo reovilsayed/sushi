@@ -229,8 +229,6 @@
                                         id="hidden_price_{{ $extra->id }}" value="" disabled>
                              
                                     <input type="hidden" name="product_id" value="" disabled>
-
-
                                 </div>
                             @endforeach
                             <input type="hidden" name="total_price" id="total_price"

@@ -64,13 +64,6 @@
 
         <!-- Contact Section -->
         <section id="contact" class="contact section ">
-            {{-- <div class=" container py-5 text-center">
-
-                <h2>Checkout form</h2>
-                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required
-                    form group has a validation state that can be triggered by attempting to submit the form without
-                    completing it.</p>
-            </div> --}}
             <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
                 {{-- <h2>Menu</h2> --}}
                 <p class="text-center">Checkout form</p>
