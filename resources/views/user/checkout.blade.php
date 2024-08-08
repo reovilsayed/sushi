@@ -121,12 +121,7 @@
                                                     placeholder="Your Last Name" required=""
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
-                                            <div class="col-md-6 ">
-                                                <input type="text" class="form-control" name="take_l_name"
-                                                    placeholder="Your Last Name" required=""
-                                                    value="{{ auth()->check() ? auth()->user()->last_name : '' }}">
 
-                                            </div>
                                             <div class="col-md-12">
                                                 <input type="email" name="take_email" class="form-control"
                                                     placeholder="Your Email" required=""
@@ -149,19 +144,19 @@
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" name="home_f_name"
                                                     placeholder="Your Name" required=""
-                                                    value={{ auth()->user()->name ? auth()->user()->name : '' }}>
+                                                    value={{ auth()->user()->name ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" name="home_l_name"
                                                     placeholder="Your Name" required=""
-                                                    value={{ auth()->user()->l_name ? auth()->user()->l_name : '' }}>
+                                                    value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
 
                                             <div class="col-md-12">
                                                 <input type="email" name="home_email" class="form-control"
                                                     placeholder="Your Email" required=""
-                                                    value={{ auth()->user()->email ? auth()->user()->email : '' }}>
+                                                    value={{ auth()->user()->email ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12">
