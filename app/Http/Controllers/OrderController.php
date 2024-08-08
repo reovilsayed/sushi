@@ -105,7 +105,7 @@ class OrderController extends Controller
         if (Cart::isEmpty()) {
             return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
         }
-
+        
         // Prepare shipping information
         $shipping = [
             'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),

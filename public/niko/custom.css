@@ -125,3 +125,7 @@ a .custom-cart {
 .user-logout-button:hover {
   background: var(--accent-color);
 }
+input[type='number']::placeholder {
+    color: var(--accent-color);
+    opacity: 0.5 !important;
+}

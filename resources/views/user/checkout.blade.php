@@ -117,19 +117,14 @@
                                         </div>
 
                                         <div class="row gy-4">
-                                            <div class="col-md-6 ">
+                                            <div class="col-md-12 ">
                                                 <input type="text" class="form-control" name="take_f_name"
-                                                    placeholder="Your First Name" required="">
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <input type="text" name="take_l_name" class="form-control"
-                                                    placeholder="Your Last Name" required="">
+                                                    placeholder="Your Name" required="" value = {{(auth()->user()->name) ? auth()->user()->name : ''}}>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <input type="email" name="take_email" class="form-control"
-                                                    placeholder="Your Email" required="">
+                                                    placeholder="Your Email" required="" value = {{(auth()->user()->email) ? auth()->user()->email : ''}}>
                                             </div>
                                         </div>
                                     </div>
@@ -145,47 +140,19 @@
                                         </div>
 
                                         <div class="row gy-4">
-                                            <div class="col-md-6 ">
+                                            <div class="col-md-12 ">
                                                 <input type="text" class="form-control" name="home_f_name"
-                                                    placeholder="Your First Name" required="">
+                                                    placeholder="Your Name" required="" value = {{(auth()->user()->name) ? auth()->user()->name : ''}}>
                                             </div>
-                                            <div class="col-md-6 ">
-                                                <input type="text" class="form-control" name="home_L_name"
-                                                    placeholder="Your Last Name" required="">
-                                            </div>
+                                            
 
                                             <div class="col-md-12">
                                                 <input type="email" name="home_email" class="form-control"
-                                                    placeholder="Your Email" required="">
+                                                    placeholder="Your Email" required="" value = {{(auth()->user()->email) ? auth()->user()->email : ''}}>
                                             </div>
-
-                                            <div class="col-md-12">
-                                                <input type="text" name="home_address" class="form-control"
-                                                    placeholder="Your Address" required="">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" name="home_city" class="form-control"
-                                                    placeholder="Your City" required="">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" name="home_post_cod" class="form-control"
-                                                    placeholder="Your Post Code" required="">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" name="home_zip" class="form-control"
-                                                    placeholder="Your Zip" required="">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" name="home_house" class="form-control"
-                                                    placeholder="Your House" required="">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="number" id="number_type" name="home_phone"
-                                                    class="form-control" placeholder="Your Phone Number">
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <textarea name="home_commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height: 122px;"></textarea>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control form-control-lg location" placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2" required style="border: 2px solid var(--accent-color)">
+                                                <button class="btn btn-outline-orange " type="button" id="button-addon2"><i class="bi bi-geo-alt flex-shrink-0"></i></button>
                                             </div>
                                         </div>
                                     </div>
