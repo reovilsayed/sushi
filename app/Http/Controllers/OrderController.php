@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Mail\DuePaidMail;
 use App\Models\Order;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Report\Earnings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Cart;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Mail\user_create_mail;
 
 class OrderController extends Controller
 {
@@ -92,9 +96,7 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -105,47 +107,80 @@ class OrderController extends Controller
         if (Cart::isEmpty()) {
             return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
         }
-       
-        $shipping = [
-            'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
-            'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
-            'email' => $request->input('take_email') ?? $request->input('home_email'),
-            'address' => $request->input('home_address'),
-            'city' => $request->input('home_city'),
-            'post_code' => $request->input('home_post_cod'),
-            'zip' => $request->input('home_zip'),
-            'house' => $request->input('home_house'),
-            'phone' => $request->input('home_phone'),
-        ];
+        $pass=Str::random(16);
 
-        // Handle extras
-      
+        // Start a database transaction
+        DB::beginTransaction();
 
-        // Create the order
-        $order = Order::create([
-            'shipping_info' => json_encode($shipping), // Storing as JSON
-            'extra' => json_encode(session('extras')), // Storing as JSON
-            'sub_total' => Cart::getSubTotal(),
-            'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
-            'comment' => $request->input('comment'),
-            'delivery_option' => $request->input('delivery_option'),
-        ]);
+        try {
+            // Handle user authentication
+            if (!auth()->check()) {
+                $user = User::create([
+                    'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
+                    'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
+                    'email' => $request->input('take_email') ?? $request->input('home_email'),
+                    'password' => Hash::make($pass), // Generate a random password
+                ]);
 
-        // Attach products to the order
-        foreach (Cart::getContent() as $item) {
-            $order->products()->attach($item->id, [
-                'quantity' => $item->quantity,
-                'price' => $item->price,
+                $data = [
+                    'name' => $request->name,
+                    'subject' => 'We Create User Account to SohojWare',
+                    'body' => 'Name: ' . $user->name . '<br>' . 'Last Name: ' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:'. $pass,
+                    'button_link' => '',
+                    'button_text' => '',
+                ];
+                Mail::to($user->email)->send(new user_create_mail($data));
+            } else {
+                $user = auth()->user();
+            }
+
+            // Prepare shipping information
+            $shipping = [
+                'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
+                'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
+                'email' => $request->input('take_email') ?? $request->input('home_email'),
+                'address' => $request->input('home_address'),
+                'city' => $request->input('home_city'),
+                'post_code' => $request->input('home_post_cod'),
+                'zip' => $request->input('home_zip'),
+                'house' => $request->input('home_house'),
+                'phone' => $request->input('home_phone'),
+            ];
+
+            // Create the order
+            $order = Order::create([
+                'customer_id' => $user->id,
+                'shipping_info' => json_encode($shipping), // Storing as JSON
+                'extra' => json_encode(session('extras')), // Storing as JSON
+                'sub_total' => Cart::getSubTotal(),
+                'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
+                'comment' => $request->input('comment'),
+                'delivery_option' => $request->input('delivery_option'),
             ]);
+
+            // Attach products to the order
+            foreach (Cart::getContent() as $item) {
+                $order->products()->attach($item->id, [
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
+                ]);
+            }
+
+            // Clear the cart and session data
+            Cart::clear();
+            session()->forget('extras');
+            session()->forget('total');
+
+            // Commit the transaction
+            DB::commit();
+
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'Order placed successfully!');
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an error
+            DB::rollBack();
+            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
         }
-
-        // Clear the cart
-        Cart::clear();
-        session()->forget('extras');
-        session()->forget('total');
-
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Order placed successfully!');
     }
 
 

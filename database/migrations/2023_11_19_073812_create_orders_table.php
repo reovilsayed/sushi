@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            
             $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
             $table->bigInteger('sub_total');
             $table->bigInteger('discount');

@@ -142,6 +142,7 @@
                         </table>
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 226px;">
                     <div class="cart_total_section">
                         <h4 class="ms-3 pt-2" style="">Cart Totals</h4>
