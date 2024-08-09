@@ -89,8 +89,10 @@
                                 <th class="cart-product-subtotal text-center">Subtotal</th>
                             </thead>
                             <tbody class="table_body">
+                               
                                 @forelse (Cart::getContent() as $item)
-                                    {{-- @dd($item->image) --}}
+
+                                    {{-- @dd($item->attributes->restaurent) --}}
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
@@ -164,7 +166,7 @@
                                 </tr>
                                 <tr style="height: 40px;">
                                     <td class="ps-4"><strong>Order Total</strong></td>
-                                    <td><strong>{{ Cart::getTotal() }} €</strong></td>
+                                    <td><strong id="order_total_display">{{ Cart::getTotal() }} €</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -227,17 +229,24 @@
                                         id="name_{{ $extra->id }}" value="" disabled>
                                     <input type="hidden" name="extras[{{ $extra->id }}][price]"
                                         id="hidden_price_{{ $extra->id }}" value="" disabled>
-                             
+
                                     <input type="hidden" name="product_id" value="" disabled>
                                 </div>
                             @endforeach
                             <input type="hidden" name="total_price" id="total_price"
-                            value="{{ Cart::getTotal() }}">
+                                value="{{ Cart::getTotal() }}">
                             <div class="col-md-12 text-start mt-3 p-0">
-                                <button type="submit" id="extraButton" {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to checkout</button>
+                                <!-- Proceed to checkout button -->
+                                <button type="submit" id="extraButton"
+                                    {{ Cart::isEmpty() || !auth()->check() ? 'disabled' : '' }}>Proceed to
+                                    checkout</button>
+
+                                <!-- Message -->
                                 @if (Cart::isEmpty())
                                     <p class="mt-2 text-danger">Please add products to the cart before selecting
                                         extras.</p>
+                                {{-- @elseif (!auth()->check())
+                                    <p class="mt-2 text-danger">Please log in to proceed to checkout.</p> --}}
                                 @endif
                             </div>
                         </div>
@@ -247,7 +256,7 @@
         </div>
     </section>
 
-    @push('js')
+    {{-- @push('js')
         <script>
             function changeQuantity(change, id, price, name) {
 
@@ -283,6 +292,74 @@
                 hiddenNameElement.value = name;
             }
         </script>
+    @endpush --}}
+    @push('js')
+        <script>
+            function changeQuantity(change, id, price, name) {
+                const quantityInput = document.getElementById(`extra_quantity_${id}`);
+                const getTotal = document.getElementById('total_price');
+
+                let currentQuantity = parseInt(quantityInput.value);
+                quantityInput.removeAttribute('disabled');
+                let newQuantity = currentQuantity + change;
+
+                if (newQuantity < 0) {
+                    newQuantity = 0;
+                }
+
+                quantityInput.value = newQuantity;
+
+                // Calculate new price for the specific extra
+                let newPrice = newQuantity * price;
+
+                const priceElement = document.getElementById(`price_${id}`);
+                priceElement.value = `${newPrice.toFixed(2)}€`;
+
+                // Update hidden inputs
+                const hiddenPriceElement = document.getElementById(`hidden_price_${id}`);
+                hiddenPriceElement.removeAttribute('disabled');
+                hiddenPriceElement.value = newPrice;
+
+                const hiddenNameElement = document.getElementById(`name_${id}`);
+                hiddenNameElement.removeAttribute('disabled');
+                hiddenNameElement.value = name;
+
+                // Recalculate the total including all extras
+                recalculateTotal();
+            }
+
+            function recalculateTotal() {
+                const extras = document.querySelectorAll('.cart-plus-minus-box');
+                const baseTotal = parseFloat('{{ Cart::getTotal() }}');
+                let extrasTotal = 0;
+
+                extras.forEach(function(extra) {
+                    const price = parseFloat(extra.dataset.price);
+                    const quantity = parseInt(extra.value);
+
+                    if (!isNaN(price) && !isNaN(quantity)) {
+                        extrasTotal += price * quantity;
+                    }
+                });
+
+                const finalTotal = baseTotal + extrasTotal;
+                document.getElementById('total_price').value = finalTotal.toFixed(2);
+
+                // Update the displayed total
+                document.getElementById('order_total_display').innerText = `${finalTotal.toFixed(2)} €`;
+            }
+        </script>
+
+        {{-- <script>
+            function checkLoginStatus() {
+                @if (auth()->check())
+                    return true; // Allow form submission
+                @else
+                    alert('Please log in to proceed to checkout.');
+                    return false; // Prevent form submission
+                @endif
+            }
+        </script> --}}
     @endpush
 
 
@@ -485,58 +562,4 @@
         </div>
     </section> --}}
 
-    {{-- @push('js')
-        <script>
-            function changeQuantity(change, id, price) {
-                const quantityInput = document.getElementById(id);
-                let currentQuantity = parseInt(quantityInput.value);
-
-                let newQuantity = currentQuantity + change;
-
-                if (newQuantity < 1) {
-                    newQuantity = 1;
-                }
-
-                quantityInput.value = newQuantity;
-
-                let newPrice = newQuantity * price;
-
-                const priceElement = document.getElementById(`price_${id}`);
-                priceElement.value = `${newPrice.toFixed(2)}€`;
-            }
-        </script>
-        <script>
-            function changeQuantity(change, id, price) {
-                const quantityInput = document.getElementById(id);
-                let currentQuantity = parseInt(quantityInput.value);
-                let newQuantity = currentQuantity + change;
-                newQuantity = newQuantity < 1 ? 1 : newQuantity;
-                quantityInput.value = newQuantity;
-                const priceElement = document.getElementById(`price_${id}`);
-                priceElement.value = newQuantity * price;
-            }
-        </script>
-
-        <script>
-            $(document).ready(function() {
-                function initCarousel() {
-                    if ($("#visible").css("display") == "block") {
-                        $(".carousel .carousel-item").each(function() {
-                            var i = $(this).next();
-                            i.length || (i = $(this).siblings(":first")),
-                                i.children(":first-child").clone().appendTo($(this));
-
-                            for (var n = 0; n < 4; n++)
-                                (i = i.next()).length || (i = $(this).siblings(":first")),
-                                i.children(":first-child").clone().appendTo($(this));
-                        });
-                    }
-                }
-                $(window).on({
-                    resize: initCarousel(),
-                    load: initCarousel()
-                });
-            });
-        </script>
-    @endpush --}}
 </x-user>

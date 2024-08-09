@@ -20,7 +20,7 @@
                             <tr>
                                 <td colspan="4" valign="top"
                                     style="text-align: left; font-weight: 500; color: #000; padding-bottom: 5px; padding-top: 20px;">
-                                    <div style="margin-bottom:8px">Dear, Shuvo </div>
+                                    <div style="margin-bottom:8px"></div>
                                     <div style="color:#6D6D6D;line-height: 24px; font-weight: 400;">
                                         {!! $data->body !!}
                                     </div>
@@ -32,7 +32,7 @@
                                     <hr>
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td colspan="4" valign="top"
                                     style="text-align: left; font-weight: 500; color: #000; padding-bottom: 5px; padding-top: 20px;">
                                     <div style="color:#6D6D6D;line-height: 24px; font-weight: 400;">
@@ -40,7 +40,7 @@
                                         Team SohojWare
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </td>
