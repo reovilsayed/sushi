@@ -93,54 +93,7 @@
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-                                                </div>
-
-                                                <div class="prf_data_row" data-editable>
-                                                    <div class="label">Tax</div>
-                                                    <div class="input">
-                                                        <input type="text"
-                                                            value="{{ Settings::option('tax') ? Settings::option('tax') : old('tax') }}"
-                                                            placeholder="Tax"
-                                                            class="@error('tax')
-                                                                is-invalid
-                                                            @enderror"
-                                                            name="tax">
-                                                        @error('tax')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="prf_data_row" data-editable>
-                                                    <div class="label">Currency</div>
-                                                    <div class="input">
-                                                        <select class="selectize" name="currency">
-                                                            @foreach ($currencies as $currency)
-                                                                <option value="{{ $currency }}"
-                                                                    {{ Settings::option('currency') ? (Settings::option('currency') == $currency ? 'selected' : '') : '' }}>
-                                                                    {{ $currency }}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="prf_data_row" data-editable>
-                                                    <div class="label">Manage Stock</div>
-                                                    <div class="input">
-                                                        <select class="selectize" name="manageStock">
-                                                            <option value="1"
-                                                                {{ Settings::option('manageStock') == 1 ? 'selected' : '' }}>
-                                                                Yes</option>
-                                                            <option value="2"
-                                                                {{ Settings::option('manageStock') == 2 ? 'selected' : '' }}>
-                                                                No</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-
+                                                </div>  
                                                 <div class="col-12 d-flex justify-content-between mt-2">
                                                     <button class="btn btn-outline-primary h-auto" type="submit"> <i
                                                             class="fa fa-save"></i> Save</button>

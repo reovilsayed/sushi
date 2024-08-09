@@ -1,5 +1,5 @@
 <?php
-$restaurantNames = App\Models\Restaurant::all();
+$restaurantNames = App\Models\Restaurant::latest()->get();
 ?>
 <header id="header" class="header fixed-top">
     <div class="branding d-flex align-items-cente">

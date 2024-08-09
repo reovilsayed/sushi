@@ -1,4 +1,5 @@
 <x-layout>
+    {{-- @dd($customer->role->name ?? '') --}}
     <div>
         @if (session()->has('message'))
             <div class="alert alert-success">
@@ -22,26 +23,24 @@
 
                                     <x-form.input name="email" label="Email" value="{{ $customer->email }}" />
                                     <x-form.input name="phone" label="Phone *" value="{{ $customer->phone }}" />
-                                    <x-form.input name="address" label="Address" value="{{ $customer->address }}" />
-                                    <x-form.input name="gender" value="{{ $customer->gender }}" type="select"
-                                        label="Gender *" :options="['male' => 'Male', 'female' => 'Female']" />
+                                    {{-- <x-form.input name="address" label="Address" value="{{ $customer->address }}" /> --}}
+                                    <div class="col-md-6">
+                                        <label class="control-label">Role</label>
+                                    <select class="form-control select2" name="role_id">
+                                        <option value="">Select</option>
+                                        @foreach ($roles as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $customer->role_id == $item->id ? 'selected' : '' }}>
+                                                {{ $item->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    </div>
                                     <x-form.input name="password" label="Password" type="password" />
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <div class="row row-cols">
-                                    <x-form.input name="discount" type="number" min="0" max="12"
-                                        label="Discount *" value="{{ $customer->discount ?? 0 }}" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mt-4">
                             <div class="card-footer">
-                                <div class="d-grid">
+                                <div class="">
                                     <button class="btn btn-success" type="submit" style="float: right">
                                         <i class="fa fa-save"></i> Save
                                     </button>
@@ -49,6 +48,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
         </form>
     </div>

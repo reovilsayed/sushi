@@ -47,8 +47,7 @@
 
 
         <div class="d-flex gap-1">
-            {{-- <a class="btn btn-sm btn-success" href=""><i
-                        class="fa fa-eye"></i></a> --}}
+            
             <a class="btn btn-sm btn-primary" href="{{ route('products.createOrEdit', $product) }}"><i
                     class="fa fa-edit"></i></a>
             <button class="btn btn-sm btn-success" title="Duplicate Product"
