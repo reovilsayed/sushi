@@ -57,6 +57,10 @@ class PageController extends Controller
     {
         return view('user.auth.register');
     }
+    public function thank_you()
+    {
+        return view('thank_you');
+    }
 
     public function cart()
     {

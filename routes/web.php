@@ -65,6 +65,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/cart', 'cart')->name('restaurant.cart');
     Route::post('/check-location', 'checkLocation')->name('check.location');
+    Route::get('/thank-you', 'thank_you')->name('thank_you');
 });
 
 //cart routes
