@@ -194,6 +194,7 @@
                         @csrf
                         <div class="row text-center p-2">
                             @foreach ($extras as $extra)
+                                {{-- @dd($extra); --}}
                                 <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
                                     style="flex-direction: column; justify-content: space-between;">
                                     <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
@@ -227,14 +228,15 @@
                                         id="name_{{ $extra->id }}" value="" disabled>
                                     <input type="hidden" name="extras[{{ $extra->id }}][price]"
                                         id="hidden_price_{{ $extra->id }}" value="" disabled>
-                             
+
                                     <input type="hidden" name="product_id" value="" disabled>
                                 </div>
                             @endforeach
                             <input type="hidden" name="total_price" id="total_price"
-                            value="{{ Cart::getTotal() }}">
+                                value="{{ Cart::getTotal() }}">
                             <div class="col-md-12 text-start mt-3 p-0">
-                                <button type="submit" id="extraButton" {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to checkout</button>
+                                <button type="submit" id="extraButton"
+                                    {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to checkout</button>
                                 @if (Cart::isEmpty())
                                     <p class="mt-2 text-danger">Please add products to the cart before selecting
                                         extras.</p>
@@ -255,7 +257,7 @@
                 const quantityInput = document.getElementById(`extra_quantity_${id}`);
                 const getTotal = document.getElementById('total_price');
                 // console.log(getTotal.value)
-          
+
                 let currentQuantity = parseInt(quantityInput.value);
                 quantityInput.removeAttribute('disabled');
                 let newQuantity = currentQuantity + change;
