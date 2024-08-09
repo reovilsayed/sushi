@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             
             $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
-            $table->bigInteger('sub_total');
-            $table->bigInteger('discount');
-            $table->bigInteger('total');
-            $table->string('payment_method');
-            $table->bigInteger('paid');
-            $table->bigInteger('due');
-            $table->bigInteger('profit');
-            $table->enum('status', ['PAID', 'DUE', 'UNPAID',  'PENDING', 'REFUND']);
+            $table->bigInteger('sub_total')->nullable();
+            $table->bigInteger('discount')->nullable();
+            $table->bigInteger('total')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->bigInteger('paid')->nullable();
+            $table->bigInteger('due')->nullable();
+            $table->bigInteger('profit')->nullable();
+            $table->enum('status', ['PAID', 'DUE', 'UNPAID',  'PENDING', 'REFUND'])->default('UNPAID');
             $table->timestamps();
         });
     }

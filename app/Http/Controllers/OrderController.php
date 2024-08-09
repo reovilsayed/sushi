@@ -176,7 +176,7 @@ class OrderController extends Controller
             DB::commit();
 
             // Redirect back with a success message
-            return redirect()->back()->with('success', 'Order placed successfully!');
+            return redirect()->route('thank_you')->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
             // Rollback the transaction in case of an error
             DB::rollBack();

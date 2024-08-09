@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->integer('quantity');
             $table->bigInteger('price');
-            $table->bigInteger('profit');
+            $table->bigInteger('profit')->nullable();
             $table->timestamps();
         });
     }
