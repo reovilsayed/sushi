@@ -13,7 +13,7 @@
                         <a href="#book-a-table" class="cta-btn">Book a Table</a>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -29,18 +29,23 @@
 
         <div class="container isotope-layout mb-5" data-default-filter="*" data-layout="masonry"
             data-sort="original-order">
-            <div class="isotope-container " data-aos="fade-up" data-aos-delay="200">
+            <div class="isotope-container" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg location" placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-orange " type="button" id="button-addon2"><i class="bi bi-geo-alt flex-shrink-0"></i></button>
+                        <input type="text" id="location-input" class="form-control form-control-lg location"
+                            placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-orange" type="button" id="location-button"><i
+                                class="bi bi-geo-alt flex-shrink-0"></i></button>
+                        <button class="btn btn-outline-orange" type="button" id="enter-button">Enter</button>
                     </div>
                 </div><!--  Item -->
-
-            </div><!--  Container -->
+            </div>
+            <!--  Container -->
 
         </div>
 
     </section><!-- / Section -->
     <x-user.restaurant :restaurants="$restaurants" />
 </x-user>
+@push('js')
+@endpush

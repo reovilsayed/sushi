@@ -64,6 +64,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/check-out', 'userCheckOut')->name('restaurant.checkout');
     Route::get('/contact', 'contact')->name('restaurant.contact');
     Route::get('/cart', 'cart')->name('restaurant.cart');
+    Route::post('/check-location', 'checkLocation')->name('check.location');
 });
 
 //cart routes
@@ -134,7 +135,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::resource('suppliers', SupplierController::class)->parameters(['suppliers' => 'supplier'])->names('suppliers');
 
 
-  
+
     Route::resource('settings', SettingController::class);
     Route::resource('priscription', PriscriptionController::class);
 

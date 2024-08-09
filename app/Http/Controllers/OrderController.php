@@ -124,8 +124,8 @@ class OrderController extends Controller
 
                 $data = [
                     'name' => $request->name,
-                    'subject' => 'We Create User Account to SohojWare',
-                    'body' => 'Name: ' . $user->name . '<br>' . 'Last Name: ' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:'. $pass,
+                    'subject' => 'We Create User Account to Sushi',
+                    'body' => 'Name:'.$user->name.'<br>'.'Last Name:'.$user->l_name.'<br>'.'Email:'.$user->email.'<br>'.'Password:'.$pass,
                     'button_link' => '',
                     'button_text' => '',
                 ];
@@ -155,6 +155,7 @@ class OrderController extends Controller
                 'sub_total' => Cart::getSubTotal(),
                 'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
                 'comment' => $request->input('home_commment'),
+                'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
             ]);
 

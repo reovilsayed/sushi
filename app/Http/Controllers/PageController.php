@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Extra;
 use App\Models\Product;
 use App\Models\Restaurant;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,9 +14,12 @@ class PageController extends Controller
     public function userIndex()
     {
         $restaurants = Restaurant::latest()->take(6)->get();
-        
-        
-        return view('user.home', compact('restaurants'));
+
+        $zones = Zone::with('restaurants')->get();
+        // foreach ($zones as $zone) {
+        //     dd($zone);
+        // }
+        return view('user.home', compact('restaurants', 'zones'));
     }
 
     public function menu($slug)
@@ -58,5 +62,40 @@ class PageController extends Controller
     {
         $extras = Extra::latest()->where('type', '=', 'cart')->get();
         return view('user.cart', compact('extras'));
+    }
+    public function checkLocation(Request $request)
+    {
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        // dd($latitude);
+        $radius = 5;
+
+     
+        $zone = Zone::select('zones.*')
+            ->selectRaw('( 6371 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
+            ->having('distance', '<', $radius)
+            ->orderBy('distance')
+            ->first();
+
+        if ($zone) {
+            $restaurant = $zone->restaurants()->first();
+
+            if ($restaurant) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => route('restaurant.menu', ['slug' => $restaurant->slug]),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No restaurants found in this zone.',
+                ]);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No zone found near your location.',
+            ]);
+        }
     }
 }

@@ -183,7 +183,7 @@
                                                 <input type="text" name="home_house" class="form-control"
                                                     placeholder="Your House" required="">
                                             </div>
-                                            
+
 
                                             <div class="col-md-12">
                                                 <textarea name="home_commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height:122px;"></textarea>
@@ -274,7 +274,7 @@
                                                 <tr
                                                     style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
                                                     <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                    <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €
+                                                    <td class="fs-5 fw-medium text-center">{{ session('total', 0) }} €
                                                     </td>
                                                 </tr>
 
@@ -382,5 +382,6 @@
                     updateFormVisibility();
                 });
             </script>
+
         @endpush
     </x-user>
