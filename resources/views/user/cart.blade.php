@@ -239,7 +239,7 @@
                             <div class="col-md-12 text-start mt-3 p-0">
                                 <!-- Proceed to checkout button -->
                                 <button type="submit" id="extraButton"
-                                    {{ Cart::isEmpty() || !auth()->check() ? 'disabled' : '' }}>Proceed to
+                                    {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to
                                     checkout</button>
 
                                 <!-- Message -->
