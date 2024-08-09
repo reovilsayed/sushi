@@ -68,9 +68,9 @@ class PageController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         // dd($latitude);
-        $radius = 5; // Define the radius in kilometers
+        $radius = 5;
 
-        // Find the nearest zone within the specified radius
+     
         $zone = Zone::select('zones.*')
             ->selectRaw('( 6371 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
             ->having('distance', '<', $radius)

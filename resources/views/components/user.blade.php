@@ -80,7 +80,7 @@
         let userLatitude = null;
         let userLongitude = null;
 
-        // Handle the location button click
+        
         document.getElementById('location-button').addEventListener('click', function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error);
@@ -115,10 +115,10 @@
             alert("Unable to retrieve your location.");
         }
 
-        // Handle the enter button click
+
         document.getElementById('enter-button').addEventListener('click', function() {
             if (userLatitude !== null && userLongitude !== null) {
-                // Proceed with AJAX request only if location is set
+
                 fetch('/check-location', {
                         method: 'POST',
                         headers: {
