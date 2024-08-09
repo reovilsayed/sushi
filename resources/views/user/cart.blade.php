@@ -196,6 +196,7 @@
                         @csrf
                         <div class="row text-center p-2">
                             @foreach ($extras as $extra)
+                                {{-- @dd($extra); --}}
                                 <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
                                     style="flex-direction: column; justify-content: space-between;">
                                     <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
@@ -264,7 +265,7 @@
                 const quantityInput = document.getElementById(`extra_quantity_${id}`);
                 const getTotal = document.getElementById('total_price');
                 // console.log(getTotal.value)
-          
+
                 let currentQuantity = parseInt(quantityInput.value);
                 quantityInput.removeAttribute('disabled');
                 let newQuantity = currentQuantity + change;
