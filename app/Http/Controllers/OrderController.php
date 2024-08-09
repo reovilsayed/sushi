@@ -107,12 +107,12 @@ class OrderController extends Controller
         if (Cart::isEmpty()) {
             return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
         }
-        $pass=Str::random(16);
+        $pass = Str::random(16);
 
         // Start a database transaction
         DB::beginTransaction();
 
-        // try {
+        try {
             // Handle user authentication
             if (!auth()->check()) {
                 $user = User::create([
@@ -125,7 +125,7 @@ class OrderController extends Controller
                 $data = [
                     'name' => $request->name,
                     'subject' => 'We Create User Account to Sushi',
-                    'body' => 'Name:'.$user->name.'<br>'.'Last Name:'.$user->l_name.'<br>'.'Email:'.$user->email.'<br>'.'Password:'.$pass,
+                    'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
                     'button_link' => '',
                     'button_text' => '',
                 ];
@@ -177,11 +177,11 @@ class OrderController extends Controller
 
             // Redirect back with a success message
             return redirect()->route('thank_you')->with('success', 'Order placed successfully!');
-        // } catch (\Exception $e) {
-        //     // Rollback the transaction in case of an error
-        //     DB::rollBack();
-        //     return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
-        // }
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an error
+            DB::rollBack();
+            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
+        }
     }
 
 
