@@ -16,22 +16,6 @@
               <div class="row gy-4">
       
                 <div class="col-lg-4">
-                  <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                    <i class="bi bi-geo-alt flex-shrink-0"></i>
-                    <div>
-                      <h3>Location</h3>
-                      <p>{{ Settings::option('address')  }}</p>
-                    </div>
-                  </div><!-- End Info Item -->
-      
-                  {{-- <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                    <i class="bi bi-telephone flex-shrink-0"></i>
-                    <div>
-                      <h3>Open Hours</h3>
-                      <p>Monday-Saturday:<br>11:00 AM - 2300 PM</p>
-                    </div>
-                  </div><!-- End Info Item --> --}}
-      
                   <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
                     <i class="bi bi-telephone flex-shrink-0"></i>
                     <div>
@@ -46,8 +30,7 @@
                       <h3>Email Us</h3>
                       <p>{{ Settings::option('email') }}</p>
                     </div>
-                  </div><!-- End Info Item -->
-      
+                  </div><!-- End Info Item -->  
                 </div>
       
                 <div class="col-lg-8">

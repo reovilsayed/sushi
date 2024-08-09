@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Role;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,16 +18,18 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         // dd(User::where('role_id', 2)->withSum('orders', 'due')->get());
-        $customers = User::withSum('orders', 'due')
-            ->when($request->due_customer == 1, function ($query) {
-                $query->whereHas('orders', function ($query) {
-                    $query->where('due', '>', 0);
-                });
-            })
-            ->latest()
-            ->filter()
-            ->paginate(24)
-            ->withQueryString();
+        // $customers = User::withSum('orders', 'due')
+        //     ->when($request->due_customer == 1, function ($query) {
+        //         $query->whereHas('orders', function ($query) {
+        //             $query->where('due', '>', 0);
+        //         });
+        //     })
+        //     ->latest()
+        //     ->filter()
+        //     ->paginate(24)
+        //     ->withQueryString();
+        $customers = User::latest()->paginate(24);
+       
 
         return view('pages.customers.list', compact('customers'));
     }
@@ -93,7 +96,8 @@ class CustomerController extends Controller
      */
     public function edit(User $customer)
     {
-        return view('pages.customers.edit', compact('customer'));
+        $roles = Role::all();
+        return view('pages.customers.edit', compact('customer','roles'));
     }
 
     /**
@@ -101,21 +105,18 @@ class CustomerController extends Controller
      */
     public function update(Request $request, User $customer)
     {
+        
         $request->validate([
             'name' => ['required', 'string'],
-            'phone' => ['nullable', 'string', 'digits:11', Rule::unique('users')->ignore($customer->id)],
+            'phone' => ['nullable', 'string', Rule::unique('users')->ignore($customer->id)],
             'email' => ['nullable', 'string'],
-            'address' => ['nullable', 'string'],
-            'gender' => ['nullable', 'string'],
-            'discount' => ['required', 'string'],
+            
         ]);
         $customer->update([
             'name' => $request->name,
+            'role_id' =>$request->role_id,
             'email' => $request->email,
             'phone' => $request->phone,
-            'address' => $request->address,
-            'gender' => $request->gender,
-            'discount' => $request->discount,
         ]);
 
         if ($request->password) {

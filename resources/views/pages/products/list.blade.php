@@ -50,8 +50,7 @@
                             </td>
 
                             <td class="">
-                                <a class="btn btn-sm btn-primary " href="{{ route('show.product', $product) }}"><i
-                                        class="fa fa-eye"></i></a>
+                                
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.product', $product) }}"><i
                                         class="fa fa-edit"></i></a>
                                 <x-actions.delete :action="route('delete.product', $product)" />

@@ -51,30 +51,15 @@
                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
                                             <div class="widget">
                                                 <p>Total Orders: {{ $data['total']['count'] }}</p>
-                                                <p>Total Amount: {{ Settings::price($data['total']['sum']) }}</p>
+                                               
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                             <div class="widget">
-                                                <p>Paid Orders: {{ $data['paid']['count'] }}</p>
-
-                                                <p>Paid Amount: {{ Settings::price($data['paid']['sum']) }}</p>
+                                                <p>Total Amount: {{ Settings::price($data['total']['sum']) }}</p>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                            <div class="widget">
-                                                <p>Unpaid Orders: {{ $data['unpaid']['count'] }}</p>
-
-                                                <p>Unpaid Amount: {{ Settings::price($data['unpaid']['sum']) }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                            <div class="widget">
-                                                <p>Due Orders: {{ $data['due']['count'] }}</p>
-
-                                                <p>Due Orders: {{ Settings::price($data['due']['sum']) }}</p>
-                                            </div>
-                                        </div>
+                                        
 
                                     </div>
 

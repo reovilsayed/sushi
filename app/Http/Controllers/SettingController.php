@@ -56,13 +56,9 @@ class SettingController extends Controller
             ],
             [
                 'shopName' => $request->shopName,
-                'address' => $request->address,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'currency' => $request->currency,
-                'tax' => $request->tax,
                 'logo' => $logo,
-                'manageStock' => $request->manageStock,
             ]
         );
 
