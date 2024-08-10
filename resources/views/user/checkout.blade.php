@@ -1,3 +1,9 @@
+    @php
+        $firstItem = Cart::getContent()->first();
+        $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
+        // $zone = $restaurant ? $restaurant->zones->get() : null;
+    @endphp
+
     <x-user>
         @push('css')
             <style>
@@ -64,27 +70,26 @@
 
         <!-- Contact Section -->
         <section id="contact" class="contact section ">
-            <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
-                {{-- <h2>Menu</h2> --}}
-                <p class="text-center">Checkout form</p>
-            </div>
-
+            {{-- @dd($zone) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
                         <div class="container content mb-5 ps-0" data-aos="fade-up">
-                            <h2 class="text-colour">Billing address</h2>
+                            <div class=" section-title aos-init aos-animate pb-0" data-aos="fade-up">
+                                {{-- <h2>Menu</h2> --}}
+                                <p class="">Checkout</p>
+                            </div>
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">Returning customer?</p>
-                                <a href=""> Login</a>
+                                <a href="{{ route('login') }}"> Login</a>
                             </div>
 
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-8 mb-3">
                                 <form action="{{ route('order_store') }}" method="post" class="php-email-form"
                                     data-aos="fade-up" data-aos-delay="200">
                                     @csrf
@@ -98,32 +103,31 @@
                                         </select>
                                     </div>
 
-
                                     <div id="takeAwayForm" class="mt-5">
-
-                                        <div class="content mb-3" data-aos="fade-up">
-                                            <h2 class="text-colour">Central Sushi Besancon</h2>
-                                            <div class="d-flex gap-3">
-                                                <p class="fst-italic">35 Av. Sadi Carnot, 25000 Besançon, France</p>
+                                        @if ($restaurant)
+                                            <div class="content mb-3 mt-5" data-aos="fade-up">
+                                                <h2 class="text-colour">{{ $restaurant->name }}</h2>
+                                                {{-- <div class="d-flex gap-3">
+                                                    <p class="fst-italic">{{ $restaurant->zone }}</p>
+                                                </div> --}}
                                             </div>
-
-                                        </div>
+                                        @endif
 
                                         <div class="row gy-4">
                                             <div class="col-md-6 ">
-                                                <input type="text" class="form-control" name="take_f_name"
+                                                <input type="text" class="form-control" name="f_name"
                                                     placeholder="Your First Name" required=""
                                                     value={{ auth()->user()->name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="text" name="take_l_name" class="form-control"
+                                                <input type="text" name="l_name" class="form-control"
                                                     placeholder="Your Last Name" required=""
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12">
-                                                <input type="email" name="take_email" class="form-control"
+                                                <input type="email" name="email" class="form-control"
                                                     placeholder="Your Email" required=""
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
@@ -132,61 +136,65 @@
 
                                     <div id="homeDeliveryForm" class="mt-5">
 
-                                        <div class="content mb-3" data-aos="fade-up">
-                                            <h2 class="text-colour">Central Sushi Belfort</h2>
-                                            <div class="d-flex gap-3">
-                                                <p class="fst-italic">60 Fbg de Montbéliard, 90000 Belfort, France</p>
+                                        @if ($restaurant)
+                                            <div class="content mb-3 mt-5" data-aos="fade-up">
+                                                <h2 class="text-colour">{{ $restaurant->name }}</h2>
+                                                <div class="d-flex gap-3">
+                                                    {{-- @dd($restaurant->zones) --}}
+                                                    {{-- @foreach ($restaurant->zones as $zone)
+                                                        <p class="fst-italic">{{ $zone->pivot->zone_name }}</p>
+                                                    @endforeach --}}
+                                                </div>
                                             </div>
-
-                                        </div>
+                                        @endif
 
                                         <div class="row gy-4">
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" name="home_f_name"
-                                                    placeholder="Your Name" required=""
+                                                <input type="text" class="form-control" name="f_name"
+                                                    placeholder="Your First Name" required=""
                                                     value={{ auth()->user()->name ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" name="home_l_name"
-                                                    placeholder="Your Name" required=""
+                                                <input type="text" class="form-control" name="l_name"
+                                                    placeholder="Your Last Name" required=""
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
 
                                             <div class="col-md-12">
-                                                <input type="email" name="home_email" class="form-control"
+                                                <input type="email" name="email" class="form-control"
                                                     placeholder="Your Email" required=""
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12">
-                                                <input type="text" name="home_address" class="form-control"
+                                                <input type="text" name="address" class="form-control"
                                                     placeholder="Your Address" required="">
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" name="home_city" class="form-control"
+                                                <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required="">
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" name="home_post_cod" class="form-control"
+                                                <input type="text" name="post_cod" class="form-control"
                                                     placeholder="Your Post Code" required="">
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" name="home_zip" class="form-control"
+                                                <input type="text" name="zip" class="form-control"
                                                     placeholder="Your Zip" required="">
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="number" id="number_type" name="home_phone"
+                                                <input type="number" id="number_type" name="phone"
                                                     class="form-control" placeholder="Your Phone Number">
                                             </div>
                                             <div class="col-md-12">
-                                                <input type="text" name="home_house" class="form-control"
+                                                <input type="text" name="house" class="form-control"
                                                     placeholder="Your House" required="">
                                             </div>
 
 
                                             <div class="col-md-12">
-                                                <textarea name="home_commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height:122px;"></textarea>
+                                                <textarea name="commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height:122px;"></textarea>
                                             </div>
                                             {{-- <div class="input-group mb-3">
                                                 <input type="text" class="form-control form-control-lg location"
@@ -320,27 +328,6 @@
         </section><!-- /Contact Section -->
         @push('js')
             <script>
-                // document.addEventListener('DOMContentLoaded', function() {
-                //     const deliveryOption = document.getElementById('deliveryOption');
-                //     const takeAwayForm = document.getElementById('takeAwayForm');
-                //     const homeDeliveryForm = document.getElementById('homeDeliveryForm');
-
-                //     deliveryOption.addEventListener('change', function() {
-                //         const selectedOption = this.value;
-
-                //         if (selectedOption === 'take_away') {
-                //             takeAwayForm.style.display = 'block';
-                //             homeDeliveryForm.style.display = 'none';
-                //         } else if (selectedOption === 'home_delivery') {
-                //             takeAwayForm.style.display = 'none';
-                //             homeDeliveryForm.style.display = 'block';
-                //         } else {
-                //             takeAwayForm.style.display = 'none';
-                //             homeDeliveryForm.style.display = 'none';
-                //         }
-                //     });
-                // });
-
                 document.addEventListener('DOMContentLoaded', function() {
                     const deliveryOption = document.getElementById('deliveryOption');
                     const takeAwayForm = document.getElementById('takeAwayForm');
@@ -382,6 +369,5 @@
                     updateFormVisibility();
                 });
             </script>
-
         @endpush
     </x-user>

@@ -107,7 +107,7 @@ class OrderController extends Controller
         if (Cart::isEmpty()) {
             return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
         }
-        $pass=Str::random(16);
+        $pass = Str::random(16);
 
         // Start a database transaction
         DB::beginTransaction();
@@ -116,16 +116,16 @@ class OrderController extends Controller
             // Handle user authentication
             if (!auth()->check()) {
                 $user = User::create([
-                    'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
-                    'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
-                    'email' => $request->input('take_email') ?? $request->input('home_email'),
+                    'name' => $request->input('f_name') ?? $request->input('f_name'),
+                    'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                    'email' => $request->input('email') ?? $request->input('email'),
                     'password' => Hash::make($pass), // Generate a random password
                 ]);
 
                 $data = [
                     'name' => $request->name,
                     'subject' => 'We Create User Account to Sushi',
-                    'body' => 'Name:'.$user->name.'<br>'.'Last Name:'.$user->l_name.'<br>'.'Email:'.$user->email.'<br>'.'Password:'.$pass,
+                    'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
                     'button_link' => '',
                     'button_text' => '',
                 ];
@@ -136,15 +136,15 @@ class OrderController extends Controller
 
             // Prepare shipping information
             $shipping = [
-                'name' => $request->input('take_f_name') ?? $request->input('home_f_name'),
-                'l_name' => $request->input('take_l_name') ?? $request->input('home_l_name'),
-                'email' => $request->input('take_email') ?? $request->input('home_email'),
-                'address' => $request->input('home_address'),
-                'city' => $request->input('home_city'),
-                'post_code' => $request->input('home_post_cod'),
-                'zip' => $request->input('home_zip'),
-                'house' => $request->input('home_house'),
-                'phone' => $request->input('home_phone'),
+                'name' => $request->input('f_name') ?? $request->input('f_name'),
+                'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                'email' => $request->input('email') ?? $request->input('email'),
+                'address' => $request->input('address'),
+                'city' => $request->input('city'),
+                'post_code' => $request->input('post_cod'),
+                'zip' => $request->input('zip'),
+                'house' => $request->input('house'),
+                'phone' => $request->input('phone'),
             ];
 
             // Create the order
@@ -154,7 +154,7 @@ class OrderController extends Controller
                 'extra' => json_encode(session('extras')), // Storing as JSON
                 'sub_total' => Cart::getSubTotal(),
                 'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
-                'comment' => $request->input('home_commment'),
+                'comment' => $request->input('commment'),
                 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
             ]);

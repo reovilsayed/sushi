@@ -2,71 +2,7 @@
     @push('css')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
-
-        <style>
-            .nav-tabs .nav-link.active {
-                color: #e4d4bf !important;
-                background-color: var(--sec-color);
-                border-color: var(--sec-color);
-            }
-
-            .nav-link {
-                color: var(--sec-color);
-            }
-
-            .subcart img {
-                width: 80px;
-                height: 80px;
-                object-fit: contain;
-            }
-
-            .subcart h5 {
-                font-size: 14px;
-            }
-
-            .carousel-control-prev-icon,
-            .carousel-control-next-icon {
-                background-color: #000;
-            }
-
-            .btn.pbtn {
-                border: none;
-                color: white;
-                padding: 5px 10px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 4px;
-            }
-
-            @media (max-width: 767px) {
-                .carousel-inner .carousel-item>div {
-                    display: none;
-                }
-
-                .carousel-inner .carousel-item>div:first-child {
-                    display: block;
-                }
-            }
-
-            #orderButton {
-                color: var(--default-color);
-                background: none;
-                border: 2px solid var(--accent-color);
-                padding: 5px 10px;
-                transition: 0.4s;
-                border-radius: 0px !important;
-            }
-
-            h5 {
-                color: var(--accent-color);
-            }
-        </style>
     @endpush
-
 
     <section id="about" class="cart_section pb-5">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
@@ -89,34 +25,36 @@
                                 <th class="cart-product-subtotal text-center">Subtotal</th>
                             </thead>
                             <tbody class="table_body">
-                               
+                                {{-- @dd(Cart::getContent()) --}}
                                 @forelse (Cart::getContent() as $item)
-
-                                    {{-- @dd($item->attributes->restaurent) --}}
+                                    {{-- @dd($item) --}}
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
                                                 href="{{ url('/cart-destroy/' . $item->id) }}">x</a>
                                         </td>
-                                        <td class="cart-product-image">
-                                            <a href="product-details.html"><img src="{{ $item->image ?? '' }}"
-                                                    alt="{{ $item->image }}"></a>
-                                        </td>
-
-
-                                        <td class="cart-product-info text-center">
-                                            @if (isset($item->attributes['resturent']))
-                                                @php
-                                                    $restuarant = App\Models\Restaurant::find(
-                                                        $item->attributes['resturent'],
-                                                    );
-                                                @endphp
+                                        @if (isset($item->attributes['restaurent']))
+                                            @php
+                                                $restuarant = App\Models\Restaurant::find(
+                                                    $item->attributes['restaurent'],
+                                                );
+                                            @endphp
+                                            <td class="cart-product-image">
+                                                <a
+                                                    href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">
+                                                    <img src="{{ Storage::url($item->image ?? '') }}"
+                                                        alt="{{ $item->name }}">
+                                                </a>
+                                            </td>
+                                            <td class="cart-product-info text-center">
                                                 <h4><a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">{{ $item->name }}</a>
                                                 </h4>
-                                            @endif
-                                        </td>
+                                            </td>
+                                        @endif
+                                        
                                         <td class="cart-product-price">{{ $item->price }}€</td>
+                                        
                                         <form action="{{ route('cart.update') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $item->id }}" />
@@ -246,7 +184,7 @@
                                 @if (Cart::isEmpty())
                                     <p class="mt-2 text-danger">Please add products to the cart before selecting
                                         extras.</p>
-                                {{-- @elseif (!auth()->check())
+                                    {{-- @elseif (!auth()->check())
                                     <p class="mt-2 text-danger">Please log in to proceed to checkout.</p> --}}
                                 @endif
                             </div>
@@ -256,100 +194,42 @@
             </div>
         </div>
     </section>
-
-    {{-- @push('js')
-        <script>
-            function changeQuantity(change, id, price, name) {
-
-
-                const quantityInput = document.getElementById(`extra_quantity_${id}`);
-                const getTotal = document.getElementById('total_price');
-                // console.log(getTotal.value)
-
-                let currentQuantity = parseInt(quantityInput.value);
-                quantityInput.removeAttribute('disabled');
-                let newQuantity = currentQuantity + change;
-
-                if (newQuantity < 0) {
-                    newQuantity = 0;
-                }
-
-                quantityInput.value = newQuantity;
-
-                let newPrice = newQuantity * price;
-                getTotal.value = parseFloat(getTotal.value) + newPrice;
-
-
-                const priceElement = document.getElementById(`price_${id}`);
-                priceElement.value = `${newPrice.toFixed(2)}€`;
-
-                // Update hidden inputs
-                const hiddenPriceElement = document.getElementById(`hidden_price_${id}`);
-                hiddenPriceElement.removeAttribute('disabled');
-                hiddenPriceElement.value = newPrice;
-
-                const hiddenNameElement = document.getElementById(`name_${id}`);
-                hiddenNameElement.removeAttribute('disabled');
-                hiddenNameElement.value = name;
-            }
-        </script>
-    @endpush --}}
     @push('js')
         <script>
             function changeQuantity(change, id, price, name) {
                 const quantityInput = document.getElementById(`extra_quantity_${id}`);
-                const getTotal = document.getElementById('total_price');
+                const currentQuantity = Math.max(0, parseInt(quantityInput.value) + change);
 
-                let currentQuantity = parseInt(quantityInput.value);
-                quantityInput.removeAttribute('disabled');
-                let newQuantity = currentQuantity + change;
+                quantityInput.value = currentQuantity;
+                document.getElementById(`price_${id}`).value = `${(currentQuantity * price).toFixed(2)}€`;
 
-                if (newQuantity < 0) {
-                    newQuantity = 0;
+                document.getElementById(`hidden_price_${id}`).value = currentQuantity * price;
+                document.getElementById(`name_${id}`).value = name;
+
+                // Enable hidden inputs if quantity is greater than 0
+                if (currentQuantity > 0) {
+                    quantityInput.removeAttribute('disabled');
+                    document.getElementById(`hidden_price_${id}`).removeAttribute('disabled');
+                    document.getElementById(`name_${id}`).removeAttribute('disabled');
+                } else {
+                    quantityInput.setAttribute('disabled', true);
+                    document.getElementById(`hidden_price_${id}`).setAttribute('disabled', true);
+                    document.getElementById(`name_${id}`).setAttribute('disabled', true);
                 }
 
-                quantityInput.value = newQuantity;
-
-                // Calculate new price for the specific extra
-                let newPrice = newQuantity * price;
-
-                const priceElement = document.getElementById(`price_${id}`);
-                priceElement.value = `${newPrice.toFixed(2)}€`;
-
-                // Update hidden inputs
-                const hiddenPriceElement = document.getElementById(`hidden_price_${id}`);
-                hiddenPriceElement.removeAttribute('disabled');
-                hiddenPriceElement.value = newPrice;
-
-                const hiddenNameElement = document.getElementById(`name_${id}`);
-                hiddenNameElement.removeAttribute('disabled');
-                hiddenNameElement.value = name;
-
-                // Recalculate the total including all extras
                 recalculateTotal();
             }
 
             function recalculateTotal() {
-                const extras = document.querySelectorAll('.cart-plus-minus-box');
-                const baseTotal = parseFloat('{{ Cart::getTotal() }}');
-                let extrasTotal = 0;
+                const extrasTotal = [...document.querySelectorAll('.cart-plus-minus-box')].reduce((total, extra) =>
+                    total + (parseFloat(extra.dataset.price) * parseInt(extra.value) || 0), 0);
 
-                extras.forEach(function(extra) {
-                    const price = parseFloat(extra.dataset.price);
-                    const quantity = parseInt(extra.value);
-
-                    if (!isNaN(price) && !isNaN(quantity)) {
-                        extrasTotal += price * quantity;
-                    }
-                });
-
-                const finalTotal = baseTotal + extrasTotal;
+                const finalTotal = parseFloat('{{ Cart::getTotal() }}') + extrasTotal;
                 document.getElementById('total_price').value = finalTotal.toFixed(2);
-
-                // Update the displayed total
                 document.getElementById('order_total_display').innerText = `${finalTotal.toFixed(2)} €`;
             }
         </script>
+
 
         {{-- <script>
             function checkLoginStatus() {
@@ -362,205 +242,5 @@
             }
         </script> --}}
     @endpush
-
-
-
-
-
-    {{-- <section class="pt-0 pb-5">
-        <div class="container">
-            <div class="row mt-5 mb-5">
-                <div class="section-title text-center">
-                    <h2>Menu</h2>
-                    <p>Let yourself be tempted by…</p>
-                </div>
-                <div class="col-12">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="accompagnements-tab" data-bs-toggle="tab"
-                                data-bs-target="#accompagnements" type="button" role="tab"
-                                aria-controls="accompagnements" aria-selected="true">ACCOMPANIMENTS</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="deserts-tab" data-bs-toggle="tab" data-bs-target="#deserts"
-                                type="button" role="tab" aria-controls="deserts"
-                                aria-selected="false">DESSERTS</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="boissons-tab" data-bs-toggle="tab"
-                                data-bs-target="#boissons" type="button" role="tab" aria-controls="boissons"
-                                aria-selected="false">DRINKS</button>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content" id="myTabContent">
-                        <!-- Accompaniments Tab Pane -->
-                        <div class="tab-pane fade show active" id="accompagnements" role="tabpanel"
-                            aria-labelledby="accompagnements-tab">
-                            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="row justify-content-center">
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <button class="btn btn-outline-secondary btn-sm me-2"
-                                                            disabled>x</button>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center"
-                                                            value="1" style="width: 40px;">
-                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <button class="btn btn-outline-secondary btn-sm me-2"
-                                                            disabled>x</button>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center"
-                                                            value="1" style="width: 40px;">
-                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <button class="btn btn-outline-secondary btn-sm me-2"
-                                                            disabled>x</button>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center"
-                                                            value="1" style="width: 40px;">
-                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <div class="text-center ">
-                                                            <button type="submit" id="orderButton"
-                                                                style="border: 2px solid var(--accent-color)"
-                                                                disabled>Order </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Repeat the col for each product -->
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="row justify-content-center">
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <button class="btn btn-outline-secondary btn-sm me-2"
-                                                            disabled>x</button>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center"
-                                                            value="1" style="width: 40px;">
-                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <button class="btn btn-outline-secondary btn-sm me-2"
-                                                            disabled>x</button>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center"
-                                                            value="1" style="width: 40px;">
-                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <button class="btn btn-outline-secondary btn-sm me-2"
-                                                            disabled>x</button>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center"
-                                                            value="1" style="width: 40px;">
-                                                        <a href="" class="btn btn-primary btn-sm ms-2">+</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 col-md-3 d-flex justify-content-center">
-                                                <div class="product-card text-center p-3">
-                                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        class="img-fluid" alt="Edamame">
-                                                    <h5 class="mt-3 mb-2">Edamame</h5>
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                        <div class="text-center ">
-                                                            <button type="submit" id="orderButton"
-                                                                style="border: 2px solid var(--accent-color)"
-                                                                disabled>Order </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Repeat the col for each product -->
-                                        </div>
-                                    </div>
-                                    <!-- Additional carousel items go here -->
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#productCarousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#productCarousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-
-                    <!-- Desserts Tab Pane -->
-                    <div class="tab-pane fade" id="deserts" role="tabpanel" aria-labelledby="deserts-tab">
-
-                    </div>
-
-                    <!-- Drinks Tab Pane -->
-                    <div class="tab-pane fade" id="boissons" role="tabpanel" aria-labelledby="boissons-tab">
-                        <div class="text-center">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section> --}}
 
 </x-user>

@@ -9,4 +9,10 @@ class Restaurant extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function zones()
+    {
+        return $this->belongsToMany(Zone::class, 'restaurant_zone', 'restaurant_id', 'zone_id')
+            ->withPivot('zone_name');
+    }
 }
