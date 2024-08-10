@@ -83,7 +83,7 @@
                             </div>
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">Returning customer?</p>
-                                <a href=""> Login</a>
+                                <a href="{{ route('login') }}"> Login</a>
                             </div>
 
                         </div>
