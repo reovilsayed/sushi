@@ -41,5 +41,7 @@ class DatabaseSeeder extends Seeder
                 'display_name' => 'User',
             ])->save();
         }
+        
+        $this->call(SettingTableSeeder::class);
     }
 }

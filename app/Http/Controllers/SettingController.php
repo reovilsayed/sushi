@@ -9,66 +9,54 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // /**
+    //  * Display a listing of the resource.
+    //  */
     public function index()
     {
-        //
+       
+
+        return view('pages.settings.update');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+
+    public function updateSettings(Request $request)
     {
-        return view('pages.settings.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
-        if ($request->has('logo')) {
-            $logo = $request->logo->store('setting', 'public');
-
-            if (auth()->user()->setting) {
-                if (auth()->user()->setting->logo && Storage::exists(auth()->user()->setting->logo)) {
-
-                    Storage::delete(auth()->user()->setting->logo);
-                }
-            }
-        } else {
-            $logo = auth()->user()->setting ? auth()->user()->setting->logo : null;
-        }
+        // Validate the form data
         $request->validate([
-            'phone' => 'required|string',
-            'tax' => 'nullable|numeric',
-            'email' => 'nullable|email',
+            'site_title' => 'required|string|max:255',
+            'site_email' => 'required|email|max:255',
+            'site_phone' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $settings = Setting::firstOrNew();
-        Setting::updateOrCreate(
-            [
-                'id' => $settings->id,
 
-            ],
-            [
-                'shopName' => $request->shopName,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'logo' => $logo,
-            ]
-        );
+        // Update the site title
+        Setting::where('key', 'site.title')->update(['value' => $request->input('site_title')]);
+        // Update the site email
+        Setting::where('key', 'site.email')->update(['value' => $request->input('site_email')]);
+        // Update the site phone
+        Setting::where('key', 'site.phone')->update(['value' => $request->input('site_phone')]);
 
-        return back()->with('success', 'Setting added successFull');
+
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            // Store the image in the 'public' directory
+            $path = $request->file('image')->store('images', 'public');
+
+            // Update the image path in the database
+            Setting::where('key', 'site.logo')->update(['value' => $path]);
+        }
+
+        // Optionally, add a success message and redirect
+        return redirect()->back()->with('success', 'Settings updated successfully.');
     }
     public function changePassword(Request $request)
     {
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|min:8', 'confirmed',
+            'new_password' => 'required|min:8',
+            'confirmed',
         ]);
 
         $user = auth()->user();
@@ -83,36 +71,5 @@ class SettingController extends Controller
         $user->save();
 
         return back()->with('success', 'Password changed successfully');
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

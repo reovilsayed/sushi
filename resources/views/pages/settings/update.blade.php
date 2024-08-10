@@ -4,7 +4,7 @@
         $currencies = App\Constant\Dataset::CURRENCY;
 
     @endphp
-    <form action="{{ route('settings.store') }}" method="POST" class="row g-3" enctype="multipart/form-data">
+    <form action="{{ route('setting.update') }}" method="POST" class="row g-3" enctype="multipart/form-data">
         @csrf
         <div class=" dashboard_content_setting">
             <div class="dashboard_content_inner">
@@ -15,13 +15,13 @@
                                 <div class="profile_pic_lft">
                                     <div class="">
                                         <div class="row row-cols-1 row-cols-md-2">
-
+                                            
                                             <div class="prf_box mt-3">
                                                 <div class="prf" data-profile-image>
-                                                    <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('images/logo.png') }}"
+                                                    <img src="{{ Settings::site_logo() ? Storage::url(Settings::site_logo()) : asset('images/logo.png') }}"
                                                         alt="">
                                                     <span class="prf_pic_change">
-                                                        <input type="file" accept="image/*" name="logo"
+                                                        <input type="file" accept="image/*" name="image"
                                                             id="imageInput" onchange="handleImageSelect()">
                                                         <svg width="20" height="16" viewBox="0 0 20 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,68 +32,46 @@
                                                     </span>
                                                 </div>
                                                 <div class="prf_rt">
-                                                    <h4>{{ Settings::option('shopName') ? Settings::option('shopName') : old('shopName') }}
+                                                    <h4>{{ Settings::site_title() ? Settings::site_title() : 'site title' }}
                                                     </h4>
                                                     <p>
                                                         <img src="{{ asset('images/email.png') }}" alt="" />
                                                         <a
-                                                            href="">{{ Settings::option('email') ? Settings::option('email') : old('email') }}</a>
+                                                            href="">{{ Settings::site_email() ? Settings::site_email() : 'site Email' }}</a>
                                                     </p>
                                                     <p><img src="{{ asset('images/phone.png') }}"
-                                                            alt="" />{{ Settings::option('address') ? Settings::option('address') : old('address') }}
+                                                            alt="" />{{Settings::site_phone() ? Settings::site_phone() : 'site Phone'}}
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <div class="prf_data_box">
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Shop Name</div>
+                                                    <div class="label">Site Title</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::option('shopName') ? Settings::option('shopName') : old('shopName') }}"
-                                                            placeholder="Shop Name" class="" name="shopName">
+                                                            value="{{ Settings::site_title() ? Settings::site_title() : 'site title' }}"
+                                                            placeholder="Site Title" class="" name="site_title">
+                                                    </div>
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Site Email</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::site_email() ? Settings::site_email() : 'site Email' }}"
+                                                            placeholder="Site Email" class="" name="site_email">
+                                                    </div>  
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Site Phone Number</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::site_phone() ? Settings::site_phone() : 'site Phone' }}"
+                                                            placeholder="Site Phone Number" class="" name="site_phone">
                                                     </div>
                                                 </div>
 
-                                                <div class="prf_data_row" data-editable>
-                                                    <div class="label">Address</div>
-                                                    <div class="input">
-                                                        <input type="text" placeholder="Address" class=""
-                                                            name="address"
-                                                            value="{{ Settings::option('address') ? Settings::option('address') : old('address') }}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="prf_data_row" data-editable>
-                                                    <div class="label">Email Address</div>
-                                                    <div class="input">
-                                                        <input type="text" placeholder="Email Address"
-                                                            class="@error('email')
-                                                            is-invalid
-                                                        @enderror"
-                                                            name="email"
-                                                            value="{{ Settings::option('email') ? Settings::option('email') : old('email') }}">
-                                                        @error('email')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="prf_data_row" data-editable>
-                                                    <div class="label">Phone Number</div>
-                                                    <div class="input">
-                                                        <input type="tel"
-                                                            value="{{ Settings::option('phone') ? Settings::option('phone') : old('phone') }}"
-                                                            placeholder="Phone Number"
-                                                            class="@error('phone')
-                                                            is-invalid
-                                                            @enderror"
-                                                            name="phone">
-                                                        @error('phone')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>  
+                                               
                                                 <div class="col-12 d-flex justify-content-between mt-2">
                                                     <button class="btn btn-outline-primary h-auto" type="submit"> <i
                                                             class="fa fa-save"></i> Save</button>
@@ -114,6 +92,7 @@
                 </div>
             </div>
         </div>
+
     </form>
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
         aria-hidden="true">
@@ -130,8 +109,8 @@
 
                         <div class="mb-3">
                             <label for="current_password" class="form-label">Current Password</label>
-                            <input type="password" class="form-control" id="current_password"
-                                name="current_password" required>
+                            <input type="password" class="form-control" id="current_password" name="current_password"
+                                required>
                         </div>
 
                         <div class="mb-3">
