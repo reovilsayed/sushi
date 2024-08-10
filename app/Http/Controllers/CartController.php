@@ -100,8 +100,9 @@ class CartController extends Controller
 	}
 
 	public function extras(request $request)  {
+		// dd( $request->restaurant_slug);
 		Session::put('extras',$request->extras);
 		Session::put('total',$request->total_price);
-		return redirect()->route('restaurant.checkout');
+		return redirect()->route('restaurant.checkout', ['restaurant' => $request->restaurant_slug]);
 	}
 }

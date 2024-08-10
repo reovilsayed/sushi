@@ -1,3 +1,9 @@
+    @php
+        $firstItem = Cart::getContent()->first();
+        $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
+        // $zone = $restaurant ? $restaurant->zones->get() : null;
+    @endphp
+
     <x-user>
         @push('css')
             <style>
@@ -64,18 +70,17 @@
 
         <!-- Contact Section -->
         <section id="contact" class="contact section ">
-            <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
-                {{-- <h2>Menu</h2> --}}
-                <p class="">Checkout</p>
-            </div>
-
+            {{-- @dd($zone) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
                         <div class="container content mb-5 ps-0" data-aos="fade-up">
-                            <h2 class="text-colour">Billing address</h2>
+                            <div class=" section-title aos-init aos-animate pb-0" data-aos="fade-up">
+                                {{-- <h2>Menu</h2> --}}
+                                <p class="">Checkout</p>
+                            </div>
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">Returning customer?</p>
                                 <a href=""> Login</a>
@@ -84,7 +89,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-8 mb-3">
                                 <form action="{{ route('order_store') }}" method="post" class="php-email-form"
                                     data-aos="fade-up" data-aos-delay="200">
                                     @csrf
@@ -98,16 +103,15 @@
                                         </select>
                                     </div>
 
-
                                     <div id="takeAwayForm" class="mt-5">
-
-                                        <div class="content mb-3" data-aos="fade-up">
-                                            <h2 class="text-colour">Central Sushi Besancon</h2>
-                                            <div class="d-flex gap-3">
-                                                <p class="fst-italic">35 Av. Sadi Carnot, 25000 Besançon, France</p>
+                                        @if ($restaurant)
+                                            <div class="content mb-3 mt-5" data-aos="fade-up">
+                                                <h2 class="text-colour">{{ $restaurant->name }}</h2>
+                                                {{-- <div class="d-flex gap-3">
+                                                    <p class="fst-italic">{{ $restaurant->zone }}</p>
+                                                </div> --}}
                                             </div>
-
-                                        </div>
+                                        @endif
 
                                         <div class="row gy-4">
                                             <div class="col-md-6 ">
@@ -132,13 +136,17 @@
 
                                     <div id="homeDeliveryForm" class="mt-5">
 
-                                        <div class="content mb-3" data-aos="fade-up">
-                                            <h2 class="text-colour">Central Sushi Belfort</h2>
-                                            <div class="d-flex gap-3">
-                                                <p class="fst-italic">60 Fbg de Montbéliard, 90000 Belfort, France</p>
+                                        @if ($restaurant)
+                                            <div class="content mb-3 mt-5" data-aos="fade-up">
+                                                <h2 class="text-colour">{{ $restaurant->name }}</h2>
+                                                <div class="d-flex gap-3">
+                                                    {{-- @dd($restaurant->zones) --}}
+                                                    {{-- @foreach ($restaurant->zones as $zone)
+                                                        <p class="fst-italic">{{ $zone->pivot->zone_name }}</p>
+                                                    @endforeach --}}
+                                                </div>
                                             </div>
-
-                                        </div>
+                                        @endif
 
                                         <div class="row gy-4">
                                             <div class="col-md-6">
@@ -320,27 +328,6 @@
         </section><!-- /Contact Section -->
         @push('js')
             <script>
-                // document.addEventListener('DOMContentLoaded', function() {
-                //     const deliveryOption = document.getElementById('deliveryOption');
-                //     const takeAwayForm = document.getElementById('takeAwayForm');
-                //     const homeDeliveryForm = document.getElementById('homeDeliveryForm');
-
-                //     deliveryOption.addEventListener('change', function() {
-                //         const selectedOption = this.value;
-
-                //         if (selectedOption === 'take_away') {
-                //             takeAwayForm.style.display = 'block';
-                //             homeDeliveryForm.style.display = 'none';
-                //         } else if (selectedOption === 'home_delivery') {
-                //             takeAwayForm.style.display = 'none';
-                //             homeDeliveryForm.style.display = 'block';
-                //         } else {
-                //             takeAwayForm.style.display = 'none';
-                //             homeDeliveryForm.style.display = 'none';
-                //         }
-                //     });
-                // });
-
                 document.addEventListener('DOMContentLoaded', function() {
                     const deliveryOption = document.getElementById('deliveryOption');
                     const takeAwayForm = document.getElementById('takeAwayForm');
@@ -382,6 +369,5 @@
                     updateFormVisibility();
                 });
             </script>
-
         @endpush
     </x-user>

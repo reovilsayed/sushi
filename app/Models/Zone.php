@@ -13,4 +13,10 @@ class Zone extends Model
     {
         return $this->belongsToMany(Restaurant::class)->withPivot('zone_id', 'zone_name', 'restaurant_id');
     }
+
+    public function ZoneRestaurants()
+    {
+        return $this->belongsToMany(Restaurant::class, 'restaurant_zone', 'zone_id', 'restaurant_id')
+            ->withPivot('zone_name');
+    }
 }
