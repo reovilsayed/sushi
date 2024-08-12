@@ -25,7 +25,7 @@
                                     autofocus required />
                             </div>
                             <div class="row row-cols-2  ">
-                                <x-form.input name="zip" wire:model="zip" label="Restaurant Zip Code*" autofocus
+                                <x-form.input name="zip_code" wire:model="zip" label="Restaurant Zip Code*" autofocus
                                     required />
                                 <x-form.input name="number" wire:model="number" label="Restaurant Number*" autofocus
                                     required />
@@ -49,7 +49,7 @@
                     <div class="card mt-4">
                         <div class="card-body">
 
-                            <select class="form-select mb-3" aria-label="Default select example" name="category">
+                            <select class="form-select mb-3" aria-label="Default select example" name="zone_id">
                                 <option selected>Select Zone</option>
                                 @foreach ($areas as $area)
                                 <option value="{{$area->id}}">{{$area->zone_name}}</option>
@@ -57,13 +57,13 @@
 
                             </select>
 
-                            <div class="row row-cols-2">
+                            {{-- <div class="row row-cols-2">
 
                                 <x-form.input id="longitude" name="longitude" wire:model="longitude" label="Longitude"
                                     value="" required />
                                 <x-form.input id="latitude" name="latitude" wire:model="latitude" label="Latitude"
                                     value="" required />
-                            </div>
+                            </div> --}}
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> Save
                             </button>

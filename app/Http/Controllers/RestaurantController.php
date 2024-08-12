@@ -24,6 +24,15 @@ class RestaurantController extends Controller
         $restaurant = new Restaurant;
 
         $restaurant->name = $request->name;
+        $restaurant->email = $request->email;
+        $restaurant->address = $request->address;
+        $restaurant->city = $request->city;
+        $restaurant->post_code = $request->post_code;
+        $restaurant->zip_code = $request->zip_code;
+        $restaurant->number = $request->number;
+        $restaurant->zone_id = $request->zone_id;
+
+
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
             if ($restaurant->image && Storage::exists($restaurant->image)) {
@@ -65,6 +74,6 @@ class RestaurantController extends Controller
         }
 
         $restaurant->delete();
-        return redirect(route('restaurants'))->with('success', 'Restaurant deleted');
+        return redirect(route('admin.restaurants'))->with('success', 'Restaurant deleted');
     }
 }
