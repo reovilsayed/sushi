@@ -99,7 +99,7 @@
         <x-sidenav.nav name="Orders" :active="request()->is('orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
         <x-sidenav.nav name="Reports" :active="request()->is('reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
         <x-sidenav.nav name="Settings" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
-        <x-sidenav.nav name="Pages" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
+        <x-sidenav.nav name="Pages" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
         
 
 

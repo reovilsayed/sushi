@@ -13,26 +13,26 @@
     <form action="{{ route('pages.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="container mt-3">
-            <div class="row">
-                <div class="col-md-8 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6 class="dash_head">Add Pages</h6>
-                            <div class="row row-cols-1">
-                                <x-form.input name="title" wire:model="name" label="Title *" autofocus required />
-                            </div>
-                            <div class="row row-cols px-2">
-                                <form method="post">
-                                    <textarea id="summernote" name="body"></textarea>
-                                </form>
-                            </div>
-                            <button class="btn btn-success" type="submit" style="float: right">
-                                <i class="fa fa-save"></i> Save
-                            </button>
+
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="card-body ">
+                        <h6 class="dash_head">Add Pages</h6>
+                        <div class="row row-cols-1">
+                            <x-form.input name="title" wire:model="name" label="Title *" autofocus required />
                         </div>
+                        <div class="row row-cols px-2">
+                            <form method="post">
+                                <textarea id="summernote" name="body"></textarea>
+                            </form>
+                        </div>
+                        <button class="btn btn-success" type="submit" style="float: right">
+                            <i class="fa fa-save"></i> Save
+                        </button>
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
 
@@ -42,7 +42,7 @@
                 $('#summernote').summernote({
                     placeholder: 'enter your body content here',
                     tabsize: 2,
-                    height: 100
+                    height: 500
                 });
 
             });
