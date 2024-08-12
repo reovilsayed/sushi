@@ -1,6 +1,6 @@
 @php
     $restaurants = App\Models\Restaurant::latest()->take(9)->get();
-    
+    $pages = App\Models\Page::select('title', 'slug')->get();
 @endphp
 <footer id="footer" class="footer">
     <div class="container footer-top">
@@ -32,8 +32,9 @@
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                     @endauth
-                    <li><a href="#">Terms of service</a></li>
-                    <li><a href="#">Privacy policy</a></li>
+                    @foreach ($pages as $page)
+                    <li><a href="{{route('pages.view',$page->slug   )}}">{{$page->title}}</a></li>
+                    @endforeach
                 </ul>
             </div>
 

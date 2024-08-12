@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Extra;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\Restaurant;
 use App\Models\Zone;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class PageController extends Controller
 {
     public function userIndex()
@@ -101,5 +102,42 @@ class PageController extends Controller
                 'message' => 'No zone found near your location.',
             ]);
         }
+    }
+    public function adminPages(){
+        $pages = Page::all();
+        return view('pages.pages.pageslist',compact('pages'));
+    }
+    public function pagesCreate(){
+        return view('pages.pages.create');
+    }
+    public function pagesStore(Request $request){
+        $page = new Page;
+        $page->title = $request->title;
+        $page->slug = Str::slug($request->title);
+        $page->body = $request->body;
+        $page->save();
+        return redirect(route('admin.pages'))->with('success','page added successfully');   
+    }
+    public function destroyPage(Page $page)
+    {
+        $page->delete();
+        return redirect()->back()->with('success', 'Restaurant deleted');
+    }
+    public function pagesEdit(Page $page){
+        return view('pages.pages.edit', compact('page'));
+    }
+    public function pagesUpdate(Request $request,Page $page){
+        $page->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'body' => $request->body,
+        ]);
+        $page->save();
+        return redirect(route('admin.pages'))->with('success', 'Pages Updated Successfully');
+    }
+    public function pageView($page){
+        $data = Page::where('slug',$page)->first();
+        
+        return view('pages.pages.page',compact('data'));
     }
 }
