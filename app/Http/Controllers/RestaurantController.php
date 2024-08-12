@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use App\Models\RestaurantZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -13,14 +14,15 @@ class RestaurantController extends Controller
         return view('pages.restaurants.all-restaurant',compact('restaurants'));
     }
     public function createRestaurant(){
-        
-        return view('pages.restaurants.create');
+        $areas = RestaurantZone::all();
+        return view('pages.restaurants.create',compact('areas'));
     }
     public function storeRestaurant(Request $request){
         $validated = $request->validate([
             'name' => 'required|string',
         ]);
         $restaurant = new Restaurant;
+
         $restaurant->name = $request->name;
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
