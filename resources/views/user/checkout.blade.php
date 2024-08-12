@@ -81,10 +81,13 @@
                                 {{-- <h2>Menu</h2> --}}
                                 <p class="">Checkout</p>
                             </div>
+                            @auth
+                            @else
                             <div class="d-flex gap-3">
                                 <p class="fst-italic">Returning customer?</p>
                                 <a href="{{ route('login') }}"> Login</a>
                             </div>
+                            @endauth
 
                         </div>
 
