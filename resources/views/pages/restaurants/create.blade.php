@@ -57,13 +57,13 @@
 
                             </select>
 
-                            {{-- <div class="row row-cols-2">
+                            <div class="row row-cols-2">
 
                                 <x-form.input id="longitude" name="longitude" wire:model="longitude" label="Longitude"
                                     value="" required />
                                 <x-form.input id="latitude" name="latitude" wire:model="latitude" label="Latitude"
                                     value="" required />
-                            </div> --}}
+                            </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> Save
                             </button>

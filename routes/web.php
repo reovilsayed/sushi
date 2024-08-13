@@ -25,7 +25,9 @@ use App\Mail\DuePaidMail;
 use App\Mail\MonthlyDueReport;
 use App\Mail\OrderConfirmationMail;
 use App\Mail\PurchasesMailForShopOwner;
+use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Order;
 use Carbon\Carbon;
@@ -66,7 +68,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/cart', 'cart')->name('restaurant.cart');
     Route::post('/check-location', 'checkLocation')->name('check.location');
     Route::get('/thank-you', 'thank_you')->name('thank_you');
-    route::get('/pages/{page}','pageView')->name('pages.view');
+    route::get('/pages/{page}', 'pageView')->name('pages.view');
 });
 
 //cart routes
@@ -78,8 +80,20 @@ Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 
 Route::get('/test', function () {
+    // dd(Category::all()->pluck('id'));
+     return $categpries = Category::with('products')->whereNotNull('parent_id')->get();
+    foreach ($categpries as $category){
+        foreach ($category->products as $product){
+            Product::where('id',$product->id)->update([
+                'category_id' => $category->id,
+            ]);
+        }
+    }
 
-})->middleware('role:1');
+});
+
+
+
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes

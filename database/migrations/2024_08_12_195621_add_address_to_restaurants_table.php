@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('post_code');
             $table->string('zip_code');
             $table->string('number');
+            $table->string('longitude');
+            $table->string('latitude');
             $table->foreignId('zone_id')->nullable();
         });
     }
@@ -35,6 +37,8 @@ return new class extends Migration
             $table->dropColumn('zip_code');
             $table->dropColumn('number');
             $table->dropColumn('zone_id');
+            $table->dropColumn('longitude');
+            $table->dropColumn('latitude');
         });
     }
 };

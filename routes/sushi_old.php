@@ -22,22 +22,23 @@ Route::get('/old-db', function () {
     //     return [
     //         'name' => $sub_category->subcat_name,
     //         'parent_id' => $sub_category->cat_id,
+    //         'subcat_id' => $sub_category->subcat_id,
     //         'slug' => Str::slug($sub_category->subcat_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
     //     ];
     // });
-    // $products_old = DB::connection('mysql_old')->table('products')->get()->map(function ($product) {
-    //     return [
-    //         'id' => $product->prod_id,
-    //         'name' => $product->prod_name,
-    //         'composition' => $product->composition,
-    //         'allergenes' => $product->allergenes,
-    //         'sku' => $product->SKU,
-    //         'price' => $product->price,
-    //         'description' => $product->text,
-    //         'category_id' => $product->subcat_id,
-    //         'slug' => Str::slug($product->prod_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
-    //     ];
-    // });
+    $products_old = DB::connection('mysql_old')->table('products')->get()->map(function ($product) {
+        return [
+            'id' => $product->prod_id,
+            'name' => $product->prod_name,
+            'composition' => $product->composition,
+            'allergenes' => $product->allergenes,
+            'sku' => $product->SKU,
+            'price' => $product->price,
+            'description' => $product->text,
+            'category_id' => $product->subcat_id,
+            'slug' => Str::slug($product->prod_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
+        ];
+    });
     // $resturent_old = DB::connection('mysql_old')->table('restaurents')->get()->map(function ($restaurent) {
 
     //     return [
@@ -52,30 +53,30 @@ Route::get('/old-db', function () {
     //         'type' => $extra->extra_type,
     //     ];
     // });
-    $zones_old = DB::connection('mysql_old')->table('zone_coordinates')->get()->map(function ($zone) {
-        return [
-            'zone_id' => $zone->zone_id,
-            'lat' => $zone->lat,
-            'lng' => $zone->lng,
-            'location' => $zone->location,
-        ];
-    });
+    // $zones_old = DB::connection('mysql_old')->table('zone_coordinates')->get()->map(function ($zone) {
+    //     return [
+    //         'zone_id' => $zone->zone_id,
+    //         'lat' => $zone->lat,
+    //         'lng' => $zone->lng,
+    //         'location' => $zone->location,
+    //     ];
+    // });
 
-    $restaurant_zone_old = DB::connection('mysql_old')->table('zones')->get()->map(function ($data) {
+    // $restaurant_zone_old = DB::connection('mysql_old')->table('zones')->get()->map(function ($data) {
         
-        return [
-            'zone_id' => $data->zone_id,
-            'zone_name' => $data->zone_name,
-            'restaurant_id' => $data->rest_id,
-        ];
-    });
+    //     return [
+    //         'zone_id' => $data->zone_id,
+    //         'zone_name' => $data->zone_name,
+    //         'restaurant_id' => $data->rest_id,
+    //     ];
+    // });
     
 
     // Category::latest()->delete();
-    // Product::latest()->delete();
+    Product::latest()->delete();
     // Restaurant::latest()->delete();
-    Zone::latest()->delete();
-    RestaurantZone::latest()->delete();
+    // Zone::latest()->delete();
+    // RestaurantZone::latest()->delete();
 
     // foreach ($categories_old as $category) {
     //     Category::create($category);
@@ -83,18 +84,18 @@ Route::get('/old-db', function () {
     // foreach ($sub_categories_old as $subcategory) {
     //     Category::create($subcategory);
     // }
-    // foreach ($products_old as $product) {
-    //     Product::create($product);
-    // }
+    foreach ($products_old as $product) {
+        Product::create($product);
+    }
     // foreach ($resturent_old as $resturent) {
     //     Restaurant::create($resturent);
     // }
     // dd($zones_old);
-    foreach ($zones_old as $zone) {
-        Zone::create($zone);
-    }
-    foreach ($restaurant_zone_old as $restaurant_zone) {
-        RestaurantZone::create($restaurant_zone);
-    }
+    // foreach ($zones_old as $zone) {
+    //     Zone::create($zone);
+    // }
+    // foreach ($restaurant_zone_old as $restaurant_zone) {
+    //     RestaurantZone::create($restaurant_zone);
+    // }
     
 });

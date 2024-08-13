@@ -26,10 +26,8 @@ class PageController extends Controller
     public function menu($slug)
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
-
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
-        // dd($sub_categories[0]->products);
         return view('user.menu', compact('categories', 'sub_categories', 'restaurant'));
     }
     public function userCheckout()
