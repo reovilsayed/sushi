@@ -1,5 +1,5 @@
 <x-user>
-    <section id="hero" class="hero section dark-background">
+    <section id="hero" class="hero section dark-background bg-transparent">
 
         <img src="{{ asset('niko/assets/img/hero-bg.jpg') }}" alt="" data-aos="fade-in">
 
@@ -18,7 +18,7 @@
         </div>
 
     </section><!-- /Hero Section -->
-    <section id="menu" class="menu section">
+    <section id="menu" class="menu section bg-transparent">
 
         <!-- Section Title -->
         <div class="container section-title text-center" data-aos="fade-up">

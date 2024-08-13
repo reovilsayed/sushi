@@ -23,18 +23,18 @@
 .cart_table {
     width: 100%;
     height: auto;
-    border-left: 1px solid #cda45e;
-    border-bottom: 1px solid #cda45e;
-    border-right: 1px solid #cda45e;
+    border-left: 1px solid #ff883e;
+    border-bottom: 1px solid #ff883e;
+    border-right: 1px solid #ff883e;
 }
 
 .table_head {
     height: 48px;
-    background-color: #cda45e;
+    background-color: #ff883e;
 }
 
 .table_body tr {
-    border-bottom: 1px solid #cda45e;
+    border-bottom: 1px solid #ff883e;
     height: 72px;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .cart-plus-minus {
-    border: 2px solid #cda45e;
+    border: 2px solid #ff883e;
     height: auto;
     width: 50%;
     text-align: center;
@@ -71,7 +71,7 @@
     justify-content: center;
     align-items: center;
     float: left;
-    border-right: 2px solid #cda45e;
+    border-right: 2px solid #ff883e;
     color: var(--heading-color);
     cursor: pointer;
 }
@@ -81,7 +81,7 @@
     justify-content: center;
     align-items: center;
     float: right;
-    border-left: 2px solid #cda45e;
+    border-left: 2px solid #ff883e;
     color: var(--heading-color);
     cursor: pointer;
 }
@@ -124,9 +124,10 @@ input.cart-plus-minus-box {
 
 .cart_total_section {
     height: 48px;
-    background-color: #cda45e;
+    background-color: #ff883e;
 }
-.cart_total_section h4{
+
+.cart_total_section h4 {
 
     color: var(--heading-color) !important;
     font-size: 20px !important;
@@ -149,7 +150,7 @@ input.cart-plus-minus-box {
 
 .subcart2 {
     padding: 5px;
-    border: 1px solid #cda45e;
+    border: 1px solid #ff883e;
     height: 150px;
     display: flex;
     justify-content: space-between;
@@ -331,6 +332,7 @@ input.cart-plus-minus-box {
     font-size: 16px;
     font-weight: 700;
 }
-#extraButton:hover{
-    background-color: var(--accent-color) !important ;
+
+#extraButton:hover {
+    background-color: var(--accent-color) !important;
 }

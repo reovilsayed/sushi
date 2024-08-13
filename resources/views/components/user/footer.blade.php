@@ -2,7 +2,7 @@
     $restaurants = App\Models\Restaurant::latest()->take(9)->get();
     $pages = App\Models\Page::select('title', 'slug')->get();
 @endphp
-<footer id="footer" class="footer">
+<footer id="footer" class="footer bg-transparent">
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">

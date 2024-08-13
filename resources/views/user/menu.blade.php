@@ -3,7 +3,7 @@
     @endpush
     <br><br><br>
     {{-- <x-user.about /> --}}
-    <section id="menu" class="menu section ">
+    <section id="menu" class="menu section bg-transparent">
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
@@ -47,7 +47,7 @@
                     <div class="row">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
-                                <div class="menu-header" data-aos="fade-up" data-aos-delay="200">
+                                <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <a id="{{ $child->name }}" href=""
                                         class="text-colour h4">{{ $child->name }}</a>
                                     <hr>

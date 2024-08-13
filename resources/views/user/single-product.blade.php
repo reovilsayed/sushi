@@ -3,7 +3,7 @@
 
 
     <!-- product  Section -->
-    <section id="about" class="about section ">
+    <section id="about" class="about section bg-transparent">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 

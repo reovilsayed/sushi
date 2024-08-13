@@ -7,7 +7,7 @@
     }
 </style>
 @endpush
-<section id="chefs" class="chefs section">
+<section id="chefs" class="chefs section bg-transparent">
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
         <h2>Restaurants</h2>
