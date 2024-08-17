@@ -19,6 +19,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\User\UserController;
+use App\Mail\ContactFormMail;
 use App\Mail\CustomerReport;
 use App\Mail\DueClearReminder;
 use App\Mail\DuePaidMail;
@@ -68,7 +69,9 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/cart', 'cart')->name('restaurant.cart');
     Route::post('/check-location', 'checkLocation')->name('check.location');
     Route::get('/thank-you', 'thank_you')->name('thank_you');
-    route::get('/pages/{page}', 'pageView')->name('pages.view');
+    Route::get('/pages/{page}', 'pageView')->name('pages.view');
+
+    Route::post('/contact/send', 'contactMail')->name('contact.mail');
 });
 
 //cart routes
@@ -79,21 +82,19 @@ Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 
-Route::get('/test', function () {
-    // dd(Category::all()->pluck('id'));
-     return $categpries = Category::with('products')->whereNotNull('parent_id')->get();
-    foreach ($categpries as $category){
-        foreach ($category->products as $product){
-            Product::where('id',$product->id)->update([
-                'category_id' => $category->id,
-            ]);
-        }
-    }
 
+Route::get('/test', function () {
+    $data = [
+        'name' => 'mahfuz',
+        'email' => 'mahfuz@gmail.com',
+        'message' => 'hello',
+        'subject' => 'this is a test subject',
+    ];
+    return new ContactFormMail($data);
 });
 
 
-
+//order routes
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes
@@ -190,6 +191,6 @@ Route::get('/error', function () {
     return $wrongvar;
 });
 
-require ('sushi_old.php');
-require ('admin.php');
-require ('user.php');
+require('sushi_old.php');
+require('admin.php');
+require('user.php');

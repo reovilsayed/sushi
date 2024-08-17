@@ -4,10 +4,10 @@
         <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
     @endpush
 
-    <section id="about" class="cart_section pb-5">
+    <section id="about" class="cart_section pb-5 bg-transparent">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
-            <h2>Menu</h2>
-            <p>Check Our Products</p>
+            <h2>{{ __('sentence.cart') }}</h2>
+            <p>{{ __('sentence.products') }}</p>
         </div>
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -17,12 +17,13 @@
                     <div class="table-responsive">
                         <table class="cart_table  table-responsive">
                             <thead class="table_head text-dark">
-                                <th class="cart-product-remove" style="padding-left:20px;">Remove</th>
-                                <th class="cart-product-image">Image</th>
-                                <th class="cart-product-info text-center">Name</th>
-                                <th class="cart-product-price">Price</th>
-                                <th class="cart-product-quantity text-center">Quantity</th>
-                                <th class="cart-product-subtotal text-center">Subtotal</th>
+                                <th class="cart-product-remove" style="padding-left:20px;">{{ __('sentence.remove') }}
+                                </th>
+                                <th class="cart-product-image">{{ __('sentence.image') }}</th>
+                                <th class="cart-product-info text-center">{{ __('sentence.name') }}</th>
+                                <th class="cart-product-price">{{ __('sentence.price') }}</th>
+                                <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
+                                <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead>
                             <tbody class="table_body">
                                 {{-- @dd(Cart::getContent()) --}}
@@ -52,9 +53,9 @@
                                                 </h4>
                                             </td>
                                         @endif
-                                        
+
                                         <td class="cart-product-price">{{ $item->price }}€</td>
-                                        
+
                                         <form action="{{ route('cart.update') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $item->id }}" />
@@ -85,25 +86,28 @@
 
                 <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 226px;">
                     <div class="cart_total_section">
-                        <h4 class="ms-3 pt-2" style="">Cart Totals</h4>
+                        <h4 class="ms-3 pt-2" style="">{{ __('sentence.cart') }} {{ __('sentence.total') }}
+                        </h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table-responsive" style="width: 100%;">
                             <tbody class="me-2 ms-2">
                                 <tr style="height: 40px; ">
-                                    <td class="ps-4">Cart Subtotal</td>
+                                    <td class="ps-4">{{ __('sentence.cart') }} {{ __('sentence.subtotal') }}</td>
                                     <td>{{ Cart::getSubTotal() }} €</td>
                                 </tr>
                                 <tr style="height: 40px;">
-                                    <td class="ps-4">Shipping and Handing</td>
+                                    <td class="ps-4">{{ __('sentence.shipping') }} & {{ __('sentence.handling') }}
+                                    </td>
                                     <td>$00.00</td>
                                 </tr>
                                 <tr style="height: 40px;">
-                                    <td class="ps-4">Vat</td>
+                                    <td class="ps-4">{{ __('sentence.vat') }}</td>
                                     <td>$00.00</td>
                                 </tr>
                                 <tr style="height: 40px;">
-                                    <td class="ps-4"><strong>Order Total</strong></td>
+                                    <td class="ps-4"><strong>{{ __('sentence.order') }}
+                                            {{ __('sentence.total') }}</strong></td>
                                     <td><strong id="order_total_display">{{ Cart::getTotal() }} €</strong></td>
                                 </tr>
                             </tbody>
@@ -122,10 +126,10 @@
         </div>
 
     </section>
-    <section id="" class="extra_section pt-1">
+    <section id="" class="extra_section pt-1 bg-transparent">
         <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
-            <h2>Menu</h2>
-            <p>Choose Our Extra Menu</p>
+            <h2>{{ __('sentence.menu') }}</h2>
+            <p>{{ __('sentence.estratitle') }}</p>
         </div>
         <div class="container">
             <div class="row gy-4">
@@ -177,8 +181,7 @@
                             <div class="col-md-12 text-start mt-3 p-0">
                                 <!-- Proceed to checkout button -->
                                 <button type="submit" id="extraButton"
-                                    {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to
-                                    checkout</button>
+                                    {{ Cart::isEmpty() ? 'disabled' : '' }}>{{ __('sentence.proceedtocheckout') }}</button>
 
                                 <!-- Message -->
                                 @if (Cart::isEmpty())

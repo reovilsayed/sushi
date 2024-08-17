@@ -12,15 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('restaurants', function (Blueprint $table) {
-            $table->string('email');
-            $table->string('address');
-            $table->string('city');
-            $table->string('post_code');
-            $table->string('zip_code');
-            $table->string('number');
-            $table->string('longitude');
-            $table->string('latitude');
-            $table->foreignId('zone_id')->nullable();
+            $table->string('email')->nullable();
+            $table->string('number')->nullable();
+            $table->string('address')->nullable();
         });
     }
 
@@ -32,13 +26,7 @@ return new class extends Migration
         Schema::table('restaurants', function (Blueprint $table) {
             $table->dropColumn('email');
             $table->dropColumn('address');
-            $table->dropColumn('city');
-            $table->dropColumn('post_code');
-            $table->dropColumn('zip_code');
             $table->dropColumn('number');
-            $table->dropColumn('zone_id');
-            $table->dropColumn('longitude');
-            $table->dropColumn('latitude');
         });
     }
 };

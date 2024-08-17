@@ -1,7 +1,7 @@
 <x-user>
     <br><br><br>
     <!-- Contact Section -->
-    <section id="contact" class="contact section" >
+    <section id="contact" class="contact section bg-transparent" >
 
         <!-- Section Title -->
         <!-- Section Title -->

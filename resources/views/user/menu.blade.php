@@ -7,31 +7,31 @@
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-            <h2>Menu</h2>
+            <h2>{{__('sentence.menu')}}</h2>
             <p>{{ $restaurant->name }}</p>
         </div><!-- End Section Title -->
 
         <div class="container-fluid isotope-layout" data-default-filter="*" data-layout="masonry"
             data-sort="original-order">
             <div class="row">
-                <div class="col-md-3"
+                <div class="col-md-2"
                     style="
-    position: -webkit-sticky;
-    position: sticky;
-    top: 150px; /* Adjust as needed */
-    height: 100vh;
-    overflow-y: auto;">
+                            position: -webkit-sticky;
+                            position: sticky;
+                            top: 150px; /* Adjust as needed */
+                            height: 100vh;
+                            overflow-y: auto;">
                     @foreach ($categories as $category)
                         <div class="category-container" data-aos="fade-up" data-aos-delay="200">
                             <div class="category">
-                                <button class="category-button">{{ $category->name }}</button>
+                                <button class="category-button secondary-colour ">{{ $category->name }}</button>
                                 <div class="subcategory-container ">
                                     @if ($category->childs->count() > 0)
                                         @foreach ($category->childs as $child)
                                             <hr>
                                             <div class="subcategory">
                                                 <a href="#{{ $child->name }}" class="subcategory-button"
-                                                    style="color: #fff">{{ $child->name }}</a>
+                                                    style="">{{ $child->name }}</a>
                                             </div>
                                         @endforeach
                                     @endif

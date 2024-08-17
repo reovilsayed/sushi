@@ -103,8 +103,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         // Check if the cart is empty
-        if (Cart::isEmpty()) {
+       if  (Cart::isEmpty()) {
             return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
         }
         $pass = Str::random(16);
@@ -112,7 +113,7 @@ class OrderController extends Controller
         // Start a database transaction
         DB::beginTransaction();
 
-        try {
+        // try {
             // Handle user authentication
             if (!auth()->check()) {
                 $user = User::create([
@@ -146,7 +147,7 @@ class OrderController extends Controller
                 'house' => $request->input('house'),
                 'phone' => $request->input('phone'),
             ];
-
+            // dd($shipping);
             // Create the order
             $order = Order::create([
                 'customer_id' => $user->id,
@@ -177,11 +178,11 @@ class OrderController extends Controller
 
             // Redirect back with a success message
             return redirect()->route('thank_you')->with('success', 'Order placed successfully!');
-        } catch (\Exception $e) {
-            // Rollback the transaction in case of an error
-            DB::rollBack();
-            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
-        }
+        // } catch (\Exception $e) {
+        //     // Rollback the transaction in case of an error
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
+        // }
     }
 
 

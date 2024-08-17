@@ -1,7 +1,5 @@
 <x-user>
-
-
-
+<br><br><br>
     <!-- product  Section -->
     <section id="about" class="about section bg-transparent">
 
@@ -14,10 +12,10 @@
                 <div class="col-lg-6 order-2 order-lg-1 content">
                     <h3>{{ $product->name }}</h3>
                     <p class="fst-italic">
-                        COMPOSITION | {{ $product->composition }}
+                        {{__('sentence.compositions')}} | {{ $product->composition }}
                     </p>
                     <p class="fst-italic">
-                        Allergenes | {{ $product->allergenes }}
+                        {{__('sentence.allergenes')}} | {{ $product->allergenes }}
                     </p>
 
                     <div class="price mb-5">

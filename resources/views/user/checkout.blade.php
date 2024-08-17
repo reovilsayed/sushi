@@ -69,7 +69,7 @@
 
 
         <!-- Contact Section -->
-        <section id="contact" class="contact section ">
+        <section id="contact" class="contact section bg-transparent">
             {{-- @dd($zone) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -79,13 +79,13 @@
                         <div class="container content mb-5 ps-0" data-aos="fade-up">
                             <div class=" section-title aos-init aos-animate pb-0" data-aos="fade-up">
                                 {{-- <h2>Menu</h2> --}}
-                                <p class="">Checkout</p>
+                                <p class="">{{ __('sentence.checkout') }}</p>
                             </div>
                             @auth
                             @else
                             <div class="d-flex gap-3">
-                                <p class="fst-italic">Returning customer?</p>
-                                <a href="{{ route('login') }}"> Login</a>
+                                <p class="fst-italic">{{ __('sentence.returningcustomer') }}</p>
+                                <a href="{{ route('login') }}"> {{ __('sentence.login') }}</a>
                             </div>
                             @endauth
 
@@ -99,10 +99,10 @@
                                     <div class="col-md-12">
                                         <select id="deliveryOption" name="delivery_option"
                                             class="form-select selectpicker" data-container="body">
-                                            <option selected style="color: var(--accent-color)">Open this select menu
+                                            <option selected style="color: var(--accent-color)">{{ __('sentence.openthismenu') }}
                                             </option>
-                                            <option value="take_away">TAKE AWAY</option>
-                                            <option value="home_delivery">HOME DELIVERY</option>
+                                            <option value="take_away">{{ __('sentence.takeaway') }}</option>
+                                            <option value="home_delivery">{{ __('sentence.homedelevery') }}</option>
                                         </select>
                                     </div>
 
@@ -214,7 +214,7 @@
 
 
                                     <div class="col-md-12 text-start mt-5">
-                                        <button type="submit" id="orderButton" disabled>Order </button>
+                                        <button type="submit" id="orderButton" disabled>{{ __('sentence.order') }} </button>
                                     </div>
 
                                     {{-- </div> --}}
@@ -224,17 +224,17 @@
 
                                 <div class="checkout_main_body">
                                     <div class="container content mb-3 mt-3" data-aos="fade-up">
-                                        <h2 class="text-colour">Your Order</h2>
+                                        <h2 class="text-colour">{{ __('sentence.yourorder') }}</h2>
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table-responsive" style="width: 100%;">
                                             <thead class="">
                                                 <tr>
-                                                    <td class="fs-4 fw-medium ps-3 pe-0">Product
+                                                    <td class="fs-4 fw-medium ps-3 pe-0">{{ __('sentence.products') }}
                                                         <hr>
                                                     </td>
-                                                    <td class="fs-4 fw-medium text-center pe-3 ps-0">Price
+                                                    <td class="fs-4 fw-medium text-center pe-3 ps-0">{{ __('sentence.price') }}
                                                         <hr>
                                                     </td>
                                                 </tr>
@@ -253,7 +253,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr style="border-top: 1px solid var(--accent-color)">
-                                                    <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
+                                                    <td class="fs-6 fw-medium ps-3 pt-2 pb-2">{{ __('sentence.subtotal') }}</td>
                                                     <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €
                                                     </td>
                                                 </tr>
@@ -284,7 +284,7 @@
                                                 </tr> --}}
                                                 <tr
                                                     style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
-                                                    <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
+                                                    <td class="fs-5 fw-medium ps-3 pt-2 pb-2">{{ __('sentence.total') }}</td>
                                                     <td class="fs-5 fw-medium text-center">{{ session('total', 0) }} €
                                                     </td>
                                                 </tr>

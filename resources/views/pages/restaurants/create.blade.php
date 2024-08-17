@@ -15,18 +15,18 @@
                                 <x-form.input name="email" label="Email" label="Email *" autofocus required />
                             </div>
                             <div class="row row-cols-1  ">
-                                <x-form.input name="address" wire:model="address" label="Restaurant Address *" autofocus
-                                    required />
-                            </div>
-                            <div class="row row-cols-2  ">
-                                <x-form.input name="city" wire:model="city" label="Restaurant City*" autofocus
-                                    required />
-                                <x-form.input name="post_code" wire:model="post_code" label="Restaurant Post Code*"
+                                <x-form.input name="address[address]" wire:model="address" label="Restaurant Address *"
                                     autofocus required />
                             </div>
                             <div class="row row-cols-2  ">
-                                <x-form.input name="zip_code" wire:model="zip" label="Restaurant Zip Code*" autofocus
+                                <x-form.input name="address[city]" wire:model="city" label="Restaurant City*" autofocus
                                     required />
+                                <x-form.input name="address[post_code]" wire:model="post_code"
+                                    label="Restaurant Post Code*" autofocus required />
+                            </div>
+                            <div class="row row-cols-2  ">
+                                <x-form.input name="address[zip_code]" wire:model="zip" label="Restaurant Zip Code*"
+                                    autofocus required />
                                 <x-form.input name="number" wire:model="number" label="Restaurant Number*" autofocus
                                     required />
                             </div>
@@ -46,23 +46,14 @@
 
                 </div>
                 <div class="col-md-4">
-                    <div class="card mt-4">
+                    <div class="card ">
                         <div class="card-body">
-
-                            <select class="form-select mb-3" aria-label="Default select example" name="zone_id">
-                                <option selected>Select Zone</option>
-                                @foreach ($areas as $area)
-                                <option value="{{$area->id}}">{{$area->zone_name}}</option>
-                                @endforeach
-
-                            </select>
-
                             <div class="row row-cols-2">
 
-                                <x-form.input id="longitude" name="longitude" wire:model="longitude" label="Longitude"
-                                    value="" required />
-                                <x-form.input id="latitude" name="latitude" wire:model="latitude" label="Latitude"
-                                    value="" required />
+                                <x-form.input id="longitude" name="address[longitude]" wire:model="longitude"
+                                    label="Longitude" value="" required />
+                                <x-form.input id="latitude" name="address[latitude]" wire:model="latitude"
+                                    label="Latitude" value="" required />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> Save
@@ -71,5 +62,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </form>
 </x-layout>
