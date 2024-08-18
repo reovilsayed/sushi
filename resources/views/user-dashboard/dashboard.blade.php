@@ -4,7 +4,7 @@
     @endpush
     <br><br><br>
     <!-- Contact Section -->
-    <section id="contact" class="contact section ">
+    <section id="contact" class="contact section bg-transparent">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="row gy-4">

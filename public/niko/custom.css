@@ -43,6 +43,10 @@
     color: var(--accent-color);
 }
 
+.secondary-colour {
+    color: var(--secondary-accent-color);
+}
+
 .menu-header {
     margin-top: 20px;
 }

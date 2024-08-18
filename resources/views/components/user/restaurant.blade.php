@@ -7,11 +7,12 @@
     }
 </style>
 @endpush
+
 <section id="chefs" class="chefs section bg-transparent">
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
-        <h2>Restaurants</h2>
-        <p>Discover amazing restaurants with exceptional cuisine and a delightful atmosphere.</p>
+        <h2>{{__('sentence.restaurants')}}</h2>
+        <p>{{__('sentence.restaurantstitle')}}</p>
     </div><!-- End Section Title -->
     <div class="container">
         <div class="row gy-4">
@@ -23,7 +24,7 @@
                         <div class="member-info">
                             <div class="member-info-content">
                                 <h4>{{ $restaurant->name }}</h4>
-                                <span>{{ $restaurant->description ? $restaurant->description : 'There is no description' }}</span>
+                                <span>{{ $restaurant?->address['address'] ?? 'N/A'  }}</span>
                             </div>
                         </div>
                     </div>

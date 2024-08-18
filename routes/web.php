@@ -20,6 +20,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\User\UserController;
+use App\Mail\ContactFormMail;
 use App\Mail\CustomerReport;
 use App\Mail\DueClearReminder;
 use App\Mail\DuePaidMail;
@@ -69,7 +70,9 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/cart', 'cart')->name('restaurant.cart');
     Route::post('/check-location', 'checkLocation')->name('check.location');
     Route::get('/thank-you', 'thank_you')->name('thank_you');
-    route::get('/pages/{page}', 'pageView')->name('pages.view');
+    Route::get('/pages/{page}', 'pageView')->name('pages.view');
+
+    Route::post('/contact/send', 'contactMail')->name('contact.mail');
 });
 
 //cart routes
@@ -79,6 +82,7 @@ Route::post('/add-update', [CartController::class, 'update'])->name('cart.update
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
+
 
 Route::get('/test', function () {
     // dd(Category::all()->pluck('id'));
@@ -93,7 +97,7 @@ Route::get('/test', function () {
 });
 
 
-
+//order routes
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes
@@ -187,7 +191,14 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     });
 });
 Route::get('/test', [PaymentController::class,'index']);
+Route::get('/test2',function(){
+    $products = Product::all();
 
+    foreach ($products as $product) {
+        $product->price = $product->price * 100;
+        $product->save();
+    }
+});
 require('sushi_old.php');
 require('admin.php');
 require('user.php');

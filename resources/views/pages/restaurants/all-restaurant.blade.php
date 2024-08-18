@@ -21,6 +21,7 @@
                 </thead>
                 <tbody>
                     @foreach ($restaurants as $key => $restaurant)
+                    
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>
