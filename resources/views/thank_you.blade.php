@@ -11,9 +11,9 @@
                     </svg>
                 </div>
                 <div class="text-center">
-                    <h1>Thank You !</h1>
-                    <p class="text-colour">We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                    <a class="btn btn-outline-success" href="{{ route('restaurant.home') }}">Back Home</a>
+                    <h1>{{__('sentence.thankyou')}}!</h1>
+                    <p class="text-colour">{{__('sentence.thankyoumessage')}}</p>
+                    <a class="btn btn-outline-success" href="{{ route('restaurant.home') }}">{{__('sentence.home')}}</a>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-            <h2>{{__('sentence.menu')}}</h2>
+            <h2>{{ __('sentence.menu') }}</h2>
             <p>{{ $restaurant->name }}</p>
         </div><!-- End Section Title -->
 
@@ -79,7 +79,8 @@
                                                                     value="{{ $restaurant->id }}">
                                                                 <button type="submit" class="fw-bold text-colour"
                                                                     style="background: transparent; border:none"><i
-                                                                        class="bi bi-plus"></i>Add </button>
+                                                                        class="bi bi-plus"></i>{{ __('sentence.add') }}
+                                                                </button>
 
                                                             </form>
 

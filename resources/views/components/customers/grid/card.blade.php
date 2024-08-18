@@ -22,7 +22,7 @@
         @if ($customer->email)
             <a href="mailto:{{ $customer->email }}"><strong>Email:</strong> {{ $customer->email }}</a>
         @endif
-        <p class="mb-2"><strong>Role : </strong>{{ $customer->role->name ?? '' }}</p>
+        <p class="mb-2"><strong>Role : </strong>{{ $customer->role->name ?? 'user' }}</p>
     </div>
     <div class="card-footer bg-white d-flex justify-content-between align-items-center">
 
