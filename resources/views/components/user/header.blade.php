@@ -14,9 +14,9 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="{{ route('restaurant.home') }}" class="active">Home<br></a></li>
+                    <li><a href="{{ route('restaurant.home') }}" class="active">{{ __('sentence.home') }}<br></a></li>
 
-                    <li class="dropdown"><a href="{{ route('user.restaurants') }}"><span>Restaurants</span> <i
+                    <li class="dropdown"><a href="{{ route('user.restaurants') }}"><span>{{ __('sentence.restaurants') }}</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             @foreach ($restaurantNames as $restaurant)
@@ -26,13 +26,13 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
                             @endforeach
                         </ul>
                     </li>
-                    <li><a href="{{ route('restaurant.contact') }}">Contact</a></li>
+                    <li><a href="{{ route('restaurant.contact') }}">{{ __('sentence.contact') }}</a></li>
                     <li class="d-xl-none">
                         @auth
                             <a 
                                 href="{{ route('user.dashboard') }}" style="color: var(--accent-color)">{{ auth()->user()->name }}</a>
                         @else
-                            <a  href="{{ route('login') }}"  style="color: var(--accent-color)">login</a>
+                            <a  href="{{ route('login') }}"  style="color: var(--accent-color)">{{ __('sentence.login') }}</a>
                         @endauth
                     </li>
                 </ul>
@@ -47,7 +47,7 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
                     <a class="btn-book-a-table  d-xl-block"
                         href="{{ route('user.dashboard') }}">{{ auth()->user()->name }}</a>
                 @else
-                    <a class="btn-book-a-table  d-xl-block" href="{{ route('login') }}">login</a>
+                    <a class="btn-book-a-table  d-xl-block" href="{{ route('login') }}">{{ __('sentence.login') }}</a>
                 @endauth
             </div>
             <div class="d-xl-none">
