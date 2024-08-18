@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenericsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\PriscriptionController;
 use App\Http\Controllers\ProductController;
@@ -81,15 +82,14 @@ Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 
 Route::get('/test', function () {
     // dd(Category::all()->pluck('id'));
-     return $categpries = Category::with('products')->whereNotNull('parent_id')->get();
-    foreach ($categpries as $category){
-        foreach ($category->products as $product){
-            Product::where('id',$product->id)->update([
+    return $categpries = Category::with('products')->whereNotNull('parent_id')->get();
+    foreach ($categpries as $category) {
+        foreach ($category->products as $product) {
+            Product::where('id', $product->id)->update([
                 'category_id' => $category->id,
             ]);
         }
     }
-
 });
 
 
@@ -186,10 +186,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         }
     });
 });
-Route::get('/error', function () {
-    return $wrongvar;
-});
+Route::get('/test', [PaymentController::class,'index']);
 
-require ('sushi_old.php');
-require ('admin.php');
-require ('user.php');
+require('sushi_old.php');
+require('admin.php');
+require('user.php');
