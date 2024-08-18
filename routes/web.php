@@ -36,6 +36,8 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Options;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -190,8 +192,73 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         }
     });
 });
-Route::get('/test', [PaymentController::class,'index']);
-Route::get('/test2',function(){
+Route::post('payment/callback', function (Request $request) {
+    // Extract and validate response data
+    $data = $request->input('Data');
+    $seal = $request->input('Seal');
+    $secretKey  = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+    $calculatedSeal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
+
+    if ($calculatedSeal !== $seal) {
+        // Invalid response, stop processing
+        return response()->json(['error' => 'Invalid response'], 400);
+    }
+
+    // Decode and store the response data in the database
+    $decodedData = urldecode($data);
+    $responseData = array_map(function ($part) {
+        return explode('=', $part, 2);
+    }, explode('|', $decodedData));
+
+    // Convert the array into an associative array
+    $responseData = array_column($responseData, 1, 0);
+    Log::info('Response Data:' . json_encode($responseData));
+
+    // Create a new array with only the keys you're interested in
+    $keysToStore = ['acquirerResponseCode', 'responseCode', 'amount', 'orderId', 's10TransactionId', 'merchantId', 'transactionReference', 'currencyCode', 'paymentMethod', 'paymentMeanBrand', 'transactionDateTime', 'cardNumber', 'cardNetwork', 'cardCountry'];
+    $filteredData = array_filter($keysToStore, function ($key) use ($responseData) {
+        return array_key_exists($key, $responseData);
+    });
+
+    // Get values for the filtered keys
+    $filteredData = array_intersect_key($responseData, array_flip($filteredData));
+    Log::info('Filtered Data:' . json_encode($filteredData));
+
+    // Store $filteredData in the database
+
+    //   $paymentrespone = PaymentResponse::create($filteredData);
+
+    $orderId = $filteredData['orderId'];
+
+    $order = Order::where('id', $orderId)->first();
+
+    $user = $order->user_id;
+    Log::info('User:' . $user);
+    // if (!auth()->check()) {
+    //     $userInstance = User::find($user);
+    //     Auth::loginAs($userInstance);
+    // }
+    if ($filteredData['responseCode'] == '00') {
+        $order->status = 'PAID';
+
+        // $order->payment->payment_process_id = $paymentrespone->id;
+        // $order->order_status = 'confirmed';
+        // $order->payment->save();
+        $order->save();
+        $statusMessage = 'Payment processed successfully';
+        return redirect()->route('thank_you')
+            ->with('success', $statusMessage);
+    } else {
+        $order->status = 'UNPAID';
+        // $order->order_status = 'failed';
+        $order->save();
+        $statusMessage = 'Payment failed. Please try again';
+        return redirect()->route('thank_you')
+            ->withErrors($statusMessage);
+    }
+});
+Route::get('/test', [PaymentController::class, 'index']);
+Route::get('/test2', function () {
     $products = Product::all();
 
     foreach ($products as $product) {

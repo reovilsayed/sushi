@@ -183,7 +183,7 @@ class OrderController extends Controller
         $merchantId = '083262709500018';
         $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
         $keyVersion = 3;
-        $normalRetrunUrl = route('thank_you');
+        $normalRetrunUrl = url('payment/callback');
         $currencyCode = 978;
 
         $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
