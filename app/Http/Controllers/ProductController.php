@@ -170,7 +170,7 @@ class   ProductController extends Controller
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
         $product->text = $request->description;
-        $product->SKU = mt_rand(100000, 9999999999);    
+        $product->SKU = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
         $product->category_id = $request->category;
         if ($request->hasFile('image')) {
             if ($product->image && Storage::exists($product->image)) {

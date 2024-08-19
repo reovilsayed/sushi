@@ -42,6 +42,7 @@
                             <tbody class="table_body">
                                 {{-- @dd(Cart::getContent()) --}}
                                 @forelse (Cart::getContent() as $item)
+                                
                                     {{-- @dd($item) --}}
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
@@ -59,7 +60,7 @@
                                                 <a
                                                     href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">
                                                     <img src="{{ Storage::url($item->image ?? '') }}"
-                                                        alt="{{ $item->name }}">
+                                                        alt="">
                                                 </a>
                                             </td>
 
