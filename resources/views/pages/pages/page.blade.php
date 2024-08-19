@@ -2,7 +2,7 @@
 <x-user>
     <br> <br> <br>
         <!-- Contact Section -->
-        <section id="contact" class="contact section ">
+        <section id="contact" class="contact section " style="background: transparent; ">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -18,9 +18,6 @@
                     {!!$data->body!!}
                 </div>
             </div>
-              
-      
             </div>
-      
         </section><!-- /Contact Section -->
 </x-user>

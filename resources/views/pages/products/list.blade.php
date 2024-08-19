@@ -17,7 +17,8 @@
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">price</th>
-                        <th scope="col">status</th>
+                        {{-- <th scope="col">status</th> --}}
+                        <th>SKU</th>
                         <th scope="col">Category</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -34,13 +35,14 @@
                             </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }}</td>
-                            <td>
+                            {{-- <td>
                                 @if ($product->status)
                                     <span class="badge bg-primary">True</span>
                                 @else
                                     <span class="badge bg-danger">False</span>
                                 @endif
-                            </td>
+                            </td> --}}
+                            <td>{{ $product->SKU }}</td>
                             <td>
                                 @if ($product->category)
                                     {{ $product->name }}
@@ -50,7 +52,7 @@
                             </td>
 
                             <td class="">
-                                
+
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.product', $product) }}"><i
                                         class="fa fa-edit"></i></a>
                                 <x-actions.delete :action="route('delete.product', $product)" />

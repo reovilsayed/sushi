@@ -40,6 +40,22 @@ class Settings
         $sitePhone = Setting::where('key', 'site.phone')->value('value');
         return $sitePhone;
     }
+    public function facebook_link()
+    {
+        $link = Setting::where('key', 'facebook.link')->value('value');
+        return $link;
+    }
+    public function instagram_link()
+    {
+        $link = Setting::where('key', 'instagram.link')->value('value');
+        return $link;
+    }
+    public function tiktok_link()
+    {
+        $link = Setting::where('key', 'tiktok.link')->value('value');
+        return $link;
+    }
+
     public function option($param = null)
     {
 

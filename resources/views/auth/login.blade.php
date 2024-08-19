@@ -6,10 +6,10 @@
         <!-- Section Title -->
         <!-- Section Title -->
         <div class="container content mb-5  text-center" data-aos="fade-up">
-            <h2 class="text-colour">Login with Us</h2>
+            <h2 class="text-colour">{{__('sentence.loginwithus')}}</h2>
             <div class="d-flex gap-3 justify-content-center">
-                <p class="fst-italic">don't have a account?</p>
-                <a href="{{ route('register') }}">Register</a>
+                <p class="fst-italic"> {{__('sentence.donthaveaaccount')}} </p>
+                <a href="{{ route('register') }}">{{__('sentence.register')}} </a>
             </div>
 
         </div><!-- End Section Title -->
@@ -24,15 +24,15 @@
                         @csrf
                         <div class="row gy-4">
                             <div class="col-md-12">
-                                <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                <input type="email" class="form-control" name="email" placeholder="{{__('sentence.youremail')}} "
                                     required="">
                             </div>
                             <div class="col-md-12">
-                                <input type="password" name="password" class="form-control" placeholder="Password"
+                                <input type="password" name="password" class="form-control" placeholder="{{__('sentence.password')}} "
                                     required="">
                             </div>
                             <div class="col-md-12 text-center">
-                                <button type="submit">Login</button>
+                                <button type="submit">{{__('sentence.login')}} </button>
                             </div>
                         </div>
                     </form>
@@ -43,8 +43,8 @@
         <div class="mt-4" data-aos="fade-up" data-aos-delay="100">
 
             <div class="d-flex gap-3 justify-content-center">
-                <p class="fst-italic">forgot password?</p>
-                <a href="{{ route('password.request') }}">click here</a>
+                <p class="fst-italic">{{__('sentence.forgetpassword')}} </p>
+                <a href="{{ route('password.request') }}">{{__('sentence.clickhere')}} </a>
             </div>
         </div>
     </section><!-- /Contact Section -->

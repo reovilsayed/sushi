@@ -24,7 +24,7 @@
                         <div class="member-info">
                             <div class="member-info-content">
                                 <h4>{{ $restaurant->name }}</h4>
-                                <span>{{ $restaurant?->address['address'] ?? 'N/A'  }}</span>
+                                <span>{{ $restaurant?->address['address'] ?? '' }}</span>
                             </div>
                         </div>
                     </div>

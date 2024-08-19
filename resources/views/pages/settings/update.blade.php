@@ -4,6 +4,7 @@
         $currencies = App\Constant\Dataset::CURRENCY;
 
     @endphp
+    
     <form action="{{ route('setting.update') }}" method="POST" class="row g-3" enctype="multipart/form-data">
         @csrf
         <div class=" dashboard_content_setting">
@@ -68,6 +69,30 @@
                                                         <input type="text"
                                                             value="{{ Settings::site_phone() ? Settings::site_phone() : 'site Phone' }}"
                                                             placeholder="Site Phone Number" class="" name="site_phone">
+                                                    </div>
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Facebook Link</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::facebook_link() ? Settings::facebook_link() : 'facebook link' }}"
+                                                            placeholder="facebook link" class="" name="facebook_link">
+                                                    </div>
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Insatagram Link</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::instagram_link() ? Settings::instagram_link() : 'instagram link' }}"
+                                                            placeholder="Insatagram Link" class="" name="instagram_link">
+                                                    </div>
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Tiktok Link</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::tiktok_link() ? Settings::tiktok_link() : 'tiktok link' }}"
+                                                            placeholder="tiktok link" class="" name="tiktok_link">
                                                     </div>
                                                 </div>
 

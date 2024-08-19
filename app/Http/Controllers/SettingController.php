@@ -37,6 +37,12 @@ class SettingController extends Controller
         Setting::where('key', 'site.email')->update(['value' => $request->input('site_email')]);
         // Update the site phone
         Setting::where('key', 'site.phone')->update(['value' => $request->input('site_phone')]);
+        // Update the facebook link
+        Setting::where('key', 'facebook.link')->update(['value' => $request->input('facebook_link')]);
+        // Update the site email
+        Setting::where('key', 'instagram.link')->update(['value' => $request->input('instagram_link')]);
+        // Update the site phone
+        Setting::where('key', 'tiktok.link')->update(['value' => $request->input('tiktok_link')]);
 
 
         // Handle the image upload

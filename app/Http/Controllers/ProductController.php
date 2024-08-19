@@ -154,8 +154,8 @@ class   ProductController extends Controller
             'allergenes' => 'required|string',
             'image' => 'nullable|image|max:1024',
             'price' => 'required|min:1',
-            'status' => 'nullable',
-            'featured' => 'nullable',
+            // 'status' => 'nullable',
+            // 'featured' => 'nullable',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
@@ -166,10 +166,12 @@ class   ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->status = $request->status;
-        $product->featured = $request->featured;
+        // $product->status = $request->status;
+        // $product->featured = $request->featured;
         $product->category_id = $request->category;
-        $product->description = $request->description;
+        $product->text = $request->description;
+        $product->SKU = mt_rand(100000, 9999999999);    
+        $product->category_id = $request->category;
         if ($request->hasFile('image')) {
             if ($product->image && Storage::exists($product->image)) {
                 Storage::delete($product->image);
@@ -193,8 +195,8 @@ class   ProductController extends Controller
             'allergenes' => 'required|string',
             'image' => 'nullable|image',
             'price' => 'required|min:1',
-            'status' => 'nullable',
-            'featured' => 'nullable',
+            // 'status' => 'nullable',
+            // 'featured' => 'nullable',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
@@ -203,10 +205,10 @@ class   ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->status = $request->status;
-        $product->featured = $request->featured;
+        // $product->status = $request->status;
+        // $product->featured = $request->featured;
         $product->category_id = $request->category;
-        $product->description = $request->description;
+        $product->text = $request->description; 
         if ($request->hasFile('image')) {
             if ($product->image && Storage::exists($product->image)) {
                 Storage::delete($product->image);

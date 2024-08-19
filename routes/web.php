@@ -193,7 +193,6 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 Route::get('/test', [PaymentController::class,'index']);
 Route::get('/test2',function(){
     $products = Product::all();
-
     foreach ($products as $product) {
         $product->price = $product->price * 100;
         $product->save();

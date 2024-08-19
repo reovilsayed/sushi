@@ -65,6 +65,36 @@ class SettingTableSeeder extends Seeder
             ]
         );
         $setting = Setting::firstOrCreate(
+            ['key' => 'facebook.link'],
+            [
+                'display_name' => 'facebook link',
+                'value' => 'facebooklink',
+                'details' => '',
+
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'instagram.link'],
+            [
+                'display_name' => 'instagram logo',
+                'value' => 'instagram link',
+                'details' => '',
+
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'tiktok.link'],
+            [
+                'display_name' => 'tiktok link',
+                'value' => 'tiktok link',
+                'details' => '',
+
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
             ['key' => 'site.google_analytics_tracking_id'],
             [
                 'display_name' => 'name site-google_analytics_tracking_id',

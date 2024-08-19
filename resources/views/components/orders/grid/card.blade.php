@@ -14,11 +14,11 @@
                     class="badge badge-pill pe-1 {{ $order->status == 'PAID' || $order->status == 'Paid' ? 'bg-success' : 'bg-danger' }}">
                     {{ $order->status }}
                 </span>
-                <span class="badge badge-pill pe-1 {{ $order->order_from == 'pos' ? 'bg-success' : 'bg-danger' }}"
+                {{-- <span class="badge badge-pill pe-1 {{ $order->order_from == 'pos' ? 'bg-success' : 'bg-danger' }}"
                     title="{{ $order->order_from == 'pos' ? 'pos' : 'apps' }}">
                     <i
                         class="{{ $order->order_from == 'pos' ? 'fa-solid fa-cash-register' : 'fa-solid fa-mobile-retro' }} "></i>
-                </span>
+                </span> --}}
                 <span class="badge badge-pill pe-1 {{ $order->delivered == '1' ? 'bg-success' : 'bg-danger' }}"
                     title="{{ $order->delivered == '1' ? 'delivered' : 'not delivered' }}">
                     <i class="fas fa-car"></i>

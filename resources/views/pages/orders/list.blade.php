@@ -73,11 +73,11 @@
                                             role="tab" aria-controls="grid" aria-selected="true"><i
                                                 class="fas fa-th"></i></a>
                                     </li>
-                                    <li class="nav-item" role="presentation">
+                                    {{-- <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="list-tab" data-bs-toggle="tab" href="#list"
                                             role="tab" aria-controls="list" aria-selected="false"><i
                                                 class="fas fa-list"></i> </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
 
                                 <!-- Tab panes -->
@@ -86,10 +86,10 @@
                                         aria-labelledby="grid-tab">
                                         <x-orders.grid.deck :orders="$orders" />
                                     </div>
-                                    <div class="tab-pane fade" id="list" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="list" role="tabpanel"
                                         aria-labelledby="list-tab">
                                         <x-orders.table.list :orders="$orders" />
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
