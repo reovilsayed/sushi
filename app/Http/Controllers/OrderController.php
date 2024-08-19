@@ -136,30 +136,30 @@ class OrderController extends Controller
             $user = auth()->user();
         }
 
-        // Prepare shipping information
-        $shipping = [
-            'name' => $request->input('f_name') ?? $request->input('f_name'),
-            'l_name' => $request->input('l_name') ?? $request->input('l_name'),
-            'email' => $request->input('email') ?? $request->input('email'),
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'post_code' => $request->input('post_cod'),
-            'zip' => $request->input('zip'),
-            'house' => $request->input('house'),
-            'phone' => $request->input('phone'),
-        ];
-        // dd($shipping);
-        // Create the order
-        $order = Order::create([
-            'customer_id' => $user->id,
-            'shipping_info' => json_encode($shipping), // Storing as JSON
-            'extra' => json_encode(session('extras')), // Storing as JSON
-            'sub_total' => Cart::getSubTotal(),
-            'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
-            'comment' => $request->input('commment'),
-            'status' => 'PENDING',
-            'delivery_option' => $request->input('delivery_option'),
-        ]);
+            // Prepare shipping information
+            $shipping = [
+                'name' => $request->input('f_name') ?? $request->input('f_name'),
+                'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                'email' => $request->input('email') ?? $request->input('email'),
+                'address' => $request->input('address'),
+                'city' => $request->input('city'),
+                'post_code' => $request->input('post_cod'),
+                'zip' => $request->input('zip'),
+                'house' => $request->input('house'),
+                'phone' => $request->input('phone'),
+            ];
+
+            // Create the order
+            $order = Order::create([
+                'customer_id' => $user->id,
+                'shipping_info' => json_encode($shipping), // Storing as JSON
+                // 'extra' => json_encode(session('extras')), // Storing as JSON
+                'sub_total' => Cart::getSubTotal(),
+                'total' => Cart::getTotal(), // Update this if there are additional charges (like tax or shipping)
+                'comment' => $request->input('commment'),
+                'status' => 'PENDING',
+                'delivery_option' => $request->input('delivery_option'),
+            ]);
 
         // Attach products to the order
         foreach (Cart::getContent() as $item) {
@@ -169,10 +169,10 @@ class OrderController extends Controller
             ]);
         }
 
-        // Clear the cart and session data
-        Cart::clear();
-        session()->forget('extras');
-        session()->forget('total');
+            // Clear the cart and session data
+            Cart::clear();
+            // session()->forget('extras');
+            // session()->forget('total');
 
         // Commit the transaction
         DB::commit();
