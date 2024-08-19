@@ -11,47 +11,50 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 Route::get('/old-db', function () {
-    // $categories_old = DB::connection('mysql_old')->table('categories')->get()->map(function ($category) {
-    //     return [
-    //         'id' => $category->cat_id,
-    //         'name' => $category->cat_name,
-    //         'slug' => $category->slug,
-    //     ];
-    // });
-    // $sub_categories_old = DB::connection('mysql_old')->table('subcategories')->get()->map(function ($sub_category) {
-    //     return [
-    //         'name' => $sub_category->subcat_name,
-    //         'parent_id' => $sub_category->cat_id,
-    //         'slug' => Str::slug($sub_category->subcat_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
-    //     ];
-    // });
-    // $products_old = DB::connection('mysql_old')->table('products')->get()->map(function ($product) {
-    //     return [
-    //         'id' => $product->prod_id,
-    //         'name' => $product->prod_name,
-    //         'composition' => $product->composition,
-    //         'allergenes' => $product->allergenes,
-    //         'sku' => $product->SKU,
-    //         'price' => $product->price,
-    //         'description' => $product->text,
-    //         'category_id' => $product->subcat_id,
-    //         'slug' => Str::slug($product->prod_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
-    //     ];
-    // });
-    // $resturent_old = DB::connection('mysql_old')->table('restaurents')->get()->map(function ($restaurent) {
+    $categories_old = DB::connection('mysql_old')->table('categories')->get()->map(function ($category) {
+        return [
+            'id' => $category->cat_id,
+            'name' => $category->cat_name,
+            'slug' => $category->slug,
 
-    //     return [
-    //         'name' => $restaurent->restaurent_name,
-    //         'slug' => Str::slug($restaurent->restaurent_name),
-    //     ];
-    // });
-    // $extras_old = DB::connection('mysql_old')->table('extras')->get()->map(function ($extra) {
+        ];
+    });
+    $sub_categories_old = DB::connection('mysql_old')->table('subcategories')->get()->map(function ($sub_category) {
+        // dd($sub_category);
+        return [
+            'name' => $sub_category->subcat_name,
+            'parent_id' => $sub_category->cat_id,
+            'subcat_id' => $sub_category->subcat_id,
+            'slug' => Str::slug($sub_category->subcat_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
+        ];
+    });
+    $products_old = DB::connection('mysql_old')->table('products')->get()->map(function ($product) {
+        return [
+            'id' => $product->prod_id,
+            'name' => $product->prod_name,
+            'composition' => $product->composition,
+            'allergenes' => $product->allergenes,
+            'sku' => $product->SKU,
+            'price' => $product->price,
+            'description' => $product->text,
+            'category_id' => $product->subcat_id,
+            'slug' => Str::slug($product->prod_name) . '-' . substr(Str::uuid()->toString(8), 0, 10),
+        ];
+    });
+    $resturent_old = DB::connection('mysql_old')->table('restaurents')->get()->map(function ($restaurent) {
 
-    //     return [
-    //         'name' => $extra->extra_name,
-    //         'type' => $extra->extra_type,
-    //     ];
-    // });
+        return [
+            'name' => $restaurent->restaurent_name,
+            'slug' => Str::slug($restaurent->restaurent_name),
+        ];
+    });
+    $extras_old = DB::connection('mysql_old')->table('extras')->get()->map(function ($extra) {
+
+        return [
+            'name' => $extra->extra_name,
+            'type' => $extra->extra_type,
+        ];
+    });
     $zones_old = DB::connection('mysql_old')->table('zone_coordinates')->get()->map(function ($zone) {
         return [
             'zone_id' => $zone->zone_id,
@@ -71,24 +74,24 @@ Route::get('/old-db', function () {
     });
     
 
-    // Category::latest()->delete();
-    // Product::latest()->delete();
-    // Restaurant::latest()->delete();
+    Category::latest()->delete();
+    Product::latest()->delete();
+    Restaurant::latest()->delete();
     Zone::latest()->delete();
     RestaurantZone::latest()->delete();
 
-    // foreach ($categories_old as $category) {
-    //     Category::create($category);
-    // }
-    // foreach ($sub_categories_old as $subcategory) {
-    //     Category::create($subcategory);
-    // }
-    // foreach ($products_old as $product) {
-    //     Product::create($product);
-    // }
-    // foreach ($resturent_old as $resturent) {
-    //     Restaurant::create($resturent);
-    // }
+    foreach ($categories_old as $category) {
+        Category::create($category);
+    }
+    foreach ($sub_categories_old as $subcategory) {
+        Category::create($subcategory);
+    }
+        foreach ($products_old as $product) {
+            Product::create($product);
+        }
+    foreach ($resturent_old as $resturent) {
+        Restaurant::create($resturent);
+    }
     // dd($zones_old);
     foreach ($zones_old as $zone) {
         Zone::create($zone);

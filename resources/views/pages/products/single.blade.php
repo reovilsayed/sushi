@@ -1,6 +1,5 @@
 @dd($product)
 <x-layout>
-
     <div class="container mt-3">
         <div class="row justify-content-center">
                 <div class="card" >

@@ -1,18 +1,17 @@
 @php
     $restaurants = App\Models\Restaurant::latest()->take(9)->get();
-    
+    $pages = App\Models\Page::select('title', 'slug')->get();
 @endphp
-<footer id="footer" class="footer">
+<footer id="footer" class="footer bg-transparent">
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
-                <a href="index.html" class="logo d-flex align-items-center">
-                    <span class="sitename">Sushi
-                    </span>
+                <a href="/" class="logo d-flex align-items-center">
+                    <span class="sitename">{{Settings::site_title()}}</span>
                 </a>
                 <div class="footer-contact ">
-                    <p class="mt-3"><strong>Phone:</strong> <span>{{ Settings::option('phone') }}</span></p>
-                    <p><strong>Email:</strong> <span>{{ Settings::option('email') }}</span></p>
+                    <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::option('phone') }}</span></p>
+                    <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::option('email') }}</span></p>
                 </div>
                 <div class="social-links d-flex mt-4">
                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -23,22 +22,23 @@
             </div>
 
             <div class="col-lg-4 col-md-3 footer-links">
-                <h4>Useful Links</h4>
+                <h4>{{__('sentence.usefullinks')}}</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="#">{{__('sentence.home')}}</a></li>
                     @auth
-                        <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('user.dashboard') }}">{{__('sentence.dashboard')}}</a></li>
                     @else
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
+                        <li><a href="{{ route('login') }}">{{__('sentence.login')}}</a></li>
+                        <li><a href="{{ route('register') }}">{{__('sentence.register')}}</a></li>
                     @endauth
-                    <li><a href="#">Terms of service</a></li>
-                    <li><a href="#">Privacy policy</a></li>
+                    @foreach ($pages as $page)
+                    <li><a href="{{route('pages.view',$page->slug   )}}">{{$page->title}}</a></li>
+                    @endforeach
                 </ul>
             </div>
 
             <div class="col-lg-4 col-md-3 footer-links">
-                <h4>Restaurant</h4>
+                <h4>{{__('sentence.restaurants')}}</h4>
                 <ul>
                   @foreach ($restaurants as $restaurant)
                   <li><a

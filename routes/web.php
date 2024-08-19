@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenericsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\PriscriptionController;
 use App\Http\Controllers\ProductController;
@@ -19,19 +20,24 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\User\UserController;
+use App\Mail\ContactFormMail;
 use App\Mail\CustomerReport;
 use App\Mail\DueClearReminder;
 use App\Mail\DuePaidMail;
 use App\Mail\MonthlyDueReport;
 use App\Mail\OrderConfirmationMail;
 use App\Mail\PurchasesMailForShopOwner;
+use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Order;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Options;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +72,9 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/cart', 'cart')->name('restaurant.cart');
     Route::post('/check-location', 'checkLocation')->name('check.location');
     Route::get('/thank-you', 'thank_you')->name('thank_you');
+    Route::get('/pages/{page}', 'pageView')->name('pages.view');
+
+    Route::post('/contact/send', 'contactMail')->name('contact.mail');
 });
 
 //cart routes
@@ -77,9 +86,21 @@ Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 
-Route::get('/test', function () {
 
-})->middleware('role:1');
+Route::get('/test', function () {
+    // dd(Category::all()->pluck('id'));
+    return $categpries = Category::with('products')->whereNotNull('parent_id')->get();
+    foreach ($categpries as $category) {
+        foreach ($category->products as $product) {
+            Product::where('id', $product->id)->update([
+                'category_id' => $category->id,
+            ]);
+        }
+    }
+});
+
+
+//order routes
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 
 //pos backend routes
@@ -138,7 +159,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
 
 
-    Route::resource('settings', SettingController::class);
+    // Route::resource('settings', SettingController::class);
     Route::resource('priscription', PriscriptionController::class);
 
     Route::post('change-password', [SettingController::class, 'changePassword'])->name('settings.change-password');
@@ -172,10 +193,79 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         }
     });
 });
-Route::get('/error', function () {
-    return $wrongvar;
-});
+Route::post('payment/callback', function (Request $request) {
+    // Extract and validate response data
+    $data = $request->input('Data');
+    $seal = $request->input('Seal');
+    $secretKey  = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+    $calculatedSeal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
 
-require ('sushi_old.php');
-require ('admin.php');
-require ('user.php');
+    if ($calculatedSeal !== $seal) {
+        // Invalid response, stop processing
+        return response()->json(['error' => 'Invalid response'], 400);
+    }
+
+    // Decode and store the response data in the database
+    $decodedData = urldecode($data);
+    $responseData = array_map(function ($part) {
+        return explode('=', $part, 2);
+    }, explode('|', $decodedData));
+
+    // Convert the array into an associative array
+    $responseData = array_column($responseData, 1, 0);
+    Log::info('Response Data:' . json_encode($responseData));
+
+    // Create a new array with only the keys you're interested in
+    $keysToStore = ['acquirerResponseCode', 'responseCode', 'amount', 'orderId', 's10TransactionId', 'merchantId', 'transactionReference', 'currencyCode', 'paymentMethod', 'paymentMeanBrand', 'transactionDateTime', 'cardNumber', 'cardNetwork', 'cardCountry'];
+    $filteredData = array_filter($keysToStore, function ($key) use ($responseData) {
+        return array_key_exists($key, $responseData);
+    });
+
+    // Get values for the filtered keys
+    $filteredData = array_intersect_key($responseData, array_flip($filteredData));
+    Log::info('Filtered Data:' . json_encode($filteredData));
+
+    // Store $filteredData in the database
+
+    //   $paymentrespone = PaymentResponse::create($filteredData);
+
+    $orderId = $filteredData['orderId'];
+
+    $order = Order::where('id', $orderId)->first();
+
+    $user = $order->user_id;
+    Log::info('User:' . $user);
+    // if (!auth()->check()) {
+    //     $userInstance = User::find($user);
+    //     Auth::loginAs($userInstance);
+    // }
+    if ($filteredData['responseCode'] == '00') {
+        $order->status = 'PAID';
+
+        // $order->payment->payment_process_id = $paymentrespone->id;
+        // $order->order_status = 'confirmed';
+        // $order->payment->save();
+        $order->save();
+        $statusMessage = 'Payment processed successfully';
+        return redirect()->route('thank_you')
+            ->with('success', $statusMessage);
+    } else {
+        $order->status = 'UNPAID';
+        // $order->order_status = 'failed';
+        $order->save();
+        $statusMessage = 'Payment failed. Please try again';
+        return redirect()->route('thank_you')
+            ->withErrors($statusMessage);
+    }
+});
+Route::get('/test', [PaymentController::class, 'index']);
+Route::get('/test2', function () {
+    $products = Product::all();
+    foreach ($products as $product) {
+        $product->price = $product->price * 100;
+        $product->save();
+    }
+});
+require('sushi_old.php');
+require('admin.php');
+require('user.php');

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormMail;
 use App\Models\Category;
 use App\Models\Extra;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\Restaurant;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Cart;
+use Mail;
 
 class PageController extends Controller
 {
@@ -25,10 +30,8 @@ class PageController extends Controller
     public function menu($slug)
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
-
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
-        // dd($sub_categories[0]->products);
         return view('user.menu', compact('categories', 'sub_categories', 'restaurant'));
     }
     public function userCheckout()
@@ -64,8 +67,13 @@ class PageController extends Controller
 
     public function cart()
     {
-        $extras = Extra::latest()->where('type', '=', 'cart')->get();
-        return view('user.cart', compact('extras'));
+        if (Cart::getContent()->isEmpty()) {
+            $restaurants = Restaurant::all();
+            return view('user.restaurant', compact('restaurants'));
+        } else {
+            $extras = Extra::latest()->where('type', 'cart')->get();
+            return view('user.cart', compact('extras'));
+        }        
     }
     public function checkLocation(Request $request)
     {
@@ -74,7 +82,7 @@ class PageController extends Controller
         // dd($latitude);
         $radius = 5;
 
-     
+
         $zone = Zone::select('zones.*')
             ->selectRaw('( 6371 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
             ->having('distance', '<', $radius)
@@ -101,5 +109,65 @@ class PageController extends Controller
                 'message' => 'No zone found near your location.',
             ]);
         }
+    }
+    public function adminPages()
+    {
+        $pages = Page::all();
+        return view('pages.pages.pageslist', compact('pages'));
+    }
+    public function pagesCreate()
+    {
+        return view('pages.pages.create');
+    }
+    public function pagesStore(Request $request)
+    {
+        $page = new Page;
+        $page->title = $request->title;
+        $page->slug = Str::slug($request->title);
+        $page->body = $request->body;
+        $page->save();
+        return redirect(route('admin.pages'))->with('success', 'page added successfully');
+    }
+    public function destroyPage(Page $page)
+    {
+        $page->delete();
+        return redirect()->back()->with('success', 'Restaurant deleted');
+    }
+    public function pagesEdit(Page $page)
+    {
+        return view('pages.pages.edit', compact('page'));
+    }
+    public function pagesUpdate(Request $request, Page $page)
+    {
+        $page->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'body' => $request->body,
+        ]);
+        $page->save();
+        return redirect(route('admin.pages'))->with('success', 'Pages Updated Successfully');
+    }
+    public function pageView($page)
+    {
+        $data = Page::where('slug', $page)->first();
+
+        return view('pages.pages.page', compact('data'));
+    }
+    public function contactMail(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+            'subject' => $request->subject,
+        ];
+        Mail::to('contact@gmail.com')->send(new ContactFormMail($data));
+        
+        return back()->with('success', 'Thank you for contacting us!');
+        
     }
 }

@@ -41,7 +41,7 @@
 
 </head>
 
-<body class="index-page">
+<body class="index-page body-colour">
 
     <x-user.header />
 

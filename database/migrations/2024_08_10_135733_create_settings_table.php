@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('shopName')->nullable();
-            $table->string('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->string('logo')->nullable();
-            $table->timestamps();
+            $table->string('key')->unique();
+            $table->string('display_name');
+            $table->text('value');
+            $table->text('details')->nullable()->default(null);
+            $table->text('group');
         });
     }
 

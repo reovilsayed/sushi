@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="row row-cols">
-                                <x-form.input name="description" label="Description *" value="{{$product->description}}"
+                                <x-form.input name="description" label="Description *" value="{{$product->text}}"
                                     style="height: 130px" type="textarea" id="test" autofocus />
                             </div>
 
@@ -67,16 +67,16 @@
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
-                            <div class="row row-cols-2">
+                            <div class="row row-cols-1">
 
-                                <x-form.input id="quantity" name="quantity" wire:model="quantity" label="Quantity"
-                                    value="{{$product->quantity}}" />
+                                {{-- <x-form.input id="quantity" name="quantity" wire:model="quantity" label="Quantity"
+                                    value="{{$product->quantity}}" /> --}}
                                 <x-form.input id="price" name="price" wire:model="price" label="Price *"
                                     value="{{$product->price}}" required />
-                                <x-form.input name="status" wire:model="status" value="{{$product->featured}}" type="select"
+                                {{-- <x-form.input name="status" wire:model="status" value="{{$product->featured}}" type="select"
                                     label="Status" :options="[0 => 'False', 1 => 'True']" />
                                 <x-form.input name="featured" wire:model="featured" value="{{$product->featured}}" type="select"
-                                    label="Featured" :options="[0 => 'False', 1 => 'True']" />
+                                    label="Featured" :options="[0 => 'False', 1 => 'True']" /> --}}
 
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">

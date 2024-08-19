@@ -67,16 +67,16 @@
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
-                            <div class="row row-cols-2">
+                            <div class="row row-cols-1">
 
-                                <x-form.input id="quantity" name="quantity" wire:model="quantity" label="Quantity"
-                                    value="" />
+                                {{-- <x-form.input id="quantity" name="quantity" wire:model="quantity" label="Quantity"
+                                    value="" /> --}}
                                 <x-form.input id="price" name="price" wire:model="price" label="Price *"
                                     value="" required />
-                                <x-form.input name="status" wire:model="status" value="" type="select"
+                                {{-- <x-form.input name="status" wire:model="status" value="" type="select"
                                     label="Status" :options="[0 => 'False', 1 => 'True']" />
                                 <x-form.input name="featured" wire:model="featured" value="" type="select"
-                                    label="Featured" :options="[0 => 'False', 1 => 'True']" />
+                                    label="Featured" :options="[0 => 'False', 1 => 'True']" /> --}}
 
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">

@@ -16,10 +16,12 @@
                         <th scope="col">Name</th>
                         <th scope="col">Slug</th>
                         <th scope="col">Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($restaurants as $key => $restaurant)
+                    
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>

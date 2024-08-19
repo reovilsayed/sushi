@@ -1,9 +1,7 @@
 <x-user>
-
-
-
+<br><br><br>
     <!-- product  Section -->
-    <section id="about" class="about section ">
+    <section id="about" class="about section bg-transparent">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -14,10 +12,10 @@
                 <div class="col-lg-6 order-2 order-lg-1 content">
                     <h3>{{ $product->name }}</h3>
                     <p class="fst-italic">
-                        COMPOSITION | {{ $product->composition }}
+                        {{__('sentence.compositions')}} | {{ $product->composition }}
                     </p>
                     <p class="fst-italic">
-                        Allergenes | {{ $product->allergenes }}
+                        {{__('sentence.allergenes')}} | {{ $product->allergenes }}
                     </p>
 
                     <div class="price mb-5">
@@ -29,7 +27,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="btn-orange">ADD TO CART</button>
+                                <button type="submit" class="btn-orange">{{__('sentence.addtocart')}}</button>
                             </form>
                             {{-- <a href="#" class="btn-orange">Add To Cart</a> --}}
                         </div>

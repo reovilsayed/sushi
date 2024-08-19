@@ -1,7 +1,7 @@
 <x-user>
-    <div class="vh-100 d-flex justify-content-center align-items-center">
-        <div class="col-md-8" style="border-top: 5px solid seagreen;">
-            <div class="card  bg-white shadow p-5" style="border-radius: 0px">
+    <div class="vh-100 d-flex justify-content-center align-items-center " >
+        <div class="col-md-8 " style="border-top: 5px solid transparent;">
+            <div class="card  bg-white shadow p-5 bg-transparent" style="border-radius: 0px">
                 <div class="mb-4 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75"
                         fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -11,9 +11,9 @@
                     </svg>
                 </div>
                 <div class="text-center">
-                    <h1>Thank You !</h1>
-                    <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                    <a class="btn btn-outline-success" href="{{ route('restaurant.home') }}">Back Home</a>
+                    <h1>{{__('sentence.thankyou')}}!</h1>
+                    <p class="text-colour">{{__('sentence.thankyoumessage')}}</p>
+                    <a class="btn btn-outline-success" href="{{ route('restaurant.home') }}">{{__('sentence.home')}}</a>
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
     @endpush
     <div class="dashboard_content ps-0 mt-2">
         <div class="dashboard_content_inner">
-            <div class="d-flex justify-content-between mt-1 mb-3">
+            {{-- <div class="d-flex justify-content-between mt-1 mb-3">
                 <div style="float"class="mt-2">
                     <a href="{{ route('customers.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add new
                         customer</a>
@@ -38,7 +38,7 @@
                                 class="fas fa-money-bill"></i> Due Customers</a>
                     @endif
                 </div>
-            </div>
+            </div> --}}
             @if (session()->has('message'))
                 <div class="alert alert-success">
                     {{ session()->get('message') }}

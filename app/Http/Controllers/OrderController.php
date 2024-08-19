@@ -15,6 +15,7 @@ use Cart;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Mail\user_create_mail;
+use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
 {
@@ -103,6 +104,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         // Check if the cart is empty
         if (Cart::isEmpty()) {
             return redirect()->back()->with('error', 'Please add products to the cart before selecting extras.');
@@ -113,26 +115,26 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
-            // Handle user authentication
-            if (!auth()->check()) {
-                $user = User::create([
-                    'name' => $request->input('f_name') ?? $request->input('f_name'),
-                    'l_name' => $request->input('l_name') ?? $request->input('l_name'),
-                    'email' => $request->input('email') ?? $request->input('email'),
-                    'password' => Hash::make($pass), // Generate a random password
-                ]);
+        // Handle user authentication
+        if (!auth()->check()) {
+            $user = User::create([
+                'name' => $request->input('f_name') ?? $request->input('f_name'),
+                'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                'email' => $request->input('email') ?? $request->input('email'),
+                'password' => Hash::make($pass), // Generate a random password
+            ]);
 
-                $data = [
-                    'name' => $request->name,
-                    'subject' => 'We Create User Account to Sushi',
-                    'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
-                    'button_link' => '',
-                    'button_text' => '',
-                ];
-                Mail::to($user->email)->send(new user_create_mail($data));
-            } else {
-                $user = auth()->user();
-            }
+            $data = [
+                'name' => $request->name,
+                'subject' => 'We Create User Account to Sushi',
+                'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
+                'button_link' => '',
+                'button_text' => '',
+            ];
+            Mail::to($user->email)->send(new user_create_mail($data));
+        } else {
+            $user = auth()->user();
+        }
 
             // Prepare shipping information
             $shipping = [
@@ -159,24 +161,48 @@ class OrderController extends Controller
                 'delivery_option' => $request->input('delivery_option'),
             ]);
 
-            // Attach products to the order
-            foreach (Cart::getContent() as $item) {
-                $order->products()->attach($item->id, [
-                    'quantity' => $item->quantity,
-                    'price' => $item->price,
-                ]);
-            }
+        // Attach products to the order
+        foreach (Cart::getContent() as $item) {
+            $order->products()->attach($item->id, [
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+            ]);
+        }
 
             // Clear the cart and session data
             Cart::clear();
             // session()->forget('extras');
             // session()->forget('total');
 
-            // Commit the transaction
-            DB::commit();
+        // Commit the transaction
+        DB::commit();
 
-            // Redirect back with a success message
-            return redirect()->route('thank_you')->with('success', 'Order placed successfully!');
+
+        $amount = $order->total * 100;
+        $orderId = $order->id;
+        $merchantId = '083262709500018';
+        $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+        $keyVersion = 3;
+        $normalRetrunUrl = url('payment/callback');
+        $currencyCode = 978;
+
+        $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        $interfaceVersion = "HP_3.2";
+
+        $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
+
+        $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
+
+        $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
+            'DATA' => $data,
+            'SEAL' => $seal,
+            'interfaceVersion' => $interfaceVersion,
+        ]);
+        return $response->body();
+
+        // Redirect back with a success message
+      
         } catch (\Exception $e) {
             // Rollback the transaction in case of an error
             DB::rollBack();

@@ -3,9 +3,12 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -28,6 +31,19 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/product/edit/{product}', 'editProduct')->name('edit.product');
         Route::post('/product/update/{product}', 'updateProduct')->name('update.product');
         Route::delete('/product/delete/{product}', 'deleteProduct')->name('delete.product');
+    });
+
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/settings', 'index')->name('settings.index');
+        Route::post('/settings/update', 'updateSettings')->name('setting.update');
+    });
+    Route::controller(PageController::class)->group(function () {
+        Route::get('/pages', 'adminPages')->name('admin.pages');
+        Route::get('/pages/create', 'pagesCreate')->name('pages.create');
+        Route::post('/pages/store', 'pagesStore')->name('pages.store');
+        Route::delete('/pages/delete/{page}', 'destroyPage')->name('delete.page');
+        Route::get('/pages/edit/{page}', 'pagesEdit')->name('edit.page');
+        Route::post('/pages/update/{page}', 'pagesUpdate')->name('update.page');
     });
 
 
