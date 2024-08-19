@@ -1,7 +1,21 @@
 <x-user>
+    @php
+        $firstItem = Cart::getContent()->first();
+        $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
+        // $zone = $restaurant ? $restaurant->zones->get() : null;
+    @endphp
     @push('css')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+        <style>
+            .cart_submit {
+                background-color: var(--accent-color);
+                border: none;
+                color: var(--heading-color);
+                border-radius: 4px;
+                font-size: small;
+            }
+        </style>
     @endpush
 
     <section id="about" class="cart_section pb-5">
@@ -33,6 +47,7 @@
                                             <a class="cart-product-remove text-center"
                                                 href="{{ url('/cart-destroy/' . $item->id) }}">x</a>
                                         </td>
+                                        {{-- @dd($item) --}}
                                         @if (isset($item->attributes['restaurent']))
                                             @php
                                                 $restuarant = App\Models\Restaurant::find(
@@ -46,15 +61,16 @@
                                                         alt="{{ $item->name }}">
                                                 </a>
                                             </td>
+
                                             <td class="cart-product-info text-center">
                                                 <h4><a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">{{ $item->name }}</a>
                                                 </h4>
                                             </td>
                                         @endif
-                                        
+
                                         <td class="cart-product-price">{{ $item->price }}€</td>
-                                        
+
                                         <form action="{{ route('cart.update') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $item->id }}" />
@@ -66,8 +82,7 @@
                                                             style="width: 100% !important; height: 100% !important; background-color: transparent !important;  border: 0 !important;outline: none; color:var(--heading-color);">
                                                     </div>
                                                     <div class="cart_quantity_item1">
-                                                        <button type="submit" class="update_btn"><i
-                                                                class="fa-solid fa-pen-nib"></i></button>
+                                                        <button type="submit" class="update_btn"><i class="fa-solid fa-floppy-disk"></i></button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -84,7 +99,7 @@
                 </div>
 
                 <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 226px;">
-                    <div class="cart_total_section">
+                    <div class="">
                         <h4 class="ms-3 pt-2" style="">Cart Totals</h4>
                     </div>
                     <div class="table-responsive">
@@ -109,13 +124,13 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- <div class="btn-wrapper text-center pe-md-3">
+                    <div class="btn-wrapper text-center pe-md-3">
                         @if (Cart::isEmpty())
                             <a href="{{ route('restaurant.home') }}" class="checkout_btn">Proceed to checkout</a>
                         @else
                             <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">Proceed to checkout</a>
                         @endif
-                    </div> --}}
+                    </div>
 
                 </div>
             </div>
@@ -130,24 +145,27 @@
         <div class="container">
             <div class="row gy-4">
                 <div class="col-md-12">
-                    <form action="{{ route('extras') }}" method="POST">
-                        @csrf
-                        <div class="row text-center p-2">
-                            @foreach ($extras as $extra)
-                                {{-- @dd($extra); --}}
-                                <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
-                                    style="flex-direction: column; justify-content: space-between;">
-                                    <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
-                                    <div class="cart-product-quantity d-flex justify-content-center mt-3">
+                    <div class="row text-center p-2">
+                        @foreach ($extras as $extra)
+                            {{-- @dd($extra); --}}
+
+                            <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
+                                style="flex-direction: column; justify-content: space-between;">
+                                <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
+                                <form action="{{ route('extra.store') }}" method="post">
+                                    @csrf
+                                    <div class="cart-product-quantity d-flex justify-content-center">
                                         <div class="cart-plus-minus">
                                             <div class="dec qtybutton"
                                                 onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
                                                 -</div>
+                                            {{-- @dd($extra) --}}
                                             <input type="text" value="0"
-                                                name="extras[{{ $extra->id }}][quantity]"
+                                                name="quantity"
                                                 class="cart-plus-minus-box" id="extra_quantity_{{ $extra->id }}"
                                                 min="1" placeholder="0" data-price="{{ $extra->price }}"
-                                                data-name="{{ $extra->name }}" readonly disabled>
+                                                data-name="{{ $extra->name }}" readonly>
+
                                             <div class="inc qtybutton"
                                                 onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
                                                 +</div>
@@ -155,41 +173,28 @@
                                     </div>
                                     <div class="pricetag justify-content-center">
                                         <div class="centerinput" style="width: 100px">
-                                            <p style="font-weight: 100;">
-                                                <input name="" id="price_{{ $extra->id }}"
+                                            <p style="font-weight: 100;" class="mb-0">
+                                                {{-- <input name="" id="price_{{ $extra->id }}"
                                                     style="width: 100px" class="p-0 text-center" readonly
-                                                    value="0">
+                                                    value="0"> --}}
+                                                {{ $extra->price }}
                                             </p>
                                         </div>
                                     </div>
+                                    <div class="mb-2">
 
-                                    <!-- Hidden inputs to store extra details -->
-                                    <input type="hidden" name="extras[{{ $extra->id }}][name]"
-                                        id="name_{{ $extra->id }}" value="" disabled>
-                                    <input type="hidden" name="extras[{{ $extra->id }}][price]"
-                                        id="hidden_price_{{ $extra->id }}" value="" disabled>
+                                        {{-- <input type="hidden" name="quantity" id="form_quantity_{{ $extra->id }}"
+                                            value="1"> --}}
+                                        <input type="hidden" name="product_id" value="{{ $extra->id }}">
+                                        <input type="hidden" name="price" id="form_price_{{ $extra->id }}" value="{{ $extra->price }}"> 
+                                        <input type="hidden" name="restaurent_id" value="{{ $restaurant->id ?? '' }}">
+                                        <button type="submit" class="cart_submit">Add Cart</button>
 
-                                    <input type="hidden" name="product_id" value="" disabled>
-                                </div>
-                            @endforeach
-                            <input type="hidden" name="total_price" id="total_price"
-                                value="{{ Cart::getTotal() }}">
-                            <div class="col-md-12 text-start mt-3 p-0">
-                                <!-- Proceed to checkout button -->
-                                <button type="submit" id="extraButton"
-                                    {{ Cart::isEmpty() ? 'disabled' : '' }}>Proceed to
-                                    checkout</button>
-
-                                <!-- Message -->
-                                @if (Cart::isEmpty())
-                                    <p class="mt-2 text-danger">Please add products to the cart before selecting
-                                        extras.</p>
-                                    {{-- @elseif (!auth()->check())
-                                    <p class="mt-2 text-danger">Please log in to proceed to checkout.</p> --}}
-                                @endif
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                    </form>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,32 +206,11 @@
                 const currentQuantity = Math.max(0, parseInt(quantityInput.value) + change);
 
                 quantityInput.value = currentQuantity;
-                document.getElementById(`price_${id}`).value = `${(currentQuantity * price).toFixed(2)}€`;
+                // document.getElementById(`price_${id}`).value = `${(currentQuantity * price).toFixed(2)}€`;
 
-                document.getElementById(`hidden_price_${id}`).value = currentQuantity * price;
-                document.getElementById(`name_${id}`).value = name;
-
-                // Enable hidden inputs if quantity is greater than 0
-                if (currentQuantity > 0) {
-                    quantityInput.removeAttribute('disabled');
-                    document.getElementById(`hidden_price_${id}`).removeAttribute('disabled');
-                    document.getElementById(`name_${id}`).removeAttribute('disabled');
-                } else {
-                    quantityInput.setAttribute('disabled', true);
-                    document.getElementById(`hidden_price_${id}`).setAttribute('disabled', true);
-                    document.getElementById(`name_${id}`).setAttribute('disabled', true);
-                }
-
-                recalculateTotal();
-            }
-
-            function recalculateTotal() {
-                const extrasTotal = [...document.querySelectorAll('.cart-plus-minus-box')].reduce((total, extra) =>
-                    total + (parseFloat(extra.dataset.price) * parseInt(extra.value) || 0), 0);
-
-                const finalTotal = parseFloat('{{ Cart::getTotal() }}') + extrasTotal;
-                document.getElementById('total_price').value = finalTotal.toFixed(2);
-                document.getElementById('order_total_display').innerText = `${finalTotal.toFixed(2)} €`;
+                // Update hidden form fields
+                document.getElementById(`form_quantity_${id}`).value = currentQuantity;
+                // document.getElementById(`form_price_${id}`).value = currentQuantity * price;
             }
         </script>
 

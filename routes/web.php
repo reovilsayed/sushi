@@ -70,6 +70,7 @@ Route::controller(PageController::class)->group(function () {
 
 //cart routes
 Route::post('/add-cart', [CartController::class, 'add'])->name('cart.store');
+Route::post('/add-extra', [CartController::class, 'addExtra'])->name('extra.store');
 Route::post('/buynow', [CartController::class, 'buynow'])->name('cart.buynow');
 Route::post('/add-update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');

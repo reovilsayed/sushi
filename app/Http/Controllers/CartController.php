@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Extra;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Cart;
@@ -32,7 +33,7 @@ class CartController extends Controller
 	// }
 	public function add(Request $request)
 	{
-
+		// dd($request);
 		$product = Product::find($request->product_id);
 
 		if (!$product) {
@@ -63,7 +64,7 @@ class CartController extends Controller
 
 	public function update(Request $request)
 	{
-		
+
 
 		Cart::update($request->product_id, array(
 			'quantity' => array(
@@ -73,9 +74,9 @@ class CartController extends Controller
 
 		));
 
-		
 
-	
+
+
 		return back()->with('success_msg', 'Item has been updated!');
 	}
 	public function destroy($id)
@@ -99,10 +100,40 @@ class CartController extends Controller
 		return back()->with('success_msg', 'Item has been Attribute add!');
 	}
 
-	public function extras(request $request)  {
-		// dd( $request->restaurant_slug);
-		Session::put('extras',$request->extras);
-		Session::put('total',$request->total_price);
-		return redirect()->route('restaurant.checkout', ['restaurant' => $request->restaurant_slug]);
+	// public function extras(request $request)  {
+	// 	// dd( $request->restaurant_slug);
+	// 	Session::put('extras',$request->extras);
+	// 	Session::put('total',$request->total_price);
+	// 	return redirect()->route('restaurant.checkout', ['restaurant' => $request->restaurant_slug]);
+	// }
+
+
+	public function addExtra(Request $request)
+	{
+		// dd($request);
+			// Validate the incoming request data
+		$request->validate([
+			'product_id' => 'required|exists:extras,id',
+			'quantity' => 'required|integer|min:1',
+			'price' => 'required|numeric|min:0',
+		]);
+
+		// Retrieve the extra item
+		$product = Extra::find($request->product_id);
+
+		if (!$product) {
+			return back()->withErrors('Product not found.');
+		}
+
+		// Add to cart with the quantity and price from the request
+		Cart::add(
+			$product->id,
+			$product->name,
+			$request->price, // Use the price from the form
+			$request->quantity, // Use the quantity from the form
+			['restaurent' => $request->restaurent_id]
+		)->associate('App\Models\Extra');
+
+		return back()->with('success_msg', 'Item has been added to cart!');
 	}
 }

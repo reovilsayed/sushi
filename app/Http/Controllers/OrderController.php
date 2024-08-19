@@ -151,9 +151,9 @@ class OrderController extends Controller
             $order = Order::create([
                 'customer_id' => $user->id,
                 'shipping_info' => json_encode($shipping), // Storing as JSON
-                'extra' => json_encode(session('extras')), // Storing as JSON
+                // 'extra' => json_encode(session('extras')), // Storing as JSON
                 'sub_total' => Cart::getSubTotal(),
-                'total' => session('total'), // Update this if there are additional charges (like tax or shipping)
+                'total' => Cart::getTotal(), // Update this if there are additional charges (like tax or shipping)
                 'comment' => $request->input('commment'),
                 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
@@ -169,8 +169,8 @@ class OrderController extends Controller
 
             // Clear the cart and session data
             Cart::clear();
-            session()->forget('extras');
-            session()->forget('total');
+            // session()->forget('extras');
+            // session()->forget('total');
 
             // Commit the transaction
             DB::commit();

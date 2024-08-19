@@ -249,69 +249,70 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot>
-                                                <tr style="border-top: 1px solid var(--accent-color)">
-                                                    <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
-                                                    <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €
-                                                    </td>
-                                                </tr>
-                                                {{-- <tr style="border: 1px solid var(--accent-color)">
+                                                <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
                                                         <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Shipping</p>
                                                         <div class="ps-3">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
                                                                     name="flexRadioDefault" id="flexRadioDefault1">
-                                                                <label class="form-check-label" style="font-size: 15px;"
-                                                                    for="flexRadioDefault1">
+                                                                <label class="form-check-label"
+                                                                    style="font-size: 15px;" for="flexRadioDefault1">
                                                                     Home Delivery
                                                                 </label>
                                                             </div>
                                                             <div class="form-check mt-2 mb-3">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                                                <label class="form-check-label" style="font-size: 15px;"
-                                                                    for="flexRadioDefault2">
+                                                                    name="flexRadioDefault" id="flexRadioDefault2"
+                                                                    checked>
+                                                                <label class="form-check-label"
+                                                                    style="font-size: 15px;" for="flexRadioDefault2">
                                                                     Pickup From Outlet
                                                                 </label>
                                                             </div>
                                                         </div>
-        
+
                                                     </td>
-                                                    <td class="fs-5 fw-medium text-center">125 €</td>
-                                                </tr> --}}
-                                                <tr
-                                                    style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff">
-                                                    <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                    <td class="fs-5 fw-medium text-center">{{ session('total', 0) }} €
-                                                    </td>
+                                                    <td class="fs-5 fw-medium text-center">0 €</td>
                                                 </tr>
 
-
-                                                {{-- <tr style="border: 1px solid var(--accent-color)">
+                                                <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
                                                         <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Payment Methods</p>
                                                         <div class="ps-3">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
                                                                     name="payment_method" id="payment_method1">
-                                                                <label class="form-check-label" style="font-size: 15px;"
-                                                                    for="payment_method1">
+                                                                <label class="form-check-label"
+                                                                    style="font-size: 15px;" for="payment_method1">
                                                                     Cash on delivery
                                                                 </label>
                                                             </div>
                                                             <div class="form-check mt-2 mb-3">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="payment_method" id="payment_method2" checked>
-                                                                <label class="form-check-label" style="font-size: 15px;"
-                                                                    for="payment_method2">
+                                                                    name="payment_method" id="payment_method2"
+                                                                    checked>
+                                                                <label class="form-check-label"
+                                                                    style="font-size: 15px;" for="payment_method2">
                                                                     Card / Mobile Banking / Wallet
                                                                 </label>
                                                             </div>
                                                         </div>
-            
+
                                                     </td>
                                                     <td></td>
-                                                </tr> --}}
+                                                </tr>
+                                                <tr style="border-top: 1px solid var(--accent-color)">
+                                                    <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
+                                                    <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €
+                                                    </td>
+                                                </tr>
+                                                <tr
+                                                    style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+                                                    <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
+                                                    <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €
+                                                    </td>
+                                                </tr>
                                             </tfoot>
                                         </table>
                                     </div>
