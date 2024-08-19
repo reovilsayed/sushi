@@ -252,7 +252,7 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot>
-                                                <tr style="border: 1px solid var(--accent-color)">
+                                                {{-- <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
                                                         <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Shipping</p>
                                                         <div class="ps-3">
@@ -277,7 +277,7 @@
 
                                                     </td>
                                                     <td class="fs-5 fw-medium text-center">0 €</td>
-                                                </tr>
+                                                </tr> --}}
 
                                                 <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
