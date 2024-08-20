@@ -58,8 +58,8 @@
     <ul class="nav_list">
 
 
-        <x-sidenav.nav name="Dashboard" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
-        <x-sidenav.nav name="Restaurant" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.restaurants') }}" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
         <li class="dropdown">
 
             <a href="javascript:void(0)" class="dropdown-btn">
@@ -67,7 +67,7 @@
                     <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="">
                     <img src="{{ asset('images/fmcg-products-icon-white.svg') }}" alt="">
                 </i>
-                <span class="">Products <i class="fa fa-caret-down text-dark ms-2 " id="updownicon"></i></span>
+                <span class="">{{ __('sentence.products') }} <i class="fa fa-caret-down text-dark ms-2 " id="updownicon"></i></span>
 
             </a>
             <ul class="dropdown-container border-rounded mt-2"
@@ -80,7 +80,7 @@
 
                     <a href="{{ route('products.index') }}" class="mb-1" style="padding-left: 0px;">
                         <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="" style="width: 16px">
-                        Products
+                        {{ __('sentence.products') }}
                     </a>
                 </li>
 
@@ -89,17 +89,17 @@
                     class="dropdown-item {{ request()->route()->getName() == 'categories.index' ? 'drop-item-active' : '' }}">
                     <a href="{{ route('categories.index') }}" class="mb-1" style="padding-left: 0px;">
                         <img src="{{ asset('images/category-icon.svg') }}" alt="" style="width: 16px">
-                        Category
+                        {{ __('sentence.category') }}
                     </a>
                 </li>
             </ul>
         </li>
-        <x-sidenav.nav name="Customer" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.customer') }}" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
 
-        <x-sidenav.nav name="Orders" :active="request()->is('orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
-        <x-sidenav.nav name="Reports" :active="request()->is('reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
-        <x-sidenav.nav name="Settings" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
-        <x-sidenav.nav name="Pages" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.settings') }}" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.pages') }}" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
         
 
 
@@ -110,7 +110,7 @@
                     <img src={{ asset('images/nav7_hov.png') }} alt="" />
                 </i>
 
-                <span>Logout</span>
+                <span>{{ __('sentence.logout') }}</span>
             </a>
         </li>
 

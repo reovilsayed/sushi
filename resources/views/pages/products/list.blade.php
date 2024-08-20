@@ -5,8 +5,7 @@
         <div class="dashboard_content_inner">
             <div class="d-flex justify-content-between mt-1 mb-3">
                 <div style="float"class="mt-2">
-                    <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add new
-                        Product</a>
+                    <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('sentence.addnewproduct')}}</a>
                 </div>
             </div>
             <table class="table">
@@ -14,13 +13,13 @@
                     <tr>
 
                         <th scope="col">#</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">price</th>
+                        <th scope="col">{{__('sentence.image')}}</th>
+                        <th scope="col">{{__('sentence.name')}}</th>
+                        <th scope="col">{{__('sentence.price')}}</th>
                         {{-- <th scope="col">status</th> --}}
-                        <th>SKU</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Action</th>
+                        <th>{{__('sentence.sku')}}</th>
+                        <th scope="col">{{__('sentence.category')}}</th>
+                        <th scope="col">{{__('sentence.action')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +46,7 @@
                                 @if ($product->category)
                                     {{ $product->name }}
                                 @else
-                                    <span class="badge bg-danger">not found</span>
+                                    <span class="badge bg-danger">{{__('sentence.notfound')}}</span>
                                 @endif
                             </td>
 

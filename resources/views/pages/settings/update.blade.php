@@ -48,7 +48,7 @@
 
                                             <div class="prf_data_box">
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Site Title</div>
+                                                    <div class="label">{{ __('sentence.sitetitle') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::site_title() ? Settings::site_title() : 'site title' }}"
@@ -56,7 +56,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Site Email</div>
+                                                    <div class="label">{{ __('sentence.siteemail') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::site_email() ? Settings::site_email() : 'site Email' }}"
@@ -64,7 +64,7 @@
                                                     </div>  
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Site Phone Number</div>
+                                                    <div class="label">{{ __('sentence.sitenumber') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::site_phone() ? Settings::site_phone() : 'site Phone' }}"
@@ -72,7 +72,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Facebook Link</div>
+                                                    <div class="label">{{ __('sentence.facebooklink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::facebook_link() ? Settings::facebook_link() : 'facebook link' }}"
@@ -80,7 +80,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Insatagram Link</div>
+                                                    <div class="label">{{ __('sentence.instagramlink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::instagram_link() ? Settings::instagram_link() : 'instagram link' }}"
@@ -88,7 +88,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
-                                                    <div class="label">Tiktok Link</div>
+                                                    <div class="label">{{ __('sentence.tiktoklink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::tiktok_link() ? Settings::tiktok_link() : 'tiktok link' }}"
@@ -99,10 +99,10 @@
                                                
                                                 <div class="col-12 d-flex justify-content-between mt-2">
                                                     <button class="btn btn-outline-primary h-auto" type="submit"> <i
-                                                            class="fa fa-save"></i> Save</button>
+                                                            class="fa fa-save"></i> {{ __('sentence.save') }}</button>
                                                     <button type="button" class="btn btn-outline-primary"
                                                         data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                                        <i class="fa-solid fa-key"></i> Change Password
+                                                        <i class="fa-solid fa-key"></i> {{ __('sentence.changepassword') }}
                                                     </button>
                                                 </div>
 

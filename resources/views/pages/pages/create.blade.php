@@ -17,7 +17,7 @@
             <div class="col-md-8 mb-4">
                 <div class="card">
                     <div class="card-body ">
-                        <h6 class="dash_head">Add Pages</h6>
+                        <h6 class="dash_head">{{ __('sentence.addpage') }}</h6>
                         <div class="row row-cols-1">
                             <x-form.input name="title" wire:model="name" label="Title *" autofocus required />
                         </div>
@@ -27,7 +27,7 @@
                             </form>
                         </div>
                         <button class="btn btn-success" type="submit" style="float: right">
-                            <i class="fa fa-save"></i> Save
+                            <i class="fa fa-save"></i> {{ __('sentence.save') }}
                         </button>
                     </div>
                 </div>

@@ -27,7 +27,7 @@
                                 <div class="col-md-4">
                                     <select class="form-select form-select mb-3 bg-transparent text-colour"
                                         style="border: 2px solid var(--accent-color);">
-                                        <option selected>Other Option</option>
+                                        <option selected>{{__('sentence.otherOptions')}}</option>
                                         @foreach ($productOption as $option)
                                             <option value="{{$option->option_price}}">{{$option->option_name}} {{$option->option_price}}</option>
                                         @endforeach

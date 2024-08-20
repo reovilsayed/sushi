@@ -42,8 +42,9 @@ class Settings
     }
     public function facebook_link()
     {
-        $link = Setting::where('key', 'facebook.link')->value('value');
-        return $link;
+
+        $facebooklink = Setting::where('key', 'facebook.link')->value('value');
+        return $facebooklink;
     }
     public function instagram_link()
     {

@@ -12,9 +12,9 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">slug</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">{{ __('sentence.title') }}</th>
+                        <th scope="col">{{ __('sentence.slug') }}</th>
+                        <th scope="col">{{ __('sentence.action') }}</th>
 
                     </tr>
                 </thead>
