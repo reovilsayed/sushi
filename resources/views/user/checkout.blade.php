@@ -83,23 +83,24 @@
                             </div>
                             @auth
                             @else
-                            <div class="d-flex gap-3">
-                                <p class="fst-italic">{{ __('sentence.returningcustomer') }}</p>
-                                <a href="{{ route('login') }}"> {{ __('sentence.login') }}</a>
-                            </div>
+                                <div class="d-flex gap-3">
+                                    <p class="fst-italic">{{ __('sentence.returningcustomer') }}</p>
+                                    <a href="{{ route('login') }}"> {{ __('sentence.login') }}</a>
+                                </div>
                             @endauth
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-8 mb-3">
-                                <form action="{{ route('order_store') }}" method="post" class="php-email-form"
-                                    data-aos="fade-up" data-aos-delay="200">
-                                    @csrf
+                        <form action="{{ route('order_store') }}" method="post" class="php-email-form"
+                            data-aos="fade-up" data-aos-delay="200">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
                                     <div class="col-md-12">
                                         <select id="deliveryOption" name="delivery_option"
                                             class="form-select selectpicker" data-container="body">
-                                            <option selected style="color: var(--accent-color)">{{ __('sentence.openthismenu') }}
+                                            <option selected style="color: var(--accent-color)">
+                                                {{ __('sentence.openthismenu') }}
                                             </option>
                                             <option value="take_away">{{ __('sentence.takeaway') }}</option>
                                             <option value="home_delivery">{{ __('sentence.homedelevery') }}</option>
@@ -117,6 +118,7 @@
                                         @endif
 
                                         <div class="row gy-4">
+
                                             <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="f_name"
                                                     placeholder="Your First Name" required=""
@@ -129,10 +131,21 @@
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <input type="email" name="email" class="form-control"
                                                     placeholder="Your Email" required=""
                                                     value={{ auth()->user()->email ?? '' }}>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="deliveryOption" name="time_option"
+                                                    class="form-select selectpicker" data-container="body" required>
+                                                    <option selected style="color: var(--accent-color)">Select a time
+                                                    </option>
+                                                    @foreach ($timeSlots as $time)
+                                                        <option value="{{ $time }}">{{ $time }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -190,9 +203,21 @@
                                                 <input type="number" id="number_type" name="phone"
                                                     class="form-control" placeholder="Your Phone Number">
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
                                                     placeholder="Your House" required="">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <select id="deliveryOption" name="time_option"
+                                                    class="form-select selectpicker" data-container="body" required>
+                                                    <option selected style="color: var(--accent-color)">Select a time
+                                                    </option>
+                                                    @foreach ($timeSlots as $slot)
+                                                        <option value="{{ $slot }}">{{ $slot }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
 
 
@@ -214,45 +239,48 @@
 
 
                                     <div class="col-md-12 text-start mt-5">
-                                        <button type="submit" id="orderButton" disabled>{{ __('sentence.order') }} </button>
+                                        <button type="submit" id="orderButton" disabled>{{ __('sentence.order') }}
+                                        </button>
                                     </div>
 
                                     {{-- </div> --}}
-                                </form>
-                            </div>
-                            <div class="col-md-4 col-sm-12 col-sm-12">
 
-                                <div class="checkout_main_body">
-                                    <div class="container content mb-3 mt-3" data-aos="fade-up">
-                                        <h2 class="text-colour">{{ __('sentence.yourorder') }}</h2>
-                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-sm-12">
 
-                                    <div class="table-responsive">
-                                        <table class="table-responsive" style="width: 100%;">
-                                            <thead class="">
-                                                <tr>
-                                                    <td class="fs-4 fw-medium ps-3 pe-0">{{ __('sentence.products') }}
-                                                        <hr>
-                                                    </td>
-                                                    <td class="fs-4 fw-medium text-center pe-3 ps-0">{{ __('sentence.price') }}
-                                                        <hr>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="">
-                                                @foreach (Cart::getContent() as $product)
-                                                    <tr style="height: 38px;">
-                                                        <td class="ps-3" style="font-size: 13px;">
-                                                            {{ $product->name }} * {{ $product->quantity }}
+                                    <div class="checkout_main_body">
+                                        <div class="container content mb-3 mt-3" data-aos="fade-up">
+                                            <h2 class="text-colour">{{ __('sentence.yourorder') }}</h2>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table-responsive" style="width: 100%;">
+                                                <thead class="">
+                                                    <tr>
+                                                        <td class="fs-4 fw-medium ps-3 pe-0">
+                                                            {{ __('sentence.products') }}
+                                                            <hr>
                                                         </td>
-                                                        <td class="text-center" style="font-size: 13px;">
-                                                            {{ $product->price }} €
+                                                        <td class="fs-4 fw-medium text-center pe-3 ps-0">
+                                                            {{ __('sentence.price') }}
+                                                            <hr>
                                                         </td>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                            <tfoot>
-                                                {{-- <tr style="border: 1px solid var(--accent-color)">
+                                                </thead>
+                                                <tbody class="">
+                                                    @foreach (Cart::getContent() as $product)
+                                                        <tr style="height: 38px;">
+                                                            <td class="ps-3" style="font-size: 13px;">
+                                                                {{ $product->name }} * {{ $product->quantity }}
+                                                            </td>
+                                                            <td class="text-center" style="font-size: 13px;">
+                                                                {{ $product->price }} €
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    {{-- <tr style="border: 1px solid var(--accent-color)">
                                                     <td>
                                                         <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Shipping</p>
                                                         <div class="ps-3">
@@ -279,49 +307,56 @@
                                                     <td class="fs-5 fw-medium text-center">0 €</td>
                                                 </tr> --}}
 
-                                                <tr style="border: 1px solid var(--accent-color)">
-                                                    <td>
-                                                        <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Payment Methods</p>
-                                                        <div class="ps-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="payment_method" id="payment_method1">
-                                                                <label class="form-check-label"
-                                                                    style="font-size: 15px;" for="payment_method1">
-                                                                    Cash on delivery
-                                                                </label>
+                                                    <tr style="border: 1px solid var(--accent-color)">
+                                                        <td>
+                                                            <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Payment Methods
+                                                            </p>
+                                                            <div class="ps-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="payment_method" id="payment_method1"
+                                                                        value="Cash on delivery">
+                                                                    <label class="form-check-label"
+                                                                        style="font-size: 15px;"
+                                                                        for="payment_method1">
+                                                                        Cash on delivery
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mt-2 mb-3">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="payment_method" id="payment_method2"
+                                                                        checked value="Card">
+                                                                    <label class="form-check-label"
+                                                                        style="font-size: 15px;"
+                                                                        for="payment_method2">
+                                                                        Card
+                                                                    </label>
+                                                                </div>
                                                             </div>
-                                                            <div class="form-check mt-2 mb-3">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="payment_method" id="payment_method2"
-                                                                    checked>
-                                                                <label class="form-check-label"
-                                                                    style="font-size: 15px;" for="payment_method2">
-                                                                    Card / Mobile Banking / Wallet
-                                                                </label>
-                                                            </div>
-                                                        </div>
 
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr style="border-top: 1px solid var(--accent-color)">
-                                                    <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
-                                                    <td class="fs-6 fw-medium text-center">{{ Cart::getSubTotal() }} €
-                                                    </td>
-                                                </tr>
-                                                <tr
-                                                    style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
-                                                    <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                    <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }} €
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr style="border-top: 1px solid var(--accent-color)">
+                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
+                                                        <td class="fs-6 fw-medium text-center">
+                                                            {{ Cart::getSubTotal() }} €
+                                                        </td>
+                                                    </tr>
+                                                    <tr
+                                                        style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+                                                        <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
+                                                        <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }}
+                                                            €
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div><!-- End Contact Form -->
 
 

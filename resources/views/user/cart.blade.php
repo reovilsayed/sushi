@@ -42,7 +42,6 @@
                             <tbody class="table_body">
                                 {{-- @dd(Cart::getContent()) --}}
                                 @forelse (Cart::getContent() as $item)
-                                
                                     {{-- @dd($item) --}}
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
@@ -59,8 +58,7 @@
                                             <td class="cart-product-image">
                                                 <a
                                                     href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">
-                                                    <img src="{{ Storage::url($item->image ?? '') }}"
-                                                        alt="">
+                                                    <img src="{{ Storage::url($item->image ?? '') }}" alt="">
                                                 </a>
                                             </td>
 
@@ -86,7 +84,8 @@
                                                             style="width: 100% !important; height: 100% !important; background-color: transparent !important;  border: 0 !important;outline: none; color:var(--heading-color);">
                                                     </div>
                                                     <div class="cart_quantity_item1">
-                                                        <button type="submit" class="update_btn"><i class="fa-solid fa-floppy-disk"></i></button>
+                                                        <button type="submit" class="update_btn"><i
+                                                                class="fa-solid fa-floppy-disk"></i></button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -144,68 +143,74 @@
         </div>
 
     </section>
-    <section id="" class="extra_section pt-1 bg-transparent">
-        <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
-            <h2>{{ __('sentence.menu') }}</h2>
-            <p>{{ __('sentence.estratitle') }}</p>
-        </div>
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-md-12">
-                    <div class="row text-center p-2">
-                        @foreach ($extras as $extra)
-                            {{-- @dd($extra); --}}
+    @if (Cart::isEmpty())
+        <a href="{{ route('restaurant.home') }}" class="checkout_btn">Go Home</a>
+    @else
+        <section id="" class="extra_section pt-1 bg-transparent">
+            <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
+                <h2>{{ __('sentence.menu') }}</h2>
+                <p>{{ __('sentence.estratitle') }}</p>
+            </div>
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-md-12">
+                        <div class="row text-center p-2">
+                            @foreach ($extras as $extra)
+                                {{-- @dd($extra); --}}
 
-                            <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
-                                style="flex-direction: column; justify-content: space-between;">
-                                <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
-                                <form action="{{ route('extra.store') }}" method="post">
-                                    @csrf
-                                    <div class="cart-product-quantity d-flex justify-content-center">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton"
-                                                onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
-                                                -</div>
-                                            {{-- @dd($extra) --}}
-                                            <input type="text" value="0"
-                                                name="quantity"
-                                                class="cart-plus-minus-box" id="extra_quantity_{{ $extra->id }}"
-                                                min="1" placeholder="0" data-price="{{ $extra->price }}"
-                                                data-name="{{ $extra->name }}" readonly>
+                                <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
+                                    style="flex-direction: column; justify-content: space-between;">
+                                    <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
+                                    <form action="{{ route('extra.store') }}" method="post">
+                                        @csrf
+                                        <div class="cart-product-quantity d-flex justify-content-center">
+                                            <div class="cart-plus-minus">
+                                                <div class="dec qtybutton"
+                                                    onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
+                                                    -</div>
+                                                {{-- @dd($extra) --}}
+                                                <input type="text" value="0" name="quantity"
+                                                    class="cart-plus-minus-box" id="extra_quantity_{{ $extra->id }}"
+                                                    min="1" placeholder="0" data-price="{{ $extra->price }}"
+                                                    data-name="{{ $extra->name }}" readonly>
 
-                                            <div class="inc qtybutton"
-                                                onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
-                                                +</div>
+                                                <div class="inc qtybutton"
+                                                    onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
+                                                    +</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="pricetag justify-content-center">
-                                        <div class="centerinput" style="width: 100px">
-                                            <p style="font-weight: 100;" class="mb-0">
-                                                {{-- <input name="" id="price_{{ $extra->id }}"
+                                        <div class="pricetag justify-content-center">
+                                            <div class="centerinput" style="width: 100px">
+                                                <p style="font-weight: 100;" class="mb-0">
+                                                    {{-- <input name="" id="price_{{ $extra->id }}"
                                                     style="width: 100px" class="p-0 text-center" readonly
                                                     value="0"> --}}
-                                                {{ $extra->price }}
-                                            </p>
+                                                    {{ $extra->price }}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-2">
+                                        <div class="mb-2">
 
-                                        {{-- <input type="hidden" name="quantity" id="form_quantity_{{ $extra->id }}"
+                                            {{-- <input type="hidden" name="quantity" id="form_quantity_{{ $extra->id }}"
                                             value="1"> --}}
-                                        <input type="hidden" name="product_id" value="{{ $extra->id }}">
-                                        <input type="hidden" name="price" id="form_price_{{ $extra->id }}" value="{{ $extra->price }}"> 
-                                        <input type="hidden" name="restaurent_id" value="{{ $restaurant->id ?? '' }}">
-                                        <button type="submit" class="cart_submit">Add Cart</button>
+                                            <input type="hidden" name="product_id" value="{{ $extra->id }}">
+                                            <input type="hidden" name="price" id="form_price_{{ $extra->id }}"
+                                                value="{{ $extra->price }}">
+                                            <input type="hidden" name="restaurent_id"
+                                                value="{{ $restaurant->id ?? '' }}">
+                                            <button type="submit" id="add_cart_button_{{ $extra->id }}"
+                                                class="cart_submit">Add Cart</button>
 
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
+                                        </div>
+                                    </form>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     @push('js')
         <script>
             function changeQuantity(change, id, price, name) {
@@ -218,6 +223,10 @@
                 // Update hidden form fields
                 document.getElementById(`form_quantity_${id}`).value = currentQuantity;
                 // document.getElementById(`form_price_${id}`).value = currentQuantity * price;
+
+                // Enable or disable the "Add Cart" button based on the quantity
+                const addButton = document.getElementById(`add_cart_button_${id}`);
+                addButton.disabled = currentQuantity === 0;
             }
         </script>
 

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Cart;
 use Mail;
+use Carbon\Carbon;
 
 class PageController extends Controller
 {
@@ -36,7 +37,20 @@ class PageController extends Controller
     }
     public function userCheckout()
     {
-        return view('user.checkout');
+        $currentTime = Carbon::now()->startOfMinute();  // Current time
+        $startTime = Carbon::createFromTime(9, 0);      // 9:00 AM start
+        $endTime = Carbon::createFromTime(22, 0);       // 10:30 PM end
+    
+        // Generate and filter time slots in 30-minute intervals
+        $timeSlots = [];
+        for ($time = $startTime; $time->lte($endTime); $time->addMinutes(60)) {
+            if ($time->gte($currentTime)) {
+                $endSlot = $time->copy()->addMinutes(30);
+                $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+            }
+        }
+
+        return view('user.checkout', compact('timeSlots'));
     }
     public function singleProduct($restaurant, Product $product)
     {
@@ -73,7 +87,7 @@ class PageController extends Controller
         } else {
             $extras = Extra::latest()->where('type', 'cart')->get();
             return view('user.cart', compact('extras'));
-        }        
+        }
     }
     public function checkLocation(Request $request)
     {
@@ -153,7 +167,8 @@ class PageController extends Controller
 
         return view('pages.pages.page', compact('data'));
     }
-    public function contactMail(Request $request){
+    public function contactMail(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -166,8 +181,9 @@ class PageController extends Controller
             'subject' => $request->subject,
         ];
         Mail::to('contact@gmail.com')->send(new ContactFormMail($data));
-        
+
         return back()->with('success', 'Thank you for contacting us!');
-        
     }
+
+    public function showDeliveryOptions() {}
 }
