@@ -13,11 +13,11 @@
                     <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::option('phone') }}</span></p>
                     <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::option('email') }}</span></p>
                 </div>
+                
                 <div class="social-links d-flex mt-4">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
+                    <a href="{{Settings::facebook_link()}}" target="blank"><i class="bi bi-facebook"></i></a>
+                    <a href="{{Settings::instagram_link()}}" target="blank"><i class="bi bi-instagram"></i></a>
+                    <a href="{{Settings::tiktok_link()}}" target="blank"><i class="bi bi-tiktok"></i></a>
                 </div>
             </div>
 

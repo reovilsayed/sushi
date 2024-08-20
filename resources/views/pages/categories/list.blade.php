@@ -24,8 +24,7 @@
         <div class="dashboard_content_inner">
             <div class="d-flex justify-content-between mt-1 mb-4">
                 <div style="float">
-                    <a href="{{ route('categories.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> New
-                        Category</a>
+                    <a href="{{ route('categories.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>{{__('sentence.newcategory')}} </a>
                 </div>
             </div>
 
@@ -44,9 +43,9 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         {{-- <th scope="col">Image</th> --}}
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Created At</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">{{__('sentence.name')}} </th>
+                                        <th scope="col">{{__('sentence.createdat')}} </th>
+                                        <th scope="col">{{__('sentence.action')}} </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,7 +76,7 @@
     </div>
 
     <x-filter :url="route('categories.index')">
-        <h6 class="mb-4">Search</h6>
+        <h6 class="mb-4">{{__('sentence.search')}} </h6>
         <div class="row g-1">
             <div class="col-md-4">
                 <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="[

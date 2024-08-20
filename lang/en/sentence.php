@@ -69,7 +69,7 @@ return [
     'images' => 'Images',
     'slug' => 'Slug',
     'action' => 'Action',
-    'addrestaurant' => 'AddRestaurant',
+    'addrestaurant' => 'Add Restaurant',
     'title'=> 'Title',
     'restaurantaddress' => 'Restaurant Address',
     'restaurantcity' => 'Restaurant City',
@@ -105,5 +105,24 @@ return [
     'addnewpage'=> 'Add New Page',
     'addpage' => 'Add page',
     'searchhere' => 'Search Here',
+    
+    // more 
+    'otherOptions' => 'Other Options',  
+    'notfound'=> 'Not Found',
+    'newcategory'=> 'New Category',
+    'search'=> 'Search',
+    'editcategory'=>'Edit Category',
+    'submit' =>'Submit',
+    'editpage' => 'Edit Page',
+    'customer' => 'Customer',
+    'report' => 'Report',
+    'logout' => 'Logout',
+    'updateyourname' => 'Update Your Name',
+    'updateyourpassword' => 'Update Your Password',
+    'update' => 'Update',
+    'index'=>'Index',
+    'time' => 'Time',
+    'paid' => 'Paid',
+    
 
 ];

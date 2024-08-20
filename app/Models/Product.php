@@ -124,6 +124,12 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class, 'order_product')->withPivot(['quantity', 'price']);
     }
+    public function options()
+    {
+        return $this->hasMany(ProductOption::class, 'product_id');
+    }
+    
+
 
    
 }

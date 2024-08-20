@@ -70,19 +70,34 @@
                                                         </h4>
                                                         <div class="d-flex gap-3 justify-content-center">
                                                             <h5 class="fw-bold ">{{ $product->price }} €</h5>
-                                                            <form action="{{ route('cart.store') }}" method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="quantity" value="1">
-                                                                <input type="hidden" name="product_id"
-                                                                    value="{{ $product->id }}">
-                                                                <input type="hidden" name="restaurent_id"
-                                                                    value="{{ $restaurant->id }}">
-                                                                <button type="submit" class="fw-bold text-colour"
-                                                                    style="background: transparent; border:none"><i
-                                                                        class="bi bi-plus"></i>{{ __('sentence.add') }}
-                                                                </button>
+                                                            @php
+                                                                $productOption = App\Models\ProductOption::where(
+                                                                    'product_id',
+                                                                    $product->id,
+                                                                )->get();
+                                                            @endphp
+                                                            @if ($productOption->isNotEmpty())
+                                                            <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"  class="fw-bold text-colour"
+                                                                style="background: transparent; border:none"><i
+                                                                    class="bi bi-plus"></i>{{ __('sentence.add') }}
+                                                            </a>
+                                                            @else
+                                                                <form action="{{ route('cart.store') }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="quantity"
+                                                                        value="1">
+                                                                    <input type="hidden" name="product_id"
+                                                                        value="{{ $product->id }}">
+                                                                    <input type="hidden" name="restaurent_id"
+                                                                        value="{{ $restaurant->id }}">
+                                                                    <button type="submit" class="fw-bold text-colour"
+                                                                        style="background: transparent; border:none"><i
+                                                                            class="bi bi-plus"></i>{{ __('sentence.add') }}
+                                                                    </button>
+                                                                </form>
+                                                            @endif
 
-                                                            </form>
 
                                                         </div>
                                                     </div>

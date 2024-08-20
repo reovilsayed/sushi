@@ -4,18 +4,17 @@
         <div class="dashboard_content_inner">
             <div class="d-flex justify-content-between mt-1 mb-3">
                 <div style="float"class="mt-2">
-                    <a href="{{ route('create.restaurant') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add new
-                        restaurant</a>
+                    <a href="{{ route('create.restaurant') }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('sentence.addnewrestaurant')}}</a>
                 </div>
             </div>
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Slug</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">{{__('sentence.image')}}</th>
+                        <th scope="col">{{__('sentence.name')}}</th>
+                        <th scope="col">{{__('sentence.slug')}}</th>
+                        <th scope="col">{{__('sentence.action')}}</th>
                         
                     </tr>
                 </thead>

@@ -30,6 +30,7 @@ use App\Mail\PurchasesMailForShopOwner;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\ProductOption;
 use App\Models\User;
 use App\Models\Order;
 use Carbon\Carbon;
@@ -258,14 +259,25 @@ Route::post('payment/callback', function (Request $request) {
             ->withErrors($statusMessage);
     }
 });
-Route::get('/test', [PaymentController::class, 'index']);
-Route::get('/test2', function () {
-    $products = Product::all();
-    foreach ($products as $product) {
-        $product->price = $product->price * 100;
-        $product->save();
+Route::get('/test', function(){
+    $productId = 10;
+    $productOption = ProductOption::where('product_id', $productId)->get();
+
+    if($productOption->isNotEmpty()) {
+        dd('ace'); // 'ace' will be displayed if options are found
+    } else {
+        dd('nai'); // 'nai' will be displayed if no options are found
     }
 });
+
+
+// Route::get('/test2', function () {
+//     $products = Product::all();
+//     foreach ($products as $product) {
+//         $product->price = $product->price * 100;
+//         $product->save();
+//     }
+// });
 require('sushi_old.php');
 require('admin.php');
 require('user.php');

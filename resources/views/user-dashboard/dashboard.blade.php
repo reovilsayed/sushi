@@ -9,7 +9,8 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="row gy-4">
                 <div class="col-md-8 ">
-                    <h3 class="text-colour mb-3" data-aos="fade-up" data-aos-delay="200">Update your name</h3>
+                    <h3 class="text-colour mb-3" data-aos="fade-up" data-aos-delay="200">
+                        {{ __('sentence.updateyourname') }}</h3>
                     <form method="POST" action="{{ route('user.update.name') }}" class="php-email-form"
                         data-aos="fade-up" data-aos-delay="200">
                         @csrf
@@ -33,17 +34,18 @@
 
 
                             <div class="col-md-12 text-start">
-                                <button type="submit">Update</button>
+                                <button type="submit">{{ __('sentence.update') }}</button>
                             </div>
                             <div class="d-flex gap-3 ">
-                                <p class="fst-italic">forgot password?</p>
-                                <a href="{{ route('password.request') }}">click here</a>
+                                <p class="fst-italic">{{ __('sentence.forgetpassword') }}</p>
+                                <a href="{{ route('password.request') }}">{{ __('sentence.clickhere') }}</a>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-4 ">
-                    <h3 class="text-colour mb-3" data-aos="fade-up" data-aos-delay="200">Update your Password</h3>
+                    <h3 class="text-colour mb-3" data-aos="fade-up" data-aos-delay="200">
+                        {{ __('sentence.updateyourpassword') }}</h3>
                     <form method="POST" action="{{ route('user.update.password') }}" class="php-email-form"
                         data-aos="fade-up" data-aos-delay="200">
                         @csrf
@@ -62,12 +64,12 @@
                             </div>
 
                             <div class="col-md-12 text-start">
-                                <button type="submit">Update</button>
+                                <button type="submit">{{ __('sentence.update') }}</button>
                             </div>
                         </div>
                     </form>
 
-                   
+
 
                 </div>
             </div>
@@ -79,10 +81,10 @@
                 <div class="table-responsive">
                     <table class="cart_table  table-responsive">
                         <thead class="table_head text-dark">
-                            <th style="padding-left:20px;">index</th>
-                            <th>oder</th>
-                            <th>time</th>
-                            <th>paid</th>
+                            <th style="padding-left:20px;">{{ __('sentence.index') }}</th>
+                            <th>{{ __('sentence.order') }}</th>
+                            <th>{{ __('sentence.time') }}</th>
+                            <th>{{ __('sentence.paid') }}</th>
                         </thead>
                         <tbody class="table_body">
 
@@ -100,10 +102,10 @@
             </div>
             <div class="col-md-12 mt-4">
                 <div class="d-flex gap-3">
-                    <h4 class="text-colour">logout</h4>
+                    <h4 class="text-colour">{{ __('sentence.logout') }}</h4>
                     <form action="{{ route('logout') }}" method="post" id="logout-form" class="php-email-form">
                         @csrf
-                        <button type="submit" class="d-xl-block user-logout-button">LogOut</button>
+                        <button type="submit" class="d-xl-block user-logout-button">{{ __('sentence.logout') }}</button>
                     </form>
                 </div>
             </div>
