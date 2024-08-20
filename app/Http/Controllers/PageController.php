@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Extra;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductOption;
 use App\Models\Restaurant;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -41,7 +42,9 @@ class PageController extends Controller
     public function singleProduct($restaurant, Product $product)
     {
         $restaurant = Restaurant::where('slug', $restaurant)->first();
-        return view('user.single-product', compact('product', 'restaurant'));
+        $productOption = ProductOption::where('product_id', $product->id)->get();
+        
+        return view('user.single-product', compact('product', 'restaurant','productOption'));
     }
     public function restaurant()
     {
