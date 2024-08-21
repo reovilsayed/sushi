@@ -36,10 +36,7 @@
                             <div class="col-md-12 text-start">
                                 <button type="submit">{{ __('sentence.update') }}</button>
                             </div>
-                            <div class="d-flex gap-3 ">
-                                <p class="fst-italic">{{ __('sentence.forgetpassword') }}</p>
-                                <a href="{{ route('password.request') }}">{{ __('sentence.clickhere') }}</a>
-                            </div>
+                           
                         </div>
                     </form>
                 </div>
@@ -89,7 +86,6 @@
                             <th class="text-center">invoice</th>
                         </thead>
                         <tbody class="table_body">
-
                             @foreach ($orders as $key => $order)
                             <tr class="">
                                 <td class="py-3" style="padding-left:20px;">{{ $key + 1 }}</td>
@@ -97,7 +93,7 @@
                                 <td class="">{{ $order->created_at->format('d M, Y h:i A') }}</td>
                                 <td class="">{{ $order->total }}€</td>
                                 <td  class="text-center">
-                                    <a href="" class="btn btn-invoice ">Invoice</a> <!-- Positioned to the right -->
+                                    <a href="{{route('invoice',$order)}}" class="btn btn-invoice ">Invoice</a> <!-- Positioned to the right -->
                                 </td>
                             </tr>
                             

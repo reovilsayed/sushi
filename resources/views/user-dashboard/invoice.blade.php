@@ -1,5 +1,6 @@
 @php
     $extras = json_decode($order->extra, true) ?? [];
+
 @endphp
 {{-- @dd($extras) --}}
 <x-user>
@@ -39,7 +40,7 @@
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
-                                        <p>{{ $order->created_at->format('d-M-y') }}</p>
+                                        <p>{{ $order->created_at}}</p>
                                     </div>
                                 
                                 </div>
@@ -63,7 +64,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @dd($order )
                                         @foreach ($order->products as $product)
                                             <tr>
                                                 <th scope="row">{{ $product->id }}</th>
