@@ -86,16 +86,21 @@
                             <th>{{ __('sentence.order') }}</th>
                             <th>{{ __('sentence.time') }}</th>
                             <th>{{ __('sentence.paid') }}</th>
+                            <th>invoice</th>
                         </thead>
                         <tbody class="table_body">
 
                             @foreach ($orders as $key => $order)
-                                <tr class="">
-                                    <td class="py-3" style="padding-left:20px;">{{ $key + 1 }}</td>
-                                    <td class="">{{ $order->id }} </td>
-                                    <td class="">{{ $order->created_at->format('d M, Y h:i A') }}</td>
-                                    <td class="">{{ $order->total }}€ </td>
-                                </tr>
+                            <tr class="">
+                                <td class="py-3" style="padding-left:20px;">{{ $key + 1 }}</td>
+                                <td class="">{{ $order->id }}</td>
+                                <td class="">{{ $order->created_at->format('d M, Y h:i A') }}</td>
+                                <td class="">{{ $order->total }}€</td>
+                                <td class="">
+                                    <a href="" class="btn btn-invoice ">Invoice</a> <!-- Positioned to the right -->
+                                </td>
+                            </tr>
+                            
                             @endforeach
 
                         </tbody>
