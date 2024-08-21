@@ -26,8 +26,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('products')->filter()->latest()->paginate(24)->withQueryString();
-
+        $orders = Order::latest()->filter()->paginate(24)->withQueryString();
         $allOrderCount = Order::filter()->get();
         $paidOrderCount = Order::filter()->where('status', 'PAID')->get();
         $unpaidOrderCount = Order::filter()->where('status', 'UNPAID')->get();
@@ -52,7 +51,7 @@ class OrderController extends Controller
             ]
         ];
 
-        return view('pages.orders.list', compact('orders', 'data', 'restaurants'));
+        return view('pages.orders.list', compact('orders', 'data','restaurants'));
     }
     public function getChartData()
     {
@@ -100,9 +99,7 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -114,45 +111,45 @@ class OrderController extends Controller
         // Start a database transaction
         DB::beginTransaction();
 
-        // try {
-        // Handle user authentication
-        if (!auth()->check()) {
-            $user = User::create([
-                'name' => $request->input('f_name') ?? $request->input('f_name'),
-                'l_name' => $request->input('l_name') ?? $request->input('l_name'),
-                'email' => $request->input('email') ?? $request->input('email'),
-                'password' => Hash::make($pass), // Generate a random password
+        try {
+            // Handle user authentication
+            if (!auth()->check()) {
+                $user = User::create([
+                    'name' => $request->input('f_name') ?? $request->input('f_name'),
+                    'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                    'email' => $request->input('email') ?? $request->input('email'),
+                    'password' => Hash::make($pass), // Generate a random password
+                ]);
+
+                $data = [
+                    'name' => $request->name,
+                    'subject' => 'We Create User Account to Sushi',
+                    'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
+                    'button_link' => '',
+                    'button_text' => '',
+                ];
+                Mail::to($user->email)->send(new user_create_mail($data));
+            } else {
+                $user = auth()->user();
+            }
+
+            // Prepare shipping information
+            $shipping = $request->only(['f_name', 'l_name', 'email', 'time_option', 'address', 'city', 'post_cod', 'house', 'phone']);
+
+            // Create the order
+            $order = Order::create([
+                'customer_id' => $user->id,
+                'shipping_info' => json_encode($shipping),
+                'sub_total' => Cart::getSubTotal(),
+                'total' => Cart::getTotal(),
+                'comment' => $request->input('commment'),
+                'payment_method' => $request->input('payment_method'),
+                'status' => 'PENDING',
+                'delivery_option' => $request->input('delivery_option'),
             ]);
 
-            $data = [
-                'name' => $request->name,
-                'subject' => 'We Create User Account to Sushi',
-                'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
-                'button_link' => '',
-                'button_text' => '',
-            ];
-            Mail::to($user->email)->send(new user_create_mail($data));
-        } else {
-            $user = auth()->user();
-        }
-
-        // Prepare shipping information
-        $shipping = $request->only(['f_name', 'l_name', 'email', 'time_option', 'address', 'city', 'post_cod', 'zip', 'house', 'phone']);
-
-        // Create the order
-        $order = Order::create([
-            'customer_id' => $user->id,
-            'shipping_info' => json_encode($shipping),
-            'sub_total' => Cart::getSubTotal(),
-            'total' => Cart::getTotal(),
-            'comment' => $request->input('commment'),
-            'payment_method' => $request->input('payment_method'),
-            'status' => 'PENDING',
-            'delivery_option' => $request->input('delivery_option'),
-        ]);
-
-
-        foreach (Cart::getContent() as $item) {
+            $extra=[];
+            foreach (Cart::getContent() as $item) {
 
                 if(isset($item->attributes['product'])){
                     $order->products()->attach($item->attributes['product']->id, [
@@ -179,52 +176,42 @@ class OrderController extends Controller
                 ]);
             }
 
-            if (isset($item->attributes['product'])) {
-                $order->products()->attach($item->attributes['product']->id, [
-                    'quantity' => $item->quantity,
-                    'price' => $item->price,
-                    'restaurant_id' => $item->attributes['restaurent'],
+            // Clear the cart and session data
+            Cart::clear();
+            session()->forget('resturent_id');
+            DB::commit();
+
+            if ($request->payment_method == 'Card') {
+                $amount = $order->total * 100;
+                $orderId = $order->id;
+                $merchantId = '083262709500018';
+                $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+                $keyVersion = 3;
+                $normalRetrunUrl = url('payment/callback');
+                $currencyCode = 978;
+
+                $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+                $interfaceVersion = "HP_3.2";
+
+                $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
+
+                $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
+
+                $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
+                    'DATA' => $data,
+                    'SEAL' => $seal,
+                    'interfaceVersion' => $interfaceVersion,
                 ]);
-
+                return $response->body();
             }
+
+            return redirect()->route('thank_you');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
         }
-
-        // Clear the cart and session data
-        Cart::clear();
-        session()->forget('resturent_id');
-        DB::commit();
-
-        if ($request->payment_method == 'Card') {
-            $amount = $order->total * 100;
-            $orderId = $order->id;
-            $merchantId = '083262709500018';
-            $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
-            $keyVersion = 3;
-            $normalRetrunUrl = url('payment/callback');
-            $currencyCode = 978;
-
-            $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-
-            $interfaceVersion = "HP_3.2";
-
-            $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
-
-            $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
-
-            $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
-                'DATA' => $data,
-                'SEAL' => $seal,
-                'interfaceVersion' => $interfaceVersion,
-            ]);
-            return $response->body();
-        }
-
-        return redirect()->route('thank_you');
-
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
-        // }
     }
 
 

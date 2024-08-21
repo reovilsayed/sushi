@@ -27,10 +27,10 @@ class Product extends Model
         });
     }
 
-    public function image(): Attribute
-    {
-        return Attribute::make(get: fn($value) => $this->image_url);
-    }
+    // public function image(): Attribute
+    // {
+    //     return Attribute::make(get: fn($value) => $this->image_url);
+    // }
     // public function imageUrl(): Attribute
     // {
     //     return Attribute::make(
