@@ -94,10 +94,10 @@
                 </li>
             </ul>
         </li>
-        <x-sidenav.nav name="{{ __('sentence.customer') }}" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.customer') }}" :active="request()->is('admin/customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
 
-        <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
-        <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('admin/orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('admin/reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
         <x-sidenav.nav name="{{ __('sentence.settings') }}" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
         <x-sidenav.nav name="{{ __('sentence.pages') }}" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
         
