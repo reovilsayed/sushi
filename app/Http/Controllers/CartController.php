@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Extra;
 use App\Models\Product;
+use App\Models\ProductOption;
 use Illuminate\Http\Request;
 use Cart;
 use Illuminate\Support\Facades\Session;
@@ -13,22 +14,33 @@ class CartController extends Controller
 
 	public function add(Request $request)
 	{
-		
-		if(session()->has('resturent_id') && session('resturent_id') !==$request->restaurent_id){
-	
-			return back()->with('error','Please add same resturent');
-		}
-		Session::put('resturent_id',$request->restaurent_id);
+
+
 		$product = Product::find($request->product_id);
 		if (!$product) {
 			return back()->withErrors('Product not found.');
 		}
+		if ($request->has('option_id')) {
+			$option = ProductOption::find($request->option_id);
+			$price = $option->option_price;
+			$name=$product->name .'-'.$option->option_name;
+		} else {
+			$price = $product->price;
+			$name=$product->name ;
+		}
+		if (session()->has('resturent_id') && session('resturent_id') !== $request->restaurent_id) {
 
-		Cart::add($product->id.rand(4,5), $product->name, $product->price, $request->quantity, ['restaurent' => $request->restaurent_id,'product'=>$product]);
+			return back()->with('error', 'Please add same resturent');
+		}
+		Session::put('resturent_id', $request->restaurent_id);
+	
+
+
+		Cart::add($product->id . rand(4, 5), $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product]);
 
 
 
-		return back()->with('success_msg', 'Item has been added to cart!');
+		return back()->with('success', 'Item has been added to cart!');
 	}
 
 
@@ -81,7 +93,7 @@ class CartController extends Controller
 	public function addExtra(Request $request)
 	{
 		// dd($request);
-			// Validate the incoming request data
+		// Validate the incoming request data
 		$request->validate([
 			'product_id' => 'required|exists:extras,id',
 			'quantity' => 'required|integer|min:1',
@@ -99,11 +111,11 @@ class CartController extends Controller
 		// Add to cart with the quantity and price from the request
 		$uniqueRandomNumber =  rand(1000, 9999);
 		Cart::add(
-			$extra->id.$uniqueRandomNumber,
+			$extra->id . $uniqueRandomNumber,
 			$extra->name,
 			$request->price, // Use the price from the form
 			$request->quantity, // Use the quantity from the form
-			['restaurent' => $request->restaurent_id,'extra'=>$extra	]
+			['restaurent' => $request->restaurent_id, 'extra' => $extra]
 		);
 
 		return back()->with('success_msg', 'Item has been added to cart!');

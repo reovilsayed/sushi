@@ -58,7 +58,7 @@
                                                 @if (isset($item->attributes['product']))
                                                     <a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">
-                                                        <img src="{{ Storage::url($item->image ?? '') }}"
+                                                        <img src="{{ Storage::url($item->attributes['product']->image ?? '') }}"
                                                             alt="">
                                                     </a>
                                                 @endif

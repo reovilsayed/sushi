@@ -187,7 +187,7 @@
                                                 <input type="text" name="address" class="form-control"
                                                     placeholder="Your Address" required="">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required="">
                                             </div>
@@ -195,10 +195,10 @@
                                                 <input type="text" name="post_cod" class="form-control"
                                                     placeholder="Your Post Code" required="">
                                             </div>
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
                                                     placeholder="Your Zip" required="">
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
                                                     class="form-control" placeholder="Your Phone Number">
