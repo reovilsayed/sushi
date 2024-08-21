@@ -52,8 +52,8 @@
                                 {{-- @dd($product->quantity) --}}
                                 <tr>
                                     <td style="padding: 28px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                        <img src="{{ asset('img/images.png') }}"
-                                            alt="" />
+                                        <img src="{{ Storage::url($product->image) ?? asset('img/images.png') }}"
+                                            alt="{{ $product->name ?? 'Product Image' }}" />
                                     </td>
                                     <td style=" padding: 28px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                         <ul class="product-detail">
@@ -75,8 +75,7 @@
                                 {{-- @dd($extra['name'] ) --}}
                                 <tr>
                                     <td style="padding: 28px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                        <img src="{{ asset('img/images.png') }}"
-                                            alt="" />
+                                        <img src="{{ asset('img/images.png') }}" alt="" />
                                     </td>
                                     <td style=" padding: 28px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                         <ul class="product-detail">
