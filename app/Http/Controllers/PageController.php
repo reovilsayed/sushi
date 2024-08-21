@@ -100,7 +100,7 @@ class PageController extends Controller
         $radius = 5;
 
 
-        $restaurant = Restaurant::select('restaurants.*')
+        $zone = Restaurant::select('restaurants.*')
             ->selectRaw('
             ( 6371 * acos(
                 cos( radians(?) ) * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude")) ) )
