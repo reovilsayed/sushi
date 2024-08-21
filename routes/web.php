@@ -86,7 +86,7 @@ Route::post('/add-update', [CartController::class, 'update'])->name('cart.update
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
-// Route::get('/invoice/{customer}', [PageController::class, 'invoice'])->name('invoice');
+Route::get('/invoice/{customer}', [PageController::class, 'invoice'])->name('invoice');
 
 Route::get('/test', function () {
     // dd(Category::all()->pluck('id'));
