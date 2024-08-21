@@ -3,7 +3,7 @@
         <div class="row position-relative">
             <div class="col-md-8 col-10">
                 <h5 class="card-title" style="font-size: 1rem">
-                    {{ $order->customer->name ?? 'Walk-in customer' }}
+                    {{ $order->customer->name ?? 'Walk-in customer' }} {{ $order->customer->l_name ?? 'Walk-in customer' }}
                     <br>
                 </h5>
                 <span class="text-white"><a

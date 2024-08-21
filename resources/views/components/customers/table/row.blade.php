@@ -4,7 +4,7 @@
         <a class="{{ $customer->orders_sum_due > 0 ? 'text-danger' : 'text-primary' }} text-decoration-underline"
             href="{{ route('orders.index', ['search[column]' => 'customer.name', 'search[query]' => $customer->name]) }}">
 
-            <h6>{{ $customer->name }}</h6>
+            <h6>{{ $customer->name }} {{ $customer->l_name }}</h6>
         </a>
     </td>
     <td>
@@ -13,7 +13,7 @@
     <td>
         <h6>{{ $customer->phone }}</h6>
     </td>
-    <td>
+    {{-- <td>
         <h6>{{ $customer->address }}</h6>
     </td>
     <td>
@@ -21,7 +21,7 @@
     </td>
     <td>
         <h6>{{ $customer->discount }}</h6>
-    </td>
+    </td> --}}
     <td>
         <h6 class="{{ $customer->orders_sum_due > 0 ? 'text-danger' : 'text-primary' }}">
             {{ Settings::price($customer->orders_sum_due) }}</h6>

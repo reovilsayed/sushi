@@ -7,7 +7,7 @@
     </td> --}}
 
     <td>
-        {{ $order->customer->name ?? 'Walk in customer' }}
+        {{ $order->customer->name ?? 'Walk in customer' }} {{ $order->customer->l_name ?? 'Walk-in customer' }}
         <br>
         <br>
         <a href="tel:{{ $order->customer->phone }}">{{ $order->customer->phone }}</a>
