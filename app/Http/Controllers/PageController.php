@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactFormMail;
 use App\Models\Category;
 use App\Models\Extra;
+use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOption;
