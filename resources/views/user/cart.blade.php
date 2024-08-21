@@ -40,15 +40,14 @@
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead>
                             <tbody class="table_body">
-                                {{-- @dd(Cart::getContent()) --}}
                                 @forelse (Cart::getContent() as $item)
-                                    {{-- @dd($item) --}}
+
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
                                                 href="{{ url('/cart-destroy/' . $item->id) }}">x</a>
                                         </td>
-                                        {{-- @dd($item) --}}
+
                                         @if (isset($item->attributes['restaurent']))
                                             @php
                                                 $restuarant = App\Models\Restaurant::find(
@@ -56,17 +55,25 @@
                                                 );
                                             @endphp
                                             <td class="cart-product-image">
-                                                <a
-                                                    href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">
-                                                    <img src="{{ Storage::url($item->image ?? '') }}" alt="">
-                                                </a>
+                                                @if (isset($item->attributes['product']))
+                                                    <a
+                                                        href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">
+                                                        <img src="{{ Storage::url($item->image ?? '') }}"
+                                                            alt="">
+                                                    </a>
+                                                @endif
                                             </td>
-
-                                            <td class="cart-product-info text-center">
-                                                <h4><a
-                                                        href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->model->id]) }}">{{ $item->name }}</a>
-                                                </h4>
-                                            </td>
+                                            @if (isset($item->attributes['product']))
+                                                <td class="cart-product-info text-center">
+                                                    <h4><a
+                                                            href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">{{ $item->name }}</a>
+                                                    </h4>
+                                                </td>
+                                            @else
+                                                <td class="cart-product-info text-center">
+                                                    <h4><a href="#">{{ $item->attributes['extra']->name }}</a></h4>
+                                                </td>
+                                            @endif
                                         @endif
 
 
@@ -194,8 +201,10 @@
                                             {{-- <input type="hidden" name="quantity" id="form_quantity_{{ $extra->id }}"
                                             value="1"> --}}
                                             <input type="hidden" name="product_id" value="{{ $extra->id }}">
-                                            <input type="hidden" name="price" id="{{ $extra->id}}" value="{{ $extra->price }}">
-                                            <input type="hidden" name="restaurent_id"value="{{ $restaurant->id ?? '' }}">
+                                            <input type="hidden" name="price" id="{{ $extra->id }}"
+                                                value="{{ $extra->price }}">
+                                            <input type="hidden"
+                                                name="restaurent_id"value="{{ $restaurant->id ?? '' }}">
                                             <button type="submit" id="add_cart_button_{{ $extra->id }}"
                                                 class="cart_submit">Add Cart</button>
 

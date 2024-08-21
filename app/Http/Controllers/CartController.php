@@ -10,53 +10,23 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-	// public function buynow(Request $request){
 
-	// 	if($request->variable_attribute){
-	// 		$variation = json_encode($request->variable_attribute);
-	// 	    $product = Product::where('parent_id',$request->product_id)->whereRaw("JSON_CONTAINS(variation, ?)", [$variation])->first();
-	// 		if(!$product){
-	// 			return back()->with('error','Sorry! This variation no longer available');
-	// 		}
-	// 	}else{
-	// 		 $product = Product::find($request->product_id);
-	// 	}
-	// 	if($product->saleprice){
-	// 		$price = $product->saleprice;
-	// 	}else{
-	// 		$price = $product->price;
-	// 	}
-	// 	// dd($product);
-	// 	Cart::add($product->id, $product->name, $price,$request->quantity,['resturent'=>$request->res])->associate('App\Models\Product');
-	// 	//session()->flash('errors', collect(['Please Check Length,Width,Height,Weight again of this product']));
-	//     return redirect('/cart')->with('success_msg', 'Item has been added to cart!');
-	// }
 	public function add(Request $request)
 	{
-		// dd($request);
+		
+		if(session()->has('resturent_id') && session('resturent_id') !==$request->restaurent_id){
+	
+			return back()->with('error','Please add same resturent');
+		}
+		Session::put('resturent_id',$request->restaurent_id);
 		$product = Product::find($request->product_id);
-
 		if (!$product) {
 			return back()->withErrors('Product not found.');
 		}
 
-		Cart::add($product->id, $product->name, $product->price, $request->quantity, ['restaurent' => $request->restaurent_id])->associate('App\Models\Product');
+		Cart::add($product->id.rand(4,5), $product->name, $product->price, $request->quantity, ['restaurent' => $request->restaurent_id,'product'=>$product]);
 
-		// Add extras to the cart
-		// dd($request->has('extras'));
-		// if ($request->has('extras')) {
-		// 	foreach ($request->extras as $extraId => $extra) {
-		// 		dd($extra['name']);
-		// 		$extraName = $extra['name'];
-		// 		$extraPrice = $extra['price'];
-		// 		$extraQuantity = $extra['quantity'];
 
-		// 		// Check if extra quantity is greater than 0 before adding to cart
-		// 		if ($extraQuantity > 0) {
-		// 			Cart::add($extraId, $extraName, $extraPrice, $extraQuantity, ['is_extra' => true])->associate('App\Models\Extra');
-		// 		}
-		// 	}
-		// }
 
 		return back()->with('success_msg', 'Item has been added to cart!');
 	}
@@ -119,20 +89,22 @@ class CartController extends Controller
 		]);
 
 		// Retrieve the extra item
-		$product = Extra::find($request->product_id);
+		$extra = Extra::find($request->product_id);
+		// dd($product);
 
-		if (!$product) {
+		if (!$extra) {
 			return back()->withErrors('Product not found.');
 		}
 
 		// Add to cart with the quantity and price from the request
+		$uniqueRandomNumber =  rand(1000, 9999);
 		Cart::add(
-			$product->id,
-			$product->name,
+			$extra->id.$uniqueRandomNumber,
+			$extra->name,
 			$request->price, // Use the price from the form
 			$request->quantity, // Use the quantity from the form
-			['restaurent' => $request->restaurent_id]
-		)->associate('App\Models\Extra');
+			['restaurent' => $request->restaurent_id,'extra'=>$extra	]
+		);
 
 		return back()->with('success_msg', 'Item has been added to cart!');
 	}

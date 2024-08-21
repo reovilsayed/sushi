@@ -109,7 +109,7 @@ class OrderController extends Controller
         // Start a database transaction
         DB::beginTransaction();
 
-        try {
+        // try {
             // Handle user authentication
             if (!auth()->check()) {
                 $user = User::create([
@@ -147,11 +147,27 @@ class OrderController extends Controller
             ]);
 
             // Attach products to the order
+            // dd(Cart::getContent());
             foreach (Cart::getContent() as $item) {
-                $order->products()->attach($item->id, [
-                    'quantity' => $item->quantity,
-                    'price' => $item->price,
-                ]);
+
+                if (isset($item->attributes['extra'])) {
+                    $extra=[
+                        'name'=>$item->name,
+                        'price'=>$item->price,
+                        'quantity'=>$item->quantity,
+                    ];
+                    $order->update([
+                        'extra'=> json_encode($extra),
+                    ]);
+                }
+
+                if(isset($item->attributes['product'])){
+                    $order->products()->attach($item->attributes['product']->id, [
+                        'quantity' => $item->quantity,
+                        'price' => $item->price,
+                    ]);
+            
+                }
             }
 
             // Clear the cart and session data
@@ -186,10 +202,10 @@ class OrderController extends Controller
 
             return redirect()->route('thank_you');
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
+        // }
     }
 
 
