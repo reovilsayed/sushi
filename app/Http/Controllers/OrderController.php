@@ -144,7 +144,7 @@ class OrderController extends Controller
                 'total' => Cart::getTotal(),
                 'comment' => $request->input('commment'),
                 'payment_method' => $request->input('payment_method'),
-                'status' => 'PENDING',
+                // 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
             ]);
 
