@@ -42,7 +42,7 @@ class PageController extends Controller
         $currentTime = Carbon::now()->startOfMinute();  // Current time
         $startTime = Carbon::createFromTime(9, 0);      // 9:00 AM start
         $endTime = Carbon::createFromTime(23, 0);       // 10:30 PM end
-    
+
         // Generate and filter time slots in 30-minute intervals
         $timeSlots = [];
         for ($time = $startTime; $time->lte($endTime); $time->addMinutes(60)) {
@@ -58,8 +58,8 @@ class PageController extends Controller
     {
         $restaurant = Restaurant::where('slug', $restaurant)->first();
         $productOption = ProductOption::where('product_id', $product->id)->get();
-        
-        return view('user.single-product', compact('product', 'restaurant','productOption'));
+
+        return view('user.single-product', compact('product', 'restaurant', 'productOption'));
     }
     public function restaurant()
     {
@@ -101,11 +101,18 @@ class PageController extends Controller
         $radius = 5;
 
 
-        $zone = Zone::select('zones.*')
-            ->selectRaw('( 6371 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ) AS distance', [$latitude, $longitude, $latitude])
+        $restaurant = Restaurant::select('restaurants.*')
+            ->selectRaw('
+            ( 6371 * acos(
+                cos( radians(?) ) * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude")) ) )
+                * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.longitude"))) - radians(?) )
+                + sin( radians(?) ) * sin( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude"))) )
+            )
+            ) AS distance', [$latitude, $longitude, $latitude])
             ->having('distance', '<', $radius)
             ->orderBy('distance')
             ->first();
+
 
         if ($zone) {
             $restaurant = $zone->restaurants()->first();

@@ -134,7 +134,7 @@ class OrderController extends Controller
             }
 
             // Prepare shipping information
-            $shipping = $request->only(['f_name', 'l_name', 'email', 'time_option', 'address', 'city', 'post_cod', 'house', 'phone']);
+            $shipping = $request->only(['f_name', 'l_name', 'email','address', 'city', 'post_cod', 'house', 'phone']);
 
             // Create the order
             $order = Order::create([
@@ -143,6 +143,7 @@ class OrderController extends Controller
                 'sub_total' => Cart::getSubTotal(),
                 'total' => Cart::getTotal(),
                 'comment' => $request->input('commment'),
+                'time_option' => $request->time_option,
                 'payment_method' => $request->input('payment_method'),
                 // 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
