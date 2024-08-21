@@ -148,19 +148,8 @@ class OrderController extends Controller
                 'delivery_option' => $request->input('delivery_option'),
             ]);
 
-    
+            $extra=[];
             foreach (Cart::getContent() as $item) {
-
-                if (isset($item->attributes['extra'])) {
-                    $extra=[
-                        'name'=>$item->name,
-                        'price'=>$item->price,
-                        'quantity'=>$item->quantity,
-                    ];
-                    $order->update([
-                        'extra'=> json_encode($extra),
-                    ]);
-                }
 
                 if(isset($item->attributes['product'])){
                     $order->products()->attach($item->attributes['product']->id, [
@@ -170,6 +159,20 @@ class OrderController extends Controller
                     ]);
             
                 }
+
+                if (isset($item->attributes['extra'])) {
+                    $extra[]=[
+                        'name'=>$item->name,
+                        'price'=>$item->price,
+                        'quantity'=>$item->quantity,
+                    ];
+                
+                }
+            }
+            if (!empty($extra)) {
+                $order->update([
+                    'extra' => json_encode($extra),
+                ]);
             }
 
             // Clear the cart and session data
