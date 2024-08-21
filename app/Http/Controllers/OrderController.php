@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DuePaidMail;
 use App\Models\Order;
+use App\Models\Restaurant;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Report\Earnings;
@@ -29,7 +30,7 @@ class OrderController extends Controller
         $paidOrderCount = Order::filter()->where('status', 'PAID')->get();
         $unpaidOrderCount = Order::filter()->where('status', 'UNPAID')->get();
         $dueOrderCount = Order::filter()->where('status', 'DUE')->get();
-
+        $restaurants = Restaurant::all();
         $data = [
             'total' => [
                 'count' => $allOrderCount->count(),
@@ -49,7 +50,7 @@ class OrderController extends Controller
             ]
         ];
 
-        return view('pages.orders.list', compact('orders', 'data'));
+        return view('pages.orders.list', compact('orders', 'data','restaurants'));
     }
     public function getChartData()
     {
