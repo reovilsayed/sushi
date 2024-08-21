@@ -43,7 +43,16 @@
                 font-weight: 500;
                 justify-content: space-between;
             }
-     
+
+            .remove {
+                position: absolute;
+                z-index: 10;
+                font-size: 16px;
+                line-height: 38px;
+                right: 13px;
+                top: 0;
+                color: var(--bs-secondary-color);
+            }
         </style>
         <title>{{ env('APP_NAME') }}</title>
         @stack('styles')
@@ -78,13 +87,14 @@
                         </svg>
                     </div>
                     <a href="/" class="logo">
-                        <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('logo/mainLogo.png')}}" alt="">
+                        <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('logo/mainLogo.png') }}"
+                            alt="">
                     </a>
 
                     <div class="search_panel">
                         <span class="search_btn m_srch_trigger_btn" id="m_srch_trigger"><img
                                 src={{ asset('images/search.svg') }} alt="" /></span>
-                        <form action="{{ route('products.index') }}" method="get">
+                        {{-- <form action="{{ route('products.index') }}" method="get">
                             <div class="search_box_inner earch_box_desktop">
                                 <input type="hidden" name="search[column]" value="name">
                                 <input type="text" placeholder="Search Here......" name="search[query]"
@@ -92,21 +102,34 @@
                                 <span class="search_btn"><img src={{ asset('images/search.svg') }}
                                         alt="" /></span>
                             </div>
+                        </form> --}}
+
+                        <form action="{{ route('products.index') }}" method="GET"
+                            class="app-search d-none d-lg-block p-0 ">
+                            <div class="position-relative d-flex">
+                                <input type="text" class="form-control" name="search" placeholder="Search..."
+                                    value="{{ request('search') }}">
+                                <span class="bx bx-search-alt"></span>
+                                @if (request()->has('search'))
+                                    <a class=" remove" onclick="removeSearch()"><i class="fa fa-times"
+                                            style="color: red" aria-hidden="true"></i></a>
+                                @endif
+                            </div>
                         </form>
                     </div>
                     <div class="search_box_mobile" id="m_srch_trigger_box">
                         <div class="search_box_inner">
-                            <form action="{{ route('products.index') }}" method="get">
+                            {{-- <form action="{{ route('products.index') }}" method="get">
                                 <input type="hidden" name="search[column]" value="name">
                                 <input type="text" placeholder="Search Here......" name="search[query]"
                                     value="{{ @request()->search['query'] }}" />
                                 <span class="search_btn"><img src={{ asset('images/search.svg') }}
                                         alt="" /></span>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
 
-                   
+
                 </div>
             </div>
 
@@ -146,6 +169,11 @@
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" defer crossorigin="anonymous"></script>
         <!--framework-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+        </script>
+        <script>
+            function removeSearch() {
+                window.location.href = "{{ route('products.index') }}";
+            }
         </script>
         <!--plugins-->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -223,7 +251,7 @@
                     beforeSend: addHeaders
                 }
             });
-              $('.products-generic-card .form-select').select2();
+            $('.products-generic-card .form-select').select2();
         </script>
         @livewireScripts
         @stack('script')

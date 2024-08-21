@@ -21,7 +21,7 @@ class   ProductController extends Controller
     public function index()
     {
         
-        $products = Product::latest()->paginate(30)->withQueryString();
+        $products = Product::latest()->filter()->paginate(30)->withQueryString();
         return view('pages.products.list', compact('products'));
     }
 
