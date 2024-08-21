@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Mail\ContactFormMail;
 use App\Models\Category;
 use App\Models\Extra;
-use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -101,7 +100,7 @@ class PageController extends Controller
         $radius = 5;
 
 
-        $restaurant = Restaurant::select('restaurants.*')
+        $zone = Restaurant::select('*')
             ->selectRaw('
             ( 6371 * acos(
                 cos( radians(?) ) * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude")) ) )
@@ -115,23 +114,14 @@ class PageController extends Controller
 
 
         if ($zone) {
-            $restaurant = $zone->restaurants()->first();
-
-            if ($restaurant) {
-                return response()->json([
-                    'success' => true,
-                    'redirect_url' => route('restaurant.menu', ['slug' => $restaurant->slug]),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No restaurants found in this zone.',
-                ]);
-            }
+            return response()->json([
+                'success' => true,
+                'redirect_url' => route('restaurant.menu', ['slug' => $zone->slug]),
+            ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'No zone found near your location.',
+                'message' => 'No restaurants found in this zone.',
             ]);
         }
     }
