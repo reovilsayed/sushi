@@ -132,15 +132,15 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="email" name="email" class="form-control"
+                                                <input type="email" name="email" disabled class="form-control"
                                                     placeholder="Your Email" required=""
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
-                                                <select id="deliveryOption" name="time_option"
-                                                    class="form-select selectpicker" data-container="body" required>
-                                                    <option selected style="color: var(--accent-color)">Select a time
-                                                    </option>
+                                                <select name="time_option"class="form-select selectpicker"
+                                                    data-container="body" disabled>
+                                                    {{-- <option  style="color: var(--accent-color)">Select a time
+                                                    </option> --}}
                                                     @foreach ($timeSlots as $time)
                                                         <option value="{{ $time }}">{{ $time }}
                                                         </option>
@@ -208,11 +208,12 @@
                                                     placeholder="Your House" required="">
                                             </div>
 
+
                                             <div class="col-md-6">
                                                 <select id="deliveryOption" name="time_option"
-                                                    class="form-select selectpicker" data-container="body" required>
-                                                    <option selected style="color: var(--accent-color)">Select a time
-                                                    </option>
+                                                    class="form-select selectpicker" data-container="body">
+                                                    {{-- <option style="color: var(--accent-color)">Select a time
+                                                    </option> --}}
                                                     @foreach ($timeSlots as $slot)
                                                         <option value="{{ $slot }}">{{ $slot }}
                                                         </option>
@@ -373,11 +374,13 @@
                     const homeDeliveryForm = document.getElementById('homeDeliveryForm');
                     const orderButton = document.getElementById('orderButton');
 
+                    // Function to set the disabled state for all inputs within a form
                     const setFormDisabledState = (form, disabled) => {
-                        const inputs = form.querySelectorAll('input');
+                        const inputs = form.querySelectorAll('input, select, textarea');
                         inputs.forEach(input => input.disabled = disabled);
                     };
 
+                    // Function to update form visibility and input state based on the selected option
                     const updateFormVisibility = () => {
                         const selectedOption = deliveryOption.value;
 
@@ -402,9 +405,10 @@
                         }
                     };
 
+                    // Event listener to detect changes in the delivery option
                     deliveryOption.addEventListener('change', updateFormVisibility);
 
-                    // Initialize the form state
+                    // Initialize the form state on page load
                     updateFormVisibility();
                 });
             </script>
