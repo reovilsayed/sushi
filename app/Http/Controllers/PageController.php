@@ -199,7 +199,6 @@ class PageController extends Controller
     public function showDeliveryOptions() {}
 
     public function invoice(Order $order){
-
         return view('user-dashboard.invoice',compact('order'));
     }
 }

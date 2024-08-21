@@ -1,6 +1,6 @@
 @php
     $extras = json_decode($order->extra, true) ?? [];
-
+    $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
 @endphp
 {{-- @dd($extras) --}}
 <x-user>
@@ -12,36 +12,43 @@
                 <div class="card" id="printableArea">
                     <div class="card-body">
 
-                        @if ($order->notes)
+                        {{-- @if ($order->notes)
                             <div class="text-start">
 
                                 <span class="text-danger fw-bolder fs-6">Note: {{ $order->notes }}</span>
                             </div>
-                        @endif
+                        @endif --}}
                         <hr class="mt-3 mb-4">
                       
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="text-muted">
-                                    <h5 class="font-size-16 mb-3">Billed To:</h5>
-                                    <h5 class="font-size-15 mb-2">{{ $order->customer->name ?? 'Walk in customer' }} {{  $order->customer->l_name ?? '' }}
+                                    <h5 class="font-size-16 mb-3" style="color: black;">Billed To:</h5>
+
+                                    <h5 class="font-size-15 mb-2" style="color: black;">{{ $order->customer->name ?? 'Walk in customer' }} {{  $order->customer->l_name ?? '' }}
                                     </h5>
                                     {{-- <p class="mb-1">{{ $order->customer->address }}</p> --}}
                                     <p class="mb-1">{{ $order->customer->email }}</p>
-                                    <p>{{ $order->customer->phone }}</p>
+                                    <p  style="color: black;">{{ $order->customer->phone }}</p>
                                 </div>
                             </div>
                          
                             <div class="col-sm-6">
                                 <div class="text-muted text-sm-end">
                                     <div>
-                                        <h5 class="font-size-15 mb-1">Invoice No:</h5>
+                                        <h5 class="font-size-15 mb-1"  style="color: black;">Invoice No:</h5>
                                         <p>#{{ $order->id }}</p>
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1">Invoice Date:</h5>
-                                        <p>{{ $order->created_at}}</p>
+                                        {{-- @dd($order->products) --}}
+                                        <h5 class="font-size-15 mb-1" style="color: black;">Restaurant Name:</h5>
+                                        <p style="color: black;">{{$restaurant->name ?? ''}}</p>
                                     </div>
+                                    <div class="mt-4">
+                                        <h5 class="font-size-15 mb-1" style="color: black;">Invoice Date:</h5>
+                                        <p style="color: black;">{{ $order->created_at}}</p>
+                                    </div>
+                                    
                                 
                                 </div>
                             </div>
@@ -50,7 +57,7 @@
                      
 
                         <div class="py-2">
-                            <h5 class="font-size-15">Order Summary</h5>
+                            <h5 class="font-size-15" style="color: black;">Order Summary</h5>
 
                             <div class="table-responsive">
                                 <table class="table align-middle table-nowrap table-centered mb-0">
@@ -64,7 +71,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @dd($order )
+                                        {{-- @dd($order ) --}}
                                         @foreach ($order->products as $product)
                                             <tr>
                                                 <th scope="row">{{ $product->id }}</th>
