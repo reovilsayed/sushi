@@ -51,7 +51,7 @@
                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
                                             <div class="widget">
                                                 <p>Total Orders: {{ $data['total']['count'] }}</p>
-                                               
+
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
@@ -59,7 +59,7 @@
                                                 <p>Total Amount: {{ Settings::price($data['total']['sum']) }}</p>
                                             </div>
                                         </div>
-                                        
+
 
                                     </div>
 
@@ -73,11 +73,11 @@
                                             role="tab" aria-controls="grid" aria-selected="true"><i
                                                 class="fas fa-th"></i></a>
                                     </li>
-                                    {{-- <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="list-tab" data-bs-toggle="tab" href="#list"
                                             role="tab" aria-controls="list" aria-selected="false"><i
                                                 class="fas fa-list"></i> </a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
 
                                 <!-- Tab panes -->
@@ -86,10 +86,10 @@
                                         aria-labelledby="grid-tab">
                                         <x-orders.grid.deck :orders="$orders" />
                                     </div>
-                                    {{-- <div class="tab-pane fade" id="list" role="tabpanel"
+                                    <div class="tab-pane fade" id="list" role="tabpanel"
                                         aria-labelledby="list-tab">
                                         <x-orders.table.list :orders="$orders" />
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
 
@@ -110,6 +110,7 @@
                 <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="[
                     'customer.name' => 'Name',
                     'customer.phone' => 'Phone',
+                    'restaurant.name' => 'Restaurant Name',
                 ]" />
             </div>
             <div class="col-md-8">
@@ -120,13 +121,20 @@
         <h6 class="mb-4">Filter</h6>
         <div class="row row-cols-2 g-1">
 
-            <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
+            {{-- <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
                 :options="['Cash' => 'Cash', 'Bkash' => 'Bkash', 'Nagad' => 'Nagad', 'Card' => 'Card']" :show_empty_options="true" />
 
-            <x-form.input type="select" name="filter[status]" label="Status" :value="@request()->filter['status']" :options="['PAID' => 'Paid', 'DUE' => 'Due']"
-                :show_empty_options="true" />
+           
             <x-form.input type="select" name="filter[order_from]" label="Order From" :value="@request()->filter['order_from']" :options="['pos' => 'Pos', 'app' => 'App']"
-                :show_empty_options="true" />
+                :show_empty_options="true" /> --}}
+
+            <select class="form-select " aria-label="Default select example" name="category">
+                <option selected>select Restaurant </option>
+                @foreach ($restaurants as $restaurant)
+                    <option value="{{ $restaurant->id }}">{{ $restaurant->name }}</option>
+                @endforeach
+
+            </select>
 
             <x-form.input type="date" name="date[created_at][from]" label="From" :value="@request()->date['created_at']['from']" />
             <x-form.input type="date" name="date[created_at][to]" label="To" :value="@request()->date['created_at']['to']" />
@@ -136,8 +144,8 @@
 
         <div class="row row-cols-2">
 
-            <x-form.input type="select" name="order[created_at]" label="Created At" :value="@request()->order['created_at']"
-                :options="['asc' => 'Ascending', 'desc' => 'Descending']" :show_empty_options="true" />
+            <x-form.input type="select" name="order[created_at]" label="Created At" :value="@request()->order['created_at']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+                :show_empty_options="true" />
             <x-form.input type="select" name="order[discount]" label="Discount" :value="@request()->order['discount']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
             <x-form.input type="select" name="order[paid]" label="Paid" :value="@request()->order['paid']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"

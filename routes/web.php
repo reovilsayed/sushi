@@ -198,7 +198,8 @@ Route::post('payment/callback', function (Request $request) {
     // Extract and validate response data
     $data = $request->input('Data');
     $seal = $request->input('Seal');
-    $secretKey  = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+
+    $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
     $calculatedSeal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
 
     if ($calculatedSeal !== $seal) {
@@ -242,7 +243,7 @@ Route::post('payment/callback', function (Request $request) {
     // }
     if ($filteredData['responseCode'] == '00') {
         $order->status = 'PAID';
-
+        $order->transaction_id = $filteredData['s10TransactionId'];
         // $order->payment->payment_process_id = $paymentrespone->id;
         // $order->order_status = 'confirmed';
         // $order->payment->save();
@@ -259,11 +260,11 @@ Route::post('payment/callback', function (Request $request) {
             ->withErrors($statusMessage);
     }
 });
-Route::get('/test', function(){
+Route::get('/test', function () {
     $productId = 10;
     $productOption = ProductOption::where('product_id', $productId)->get();
 
-    if($productOption->isNotEmpty()) {
+    if ($productOption->isNotEmpty()) {
         dd('ace'); // 'ace' will be displayed if options are found
     } else {
         dd('nai'); // 'nai' will be displayed if no options are found
