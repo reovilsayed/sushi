@@ -161,7 +161,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
 
 
     // Route::resource('settings', SettingController::class);
-    Route::resource('priscription', PriscriptionController::class);
+    // Route::resource('priscription', PriscriptionController::class);
 
     Route::post('change-password', [SettingController::class, 'changePassword'])->name('settings.change-password');
 
