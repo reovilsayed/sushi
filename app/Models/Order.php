@@ -23,54 +23,54 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity', 'price', 'profit');
+        return $this->belongsToMany(Product::class)->withPivot('quantity', 'price', 'profit', 'restaurant_id');
     }
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
     }
-    
+
 
     public function total(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
     public function subTotal(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
     public function discount(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
     public function paid(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
     public function due(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
     public function profit(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? $value / 100 : null,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
         );
     }
 }
