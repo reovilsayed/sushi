@@ -25,8 +25,7 @@
                                     label="Restaurant Post Code*" value="{{$restaurant->address['post_code']}}" autofocus required />
                             </div>
                             <div class="row row-cols-2  ">
-                                <x-form.input name="address[zip_code]" wire:model="zip" label="Restaurant Zip Code*" value="{{$restaurant->address['zip_code']}}" autofocus
-                                    autofocus required />
+                                
                                 <x-form.input name="number" wire:model="number" value="{{$restaurant->number}}" label="Restaurant Number*" autofocus
                                     required />
                             </div>
