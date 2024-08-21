@@ -20,7 +20,7 @@
                         <i class="bi bi-telephone flex-shrink-0"></i>
                         <div>
                             <h3>{{__('sentence.call')}} {{__('sentence.us')}}</h3>
-                            <p>{{ Settings::option('phone') }}</p>
+                            <p>{{ Settings::site_phone()  }}</p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -28,7 +28,7 @@
                         <i class="bi bi-envelope flex-shrink-0"></i>
                         <div>
                             <h3>{{__('sentence.email')}} {{__('sentence.us')}}</h3>
-                            <p>{{ Settings::option('email') }}</p>
+                            <p>{{ Settings::site_email() }}</p>
                         </div>
                     </div><!-- End Info Item -->
                 </div>
@@ -58,6 +58,8 @@
                                 <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
                             </div>
                         </div>
+                        <button type="submit"
+                        class="d-xl-block user-logout-button mt-3">Submit</button>
                     </form>
                 </div><!-- End Contact Form -->
 

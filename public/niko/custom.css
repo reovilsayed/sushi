@@ -40,7 +40,7 @@
 }
 
 .text-colour {
-    color: var(--accent-color);
+    color: var(--accent-color) !important;
 }
 
 .secondary-colour {
@@ -144,4 +144,17 @@ input[type='number']::placeholder {
 }
 .bg-transparent{
     background: transparent;
+}
+.border-colour{
+    border: 2px solid var(--default-color) !important;
+}
+.forget-button{
+    color: var(--default-color) !important;
+    border: 2px solid var(--accent-color) !important;
+    background: transparent !important;
+    padding: 5px 25px !important;
+    transition: 0.4s !important; 
+}
+.forget-button:hover{
+    background: var(--accent-color) !important;
 }

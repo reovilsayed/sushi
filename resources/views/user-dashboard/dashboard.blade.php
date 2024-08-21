@@ -76,6 +76,7 @@
         </div>
         {{-- the table  --}}
 
+        @if ($orders->count() > 0)
         <div class="container mt-5" data-aos="fade-up" data-aos-delay="100">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -96,19 +97,28 @@
                                     <td class="">{{ $order->total }}€ </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-md-12 mt-4">
-                <div class="d-flex gap-3">
-                    <h4 class="text-colour">{{ __('sentence.logout') }}</h4>
-                    <form action="{{ route('logout') }}" method="post" id="logout-form" class="php-email-form">
-                        @csrf
-                        <button type="submit" class="d-xl-block user-logout-button">{{ __('sentence.logout') }}</button>
-                    </form>
-                </div>
+           
+        </div>   
+        @endif
+        <div class="container mt-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-md-12 mt-4">
+            <div class="d-flex gap-3">
+                
+                <form action="{{ route('logout') }}" method="post" id="logout-form" class="php-email-form">
+                    @csrf
+                    <button type="submit"
+                        class="d-xl-block user-logout-button">{{ __('sentence.logout') }}</button>
+                </form>
             </div>
         </div>
+        </div>
+       
+
+
     </section><!-- /Contact Section -->
 </x-user>

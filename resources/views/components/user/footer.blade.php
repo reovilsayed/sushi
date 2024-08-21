@@ -10,8 +10,8 @@
                     <span class="sitename">{{Settings::site_title()}}</span>
                 </a>
                 <div class="footer-contact ">
-                    <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::option('phone') }}</span></p>
-                    <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::option('email') }}</span></p>
+                    <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::site_phone()  }}</span></p>
+                    <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::site_email()  }}</span></p>
                 </div>
                 
                 <div class="social-links d-flex mt-4">
@@ -24,7 +24,7 @@
             <div class="col-lg-4 col-md-3 footer-links">
                 <h4>{{__('sentence.usefullinks')}}</h4>
                 <ul>
-                    <li><a href="#">{{__('sentence.home')}}</a></li>
+                    <li><a href="/">{{__('sentence.home')}}</a></li>
                     @auth
                         <li><a href="{{ route('user.dashboard') }}">{{__('sentence.dashboard')}}</a></li>
                     @else
