@@ -2,8 +2,9 @@
 @section('content')
     <div class="login_pages_contents_inr11">
         <div class="login_pages_contents_inr col-md-12 text-center">
+            
             <a href="{{ route('dashboard') }}" class="main_img"><img
-                    src="{{ @$setting->logo ? Storage::url($setting->logo) : asset('images/logo.png') }}" alt=""
+                    src="{{ Settings::site_logo() ? Storage::url(Settings::site_logo()) : asset('images/logo.png') }}" alt=""
                     width="200"></a>
             <div class="login_pages_contents_hdngg">
                 <h5 class="text-start">Forgot Password?</h5>
