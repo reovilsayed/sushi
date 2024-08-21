@@ -40,7 +40,7 @@ class PageController extends Controller
     {
         $currentTime = Carbon::now()->startOfMinute();  // Current time
         $startTime = Carbon::createFromTime(9, 0);      // 9:00 AM start
-        $endTime = Carbon::createFromTime(22, 0);       // 10:30 PM end
+        $endTime = Carbon::createFromTime(23, 0);       // 10:30 PM end
     
         // Generate and filter time slots in 30-minute intervals
         $timeSlots = [];

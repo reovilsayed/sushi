@@ -1,5 +1,6 @@
 @php
     $extras = json_decode($order->extra, true) ?? [];
+    $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
 @endphp
 {{-- @dd($extras) --}}
 <x-layout>
@@ -36,6 +37,10 @@
                                     <div>
                                         <h5 class="font-size-15 mb-1">Invoice No:</h5>
                                         <p>#{{ $order->id }}</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <h5 class="font-size-15 mb-1">Restaurant Name:</h5>
+                                        <p>{{ $restaurant->name ?? '' }}</p>
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
