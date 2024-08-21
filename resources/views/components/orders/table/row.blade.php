@@ -1,9 +1,10 @@
 <tr>
-    <td class="text-center" scope="row">
+    {{-- <td class="text-center" scope="row">
+       
         @if ($order->due > 0)
             <input class="form-check-input orderCheckBox" type="checkbox" value="{{ $order->id }}">
         @endif
-    </td>
+    </td> --}}
 
     <td>
         {{ $order->customer->name ?? 'Walk in customer' }}
@@ -31,7 +32,7 @@
     </td>
     <td>
         <a class="btn btn-primary" href="{{ route('orders.invoice', $order) }}">Invoice</a>
-        @if ($order->due > 0)
+        {{-- @if ($order->due > 0)
             <button type="button" class="btn btn-success" data-order="{{ $order->id }}" data-bs-toggle="modal"
                 data-bs-target="#deposite">Deposite</button>
 
@@ -42,6 +43,6 @@
 
                 <button type="submit" class="btn btn-dark">Mark as Pay</button>
             </form>
-        @endif
+        @endif --}}
     </td>
 </tr>

@@ -1,3 +1,7 @@
+@php
+    $extras = json_decode($order->extra, true) ?? [];
+@endphp
+{{-- @dd($extras) --}}
 <x-layout>
     <div class="container mt-3">
         <div class="row justify-content-center">
@@ -54,7 +58,7 @@
                                             <th style="width: 70px;">No.</th>
                                             <th>Item</th>
                                             <th>Quantity</th>
-                                            <th>Price</th>
+                                            <th class="text-end">Price</th>
                                             <th class="text-end" style="width: 120px;">Total</th>
                                         </tr>
                                     </thead>
@@ -67,13 +71,28 @@
                                                     <div>
                                                         <h5 class="text-truncate font-size-14 mb-1">{{ $product->name }} {{ $product->strength }}
                                                         </h5>
-                                                        <p class="text-muted mb-0">{{ $product->category->name }},{{ $product->generic->name }},
-                                                            {{ $product->supplier->name }}</p>
+                                                        <p class="text-muted mb-0">{{ $product->category->name }}</p>
                                                     </div>
                                                 </td>
                                                 <td>{{ $product->pivot->quantity }}</td>
                                                 <td class="text-end">{{ Settings::price($product->pivot->price) }}</td>
                                                 <td class="text-end">{{ Settings::price($product->pivot->price * $product->pivot->quantity) }}</td>
+                                            </tr>
+                                        @endforeach
+                                        @foreach ( $extras as $item)
+                                 
+                                            <tr>
+                                                <th scope="row">{{ $item['id'] }}</th>
+                                                <td>
+                                                    <div>
+                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $item['name'] }}
+                                                        </h5>
+                                                        {{-- <p class="text-muted mb-0">{{ $product->category->name }}</p> --}}
+                                                    </div>
+                                                </td>
+                                                <td>{{ $item['quantity'] }}</td>
+                                                <td class="text-end">{{ Settings::price($item['price']) }}</td>
+                                                <td class="text-end">{{ Settings::price($item['price'] * $item['quantity']) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>

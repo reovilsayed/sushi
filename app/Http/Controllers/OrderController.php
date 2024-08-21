@@ -162,6 +162,7 @@ class OrderController extends Controller
 
                 if (isset($item->attributes['extra'])) {
                     $extra[]=[
+                        'id'=>$item->id,
                         'name'=>$item->name,
                         'price'=>$item->price,
                         'quantity'=>$item->quantity,

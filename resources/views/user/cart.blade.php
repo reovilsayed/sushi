@@ -39,7 +39,7 @@
                                 <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead>
-                            <tbody class="table_body">
+                            <tbody class="table_body">  
                                 @forelse (Cart::getContent() as $item)
 
                                     <tr>

@@ -2,7 +2,7 @@
     <thead>
 
         <tr>
-            <th>
+            {{-- <th>
                 <form action="{{ route('orders.mark.pay') }}" method="post"
                     onsubmit="return confirm('Are you sure you want to mark this order as paid?')">
                     @csrf
@@ -10,7 +10,7 @@
 
                     <button type="submit" class="btn btn-sm btn-dark">Mark as Paid</button>
                 </form>
-            </th>
+            </th> --}}
             <th scope="col">Customer</th>
             <th scope="col">Payment</th>
             <th scope="col">Status</th>
