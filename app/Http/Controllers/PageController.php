@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactFormMail;
 use App\Models\Category;
 use App\Models\Extra;
+use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -197,7 +198,8 @@ class PageController extends Controller
 
     public function showDeliveryOptions() {}
 
-    // public function invoice(){
-    //     return view('user-dashboard.invoice');
-    // }
+    public function invoice(Order $order){
+
+        return view('user-dashboard.invoice',compact('order'));
+    }
 }

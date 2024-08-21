@@ -111,9 +111,11 @@
                                         @if ($restaurant)
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
                                                 <h2 class="text-colour">{{ $restaurant->name }}</h2>
-                                                {{-- <div class="d-flex gap-3">
-                                                    <p class="fst-italic">{{ $restaurant->zone }}</p>
-                                                </div> --}}
+                                                <div class="d-flex gap-3">
+                                                    {{-- @foreach ($restaurant->address as $address)
+                                                        <p class="fst-italic">{{ $address}}</p>
+                                                    @endforeach --}}
+                                                </div>
                                             </div>
                                         @endif
 
