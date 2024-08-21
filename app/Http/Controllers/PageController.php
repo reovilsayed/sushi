@@ -58,7 +58,7 @@ class PageController extends Controller
         $restaurant = Restaurant::where('slug', $restaurant)->first();
         $productOption = ProductOption::where('product_id', $product->id)->get();
 
-        return view('user.single-product', compact('product', 'restaurant','productOption'));
+        return view('user.single-product', compact('product', 'restaurant', 'productOption'));
     }
     public function restaurant()
     {
@@ -101,36 +101,27 @@ class PageController extends Controller
 
 
         $zone = Restaurant::select('*')
-        ->selectRaw('
+            ->selectRaw('
             ( 6371 * acos(
                 cos( radians(?) ) * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude")) ) )
                 * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.longitude"))) - radians(?) )
                 + sin( radians(?) ) * sin( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude"))) )
             )
             ) AS distance', [$latitude, $longitude, $latitude])
-        ->having('distance', '<', $radius)
-        ->orderBy('distance')
-        ->first();
+            ->having('distance', '<', $radius)
+            ->orderBy('distance')
+            ->first();
 
 
         if ($zone) {
-            $restaurant = $zone->restaurants()->first();
-
-            if ($restaurant) {
-                return response()->json([
-                    'success' => true,
-                    'redirect_url' => route('restaurant.menu', ['slug' => $restaurant->slug]),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No restaurants found in this zone.',
-                ]);
-            }
+            return response()->json([
+                'success' => true,
+                'redirect_url' => route('restaurant.menu', ['slug' => $zone->slug]),
+            ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'No zone found near your location.',
+                'message' => 'No restaurants found in this zone.',
             ]);
         }
     }
