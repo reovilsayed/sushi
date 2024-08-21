@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\DuePaidMail;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\Transaction;
@@ -51,7 +52,7 @@ class OrderController extends Controller
             ]
         ];
 
-        return view('pages.orders.list', compact('orders', 'data','restaurants'));
+        return view('pages.orders.list', compact('orders', 'data', 'restaurants'));
     }
     public function getChartData()
     {
@@ -106,6 +107,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $pass = Str::random(16);
 
         // Start a database transaction
@@ -134,8 +136,8 @@ class OrderController extends Controller
             }
 
             // Prepare shipping information
-            $shipping = $request->only(['f_name', 'l_name', 'email','address', 'city', 'post_cod', 'house', 'phone']);
-
+            $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_cod', 'house', 'phone']);
+            
             // Create the order
             $order = Order::create([
                 'customer_id' => $user->id,
@@ -148,27 +150,24 @@ class OrderController extends Controller
                 // 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
             ]);
-
-            $extra=[];
+            $extra = [];
             foreach (Cart::getContent() as $item) {
 
-                if(isset($item->attributes['product'])){
+                if (isset($item->attributes['product'])) {
                     $order->products()->attach($item->attributes['product']->id, [
                         'quantity' => $item->quantity,
                         'price' => $item->price,
-                        'restaurant_id'=>$item->attributes['restaurent'],
+                        'restaurant_id' => $item->attributes['restaurent'],
                     ]);
-            
                 }
 
                 if (isset($item->attributes['extra'])) {
-                    $extra[]=[
-                        'id'=>$item->id,
-                        'name'=>$item->name,
-                        'price'=>$item->price,
-                        'quantity'=>$item->quantity,
+                    $extra[] = [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        'price' => $item->price,
+                        'quantity' => $item->quantity,
                     ];
-                
                 }
             }
             if (!empty($extra)) {
@@ -181,6 +180,8 @@ class OrderController extends Controller
             Cart::clear();
             session()->forget('resturent_id');
             DB::commit();
+            // Send order confirmation email
+            Mail::to($user->email)->send(new OrderConfirmationMail($order));
 
             if ($request->payment_method == 'Card') {
                 $amount = $order->total * 100;
@@ -208,7 +209,6 @@ class OrderController extends Controller
             }
 
             return redirect()->route('thank_you');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');

@@ -18,7 +18,7 @@ class Settings
 
     public function currency()
     {
-        return 'Tk.';
+        return 'Є';
     }
     public function site_title()
     {

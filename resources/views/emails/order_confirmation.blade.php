@@ -2,7 +2,12 @@
 @section('content')
 
     <x-emails.tableImage :logo="asset('images/orderSuccess.jpg')" />
+    @php
+        $previousDues = $order->customer->orders->where('id', '!=', $order->id)->where('due', '!=', 0);
 
+        $extras = json_decode($order->extra, true) ?? [];
+        $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
+    @endphp
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 0 27px;">
         <tbody>
             <tr>
@@ -16,19 +21,16 @@
                             Thank you for choosing our service. Your purchase has been successful. If
                             you have any questions or need further assistance, feel free to contact us.
                         </p>
-
+                        {{-- @dd($restaurant->name) --}}
                         <p
                             style="font-size: 14px;margin: 5px auto 0;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
-                            Best regards, {{ Settings::option('shopName') }}</p>
+                            Best regards, {{ $restaurant->name }}</p>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    @php
-        $previousDues = $order->customer->orders->where('id', '!=', $order->id)->where('due', '!=', 0);
-    @endphp
 
     <table class="shipping-table" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
         style="padding: 0 27px;">
@@ -47,29 +49,44 @@
                         width="100%">
                         <tbody>
                             @foreach ($order->products as $product)
+                                {{-- @dd($product->quantity) --}}
                                 <tr>
-                                    <td
-                                        style="
-                                                    padding: 28px 0;
-                                                    border-bottom: 1px solid rgba(217, 217, 217, 0.5);
-                                                  ">
-                                        <img src="{{ $product->image_url }}" alt="" />
+                                    <td style="padding: 28px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                        <img src="{{ Storage::url($product->image) ?? asset('img/images.png') }}"
+                                            alt="{{ $product->name ?? 'Product Image' }}" />
                                     </td>
-                                    <td
-                                        style="
-                                                    padding: 28px 0;
-                                                    border-bottom: 1px solid rgba(217, 217, 217, 0.5);
-                                                  ">
+                                    <td style=" padding: 28px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                         <ul class="product-detail">
                                             <li>{{ $product->name }}
                                                 <span
                                                     style="color: #000; font-size: 13px;">({{ $product->category?->name }})</span>
                                             </li>
 
-                                            <li>{{ $product->strength }}</li>
+                                            {{-- <li>{{ $product->strength }}</li> --}}
                                             <li>QTY: <span>{{ $product->pivot->quantity }}</span></li>
                                             <li>Price:
                                                 <span>{{ Settings::price($product->pivot->price) }}</span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @foreach ($extras as $extra)
+                                {{-- @dd($extra['name'] ) --}}
+                                <tr>
+                                    <td style="padding: 28px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                        <img src="{{ asset('img/images.png') }}" alt="" />
+                                    </td>
+                                    <td style=" padding: 28px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                        <ul class="product-detail">
+                                            <li>{{ $extra['name'] ?? '' }}
+                                                {{-- <span
+                                                    style="color: #000; font-size: 13px;">({{ $product->category?->name }})</span> --}}
+
+                                                {{-- <li>{{ $product->strength }}</li> --}}
+                                            <li>QTY: <span>{{ $extra['quantity'] ?? '' }}</span></li>
+                                            <li>Price:
+                                                <span>{{ Settings::price($extra['price'] ?? '') }}</span>
                                             </li>
                                         </ul>
                                     </td>
@@ -147,19 +164,27 @@
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                    Delivery Time</td>
+                                <td
+                                    style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                    {{ $order->time_option }}</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     Subtotal</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     {{ Settings::price($order->sub_total) }}</td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     Discount</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     {{ Settings::price($order->discount) }}</td>
-                            </tr>
+                            </tr> --}}
 
                             <tr>
                                 <td
