@@ -4,14 +4,14 @@
 @endphp
 {{-- @dd($extras) --}}
 <x-user>
+    <br><br><br>
     <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <button onclick="printDiv('printableArea')" class="btn btn-success me-1 mb-2"><i
-                        class="fa fa-print me-2"></i>Print</button>
-                <div class="card" id="printableArea">
-                    <div class="card-body">
-
+                <button onclick="printDiv('printableArea')" class="btn me-1 mb-2 forget-button "><i
+                        class="fa fa-print me-2  "></i>Print</button>
+                <div class="card bg-transparent " id="printableArea">
+                    <div class="card-body bg-transparent">
                         {{-- @if ($order->notes)
                             <div class="text-start">
 
@@ -19,117 +19,130 @@
                             </div>
                         @endif --}}
                         <hr class="mt-3 mb-4">
-                      
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="text-muted">
-                                    <h5 class="font-size-16 mb-3" style="color: black;">Billed To:</h5>
+                                    <h5 class="font-size-16 mb-3">Billed To:</h5>
 
-                                    <h5 class="font-size-15 mb-2" style="color: black;">{{ $order->customer->name ?? 'Walk in customer' }} {{  $order->customer->l_name ?? '' }}
+                                    <h5 class="font-size-15 mb-2 text-colour">
+                                        {{ $order->customer->name ?? 'Walk in customer' }}
+                                        {{ $order->customer->l_name ?? '' }}
                                     </h5>
                                     {{-- <p class="mb-1">{{ $order->customer->address }}</p> --}}
-                                    <p class="mb-1">{{ $order->customer->email }}</p>
-                                    <p  style="color: black;">{{ $order->customer->phone }}</p>
+                                    <p class="mb-1 text-colour">{{ $order->customer->email }}</p>
+                                    {{-- <p   >{{ $order->customer->phone }}</p> --}}
                                 </div>
                             </div>
-                         
+
                             <div class="col-sm-6">
                                 <div class="text-muted text-sm-end">
                                     <div>
-                                        <h5 class="font-size-15 mb-1"  style="color: black;">Invoice No:</h5>
-                                        <p>#{{ $order->id }}</p>
+                                        <h5 class="font-size-15 mb-1">Invoice No:</h5>
+                                        <p class="text-colour">#{{ $order->id }}</p>
                                     </div>
                                     <div class="mt-4">
                                         {{-- @dd($order->products) --}}
-                                        <h5 class="font-size-15 mb-1" style="color: black;">Restaurant Name:</h5>
-                                        <p style="color: black;">{{$restaurant->name ?? ''}}</p>
+                                        <h5 class="font-size-15 mb-1">Restaurant Name:</h5>
+                                        <p class="text-colour">{{ $restaurant->name ?? '' }}</p>
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1" style="color: black;">Invoice Date:</h5>
-                                        <p style="color: black;">{{ $order->created_at}}</p>
+                                        <h5 class="font-size-15 mb-1">Invoice Date:</h5>
+                                        <p class="text-colour">{{ $order->created_at }}</p>
                                     </div>
-                                    
-                                
+
+
                                 </div>
                             </div>
-            
+
                         </div>
-                     
+
 
                         <div class="py-2">
-                            <h5 class="font-size-15" style="color: black;">Order Summary</h5>
+                            <h5 class="font-size-15">Order Summary</h5>
 
                             <div class="table-responsive">
-                                <table class="table align-middle table-nowrap table-centered mb-0">
+                                <table class="table align-middle table-nowrap table-centered mb-0 bg-transparent">
                                     <thead>
                                         <tr>
-                                            <th style="width: 70px;">No.</th>
-                                            <th>Item</th>
-                                            <th>Quantity</th>
-                                            <th class="text-end">Price</th>
-                                            <th class="text-end" style="width: 120px;">Total</th>
+                                            <th class="bg-transparent text-colour" style="width: 70px; ">No.</th>
+                                            <th class="bg-transparent text-colour">Item</th>
+                                            <th class="bg-transparent text-colour">Quantity</th>
+                                            <th class="text-end bg-transparent text-colour">Price</th>
+                                            <th class="text-end bg-transparent text-colour" style="width: 120px;">Total
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {{-- @dd($order ) --}}
                                         @foreach ($order->products as $product)
                                             <tr>
-                                                <th scope="row">{{ $product->id }}</th>
-                                                <td>
+                                                <th class="bg-transparent text-light" scope="row">{{ $product->id }}
+                                                </th>
+                                                <td class="bg-transparent text-light">
                                                     <div>
-                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $product->name }} {{ $product->strength }}
+                                                        <h5 class="text-truncate  font-size-14 mb-1">
+                                                            {{ $product->name }}
+                                                            {{ $product->strength }}
                                                         </h5>
-                                                        <p class="text-muted mb-0">{{ $product->category->name }}</p>
+                                                        <p class="text-light mb-0">{{ $product->category->name }}</p>
                                                     </div>
                                                 </td>
-                                                <td>{{ $product->pivot->quantity }}</td>
-                                                <td class="text-end">{{ Settings::price($product->pivot->price) }}</td>
-                                                <td class="text-end">{{ Settings::price($product->pivot->price * $product->pivot->quantity) }}</td>
+                                                <td class="bg-transparent text-light">{{ $product->pivot->quantity }}
+                                                </td>
+                                                <td class="text-end bg-transparent text-light">
+                                                    {{ Settings::price($product->pivot->price) }}</td>
+                                                <td class="text-end bg-transparent text-light">
+                                                    {{ Settings::price($product->pivot->price * $product->pivot->quantity) }}
+                                                </td>
                                             </tr>
                                         @endforeach
-                                        @foreach ( $extras as $item)
-                                 
+                                        @foreach ($extras as $item)
                                             <tr>
-                                                <th scope="row">{{ $item['id'] }}</th>
-                                                <td>
+                                                <th class="bg-transparent text-light" scope="row">
+                                                    {{ $item['id'] }}</th>
+                                                <td class="bg-transparent text-light">
                                                     <div>
                                                         <h5 class="text-truncate font-size-14 mb-1">{{ $item['name'] }}
                                                         </h5>
                                                         {{-- <p class="text-muted mb-0">{{ $product->category->name }}</p> --}}
                                                     </div>
                                                 </td>
-                                                <td>{{ $item['quantity'] }}</td>
-                                                <td class="text-end">{{ Settings::price($item['price']) }}</td>
-                                                <td class="text-end">{{ Settings::price($item['price'] * $item['quantity']) }}</td>
+                                                <td class="bg-transparent text-light">{{ $item['quantity'] }}</td>
+                                                <td class="text-end bg-transparent text-light">
+                                                    {{ Settings::price($item['price']) }}</td>
+                                                <td class="text-end bg-transparent text-light">
+                                                    {{ Settings::price($item['price'] * $item['quantity']) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
-                                            <th scope="row" colspan="4" class="text-end">Sub Total</th>
-                                            <td class="text-end">{{ Settings::price($order->sub_total) }}</td>
+                                            <th scope="row" colspan="4"
+                                                class="text-end bg-transparent text-light">Sub Total</th>
+                                            <td class="text-end bg-transparent text-light">
+                                                {{ Settings::price($order->sub_total) }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">
-                                                Discount :</th>
-                                            <td class="border-0 text-end">- {{ Settings::price($order->discount) }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">Total</th>
-                                            <td class="border-0 text-end">
+                                            <th scope="row" colspan="4"
+                                                class="border-0 text-end bg-transparent text-light">Total</th>
+                                            <td class="border-0 text-end bg-transparent text-light">
                                                 <h4 class="m-0 fw-semibold">{{ Settings::price($order->total) }}</h4>
                                             </td>
                                         </tr>
 
                                         <tr class="bg-success">
-                                            <th scope="row" colspan="4" class="border-0 text-end">
+                                            <th scope="row" colspan="4"
+                                                class="border-0 text-end bg-transparent text-light">
                                                 Paid Ammount:</th>
-                                            <td class="border-0 text-end">{{ Settings::price($order->paid) }}
+                                            <td class="border-0 text-end bg-transparent text-light">
+                                                {{ Settings::price($order->paid) }}
                                             </td>
                                         </tr>
                                         <tr class="bg-warning">
-                                            <th scope="row" colspan="4" class="border-0 text-end">
+                                            <th scope="row" colspan="4"
+                                                class="border-0 text-end bg-transparent text-light">
                                                 Due Ammount :</th>
-                                            <td class="border-0 text-end">{{ Settings::price($order->due) }}
+                                            <td class="border-0 text-end bg-transparent text-light">
+                                                {{ Settings::price($order->due) }}
                                             </td>
                                         </tr>
                                     </tbody>
