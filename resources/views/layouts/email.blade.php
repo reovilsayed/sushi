@@ -144,11 +144,12 @@
                         width="100%">
                         <tbody>
                             <tr class="header"
-                                style="background-color: #f7f7f7;display: flex;align-items: center;justify-content: center;width: 100%;">
+                                style="background-color: #5f1818; display: flex;align-items: center;justify-content: center;width: 100%;">
                                 <td class="header-logo" style="padding: 10px 32px;">
                                     <span style="display: block; text-align: left;">
-                                        <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('images/logo.png') }}"
-                                            class="main-logo" alt="logo" width="60">
+                                        {{-- <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('images/logo.png') }}"
+                                            class="main-logo" alt="logo" width="60"> --}}
+                                        <img style="height: 33px; width: auto;" src="{{ asset('logo/mainLogo.png') }}" class="main-logo" alt="logo">
                                     </span>
                                 </td>
                             </tr>
@@ -174,12 +175,11 @@
 
                                                 <td style="font-size: 15px; font-weight: 500">
                                                     <span style="color: #fff">
-                                                        Developed By: <a href="https://sohojware.com/"
-                                                            style="color: #387ADF" target="_blank">Sohojware Team</a>,
-                                                        Phone: <a href="https://wa.me/8801738324024"
-                                                            style="color: #387ADF"
-                                                            target="_blank">01738324024</a></span>
+                                                        Order By: <a href="https://sushi.sohojware.com/" style="color: #387ADF" target="_blank">Entral Sushi</a>, 
+                                                        Email: <a href="mailto:centralsushi@gmail.com" style="color: #387ADF" target="_blank">centralsushi@gmail.com</a>
+                                                    </span>
                                                 </td>
+                                                
                                             </tr>
                                         </tbody>
                                     </table>
