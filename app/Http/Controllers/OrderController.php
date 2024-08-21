@@ -109,7 +109,7 @@ class OrderController extends Controller
         // Start a database transaction
         DB::beginTransaction();
 
-        try {
+        // try {
             // Handle user authentication
             if (!auth()->check()) {
                 $user = User::create([
@@ -186,10 +186,10 @@ class OrderController extends Controller
 
             return redirect()->route('thank_you');
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
+        // }
     }
 
 

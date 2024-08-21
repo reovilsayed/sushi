@@ -23,6 +23,7 @@
                         <div class="row">
                             <h2 class="col-md-2">{{ $product->price }}€</h2>
 
+                           
                             @if ($productOption->isNotEmpty())
                                 <div class="col-md-4">
                                     <select class="form-select form-select mb-3 bg-transparent text-colour"

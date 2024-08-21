@@ -194,10 +194,8 @@
                                             {{-- <input type="hidden" name="quantity" id="form_quantity_{{ $extra->id }}"
                                             value="1"> --}}
                                             <input type="hidden" name="product_id" value="{{ $extra->id }}">
-                                            <input type="hidden" name="price" id="form_price_{{ $extra->id }}"
-                                                value="{{ $extra->price }}">
-                                            <input type="hidden" name="restaurent_id"
-                                                value="{{ $restaurant->id ?? '' }}">
+                                            <input type="hidden" name="price" id="{{ $extra->id}}" value="{{ $extra->price }}">
+                                            <input type="hidden" name="restaurent_id"value="{{ $restaurant->id ?? '' }}">
                                             <button type="submit" id="add_cart_button_{{ $extra->id }}"
                                                 class="cart_submit">Add Cart</button>
 
