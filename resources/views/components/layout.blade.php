@@ -105,17 +105,19 @@
                         </form> --}}
 
                         <form action="{{ route('products.index') }}" method="GET"
-                            class="app-search d-none d-lg-block p-0 ">
+                            class="app-search d-none d-lg-block p-0">
                             <div class="position-relative d-flex">
                                 <input type="text" class="form-control" name="search" placeholder="Search..."
-                                    value="{{ request('search') }}">
+                                    value="{{ is_string(request('search')) ? request('search') : '' }}">
                                 <span class="bx bx-search-alt"></span>
-                                @if (request()->has('search'))
-                                    <a class=" remove" onclick="removeSearch()"><i class="fa fa-times"
-                                            style="color: red" aria-hidden="true"></i></a>
+                                @if (request()->has('search') && is_string(request('search')))
+                                    <a class="remove" onclick="removeSearch()">
+                                        <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
+                                    </a>
                                 @endif
                             </div>
                         </form>
+
                     </div>
                     <div class="search_box_mobile" id="m_srch_trigger_box">
                         <div class="search_box_inner">

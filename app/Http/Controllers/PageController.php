@@ -189,4 +189,8 @@ class PageController extends Controller
     }
 
     public function showDeliveryOptions() {}
+
+    // public function invoice(){
+    //     return view('user-dashboard.invoice');
+    // }
 }

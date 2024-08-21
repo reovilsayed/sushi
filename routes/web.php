@@ -86,7 +86,7 @@ Route::post('/add-update', [CartController::class, 'update'])->name('cart.update
 Route::post('/cart/update-variation', [CartController::class, 'updateVaritaiton'])->name('cart.variation');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
-
+// Route::get('/invoice/{customer}', [PageController::class, 'invoice'])->name('invoice');
 
 Route::get('/test', function () {
     // dd(Category::all()->pluck('id'));
@@ -170,7 +170,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::post('/customer/store', [POSController::class, 'customerStore'])->name('customer.store');
     Route::get('purchase/invoice/{purchase}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
 
-    Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
+
     Route::get('send-reports/{customer}', [ReportsController::class, 'send_report'])->name('reports.send');
     Route::get('scrap', [ScrapController::class, 'scrap'])->name('scrap');
     Route::get('/test-email', function () {
