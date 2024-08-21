@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Mail\ContactFormMail;
 use App\Models\Category;
 use App\Models\Extra;
-use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -59,7 +58,7 @@ class PageController extends Controller
         $restaurant = Restaurant::where('slug', $restaurant)->first();
         $productOption = ProductOption::where('product_id', $product->id)->get();
 
-        return view('user.single-product', compact('product', 'restaurant', 'productOption'));
+        return view('user.single-product', compact('product', 'restaurant','productOption'));
     }
     public function restaurant()
     {
@@ -101,17 +100,17 @@ class PageController extends Controller
         $radius = 5;
 
 
-        $zone = Restaurant::select('restaurants.*')
-            ->selectRaw('
+        $zone = Restaurant::select('*')
+        ->selectRaw('
             ( 6371 * acos(
                 cos( radians(?) ) * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude")) ) )
                 * cos( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.longitude"))) - radians(?) )
                 + sin( radians(?) ) * sin( radians(JSON_UNQUOTE(JSON_EXTRACT(address, "$.latitude"))) )
             )
             ) AS distance', [$latitude, $longitude, $latitude])
-            ->having('distance', '<', $radius)
-            ->orderBy('distance')
-            ->first();
+        ->having('distance', '<', $radius)
+        ->orderBy('distance')
+        ->first();
 
 
         if ($zone) {
@@ -198,8 +197,7 @@ class PageController extends Controller
 
     public function showDeliveryOptions() {}
 
-    public function invoice(Order $order){
-
-        return view('user-dashboard.invoice',compact('order'));
-    }
+    // public function invoice(){
+    //     return view('user-dashboard.invoice');
+    // }
 }
