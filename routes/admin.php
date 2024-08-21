@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::controller(RestaurantController::class)->group(function () {
         Route::get('/restaurant', 'viewRestaurants')->name('admin.restaurants');
         Route::get('/restaurant/create', 'createRestaurant')->name('create.restaurant');
