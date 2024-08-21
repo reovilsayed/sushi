@@ -25,8 +25,7 @@
                                     label="Restaurant Post Code*" autofocus required />
                             </div>
                             <div class="row row-cols-2  ">
-                                <x-form.input name="address[zip_code]" wire:model="zip" label="Restaurant Zip Code*"
-                                    autofocus required />
+                                
                                 <x-form.input name="number" wire:model="number" label="Restaurant Number*" autofocus
                                     required />
                             </div>
