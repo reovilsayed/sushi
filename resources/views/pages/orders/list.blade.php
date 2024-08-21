@@ -128,10 +128,12 @@
             <x-form.input type="select" name="filter[order_from]" label="Order From" :value="@request()->filter['order_from']" :options="['pos' => 'Pos', 'app' => 'App']"
                 :show_empty_options="true" /> --}}
 
-            <select class="form-select " aria-label="Default select example" name="category">
-                <option selected>select Restaurant </option>
+            <select class="form-select " aria-label="Default select example" name="restaurant">
+                <option selected value="">select Restaurant </option>
                 @foreach ($restaurants as $restaurant)
-                    <option value="{{ $restaurant->id }}">{{ $restaurant->name }}</option>
+                    <option value="{{ $restaurant->id }}"
+                        {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}
+                    </option>
                 @endforeach
 
             </select>

@@ -39,7 +39,12 @@ trait HasFilter
                     $q->whereBetween($column, [$dates['from'], $dates['to']]);
                 }
             }
-        });
+        })
+            ->when(request('restaurant') !== null, function ($q) {
+                $q->whereHas('products', function ($query) {
+                    $query->where('restaurant_id', request()->get('restaurant'));
+                });
+            });
     }
     public function scopeFilterByDate($query, $column = 'created_at')
     {
@@ -52,5 +57,5 @@ trait HasFilter
             }
         );
     }
-    
+
 }

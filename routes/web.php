@@ -260,16 +260,7 @@ Route::post('payment/callback', function (Request $request) {
             ->withErrors($statusMessage);
     }
 });
-Route::get('/test', function () {
-    $productId = 10;
-    $productOption = ProductOption::where('product_id', $productId)->get();
 
-    if ($productOption->isNotEmpty()) {
-        dd('ace'); // 'ace' will be displayed if options are found
-    } else {
-        dd('nai'); // 'nai' will be displayed if no options are found
-    }
-});
 
 
 // Route::get('/test2', function () {
