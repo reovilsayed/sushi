@@ -16,6 +16,7 @@ use Cart;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Mail\user_create_mail;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
@@ -147,8 +148,7 @@ class OrderController extends Controller
                 'delivery_option' => $request->input('delivery_option'),
             ]);
 
-            // Attach products to the order
-            // dd(Cart::getContent());
+    
             foreach (Cart::getContent() as $item) {
 
                 if (isset($item->attributes['extra'])) {
@@ -166,6 +166,7 @@ class OrderController extends Controller
                     $order->products()->attach($item->attributes['product']->id, [
                         'quantity' => $item->quantity,
                         'price' => $item->price,
+                        'restaurant_id'=>$item->attributes['restaurent'],
                     ]);
             
                 }
@@ -173,7 +174,7 @@ class OrderController extends Controller
 
             // Clear the cart and session data
             Cart::clear();
-
+            session()->forget('resturent_id');
             DB::commit();
 
             if ($request->payment_method == 'Card') {
