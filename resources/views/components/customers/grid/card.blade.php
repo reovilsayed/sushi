@@ -6,7 +6,7 @@
                 href="{{ route('orders.index', ['search[column]' => 'customer.name', 'search[query]' => $customer->name]) }}">
 
                 <h5>
-                    {{ $customer->name }}
+                    {{ $customer->name }} {{ $customer->l_name }}
                 </h5>
             </a>
 

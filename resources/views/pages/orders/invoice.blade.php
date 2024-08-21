@@ -23,9 +23,9 @@
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Billed To:</h5>
-                                    <h5 class="font-size-15 mb-2">{{ $order->customer->name ?? 'Walk in customer' }}
+                                    <h5 class="font-size-15 mb-2">{{ $order->customer->name ?? 'Walk in customer' }} {{  $order->customer->l_name ?? '' }}
                                     </h5>
-                                    <p class="mb-1">{{ $order->customer->address }}</p>
+                                    {{-- <p class="mb-1">{{ $order->customer->address }}</p> --}}
                                     <p class="mb-1">{{ $order->customer->email }}</p>
                                     <p>{{ $order->customer->phone }}</p>
                                 </div>
@@ -128,7 +128,7 @@
                                 </table>
                             </div>
 
-                            @if ($order->transactions->count() > 0)
+                            {{-- @if ($order->transactions->count() > 0)
                                 <h5 class="font-size-15 mt-3">Due payment transaction history</h5>
                                 <table class="table">
                                     <thead>
@@ -151,7 +151,7 @@
 
                                     </tbody>
                                 </table>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                 </div>

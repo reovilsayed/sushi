@@ -68,22 +68,32 @@
 
     </div>
     <x-filter :url="route('customers.index')">
-        <div class="row">
+        <h6 class="mb-4">{{ __('sentence.search') }} </h6>
+        <div class="row g-1">
             <div class="col-md-4">
-                <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="['name' => 'Name', 'email' => 'Email', 'phone' => 'Phone', 'address' => 'Address']" />
+                <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="[
+                    'name' => 'Name',
+                ]" />
             </div>
             <div class="col-md-8">
                 <x-form.input type="text" name="search[query]" :value="@request()->search['query']" label="Search" />
             </div>
         </div>
-
-        <x-form.input type="select" name="filter[gender]" label="Gender" :value="@request()->filter['gender']" :options="['male' => 'Male', 'female' => 'Female']"
-            :show_empty_options="true" />
-        <h5 class="mb-2">Order By</h5>
         <hr>
-        <div class="row row-cols-1">
-            <x-form.input type="select" name="order[discount]" label="Discount" :value="@request()->order['discount']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+        <h6 class="mb-4">Filter</h6>
+        <div class="row row-cols-2 g-1">
+
+            <x-form.input type="date" name="date[created_at][from]" label="From" :value="@request()->date['created_at']['from']" />
+            <x-form.input type="date" name="date[created_at][to]" label="To" :value="@request()->date['created_at']['to']" />
+        </div>
+        <hr>
+        <h6 class="mb-4">Order By</h6>
+
+        <div class="row row-cols-2">
+
+            <x-form.input type="select" name="order[created_at]" label="Created At" :value="@request()->order['created_at']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
+
 
         </div>
 
