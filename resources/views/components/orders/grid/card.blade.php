@@ -1,13 +1,18 @@
+@php
+    $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
+@endphp
+
 <div class="card my-3 me-2 custom-fade-in h-100">
     <div class="card-header" style="background-color: #205E61; color: #fff">
         <div class="row position-relative">
             <div class="col-md-8 col-10">
                 <h5 class="card-title" style="font-size: 1rem">
-                    {{ $order->customer->name ?? 'Walk-in customer' }} {{ $order->customer->l_name ?? 'Walk-in customer' }}
+                    {{ $order->customer->name ?? 'Walk-in customer' }}
+                    {{ $order->customer->l_name ?? 'Walk-in customer' }}
                     <br>
                 </h5>
-                <span class="text-white"><a
-                        href="tel:{{ $order->customer->phone ?? '' }}">{{ $order->customer->phone ?? '(No Number)' }}</a></span>
+
+                <span class="text-white">{{ $restaurant->name ?? '' }}</span>
             </div>
             <div class="col-md-4 col-4 text-right ps-0">
                 <span
@@ -47,6 +52,12 @@
                 </p>
             </div>
             <div class="col-md-5 col-5">
+
+
+                <p class="card-text">
+                    <strong>Delivery time:</strong><br>
+                    {{ $order->time_option ?? 'unknown' }}
+                </p>
                 <p class="card-text">
                     <strong>Date & Time:</strong><br>
                     {{ $order->created_at->format('d M, Y h:i A') }}
