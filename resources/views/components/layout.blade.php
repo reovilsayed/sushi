@@ -107,7 +107,7 @@
                         <form action="{{ route('products.index') }}" method="GET"
                             class="app-search d-none d-lg-block p-0">
                             <div class="position-relative d-flex">
-                                <input type="text" class="form-control" name="search" placeholder="Search..."
+                                <input type="text" class="form-control" placeholder="Search..."
                                     value="{{ is_string(request('search')) ? request('search') : '' }}">
                                 <span class="bx bx-search-alt"></span>
                                 @if (request()->has('search') && is_string(request('search')))
