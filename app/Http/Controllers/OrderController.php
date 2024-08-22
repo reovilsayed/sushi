@@ -27,7 +27,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::latest()->filter()->paginate(24)->withQueryString();
+        $orders = Order::latest()->filter()->paginate(20)->withQueryString();
         $allOrderCount = Order::filter()->get();
         $paidOrderCount = Order::filter()->where('status', 'PAID')->get();
         $unpaidOrderCount = Order::filter()->where('status', 'UNPAID')->get();
