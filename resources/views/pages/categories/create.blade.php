@@ -14,14 +14,13 @@
                     <h3>{{__('sentence.category')}} </h3>
                     <div class="item-content">
                         <div class="mb-3">
-                            <label for="inputName1" class="form-label">{{ __('sentence.category') }}
-                                {{ __('sentence.name') }}</label>
-                            <input type="text" class="form-control" id="inputName1" placeholder="Categorie Name"
+                            <label for="inputName1" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="inputName1" placeholder="Category Name"
                                 data-name="name" name="name">
                         </div>
                     </div>
                     <div class="item-content mb-3">
-                        <label class="control-label">{{ __('sentence.category') }}</label>
+                        <label class="control-label">Sub Category</label>
                         <select class="form-control select2" name="parent_id">
                             <option value="">{{ __('sentence.select') }}</option>
                             @foreach ($categories as $category)
