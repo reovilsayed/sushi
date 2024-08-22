@@ -42,7 +42,7 @@
                 $('#summernote').summernote({
                     placeholder: 'enter your body content here',
                     tabsize: 2,
-                    height: 100
+                    height: 300
                 });
 
             });

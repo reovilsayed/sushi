@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Generic;
 use App\Models\Product;
-use App\Models\Supplier;
-use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -20,30 +17,36 @@ class   ProductController extends Controller
      */
     public function index()
     {
-        
-        $products = Product::latest()->filter()->paginate(30)->withQueryString();
-        return view('pages.products.list', compact('products'));
+        $minutes = 5;
+
+        $products = Product::latest()->filter()->paginate(16)->withQueryString();
+        $categories = Cache::remember('categories', $minutes, function () {
+            return Category::all()->pluck('name', 'id')->toArray();
+        });
+        return view('pages.products.list', compact('products', 'categories'));
     }
 
-    
+
     public function createOrEdit(Request $request, Product $product = null)
     {
         $variations = $request->session()->get('variation_array') ?? [];
 
-        $generics = Generic::all()->pluck('name', 'id')->toArray();
-        $categories = Category::all()->pluck('name', 'id')->toArray();
-        $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
-        $units = Unit::all()->pluck('name', 'id')->toArray();
+        // $generics = Generic::all()->pluck('name', 'id')->toArray();
+        // $categories = Category::all()->pluck('name', 'id')->toArray();
+        // $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
+        // $units = Unit::all()->pluck('name', 'id')->toArray();
 
-        return view('pages.products.create', compact(
-            'variations',
-            'generics',
-            'categories',
-            'suppliers',
-            'units',
-            'product'
-        )
-        );
+        // return view(
+        //     'pages.products.create',
+        //     compact(
+        //         'variations',
+        //         'generics',
+        //         'categories',
+        //         'suppliers',
+        //         'units',
+        //         'product'
+        //     )
+        // );
     }
     public function save(Request $request, Product $product = null)
     {
@@ -99,7 +102,6 @@ class   ProductController extends Controller
         $product->save();
 
         return redirect(route('products.createOrEdit', $product->id))->with('success', 'Product Created Successfully');
-
     }
     public function duplicateProduct(Request $request)
     {
@@ -136,17 +138,20 @@ class   ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted');
     }
-    
-    public function showProduct(Product $product){
+
+    public function showProduct(Product $product)
+    {
         // dd('hello');
         return view('pages.products.single', compact('product'));
     }
-    public function createProduct(){
-        
+    public function createProduct()
+    {
+
         $categories = Category::whereNotNull('parent_id')->get();
-        return view('pages.products.create',compact('categories'));
+        return view('pages.products.create', compact('categories'));
     }
-    public function storeProduct(Request $request){
+    public function storeProduct(Request $request)
+    {
         // dd($request);
         $validated = $request->validate([
             'name' => 'required|string',
@@ -176,18 +181,19 @@ class   ProductController extends Controller
             if ($product->image && Storage::exists($product->image)) {
                 Storage::delete($product->image);
             }
-            $product->image = $request->file('image')->store('uploads','public');
+            $product->image = $request->file('image')->store('uploads', 'public');
         }
         $product->save();
 
         return redirect(route('products.index'))->with('success', 'Product Created Successfully');
-
     }
-    public function editProduct(Product $product){
+    public function editProduct(Product $product)
+    {
         $categories = Category::whereNotNull('parent_id')->get();
-        return view('pages.products.edit',compact('product','categories'));
+        return view('pages.products.edit', compact('product', 'categories'));
     }
-    public function updateProduct(Request $request , Product $product){
+    public function updateProduct(Request $request, Product $product)
+    {
         // dd($request);
         $validated = $request->validate([
             'name' => 'required|string',
@@ -208,12 +214,12 @@ class   ProductController extends Controller
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
-        $product->text = $request->description; 
+        $product->text = $request->description;
         if ($request->hasFile('image')) {
             if ($product->image && Storage::exists($product->image)) {
                 Storage::delete($product->image);
             }
-            $product->image = $request->file('image')->store('uploads','public');
+            $product->image = $request->file('image')->store('uploads', 'public');
         }
         $product->save();
 
@@ -228,5 +234,4 @@ class   ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted');
     }
-    
 }

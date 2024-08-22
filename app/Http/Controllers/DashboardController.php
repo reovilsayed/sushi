@@ -12,6 +12,7 @@ class DashboardController extends Controller
     {
         $sevendaysEarning = Earnings::range(now()->subDays(7), now()->endOfDay())->totalEarning();
         $sevensSale = Earnings::range(now()->subDays(7), now()->endOfDay())->totalSale();
+        // dd( $sevensSale );
         $todayEarning = Earnings::range(now()->startOfDay(), now()->endOfDay())->totalEarning();
         $todaysSale = Earnings::range(now()->startOfDay(), now()->endOfDay())->totalSale();
 

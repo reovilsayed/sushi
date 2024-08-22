@@ -1,11 +1,19 @@
 <x-layout>
+    <style>
+        .btn-outline-dark:hover {
+            color: #fff !important;
+            background-color: #212529;
+            border-color: #212529;
+        }
+    </style>
     {{-- @dd($products) --}}
 
     <div class="dashboard_content ps-0 mt-2">
         <div class="dashboard_content_inner">
             <div class="d-flex justify-content-between mt-1 mb-3">
                 <div style="float"class="mt-2">
-                    <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('sentence.addnewproduct')}}</a>
+                    <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
+                        {{ __('sentence.addnewproduct') }}</a>
                 </div>
             </div>
             <table class="table">
@@ -13,13 +21,13 @@
                     <tr>
 
                         <th scope="col">#</th>
-                        <th scope="col">{{__('sentence.image')}}</th>
-                        <th scope="col">{{__('sentence.name')}}</th>
-                        <th scope="col">{{__('sentence.price')}}</th>
+                        <th scope="col">{{ __('sentence.image') }}</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">{{ __('sentence.price') }}</th>
                         {{-- <th scope="col">status</th> --}}
-                        <th>{{__('sentence.sku')}}</th>
-                        <th scope="col">{{__('sentence.category')}}</th>
-                        <th scope="col">{{__('sentence.action')}}</th>
+                        <th>{{ __('sentence.sku') }}</th>
+                        <th scope="col">{{ __('sentence.category') }}</th>
+                        <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +41,7 @@
                                     alt="">
                             </td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->price }}</td>
+                            <td>{{ Settings::price($product->price) }}</td>
                             {{-- <td>
                                 @if ($product->status)
                                     <span class="badge bg-primary">True</span>
@@ -46,11 +54,11 @@
                                 @if ($product->category)
                                     {{ $product->name }}
                                 @else
-                                    <span class="badge bg-danger">{{__('sentence.notfound')}}</span>
+                                    <span class="badge bg-danger">{{ __('sentence.notfound') }}</span>
                                 @endif
                             </td>
 
-                            <td class="">
+                            <td class="text-center">
 
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.product', $product) }}"><i
                                         class="fa fa-edit"></i></a>
@@ -62,9 +70,79 @@
 
                 </tbody>
             </table>
+            <tfoot>
+                <tr>
+                    <td>
+                        {{ $products->links('pagination::bootstrap-5') }}
+                    </td>
+                </tr>
+            </tfoot>
         </div>
 
     </div>
+    <x-filter :url="route('products.index')">
+        <div class="row">
+            <div class="col-md-4">
+                <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="['name' => 'Name','SKU' => 'SKU']" />
+            </div>
+            <div class="col-md-8">
+                <x-form.input type="text" name="search[query]" :value="@request()->search['query']" label="Search" />
+            </div>
+        </div>
+        <x-form.input type="select" name="filter[category_id]" label="Category" :value="@request()->filter['category_id']" :options="$categories"
+            :show_empty_options="true" />
+
+        {{-- <select class="form-select " aria-label="Default select example" name="restaurant">
+            <option selected value="">select Restaurant </option>
+            @foreach ($restaurants as $restaurant)
+                <option value="{{ $restaurant->id }}"
+                    {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}
+                </option>
+            @endforeach
+
+        </select> --}}
+
+        {{-- <x-form.input type="select" name="filter[featured]" label="Featured" :value="@request()->filter['featured']" :options="[1 => 'Yes', 0 => 'No']"
+            :show_empty_options="true" />
+
+        <h5>Order By</h5>
+        <div class="row row-cols-2">
+            <x-form.input type="select" name="order[price]" label="Price Order" :value="@request()->order['price']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+                :show_empty_options="true" />
+            <x-form.input type="select" name="order[sold_unit]" label="Sales Order" :value="@request()->order['sold_unit']"
+                :options="['asc' => 'Ascending', 'desc' => 'Descending']" :show_empty_options="true" />
+
+        </div> --}}
+
+    </x-filter>
+
+    @push('script')
+        <script>
+            $(document).ready(function() {
+                $('#generic-input').select2();
+            });
+
+            function duplicateProduct(productId) {
+
+                var csrf_token = "{{ csrf_token() }}";
+                $.ajax({
+                    url: "{{ route('products.duplicate') }}",
+                    method: "POST",
+                    data: {
+                        productId: productId,
+                        _token: csrf_token
+
+                    },
+                    success: function(response) {
+                        window.location.href = "{{ route('products.createOrEdit', '') }}/" + response.newProductId;
+                    },
+                    error: function(error) {
+                        alert('Error duplicating product!');
+                    }
+                });
+            }
+        </script>
+    @endpush
 </x-layout>
 
 {{-- <x-layout>

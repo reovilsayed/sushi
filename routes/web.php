@@ -105,7 +105,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::post('/customer/Dashaboard', [CustomerController::class, 'customerInfoDelete'])->name('customer.infoDelete');
 });
 
-Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 

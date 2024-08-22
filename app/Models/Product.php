@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
     use HasFactory;
+    use HasFilter;
     protected $guarded = [];
     // protected $with = ['category', 'supplier', 'generic', 'batches'];
 
@@ -129,15 +130,17 @@ class Product extends Model
         return $this->hasMany(ProductOption::class, 'product_id');
     }
 
-    public function scopeFilter($query)
-    {
-        // dd( request('search'));
-        return $query
-            ->when(
-                request()->has('search'),
-                function ($q) {
-                    return  $q->where('name', 'like', '%' . request('search') . '%');
-                }
-            );
-    }
+    // public function scopeFilter($query)
+    // {
+    //     // dd( request('search'));
+    //     return $query
+    //         ->when(
+    //             request()->has('search'),
+    //             function ($q) {
+    //                 return  $q->where('name', 'like', '%' . request('search') . '%');
+    //             }
+    //         );
+    // }
+    // In your Product.php model file
+
 }
