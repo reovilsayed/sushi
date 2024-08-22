@@ -57,7 +57,9 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/orders/invoice/{order}', 'invoice')->name('orders.invoice');
         Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('orders.mark.delivered');
     });
-
+    Route::get('/test', function () {
+        return view('pages.priscription.create');
+    });
 
 
 

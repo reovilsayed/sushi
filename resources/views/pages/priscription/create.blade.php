@@ -82,7 +82,7 @@
             }
         </script>
     @endpush
-    <form action="{{ route('priscription.store') }}" method="POST">
+    <form action="" method="POST">
         @csrf
         <div class="container">
             <div class="row">
@@ -93,7 +93,7 @@
                             <h6 class="dash_head">Doctor Prescription Form</h6>
 
                             <div class="row row-cols">
-                                <x-form.input name="name" label="PATIENT NAME *" value="{{ $priscription->name }}"
+                                <x-form.input name="name" label="PATIENT NAME *" value=""
                                     autofocus required
                                     class="@error('name')
                                    is-invalid 

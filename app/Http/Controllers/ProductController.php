@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -152,7 +153,7 @@ class   ProductController extends Controller
     }
     public function storeProduct(Request $request)
     {
-        // dd($request);
+        dd($request->option_name);
         $validated = $request->validate([
             'name' => 'required|string',
             'composition' => 'required|string',
@@ -183,7 +184,12 @@ class   ProductController extends Controller
             }
             $product->image = $request->file('image')->store('uploads', 'public');
         }
+
         $product->save();
+        
+       
+        // $option = New ProductOption;
+        // $option->product_id = $product->id;
 
         return redirect(route('products.index'))->with('success', 'Product Created Successfully');
     }

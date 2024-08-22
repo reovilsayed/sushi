@@ -1,5 +1,49 @@
 {{-- @dd($categories) --}}
 <x-layout>
+    @push('script')
+    <script>
+        const addRow = () => {
+            const index = $('#priscription-products').children().length
+            const row = `<tr  class="table-row">
+                            <td>
+                                <x-form.input name="option_name" label="Option Name" value=""  />
+                            </td>
+                            <td>
+                                <x-form.input name="option_price" label="Option price" value=""  />
+                            </td>
+                            
+
+                            <td class="text-center">
+                                <button type="button"
+                                    class="btn btn-danger btn-sm h-auto remove-row" onclick="removeRow(this)"> <i
+                                        class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>`;
+            $('#priscription-products').append(row)
+            const baseUrl = "{{ env('VITE_API_URI', 'https://pos.sohojware.com') }}";
+            const addHeaders = function(xhr) {
+                xhr.setRequestHeader('x-secret-key', "{{ env('PASSWORD') }}");
+            };
+            $('.products-ajax').select2({
+                ajax: {
+                    url:  `${baseUrl}/api/products`,
+
+                    processResults: function(data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        return {
+                            results: data
+                        }
+                    },
+                    beforeSend: addHeaders
+                }
+            });
+        }
+
+        const removeRow = (el) => {
+            el.closest('tr').remove();
+        }
+    </script>
+@endpush
     <form action="{{route('store.product')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="container mt-3">
@@ -83,6 +127,49 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card mt-4 mb-2">
+                <div class="card-body">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    Option Name
+                                </th>
+
+                                <th class="text-center w-auto">
+                                    Option Price *
+                                </th>
+                                
+                                <th class="text-center">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="priscription-products">
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="10" class="text-end">
+                                    <button onclick="addRow()" type="button"
+                                        class="btn btn-primary btn-sm h-auto add-row"> <i
+                                            class="fa fa-plus"></i></button>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" style="float: right">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
     </form>
 
 </x-layout>
