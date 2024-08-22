@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Mail\OrderConfirmationMail;
 use App\Mail\PurchasesMailForShopOwner;
 use App\Models\Category;
