@@ -67,7 +67,7 @@ font-family: 'Roboto', sans-serif;
 /* ====================================================
     Gutter Code 
 ==================================================== */
-.container,
+/* .container,
 .container-fluid {
   padding-right: 15px;
   padding-left: 15px;
@@ -151,7 +151,7 @@ font-family: 'Roboto', sans-serif;
   padding-right: 15px;
   padding-left: 15px;
   position: relative;
-}
+} */
 
 .ltn__no-gutter>[class*='col-'] {
   /* No padding only for child columns */
@@ -329,36 +329,20 @@ font-family: 'Roboto', sans-serif;
   --wechat: #7bb32e;
   --youtube: #CB2027;
   --email: #F89A1E;
+
+  --background-color: #0c0b09;
+  --default-color: rgba(255, 255, 255, 0.7);
+  --heading-color: #ffffff;
+  --accent-color: #ff883e;
+  --secondary-accent-color: #E5D5BF;
+  --surface-color: #29261f;
+  --contrast-color: #0c0b09;
 }
 
 /* -------------------------------------
     Typography
 ------------------------------------- */
-html {
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  font-family: var(--ltn__body-font);
-}
 
-* {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  outline: none;
-  -moz-osx-font-smoothing: grayscale;
-  /* Firefox */
-  -webkit-font-smoothing: antialiased;
-  /* WebKit  */
-}
-
-body {
-  color: var(--ltn__paragraph-color);
-  font-weight: 400;
-  font-style: normal;
-  font-size: 16px;
-  font-family: var(--ltn__body-font);
-  line-height: 1.8;
-  margin: 0 auto;
-}
 
 h1,
 .h1 {
@@ -897,37 +881,38 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="submit"],
+input[type="number"],
 textarea {
-  background-color: transparent;
-  border: 2px solid;
-  border-color: var(--border-color-9);
-  height: 65px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  padding-left: 20px;
-  font-size: 16px;
-  color: var(--ltn__paragraph-color);
-  width: 100%;
-  margin-bottom: 30px;
-  border-radius: 0;
-  padding-right: 40px;
+  font-size: 14px !important;
+  padding: 10px 15px !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  color: var(--default-color) !important;
+  background-color:
+    color-mix(in srgb, var(--background-color), transparent 50%) !important;
+  border-color:
+    color-mix(in srgb, var(--accent-color), transparent 70%) !important;
 }
-
+/* .input[type="email"]{
+  background-color: ;
+} */
 input[type="text"]::-webkit-input-placeholder,
 input[type="email"]::-webkit-input-placeholder,
 input[type="password"]::-webkit-input-placeholder,
 input[type="submit"]::-webkit-input-placeholder,
+input[type="number"]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color: var(--ltn__paragraph-color);
+  color: var(--section-bg-1) !important;
+  opacity: 0.5;
   font-size: 14px;
 }
 
-/* input[type="text"]:focus,
+input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 textarea:focus {
-  border-color: var(--ltn__secondary-color);
+  border-color: var(--accent-color) !important;
 }
 
 input[type="password"] {
@@ -939,7 +924,7 @@ textarea {
   resize: vertical;
   padding: 15px 20px;
   min-height: 150px;
-} */
+}
 
 button {
   outline: none;
@@ -16815,15 +16800,44 @@ input.cart-plus-minus-box {
 
 .order tr td {
   color: var(--section-bg-1);
+  background: transparent;
+}
+.order tr th {
+  color: var(--section-bg-1);
+  background: #ff883e !important;
 }
 
 .table>:not(caption)>*>* {
-  padding: 1rem .5rem !important;
+  padding: .5rem .5rem !important;
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
 
+#update{
+  background: transparent;
+  color: #ff883e;
+  border: 1px solid #ff883e;
+  padding: 6px 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+#update:hover{
+  background-color: #ff883e;
+  color: var(--section-bg-1);
+}
+#update_pass{
+  background: transparent;
+  color: #ff883e;
+  border: 1px solid #ff883e;
+  padding: 6px 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+#update_pass:hover{
+  background-color: #ff883e;
+  color: var(--section-bg-1);
+}
 /* ----------------------------------------------------
     END
 ---------------------------------------------------- */

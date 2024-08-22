@@ -24,6 +24,11 @@ class ProfileController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->l_name = $request->last_name;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->city = $request->city;
+        $user->post_code = $request->post_code;
+        $user->house = $request->house;
         $user->save();
         return redirect()->back()->with('success', 'Name updated successfully');
     }
