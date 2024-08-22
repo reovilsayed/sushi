@@ -73,11 +73,8 @@
                                     value="" /> --}}
                                 <x-form.input id="price" name="price" wire:model="price" label="Price *"
                                     value="" required />
-                                {{-- <x-form.input name="status" wire:model="status" value="" type="select"
-                                    label="Status" :options="[0 => 'False', 1 => 'True']" />
-                                <x-form.input name="featured" wire:model="featured" value="" type="select"
-                                    label="Featured" :options="[0 => 'False', 1 => 'True']" /> --}}
-
+                                <x-form.input id="price" name="price" wire:model="price" label="Price *"
+                                    value="" required />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{__('sentence.save')}} 
@@ -85,10 +82,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
     </form>
 
