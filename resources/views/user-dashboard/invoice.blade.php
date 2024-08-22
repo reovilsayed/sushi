@@ -10,7 +10,7 @@
             <div class="col-lg-8">
                 <button onclick="printDiv('printarea')" class="btn me-1 mb-2 forget-button "><i
                         class="fa fa-print me-2  "></i> Print</button>
-                <div class="card bg-transparent "  id="printarea">
+                <div class="card bg-transparent "  id="printarea" style="border: 2px solid var(--accent-color)">
                     <div class="card-body bg-transparent">
                         {{-- @if ($order->notes)
                             <div class="text-start">
@@ -52,8 +52,8 @@
 
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1" style="color: black;">Delivery Time:</h5>
-                                        <p style="color: black;">{{ $order->time_option }}</p>
+                                        <h5 class="font-size-15 mb-1" >Delivery Time:</h5>
+                                        <p class="text-colour">{{ $order->time_option }}</p>
                                     </div>
 
 
