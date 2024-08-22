@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 d-flex flex-column align-items-center align-items-lg-start">
-                    <h2 data-aos="fade-up" data-aos-delay="100">{{__('sentence.welcome')}} <span>{{Settings::site_title()}}</span></h2>
+                    <h2 data-aos="fade-up" data-aos-delay="100">{{__('sentence.welcome')}} <span>{{Settings::setting('site.title')}}</span></h2>
                     <p data-aos="fade-up" data-aos-delay="200">{{__('sentence.sitesubtitle')}}</p>
                     <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
                         {{-- <a href="#" class="cta-btn">Our Menu</a> --}}

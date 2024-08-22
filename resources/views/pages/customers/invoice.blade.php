@@ -51,7 +51,7 @@
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Billed From:</h5>
-                                    <h5 class="font-size-15 mb-2">{{ Settings::option('shopName') }}</h5>
+                                    <h5 class="font-size-15 mb-2 ">test</h5>
                                     <p class="mb-1">{{ Settings::option('address') }}</p>
                                     <p class="mb-1">{{ Settings::option('email') }}</p>
                                     <p>{{ Settings::option('phone') }}</p>

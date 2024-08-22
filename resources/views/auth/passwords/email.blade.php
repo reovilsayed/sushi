@@ -53,7 +53,7 @@
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="login_pages_contents_inr col-md-6 text-center bg-transparent border-colour">
             <a href="{{ route('dashboard') }}" class="main_img">
-                <img src="{{ Settings::site_logo() ? Storage::url(Settings::site_logo()) : asset('images/logo.png') }}" alt="" width="200">
+                <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('images/logo.png') }}" alt="" width="200">
             </a>
             <div class="login_pages_contents_hdngg">
                 <h5 class="text-start text-colour" style=" color: var(--accent-color);">Forgot Password?</h5>

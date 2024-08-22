@@ -87,7 +87,7 @@
                         </svg>
                     </div>
                     <a href="/" class="logo">
-                        <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('logo/mainLogo.png') }}"
+                        <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('logo/mainLogo.png') }}"
                             alt="">
                     </a>
 

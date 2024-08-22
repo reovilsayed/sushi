@@ -19,7 +19,7 @@
                                             
                                             <div class="prf_box mt-3">
                                                 <div class="prf" data-profile-image>
-                                                    <img src="{{ Settings::site_logo() ? Storage::url(Settings::site_logo()) : asset('images/logo.png') }}"
+                                                    <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('images/logo.png') }}"
                                                         alt="">
                                                     <span class="prf_pic_change">
                                                         <input type="file" accept="image/*" name="image"
@@ -33,15 +33,15 @@
                                                     </span>
                                                 </div>
                                                 <div class="prf_rt">
-                                                    <h4>{{ Settings::site_title() ? Settings::site_title() : 'site title' }}
+                                                    <h4>{{ Settings::setting('site.title') ? Settings::setting('site.title') : 'site title' }}
                                                     </h4>
                                                     <p>
                                                         <img src="{{ asset('images/email.png') }}" alt="" />
                                                         <a
-                                                            href="">{{ Settings::site_email() ? Settings::site_email() : 'site Email' }}</a>
+                                                            href="">{{ Settings::setting('site.email') ? Settings::setting('site.email') : 'site Email' }}</a>
                                                     </p>
                                                     <p><img src="{{ asset('images/phone.png') }}"
-                                                            alt="" />{{Settings::site_phone() ? Settings::site_phone() : 'site Phone'}}
+                                                            alt="" />{{Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone'}}
                                                     </p>
                                                 </div>
                                             </div>
@@ -51,7 +51,7 @@
                                                     <div class="label">{{ __('sentence.sitetitle') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::site_title() ? Settings::site_title() : 'site title' }}"
+                                                            value="{{ Settings::setting('site.title') ? Settings::setting('site.title') : 'site title' }}"
                                                             placeholder="Site Title" class="" name="site_title">
                                                     </div>
                                                 </div>
@@ -59,7 +59,7 @@
                                                     <div class="label">{{ __('sentence.siteemail') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::site_email() ? Settings::site_email() : 'site Email' }}"
+                                                            value="{{ Settings::setting('site.email') ? Settings::setting('site.email') : 'site Email' }}"
                                                             placeholder="Site Email" class="" name="site_email">
                                                     </div>  
                                                 </div>
@@ -67,7 +67,7 @@
                                                     <div class="label">{{ __('sentence.sitenumber') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::site_phone() ? Settings::site_phone() : 'site Phone' }}"
+                                                            value="{{ Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone' }}"
                                                             placeholder="Site Phone Number" class="" name="site_phone">
                                                     </div>
                                                 </div>
@@ -75,7 +75,7 @@
                                                     <div class="label">{{ __('sentence.facebooklink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::facebook_link() ? Settings::facebook_link() : 'facebook link' }}"
+                                                            value="{{ Settings::setting('facebook.link') ? Settings::setting('facebook.link')  : 'facebook link' }}"
                                                             placeholder="facebook link" class="" name="facebook_link">
                                                     </div>
                                                 </div>
@@ -83,7 +83,7 @@
                                                     <div class="label">{{ __('sentence.instagramlink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::instagram_link() ? Settings::instagram_link() : 'instagram link' }}"
+                                                            value="{{ Settings::setting('instagram.link') ? Settings::setting('instagram.link') : 'instagram link' }}"
                                                             placeholder="Insatagram Link" class="" name="instagram_link">
                                                     </div>
                                                 </div>
@@ -91,7 +91,7 @@
                                                     <div class="label">{{ __('sentence.tiktoklink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::tiktok_link() ? Settings::tiktok_link() : 'tiktok link' }}"
+                                                            value="{{ Settings::setting('tiktok.link') ? Settings::setting('tiktok.link') : 'tiktok link' }}"
                                                             placeholder="tiktok link" class="" name="tiktok_link">
                                                     </div>
                                                 </div>

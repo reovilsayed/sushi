@@ -7,17 +7,17 @@
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
                 <a href="/" class="logo d-flex align-items-center">
-                    <span class="sitename">{{Settings::site_title()}}</span>
+                    <span class="sitename">{{Settings::setting('site.title')}}</span>
                 </a>
                 <div class="footer-contact ">
-                    <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::site_phone()  }}</span></p>
-                    <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::site_email()  }}</span></p>
+                    <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::setting('site.phone')  }}</span></p>
+                    <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::setting('site.email') }}</span></p>
                 </div>
                 
                 <div class="social-links d-flex mt-4">
-                    <a href="{{Settings::facebook_link()}}" target="blank"><i class="bi bi-facebook"></i></a>
-                    <a href="{{Settings::instagram_link()}}" target="blank"><i class="bi bi-instagram"></i></a>
-                    <a href="{{Settings::tiktok_link()}}" target="blank"><i class="bi bi-tiktok"></i></a>
+                    <a href="{{Settings::setting('facebook.link')}}" target="blank"><i class="bi bi-facebook"></i></a>
+                    <a href="{{Settings::setting('instagram.link')}}" target="blank"><i class="bi bi-instagram"></i></a>
+                    <a href="{{Settings::setting('tiktok.link')}}" target="blank"><i class="bi bi-tiktok"></i></a>
                 </div>
             </div>
 

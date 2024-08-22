@@ -20,42 +20,52 @@ class Settings
     {
         return 'Є';
     }
-    public function site_title()
-    {
-        $siteTitle = Setting::where('key', 'site.title')->value('value');
-        return $siteTitle;
-    }
-    public function site_logo()
-    {
-        $imagePath = Setting::where('key', 'site.logo')->value('value');
-        return $imagePath;
-    }
-    public function site_email()
-    {
-        $siteEmail = Setting::where('key', 'site.email')->value('value');
-        return $siteEmail;
-    }
-    public function site_phone()
-    {
-        $sitePhone = Setting::where('key', 'site.phone')->value('value');
-        return $sitePhone;
-    }
-    public function facebook_link()
-    {
 
-        $facebooklink = Setting::where('key', 'facebook.link')->value('value');
-        return $facebooklink;
-    }
-    public function instagram_link()
+    public function setting($key, $default = null)
     {
-        $link = Setting::where('key', 'instagram.link')->value('value');
-        return $link;
+        $settings = Cache::remember('all_settings', 100, function () {
+            return Setting::pluck('value', 'key')->toArray();
+        });
+        return $settings[$key] ?? null;
     }
-    public function tiktok_link()
-    {
-        $link = Setting::where('key', 'tiktok.link')->value('value');
-        return $link;
-    }
+
+
+    // public function site_title()
+    // {
+    //     $siteTitle = Setting::where('key', 'site.title')->value('value');
+    //     return $siteTitle;
+    // }
+    // public function site_logo()
+    // {
+    //     $imagePath = Setting::where('key', 'site.logo')->value('value');
+    //     return $imagePath;
+    // }
+    // public function site_email()
+    // {
+    //     $siteEmail = Setting::where('key', 'site.email')->value('value');
+    //     return $siteEmail;
+    // }
+    // public function site_phone()
+    // {
+    //     $sitePhone = Setting::where('key', 'site.phone')->value('value');
+    //     return $sitePhone;
+    // }
+    // public function facebook_link()
+    // {
+
+    //     $facebooklink = Setting::where('key', 'facebook.link')->value('value');
+    //     return $facebooklink;
+    // }
+    // public function instagram_link()
+    // {
+    //     $link = Setting::where('key', 'instagram.link')->value('value');
+    //     return $link;
+    // }
+    // public function tiktok_link()
+    // {
+    //     $link = Setting::where('key', 'tiktok.link')->value('value');
+    //     return $link;
+    // }
 
     public function option($param = null)
     {
