@@ -74,8 +74,9 @@ Route::controller(PageController::class)->group(function () {
     Route::post('/check-location', 'checkLocation')->name('check.location');
     Route::get('/thank-you', 'thank_you')->name('thank_you');
     Route::get('/pages/{page}', 'pageView')->name('pages.view');
-
+    Route::get('/restaurant/recruitment/', 'recruitment')->name('restaurant.recruitment');
     Route::post('/contact/send', 'contactMail')->name('contact.mail');
+    Route::post('/recrutment/send', 'recrutmentMail')->name('recrutment.mail');
 });
 
 //cart routes
@@ -89,15 +90,7 @@ Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoice');
 
 Route::get('/test', function () {
-    // dd(Category::all()->pluck('id'));
-    return $categpries = Category::with('products')->whereNotNull('parent_id')->get();
-    foreach ($categpries as $category) {
-        foreach ($category->products as $product) {
-            Product::where('id', $product->id)->update([
-                'category_id' => $category->id,
-            ]);
-        }
-    }
+    return view('emails.contact');
 });
 
 

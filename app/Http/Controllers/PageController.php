@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
+use App\Mail\RecruitmentMail;
 use App\Models\Category;
 use App\Models\Extra;
 use App\Models\Order;
@@ -187,9 +188,48 @@ class PageController extends Controller
         return back()->with('success', 'Thank you for contacting us!');
     }
 
-    public function showDeliveryOptions() {}
-
-    public function invoice(Order $order){
-        return view('user-dashboard.invoice',compact('order'));
+    public function showDeliveryOptions()
+    {
     }
+
+    public function invoice(Order $order)
+    {
+        return view('user-dashboard.invoice', compact('order'));
+    }
+    public function recruitment()
+    {
+        return view('user.recruitment');
+    }
+
+    public function recrutmentMail(Request $request)
+    {
+        // Validate the request, including the PDF file
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'message' => 'required|string',
+            'city' => 'required|string',
+            'terget_position' => 'required|string',
+            'cv_file' => 'required|file|mimes:pdf|max:2048', // Validate the file as a PDF with a max size of 2MB
+        ]);
+        $pdf = $request->file('cv_file');
+        $path = $pdf->storeAs('pdfs', $pdf->getClientOriginalName());
+
+        // Prepare the data for the email
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+            'city' => $request->city,
+            'terget_position' => $request->terget_position,
+            'cv_file' => $path,
+        ];
+
+        // Send the email with the attached file
+        Mail::to('contact@gmail.com')->send(new RecruitmentMail($data));
+
+        // Return back with a success message
+        return back()->with('success', 'Thank you for contacting us!');
+    }
+
 }

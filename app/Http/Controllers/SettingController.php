@@ -14,7 +14,7 @@ class SettingController extends Controller
     //  */
     public function index()
     {
-       
+
 
         return view('pages.settings.update');
     }
@@ -23,6 +23,7 @@ class SettingController extends Controller
 
     public function updateSettings(Request $request)
     {
+
         // Validate the form data
         $request->validate([
             'site_title' => 'required|string|max:255',
@@ -45,14 +46,18 @@ class SettingController extends Controller
         Setting::where('key', 'tiktok.link')->update(['value' => $request->input('tiktok_link')]);
 
 
-        // Handle the image upload
+
         if ($request->hasFile('image')) {
-            // Store the image in the 'public' directory
+
+            $currentImage = Setting::where('key', 'site.logo')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
             $path = $request->file('image')->store('images', 'public');
 
-            // Update the image path in the database
             Setting::where('key', 'site.logo')->update(['value' => $path]);
         }
+
 
         // Optionally, add a success message and redirect
         return redirect()->back()->with('success', 'Settings updated successfully.');

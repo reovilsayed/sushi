@@ -20,7 +20,7 @@
                         <i class="bi bi-telephone flex-shrink-0"></i>
                         <div>
                             <h3>{{__('sentence.call')}} {{__('sentence.us')}}</h3>
-                            <p>{{ Settings::site_phone()  }}</p>
+                            <p>{{ Settings::setting('site.phone')  }}</p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -28,7 +28,7 @@
                         <i class="bi bi-envelope flex-shrink-0"></i>
                         <div>
                             <h3>{{__('sentence.email')}} {{__('sentence.us')}}</h3>
-                            <p>{{ Settings::site_email() }}</p>
+                            <p>{{ Settings::setting('site.phone') }}</p>
                         </div>
                     </div><!-- End Info Item -->
                 </div>

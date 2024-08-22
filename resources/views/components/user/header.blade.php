@@ -8,14 +8,14 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
             
             <a href="{{ route('restaurant.home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
                 
-                 <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('logo/mainLogo.png')}}" alt="">
+                 <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('logo/mainLogo.png')}}" alt="">
      
             </a>
 
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ route('restaurant.home') }}" class="active">{{ __('sentence.home') }}<br></a></li>
-
+                    <li><a href="{{ asset('pdfs/menu-belfort.pdf') }}" target="_blank">La carte</a></li>
                     <li class="dropdown"><a href="{{ route('user.restaurants') }}"><span>{{ __('sentence.restaurants') }}</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
@@ -26,6 +26,8 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
                             @endforeach
                         </ul>
                     </li>
+
+                    <li><a href="{{ route('restaurant.recruitment') }}">Recruitment</a></li>
                     <li><a href="{{ route('restaurant.contact') }}">{{ __('sentence.contact') }}</a></li>
                     <li class="d-xl-none">
                         @auth
