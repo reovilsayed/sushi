@@ -112,8 +112,8 @@
                                                 <i class="fas fa-home"></i></a>
                                             <a data-bs-toggle="tab" href="#liton_tab_1_2">Orders <i
                                                     class="fas fa-file-alt"></i></a>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_3">Downloads <i
-                                                    class="fas fa-arrow-down"></i></a>
+                                            {{-- <a data-bs-toggle="tab" href="#liton_tab_1_3">Downloads <i
+                                                    class="fas fa-arrow-down"></i></a> --}}
                                             <a data-bs-toggle="tab" href="#liton_tab_1_4">address <i
                                                     class="fas fa-map-marker-alt"></i></a>
                                             <a data-bs-toggle="tab" href="#liton_tab_1_5">Account Details <i
@@ -139,7 +139,7 @@
                                             <div class="ltn__myaccount-tab-content-inner">
                                                 <div class="table-responsive">
                                                     <table class="table">
-                                                        <thead style="background-color: #ff883e;">
+                                                        <thead class="order" style="background-color: #ff883e;">
                                                             <tr>
                                                                 <th>Order</th>
                                                                 <th>Date</th>
@@ -148,7 +148,7 @@
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody class="order" style="border: 1px solid #ff883e;">
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>Jun 22, 2019</td>
@@ -175,7 +175,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="liton_tab_1_3">
+
+                                        {{-- <div class="tab-pane fade" id="liton_tab_1_3">
                                             <div class="ltn__myaccount-tab-content-inner">
                                                 <div class="table-responsive">
                                                     <table class="table">
@@ -216,23 +217,23 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="tab-pane fade" id="liton_tab_1_4">
                                             <div class="ltn__myaccount-tab-content-inner">
                                                 <p>The following addresses will be used on the checkout page by default.
                                                 </p>
                                                 <div class="row">
                                                     <div class="col-md-6 col-12 learts-mb-30">
-                                                        <h4>Billing Address <small><a href="#">edit</a></small>
+                                                        <h4 style="color: #ff883e">Billing Address
                                                         </h4>
                                                         <address>
-                                                            <p><strong>Alex Tuntuni</strong></p>
-                                                            <p>1355 Market St, Suite 900 <br>
+                                                            <p style="color: #ff883e"><strong>Alex Tuntuni</strong></p>
+                                                            <p style="color:white">1355 Market St, Suite 900 <br>
                                                                 San Francisco, CA 94103</p>
-                                                            <p>Mobile: (123) 456-7890</p>
+                                                            <p style="color:white">Mobile: (123) 456-7890</p>
                                                         </address>
                                                     </div>
-                                                    <div class="col-md-6 col-12 learts-mb-30">
+                                                    {{-- <div class="col-md-6 col-12 learts-mb-30">
                                                         <h4>Shipping Address <small><a href="#">edit</a></small>
                                                         </h4>
                                                         <address>
@@ -241,7 +242,7 @@
                                                                 San Francisco, CA 94103</p>
                                                             <p>Mobile: (123) 456-7890</p>
                                                         </address>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +251,42 @@
                                                 <p>The following addresses will be used on the checkout page by default.
                                                 </p>
                                                 <div class="ltn__form-box">
-                                                    <form action="#">
+                                                    <form method="POST" action="{{ route('user.update.name') }}"
+                                                        class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                                                        @csrf
+                                                        <div class="row gy-4">
+
+                                                            <div class="col-md-12">
+                                                                <input type="text" name="name"
+                                                                    class="form-control capitalize-first"
+                                                                    placeholder="Your Name" required
+                                                                    value="{{ ucfirst(auth()->user()->name) }}">
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input type="text" name="last_name"
+                                                                    class="form-control capitalize-first"
+                                                                    placeholder="Your Name" required
+                                                                    value="{{ ucfirst(auth()->user()->l_name) }}">
+                                                            </div>
+
+                                                            <div class="col-md-12">
+                                                                <input type="email" class="form-control"
+                                                                    name="email" placeholder="Your Email"
+                                                                    required="" value="{{ auth()->user()->email }}"
+                                                                    disabled>
+
+                                                            </div>
+
+
+
+                                                            <div class="col-md-12 text-start">
+                                                                <button
+                                                                    type="submit">{{ __('sentence.update') }}</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                    {{-- <form action="#">
                                                         <div class="row mb-50">
                                                             <div class="col-md-6">
                                                                 <label>First name:</label>
@@ -270,6 +306,27 @@
                                                                 <input type="email" name="ltn__lastname"
                                                                     placeholder="example@example.com">
                                                             </div>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="name"
+                                                                    class="form-control capitalize-first"
+                                                                    placeholder="Your Name" required
+                                                                    value="{{ ucfirst(auth()->user()->name) }}">
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="last_name"
+                                                                    class="form-control capitalize-first"
+                                                                    placeholder="Your Name" required
+                                                                    value="{{ ucfirst(auth()->user()->l_name) }}">
+                                                            </div>
+
+                                                            <div class="col-md-10">
+                                                                <input type="email" class="form-control"
+                                                                    name="email" placeholder="Your Email"
+                                                                    required="" value="{{ auth()->user()->email }}"
+                                                                    disabled>
+
+                                                            </div>
+
                                                         </div>
                                                         <fieldset>
                                                             <legend>Password change</legend>
@@ -291,7 +348,7 @@
                                                                 class="btn theme-btn-1 btn-effect-1 text-uppercase">Save
                                                                 Changes</button>
                                                         </div>
-                                                    </form>
+                                                    </form> --}}
                                                 </div>
                                             </div>
                                         </div>
