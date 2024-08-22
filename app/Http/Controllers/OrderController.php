@@ -136,7 +136,7 @@ class OrderController extends Controller
             }
 
             // Prepare shipping information
-            $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_cod', 'house', 'phone']);
+            $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
             
             // Create the order
             $order = Order::create([

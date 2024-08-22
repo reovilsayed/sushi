@@ -187,15 +187,15 @@
 
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Your Address" required="">
+                                                    placeholder="Your Address" required=""value={{ auth()->user()->address ?? '' }}>
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
-                                                    placeholder="Your City" required="">
+                                                    placeholder="Your City" required="" value={{ auth()->user()->city ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" name="post_cod" class="form-control"
-                                                    placeholder="Your Post Code" required="">
+                                                <input type="text" name="post_code" class="form-control"
+                                                    placeholder="Your Post Code" required="" value={{ auth()->user()->post_code ?? '' }}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -203,11 +203,11 @@
                                             </div> --}}
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
-                                                    class="form-control" placeholder="Your Phone Number">
+                                                    class="form-control" placeholder="Your Phone Number" value={{ auth()->user()->phone ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="Your House" required="">
+                                                    placeholder="Your House" required="" value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
 

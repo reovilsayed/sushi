@@ -16800,10 +16800,15 @@ input.cart-plus-minus-box {
 
 .order tr td {
   color: var(--section-bg-1);
+  background: transparent;
+}
+.order tr th {
+  color: var(--section-bg-1);
+  background: #ff883e !important;
 }
 
 .table>:not(caption)>*>* {
-  padding: 1rem .5rem !important;
+  padding: .5rem .5rem !important;
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
@@ -16818,6 +16823,18 @@ input.cart-plus-minus-box {
   font-weight: 700;
 }
 #update:hover{
+  background-color: #ff883e;
+  color: var(--section-bg-1);
+}
+#update_pass{
+  background: transparent;
+  color: #ff883e;
+  border: 1px solid #ff883e;
+  padding: 6px 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+#update_pass:hover{
   background-color: #ff883e;
   color: var(--section-bg-1);
 }
