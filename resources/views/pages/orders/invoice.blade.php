@@ -84,6 +84,7 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $product->pivot->quantity }}</td>
+                                                
                                                 <td class="text-end">{{ Settings::price($product->pivot->price) }}</td>
                                                 <td class="text-end">{{ Settings::price($product->pivot->price * $product->pivot->quantity) }}</td>
                                             </tr>
@@ -100,10 +101,12 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $item['quantity'] }}</td>
+
                                                 <td class="text-end">{{ Settings::price($item['price']) }}</td>
                                                 <td class="text-end">{{ Settings::price($item['price'] * $item['quantity']) }}</td>
                                             </tr>
                                         @endforeach
+                                        {{-- @dd(Settings::price($order->sub_total)) --}}
                                         <tr>
                                             <th scope="row" colspan="4" class="text-end">Sub Total</th>
                                             <td class="text-end">{{ Settings::price($order->sub_total) }}</td>
@@ -168,18 +171,18 @@
         </div>
     </div>
 
-    @push('script')
-        <script type="text/javascript">
-            function printDiv(divName) {
-                var printContents = document.getElementById(divName).innerHTML;
-                var originalContents = document.body.innerHTML;
+        @push('script')
+            <script type="text/javascript">
+                function printDiv(divName) {
+                    var printContents = document.getElementById(divName).innerHTML;
+                    var originalContents = document.body.innerHTML;
 
-                document.body.innerHTML = printContents;
+                    document.body.innerHTML = printContents;
 
-                window.print();
+                    window.print();
 
-                document.body.innerHTML = originalContents;
-            }
-        </script>
-    @endpush
+                    document.body.innerHTML = originalContents;
+                }
+            </script>
+        @endpush
 </x-layout>

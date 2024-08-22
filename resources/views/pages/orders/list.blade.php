@@ -99,7 +99,7 @@
                 </div>
             </div>
 
-            {{ $orders->onEachSide(1)->links() }}
+            {{ $orders->links() }}
 
         </div>
     </div>

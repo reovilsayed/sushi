@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function userIndex()
     {
         $id = auth()->user()->id;
-        $orders = Order::where('customer_id', $id)->get();
+        $orders = Order::where('customer_id', $id)->latest()->paginate(10);
         //  $orders = Order::all();
         return view('user-dashboard.dashboard', compact('orders'));
     }
@@ -48,5 +48,8 @@ class ProfileController extends Controller
         } else {
             return back()->withErrors('Success');
         }
+    }
+    public function updateProfile(){
+        return view('user-dashboard.update');
     }
 }
