@@ -70,6 +70,7 @@
     <script src="{{ asset('niko/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     {{-- logout  --}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt4M6sXKliR4X6j3l3ubOt8HeXN-CKMMY"></script>
 
     <!-- Main JS File -->
     <script src="{{ asset('niko/assets/js/main.js') }}"></script>
@@ -80,7 +81,7 @@
         let userLatitude = null;
         let userLongitude = null;
 
-        
+
         document.getElementById('location-button').addEventListener('click', function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error);
