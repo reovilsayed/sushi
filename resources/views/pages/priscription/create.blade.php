@@ -154,7 +154,7 @@
                         <div class="card-body">
                             <h6>Customer</h6>
                             <div class="row-cols">
-                                <x-select.customerSelect name="customer_id" required/>
+                                <x-select.customerSelect name="customer_id" />
                             </div>
                         </div>
                     </div>

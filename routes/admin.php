@@ -35,6 +35,8 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/product/edit/{product}', 'editProduct')->name('edit.product');
         Route::post('/product/update/{product}', 'updateProduct')->name('update.product');
         Route::delete('/product/delete/{product}', 'deleteProduct')->name('delete.product');
+        Route::delete('/option/delete/{productOption}', 'deleteOption')->name('delete.option');
+
     });
 
     Route::controller(SettingController::class)->group(function () {
@@ -58,7 +60,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('orders.mark.delivered');
     });
     Route::get('/test', function () {
-        return view('pages.priscription.create');
+        return view('pages.priscription.edit');
     });
 
 

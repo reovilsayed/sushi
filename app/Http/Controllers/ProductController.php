@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
 
-class   ProductController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -153,7 +153,6 @@ class   ProductController extends Controller
     }
     public function storeProduct(Request $request)
     {
-        dd($request->option_name);
         $validated = $request->validate([
             'name' => 'required|string',
             'composition' => 'required|string',
@@ -186,17 +185,26 @@ class   ProductController extends Controller
         }
 
         $product->save();
-        
-       
-        // $option = New ProductOption;
-        // $option->product_id = $product->id;
+
+        if ($request->option) {
+            foreach ($request->option as $option) {
+                $product_option = new ProductOption;
+                $product_option->product_id = $product->id;
+                $product_option->option_name = $option['name'];
+                $product_option->option_price = $option['price'];
+
+                $product_option->save();
+            }
+        }
+
 
         return redirect(route('products.index'))->with('success', 'Product Created Successfully');
     }
     public function editProduct(Product $product)
     {
         $categories = Category::whereNotNull('parent_id')->get();
-        return view('pages.products.edit', compact('product', 'categories'));
+        $product_options = ProductOption::where('product_id', $product->id)->get();
+        return view('pages.products.edit', compact('product', 'categories', 'product_options'));
     }
     public function updateProduct(Request $request, Product $product)
     {
@@ -229,6 +237,20 @@ class   ProductController extends Controller
         }
         $product->save();
 
+        if ($request->option) {
+            foreach ($request->option as $option) {
+                ProductOption::updateOrCreate(
+                    ['id' => $option['id']], // Search criteria
+                    [
+                        'product_id' => $product->id, // Fields to update or create
+                        'option_name' => $option['name'],
+                        'option_price' => $option['price'],
+                    ]
+                );
+            }
+
+        }
+
         return redirect(route('products.index'))->with('success', 'Product Updated Successfully');
     }
     public function deleteProduct(Product $product)
@@ -237,7 +259,24 @@ class   ProductController extends Controller
             Storage::delete($product->image);
         }
 
+        $product_options = ProductOption::where('product_id', $product->id)->get();
+
+        if (count($product_options) > 0) {
+            foreach ($product_options as $option) {
+
+                $option->delete();
+            }
+        }
+
+
+
         $product->delete();
+
+
         return redirect()->route('products.index')->with('success', 'Product deleted');
+    }
+    public function deleteOption(ProductOption $productOption){
+        $productOption->delete();
+        return redirect()->back()->with('success', 'Option deleted');
     }
 }
