@@ -68,8 +68,12 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
                           
                         </a>
                 @else
-                    <a class="fs-2" href="{{ route('login') }}" style="margin: 0 20px;"> <i
-                            class="bi bi-box-arrow-in-right"></i> </a>
+                    <a class="" href="{{ route('login') }}" style="margin: 0 20px;"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,100.000000) scale(0.200000,-0.200000)" fill="#ff883e" stroke="none">
+                          <path d="M155 456 c-60 -28 -87 -56 -114 -116 -36 -79 -19 -183 42 -249 33 -36 115 -71 167 -71 52 0 134 35 167 71 34 37 63 110 63 159 0 52 -35 134 -71 167 -37 34 -110 63 -159 63 -27 0 -65 -10 -95 -24z m173 -12 c174 -72 174 -316 0 -388 -133 -56 -287 47 -288 192 -1 147 154 253 288 196z" />
+                          <path d="M202 393 c-30 -26 -36 -63 -14 -98 l18 -29 -41 -21 c-36 -18 -40 -24 -43 -62 l-3 -43 131 0 131 0 -3 43 c-3 38 -7 44 -43 62 l-41 21 18 29 c32 52 -2 115 -62 115 -15 0 -37 -8 -48 -17z m95 -29 c15 -24 15 -29 2 -53 -11 -20 -22 -26 -49 -26 -27 0 -38 6 -49 26 -13 24 -13 29 2 53 12 18 26 26 47 26 21 0 35 -8 47 -26z m16 -125 c40 -11 65 -45 54 -73 -5 -13 -26 -16 -117 -16 l-111 0 3 38 c3 32 7 38 38 49 44 15 85 16 133 2z" />
+                        </g>
+                      </svg></a>
                 @endauth
             </div>
             <div class="d-xl-none ">
