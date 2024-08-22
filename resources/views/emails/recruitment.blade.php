@@ -1,5 +1,5 @@
 <x-mail::message>
-    @dd($data)
+    {{-- @dd($data) --}}
     # {{$data['terget_position']}}
     
     {{$data['name']}}
@@ -10,5 +10,4 @@
 
     {{$data['city']}}
     
-    {{$data['cv_file']}}
 </x-mail::message>

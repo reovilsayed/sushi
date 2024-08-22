@@ -14,6 +14,7 @@ use App\Models\Restaurant;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Attachment;
 use Cart;
 use Mail;
 use Carbon\Carbon;
@@ -188,9 +189,7 @@ class PageController extends Controller
         return back()->with('success', 'Thank you for contacting us!');
     }
 
-    public function showDeliveryOptions()
-    {
-    }
+    public function showDeliveryOptions() {}
 
     public function invoice(Order $order)
     {
@@ -225,11 +224,11 @@ class PageController extends Controller
             'cv_file' => $path,
         ];
 
+
         // Send the email with the attached file
         Mail::to('contact@gmail.com')->send(new RecruitmentMail($data));
 
         // Return back with a success message
         return back()->with('success', 'Thank you for contacting us!');
     }
-
 }
