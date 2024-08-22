@@ -256,20 +256,20 @@
                                                         @csrf
                                                         <div class="row gy-4">
 
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <input type="text" name="name"
                                                                     class="form-control capitalize-first"
-                                                                    placeholder="Your Name" required
+                                                                    placeholder="Your firsr Name" required
                                                                     value="{{ ucfirst(auth()->user()->name) }}">
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <input type="text" name="last_name"
                                                                     class="form-control capitalize-first"
-                                                                    placeholder="Your Name" required
+                                                                    placeholder="Your last Name" required
                                                                     value="{{ ucfirst(auth()->user()->l_name) }}">
                                                             </div>
 
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <input type="email" class="form-control"
                                                                     name="email" placeholder="Your Email"
                                                                     required="" value="{{ auth()->user()->email }}"
@@ -277,10 +277,39 @@
 
                                                             </div>
 
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="address"
+                                                                    class="form-control" placeholder="Your Address"
+                                                                    required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="city"
+                                                                    class="form-control" placeholder="Your City"
+                                                                    required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="post_cod"
+                                                                    class="form-control" placeholder="Your Post Code"
+                                                                    required="">
+                                                            </div>
+                                                            {{-- <div class="col-md-6">
+                                                                <input type="text" name="zip" class="form-control"
+                                                                    placeholder="Your Zip" required="">
+                                                            </div> --}}
+                                                            <div class="col-md-6">
+                                                                <input type="number" id="number_type" name="phone"
+                                                                    class="form-control"
+                                                                    placeholder="Your Phone Number">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="house"
+                                                                    class="form-control" placeholder="Your House"
+                                                                    required="">
+                                                            </div>
 
 
                                                             <div class="col-md-12 text-start">
-                                                                <button
+                                                                <button id="update"
                                                                     type="submit">{{ __('sentence.update') }}</button>
                                                             </div>
 
