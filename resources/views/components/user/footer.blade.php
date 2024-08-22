@@ -10,7 +10,7 @@
                     <span class="sitename">{{Settings::setting('site.title')}}</span>
                 </a>
                 <div class="footer-contact ">
-                    <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::setting('site.phone')  }}</span></p>
+                    {{-- <p class="mt-3"><strong>{{__('sentence.phone')}}:</strong> <span>{{ Settings::setting('site.phone')  }}</span></p> --}}
                     <p><strong>{{__('sentence.email')}}:</strong> <span>{{ Settings::setting('site.email') }}</span></p>
                 </div>
                 

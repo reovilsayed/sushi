@@ -8,9 +8,9 @@
     <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <button onclick="printDiv('printableArea')" class="btn me-1 mb-2 forget-button "><i
-                        class="fa fa-print me-2  "></i>Print</button>
-                <div class="card bg-transparent " id="printableArea">
+                <button onclick="printDiv('printarea')" class="btn me-1 mb-2 forget-button "><i
+                        class="fa fa-print me-2  "></i> Print</button>
+                <div class="card bg-transparent "  id="printarea">
                     <div class="card-body bg-transparent">
                         {{-- @if ($order->notes)
                             <div class="text-start">
@@ -48,14 +48,15 @@
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
-                                        <p class="text-colour">{{ $order->created_at }}</p>
+                                        <p class="text-colour">{{ $order->created_at->format('F j, Y, g:i a') }}</p>
+
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1" style="color: black;">Delivery Time:</h5>
                                         <p style="color: black;">{{ $order->time_option }}</p>
                                     </div>
-                                    
-                                
+
+
                                 </div>
                             </div>
 
@@ -133,7 +134,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr class="bg-success">
+                                        {{-- <tr class="bg-success">
                                             <th scope="row" colspan="4"
                                                 class="border-0 text-end bg-transparent text-light">
                                                 Paid Ammount:</th>
@@ -148,7 +149,7 @@
                                             <td class="border-0 text-end bg-transparent text-light">
                                                 {{ Settings::price($order->due) }}
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -184,9 +185,10 @@
         </div>
     </div>
 
-    @push('script')
-        <script type="text/javascript">
+    @push('js')
+        <script>
             function printDiv(divName) {
+                console.log(divName)
                 var printContents = document.getElementById(divName).innerHTML;
                 var originalContents = document.body.innerHTML;
 

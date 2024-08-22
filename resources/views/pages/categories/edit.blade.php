@@ -8,13 +8,12 @@
                 <div>
                     <h3>{{ __('sentence.editcategory') }}</h3>
                     <div class="mb-3">
-                        <label for="disabledTextInput" class="form-label">{{ __('sentence.category') }}
-                            {{ __('sentence.name') }}</label>
-                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input"
+                        <label for="disabledTextInput" class="form-label">Category Name</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Category Name"
                             name="name" value="{{ $category->name }}">
                     </div>
                     <div class="item-content mb-3">
-                        <label class="control-label">{{ __('sentence.category') }}</label>
+                        <label class="control-label">Sub Category</label>
                         <select class="form-control select2" name="parent_id">
                             <option value="">Select</option>
                             @foreach ($categories as $item)
