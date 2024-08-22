@@ -99,7 +99,7 @@
                 </div>
             </div>
 
-            <div class="text-center mt-3">
+            <div class="text-center pt-3">
                 {{ $orders->links() }}
             </div>
 
