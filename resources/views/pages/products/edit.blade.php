@@ -168,14 +168,9 @@
                         <div class="card-body">
                             <div class="row row-cols-1">
 
-                                {{-- <x-form.input id="quantity" name="quantity" wire:model="quantity" label="Quantity"
-                                    value="{{$product->quantity}}" /> --}}
                                 <x-form.input id="price" name="price" wire:model="price" label="Price *"
-                                    value="{{ $product->price }}" required />
-                                {{-- <x-form.input name="status" wire:model="status" value="{{$product->featured}}" type="select"
-                                    label="Status" :options="[0 => 'False', 1 => 'True']" />
-                                <x-form.input name="featured" wire:model="featured" value="{{$product->featured}}" type="select"
-                                    label="Featured" :options="[0 => 'False', 1 => 'True']" /> --}}
+                                value="{{ number_format($product->price, 2) }}"  required />
+                                
 
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">

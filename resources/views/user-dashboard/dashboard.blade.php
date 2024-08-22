@@ -5,7 +5,7 @@
         <!-- plugins css -->
         {{-- <link rel="stylesheet" href="{{ asset('css/plugins.css') }}"> --}}
         <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">    
         <!-- Responsive css -->
         {{-- <link rel="stylesheet" href="{{ asset('css/responsive.css') }}"> --}}
         <style>
@@ -67,9 +67,6 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="liton_tab_1_1">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>Hello <strong>UserName</strong> (not <strong>UserName</strong>?
-                                                    <small><a href="login-register.html">Log out</a></small> )
-                                                </p>
                                                 <p>From your account dashboard you can view your <span>recent
                                                         orders</span>, manage your <span>shipping and billing
                                                         addresses</span>, and <span>edit your password and account
@@ -82,7 +79,7 @@
                                                     @if ($orders->count() > 0)
                                                         <table class="table">
                                                             <thead class="order" style="background-color: #ff883e;">
-                                                                <tr>
+                                                                <tr style="border:1px solid #ff883e">
                                                                     <th style="padding-left:20px;">
                                                                         {{ __('sentence.index') }}</th>
                                                                     <th>{{ __('sentence.order') }}</th>
