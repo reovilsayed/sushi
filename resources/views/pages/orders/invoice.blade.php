@@ -43,6 +43,10 @@
                                         <p>{{ $restaurant->name ?? '' }}</p>
                                     </div>
                                     <div class="mt-4">
+                                        <h5 class="font-size-15 mb-1">Delivery Time:</h5>
+                                        <p>{{ $order->time_option }}</p>
+                                    </div>
+                                    <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
                                         <p>{{ $order->created_at->format('d-M-y') }}</p>
                                     </div>

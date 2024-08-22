@@ -48,6 +48,10 @@
                                         <h5 class="font-size-15 mb-1" style="color: black;">Invoice Date:</h5>
                                         <p style="color: black;">{{ $order->created_at}}</p>
                                     </div>
+                                    <div class="mt-4">
+                                        <h5 class="font-size-15 mb-1" style="color: black;">Delivery Time:</h5>
+                                        <p style="color: black;">{{ $order->time_option }}</p>
+                                    </div>
                                     
                                 
                                 </div>
