@@ -75,7 +75,7 @@
             }
         </script>
     @endpush
-    <form action="{{ route('priscription.update', $priscription) }}" method="POST">
+    <form action="" method="POST">
         @csrf
         @method('put')
         <div class="container">
@@ -87,7 +87,7 @@
                             <h6 class="dash_head">Doctor Prescription Form</h6>
 
                             <div class="row row-cols">
-                                <x-form.input name="name" label="PATIENT NAME *" value="{{ $priscription->name }}"
+                                <x-form.input name="name" label="PATIENT NAME *" value="name"
                                     autofocus required
                                     class="@error('name')
                                    is-invalid 
@@ -97,7 +97,7 @@
                                 @enderror
                             </div>
                             <div class="row row-cols">
-                                <x-form.input name="symptoms" label="SYMPTOMS *" value="{{ $priscription->symptoms }}"
+                                <x-form.input name="symptoms" label="SYMPTOMS *" value="systom"
                                     style="height: 186px" type="textarea" autofocus required
                                     class="@error('symptoms')
                                         is-invalid
@@ -115,44 +115,12 @@
                         <div class="card-body">
                             <div class="">
                                 <x-form.input type="number" name="age" label="AGE *"
-                                    value="{{ $priscription->age }}" autofocus required />
+                                    value="age" autofocus required />
                             </div>
                         </div>
                     </div>
 
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h6>Gender</h6>
-                            <div class="row row-cols-3">
-                                <div class="d-flex mb-0">
-
-                                    <x-form.input class="mb-0" id="male" name="gender" type="radio"
-                                        value="Male" :checked="$priscription->gender == 'Male'" autofocus required />
-                                    <label for="male" class=" ms-1 mb-0">Male</label>
-                                </div>
-                                <div class="d-flex mb-0">
-                                    <x-form.input class="mb-0" id="female" name="gender" type="radio"
-                                        value="Female" :checked="$priscription->gender == 'Female'" autofocus required />
-                                    <label for="female" class="ms-1 mb-0">Female</label>
-                                </div>
-                                <div class="d-flex mb-0">
-                                    <x-form.input class="mb-0" id="other" name="gender" type="radio"
-                                        value="other" :checked="$priscription->gender == 'other'" autofocus required />
-                                    <label for="other" class="ms-1 mb-0">Other</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h6>Customer</h6>
-                            <div class="row-cols">
-                                <x-select.customerSelect :customer="$priscription->customer" name="customer_id" />
-
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
 
             </div>

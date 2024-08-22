@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportsController;
@@ -33,6 +35,8 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/product/edit/{product}', 'editProduct')->name('edit.product');
         Route::post('/product/update/{product}', 'updateProduct')->name('update.product');
         Route::delete('/product/delete/{product}', 'deleteProduct')->name('delete.product');
+        Route::delete('/option/delete/{productOption}', 'deleteOption')->name('delete.option');
+
     });
 
     Route::controller(SettingController::class)->group(function () {
@@ -47,8 +51,17 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/pages/edit/{page}', 'pagesEdit')->name('edit.page');
         Route::post('/pages/update/{page}', 'pagesUpdate')->name('update.page');
     });
+    Route::resource('customers', CustomerController::class);
 
-
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/orders/list', 'index')->name('orders.index');
+        Route::post('/orders/pay', 'duepay')->name('orders.due.pay');
+        Route::get('/orders/invoice/{order}', 'invoice')->name('orders.invoice');
+        Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('orders.mark.delivered');
+    });
+    Route::get('/test', function () {
+        return view('pages.priscription.edit');
+    });
 
 
 

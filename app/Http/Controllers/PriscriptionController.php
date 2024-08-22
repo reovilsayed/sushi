@@ -35,7 +35,7 @@ class PriscriptionController extends Controller
      */
     public function store(Request $request)
     {
-
+        dd($request);
         $request->validate([
             'name' => 'nullable|string',
             'symptoms' => 'required',

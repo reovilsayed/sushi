@@ -106,23 +106,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:1'])->group(function () {
-    Route::get('/admin', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-
-    Route::group(
-        [
-            'as' => 'orders.',
-            'prefix' => 'orders',
-            'controller' => OrderController::class
-        ],
-        function () {
-            Route::get('list', 'index')->name('index');
-            Route::post('pay', 'duepay')->name('due.pay');
-            Route::post('mark-as-pay', 'mark_pay')->name('mark.pay');
-            Route::get('mark-as-delivered/{order}', 'mark_delivered')->name('mark.delivered');
-            Route::get('invoice/{order}', 'invoice')->name('invoice');
-        }
-    );
     Route::group(
         [
             'as' => 'products.',
@@ -141,7 +125,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     );
 
     Route::resource('generics', GenericsController::class);
-    Route::resource('customers', CustomerController::class);
+    
     Route::post('deposite-full/{user}', [CustomerController::class, 'deposite_full'])->name('deposite.full');
     // Route::get('/invoice/{customer}', [CustomerController::class, 'invoice'])->name('invoice');
     // Route::get('/point-of-sale', [POSController::class, 'index'])->name('pos');
