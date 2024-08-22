@@ -86,22 +86,19 @@
     @push('js')
         <script>
             function initMap() {
-                // Define the locations
                 const locations = [{
                         lat: 47.631498,
                         lng: 6.856458
-                    }, // Central Sushi Belfort
+                    },
                     {
                         lat: 47.2452395,
                         lng: 6.0284224
-                    }, // Besançon
+                    },
                     {
                         lat: 47.3234108,
                         lng: 5.0314998
-                    } // Dijon
+                    }
                 ];
-
-                // Create a map centered on the average of the three locations
                 const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 7,
                     center: {
@@ -109,8 +106,6 @@
                         lng: 6.0
                     }
                 });
-
-                // Add markers to the map
                 locations.forEach(location => {
                     new google.maps.Marker({
                         position: location,
@@ -118,7 +113,6 @@
                     });
                 });
             }
-            // Initialize the map
             google.maps.event.addDomListener(window, 'load', initMap);
         </script>
     @endpush
