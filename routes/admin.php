@@ -60,7 +60,27 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('orders.mark.delivered');
     });
     Route::get('/test', function () {
-        return view('pages.priscription.edit');
+        $months = [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+        ];
+        
+        $currentMonth = (int) date('n', strtotime('now'));
+
+        $months = array_merge(array_slice($months, $currentMonth), array_slice($months, 0, $currentMonth));
+
+        dd($months);
+       
     });
 
 

@@ -64,9 +64,12 @@ class OrderController extends Controller
     public function getChartDataMonth()
     {
         $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
-
+        
         if (count($earnings) > 0) {
             $months = [
+                9,
+                10,
+                11,
                 0,
                 1,
                 2,
@@ -76,21 +79,23 @@ class OrderController extends Controller
                 6,
                 7,
                 8,
-                9,
-                10,
-                11,
-                12
             ];
+            $currentMonth =date('n');
+            
+            $months = array_merge(array_slice($months, $currentMonth), array_slice($months, 0, $currentMonth));
+            
+            dd($months);
 
             $data = [
                 'sales' => [],
                 'profit' => [],
             ];
-
+            
             foreach ($months as $month) {
                 $data['sales'][] = $earnings[$month]['sales'] ?? 0;
                 $data['profit'][] = $earnings[$month]['total_profit'] ?? 0;
             }
+            
         } else {
             $data = ['sales' => [], 'profit' => []];
         }

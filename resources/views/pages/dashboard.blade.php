@@ -174,9 +174,11 @@
             });
 
             $.ajax({
+                
                 url: "/get-chart-data-month",
                 type: "GET",
                 success: function(response) {
+                    
                     new ApexCharts(document.getElementById("chart1"), {
                         series: [{
                                 name: "Sale",
