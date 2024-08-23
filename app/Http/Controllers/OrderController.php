@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DuePaidMail;
 use App\Mail\OrderConfirmationMail;
+use App\Mail\UserCreateMail;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\Transaction;
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\Mail;
 use Cart;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Mail\user_create_mail;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Http;
 
@@ -119,6 +119,9 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
+            $request->validate([
+                'email' => 'required|email|unique:users,email'
+            ]);
             // Handle user authentication
             if (!auth()->check()) {
                 $user = User::create([
@@ -135,7 +138,7 @@ class OrderController extends Controller
                     'button_link' => '',
                     'button_text' => '',
                 ];
-                Mail::to($user->email)->send(new user_create_mail($data));
+                Mail::to($user->email)->send(new UserCreateMail($data));
             } else {
                 $user = auth()->user();
             }

@@ -77,7 +77,7 @@
                                         @endif
 
 
-                                        <td class="cart-product-price">{{ $item->price }}€</td>
+                                        <td class="cart-product-price">{{ number_format($item->price, 2) }}€</td>
 
 
                                         <form action="{{ route('cart.update') }}" method="POST">
@@ -98,7 +98,7 @@
                                             </td>
                                         </form>
                                         <td class="cart-product-subtotal text-center">
-                                            {{ $item->price * $item->quantity }} €</td>
+                                            {{ number_format($item->price * $item->quantity, 2) }} €</td>
                                     </tr>
 
                                 @empty
@@ -118,7 +118,7 @@
                             <tbody class="me-2 ms-2">
                                 <tr style="height: 40px; ">
                                     <td class="ps-4">{{ __('sentence.cart') }} {{ __('sentence.subtotal') }}</td>
-                                    <td>{{ Cart::getSubTotal() }} €</td>
+                                    <td>{{ number_format(Cart::getSubTotal(), 2) }} €</td>
                                 </tr>
                                 <tr style="height: 40px;">
                                     <td class="ps-4">{{ __('sentence.shipping') }} & {{ __('sentence.handling') }}
@@ -132,7 +132,7 @@
                                 <tr style="height: 40px;">
                                     <td class="ps-4"><strong>{{ __('sentence.order') }}
                                             {{ __('sentence.total') }}</strong></td>
-                                    <td><strong id="order_total_display">{{ Cart::getTotal() }} €</strong></td>
+                                    <td><strong id="order_total_display">{{ number_format(Cart::getTotal(), 2) }} €</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -189,10 +189,10 @@
                                         <div class="pricetag justify-content-center">
                                             <div class="centerinput" style="width: 100px">
                                                 <p style="font-weight: 100;" class="mb-0">
-                                                    {{-- <input name="" id="price_{{ $extra->id }}"
+                                                    <input name="" id="price_{{ $extra->id }}"
                                                     style="width: 100px" class="p-0 text-center" readonly
-                                                    value="0"> --}}
-                                                    {{ $extra->price }}
+                                                    value="0">
+                                                    {{-- {{ $extra->price }} --}}
                                                 </p>
                                             </div>
                                         </div>
@@ -225,7 +225,7 @@
                 const currentQuantity = Math.max(0, parseInt(quantityInput.value) + change);
 
                 quantityInput.value = currentQuantity;
-                // document.getElementById(`price_${id}`).value = `${(currentQuantity * price).toFixed(2)}€`;
+                document.getElementById(`price_${id}`).value = `${(currentQuantity * price).toFixed(2)}€`;
 
                 // Update hidden form fields
                 document.getElementById(`form_quantity_${id}`).value = currentQuantity;

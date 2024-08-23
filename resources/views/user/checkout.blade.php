@@ -47,16 +47,20 @@
                         color-mix(in srgb, var(--background-color) 90%, white 5%);
                 }
 
-                #number_type {
-                    font-size: 14px;
-                    padding: 10px 15px;
-                    box-shadow: none;
-                    border-radius: 0;
-                    color: var(--default-color);
+                input[type="number"] {
+                    font-size: 14px !important;
+                    padding: 10px 15px !important;
+                    box-shadow: none !important;
+                    border-radius: 0 !important;
+                    color: var(--default-color) !important;
                     background-color:
-                        color-mix(in srgb, var(--background-color), transparent 50%);
-                    border-color: var(--accent-color);
-                    opacity: 1 !important;
+                        color-mix(in srgb, var(--background-color), transparent 50%) !important;
+                    border-color:
+                        color-mix(in srgb, var(--accent-color), transparent 70%) !important;
+                }
+
+                input[type="number"]:focus {
+                    border-color: var(--accent-color) !important;
                 }
 
                 input[type='number']::placeholder {
@@ -187,15 +191,18 @@
 
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Your Address" required=""value={{ auth()->user()->address ?? '' }}>
+                                                    placeholder="Your Address"
+                                                    required=""value={{ auth()->user()->address ?? '' }}>
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
-                                                    placeholder="Your City" required="" value={{ auth()->user()->city ?? '' }}>
+                                                    placeholder="Your City" required=""
+                                                    value={{ auth()->user()->city ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
-                                                    placeholder="Your Post Code" required="" value={{ auth()->user()->post_code ?? '' }}>
+                                                    placeholder="Your Post Code" required=""
+                                                    value={{ auth()->user()->post_code ?? '' }}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -203,21 +210,23 @@
                                             </div> --}}
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
-                                                    class="form-control" placeholder="Your Phone Number" value={{ auth()->user()->phone ?? '' }}>
+                                                    class="form-control" placeholder="Your Phone Number"
+                                                    value={{ auth()->user()->phone ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="Your House" required="" value={{ auth()->user()->house ?? '' }}>
+                                                    placeholder="Your House" required=""
+                                                    value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
 
                                             <div class="col-md-6">
-                                                <select id="deliveryOption" name="time_option"
-                                                    class="form-select selectpicker" data-container="body">
-                                                    {{-- <option style="color: var(--accent-color)">Select a time
+                                                <select name="time_option"class="form-select selectpicker"
+                                                    data-container="body" disabled>
+                                                    {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
-                                                    @foreach ($timeSlots as $slot)
-                                                        <option value="{{ $slot }}">{{ $slot }}
+                                                    @foreach ($timeSlots as $time)
+                                                        <option value="{{ $time }}">{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -277,7 +286,7 @@
                                                                 {{ $product->name }} * {{ $product->quantity }}
                                                             </td>
                                                             <td class="text-center" style="font-size: 13px;">
-                                                                {{ $product->price }} €
+                                                                {{ number_format($product->price, 2) }} €
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -343,13 +352,13 @@
                                                     <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">{{__(('sentence.subtotal'))}}</td>
                                                         <td class="fs-6 fw-medium text-center">
-                                                            {{ Cart::getSubTotal() }} €
+                                                            {{ number_format(Cart::getSubTotal(), 2) }} €
                                                         </td>
                                                     </tr>
                                                     <tr
                                                         style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                        <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }}
+                                                        <td class="fs-5 fw-medium text-center">{{ number_format(Cart::getTotal(), 2) }}
                                                             €
                                                         </td>
                                                     </tr>

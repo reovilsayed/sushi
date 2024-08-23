@@ -41,21 +41,40 @@ class PageController extends Controller
     }
     public function userCheckout()
     {
-        $currentTime = Carbon::now()->startOfMinute();  // Current time
-        $startTime = Carbon::createFromTime(9, 0);      // 9:00 AM start
-        $endTime = Carbon::createFromTime(23, 0);       // 10:30 PM end
+        // Set the timezone to France (Europe/Paris)
+        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
 
-        // Generate and filter time slots in 30-minute intervals
+        // Define the sections
+        $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
+        $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
+
+        $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
+        $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
+
+        // Generate time slots for the morning/afternoon section
         $timeSlots = [];
-        for ($time = $startTime; $time->lte($endTime); $time->addMinutes(60)) {
+        for ($time = $morningStartTime; $time->lte($morningEndTime);) {
             if ($time->gte($currentTime)) {
                 $endSlot = $time->copy()->addMinutes(30);
-                $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
             }
+            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
+            $time->addMinutes(45);
+        }
+
+        // Generate time slots for the evening/night section
+        for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
+            if ($time->gte($currentTime)) {
+                $endSlot = $time->copy()->addMinutes(30);
+                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
+            }
+            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
+            $time->addMinutes(45);
         }
 
         return view('user.checkout', compact('timeSlots'));
     }
+
     public function singleProduct($restaurant, Product $product)
     {
         $restaurant = Restaurant::where('slug', $restaurant)->first();
