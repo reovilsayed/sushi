@@ -123,6 +123,21 @@ return [
     'index'=>'Index',
     'time' => 'Time',
     'paid' => 'Paid',
-    
-
+    'themap' => 'The map',
+    'recruitment' => 'Recruitment',
+    'gohome' => 'Go Home',
+    'paymentmethod' => 'Payment Methods',
+    'cashondelivery' => 'Cash on delivery',
+    'yourname' => 'Your name',
+    'yourphone' => 'Your phone',
+    'date' => 'Date',
+    'optionname' => 'Option Name',
+    'optionprice' => 'Option Price',
+    'filter' => 'Filter',
+    'orderby' => 'Order By',
+    'subcategory' =>'Sub Category',
+    'customerdetails' => 'Customer Details',
+    'totalorders' => 'Total Orders',
+    'selectrestaurant' => 'Select Restaurant',
+    ''
 ];

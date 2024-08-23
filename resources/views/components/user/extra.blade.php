@@ -473,23 +473,23 @@
                     <div class="row gy-4">
                         <div class="col-lg-4 col-md-6">
                             <input type="text" name="name" class="form-control" id="name"
-                                placeholder="Your Name" required="">
+                                placeholder="{{__(('sentence.yourname'))}}" required="">
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <input type="email" class="form-control" name="email" id="email"
-                                placeholder="Your Email" required="">
+                                placeholder="{{__(('sentence.youremail'))}}" required="">
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <input type="text" class="form-control" name="phone" id="phone"
-                                placeholder="Your Phone" required="">
+                                placeholder="{{__(('sentence.phone'))}}" required="">
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <input type="date" name="date" class="form-control" id="date"
-                                placeholder="Date" required="">
+                                placeholder="{{__(('sentence.date'))}}" required="">
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <input type="time" class="form-control" name="time" id="time"
-                                placeholder="Time" required="">
+                                placeholder="{{__(('sentence.time'))}}" required="">
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <input type="number" class="form-control" name="people" id="people"

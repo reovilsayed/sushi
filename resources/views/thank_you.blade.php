@@ -31,7 +31,6 @@
                     @else
                         <a class="btn btn_invoice " href="{{ route('login') }}">{{ __('sentence.login') }}</a>
                     @endif
-
                 </div>
             </div>
         </div>

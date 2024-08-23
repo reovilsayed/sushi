@@ -53,7 +53,7 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="dash_head">Product Details</h6>
+                            <h6 class="dash_head">{{ __('sentence.productdetails') }}</h6>
 
                             <div class="row row-cols-1">
                                 <x-form.input name="name" wire:model="name" label="Name *"
@@ -69,7 +69,7 @@
                             </div>
 
                             <select class="form-select " aria-label="Default select example" name="category">
-                                <option selected>Select Category</option>
+                                <option selected>{{ __('sentence.select') }} {{ __('sentence.category') }}</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
                                         {{ $category->id == $product->category_id ? 'selected' : '' }}>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
-                            <h6 class="dash_head">Product made</h6>
+                            <h6 class="dash_head">{{ __('sentence.productmade') }}</h6>
 
 
                             <div class="row row-cols">
@@ -117,15 +117,15 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            Option Name
+                                            {{__('sentence.optionname')}}
                                         </th>
 
                                         <th class="text-center w-auto">
-                                            Option Price
+                                            {{__('sentence.price')}}
                                         </th>
 
                                         <th class="text-center ">
-                                            Action
+                                            {{__('sentence.action')}}
                                         </th>
                                     </tr>
                                 </thead>
@@ -174,7 +174,7 @@
 
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
-                                <i class="fa fa-save"></i> Save
+                                <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>
                         </div>
                     </div>

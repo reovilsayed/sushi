@@ -15,7 +15,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="dash_head">Customer Details</h6>
+                                <h6 class="dash_head">{{ __('sentence.customerdetails') }}</h6>
 
                                 <div class="row row-cols-2">
                                     <x-form.input name="name" label="Name *" value="{{ $customer->name }}"
@@ -25,7 +25,7 @@
                                     <x-form.input name="phone" label="Phone *" value="{{ $customer->phone }}" />
                                     {{-- <x-form.input name="address" label="Address" value="{{ $customer->address }}" /> --}}
                                     <div class="col-md-6">
-                                        <label class="control-label">Role</label>
+                                        <label class="control-label">{{ __('sentence.role') }}</label>
                                     <select class="form-control select2" name="role_id">
                                         <option value="">Select</option>
                                         @foreach ($roles as $item)
