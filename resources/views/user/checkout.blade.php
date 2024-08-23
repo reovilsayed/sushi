@@ -286,7 +286,7 @@
                                                                 {{ $product->name }} * {{ $product->quantity }}
                                                             </td>
                                                             <td class="text-center" style="font-size: 13px;">
-                                                                {{ $product->price }} €
+                                                                {{ number_format($product->price, 2) }} €
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -352,13 +352,13 @@
                                                     <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">{{__(('sentence.subtotal'))}}</td>
                                                         <td class="fs-6 fw-medium text-center">
-                                                            {{ Cart::getSubTotal() }} €
+                                                            {{ number_format(Cart::getSubTotal(), 2) }} €
                                                         </td>
                                                     </tr>
                                                     <tr
                                                         style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                        <td class="fs-5 fw-medium text-center">{{ Cart::getTotal() }}
+                                                        <td class="fs-5 fw-medium text-center">{{ number_format(Cart::getTotal(), 2) }}
                                                             €
                                                         </td>
                                                     </tr>
