@@ -4,14 +4,26 @@
 @endphp
 {{-- @dd($extras) --}}
 <x-user>
+    @push('css')
+        <style>
+            .invoice {
+                border-top: 1px solid #ff883e !important;
+                border-bottom: 1px solid #ff883e !important;
+            }
+            .invoice tr th {
+                background-color: #ff883e !important;
+                color: var(--section-bg-1) !important;
+            }
+        </style>
+    @endpush
     <br><br><br>
     <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <button onclick="printDiv('printarea')" class="btn me-1 mb-2 forget-button "><i
                         class="fa fa-print me-2  "></i> Print</button>
-                <div class="card bg-transparent "  id="printarea" style="border: 2px solid var(--accent-color)">
-                    <div class="card-body bg-transparent">
+                <div class="card bg-transparent " id="printarea" style="border: 2px solid var(--accent-color)">
+                    <div class="card-body bg-transparent" style="padding: 0px">
                         {{-- @if ($order->notes)
                             <div class="text-start">
 
@@ -21,7 +33,7 @@
                         <hr class="mt-3 mb-4">
 
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 ps-4">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Billed To:</h5>
 
@@ -35,7 +47,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 pe-4">
                                 <div class="text-muted text-sm-end">
                                     <div>
                                         <h5 class="font-size-15 mb-1">Invoice No:</h5>
@@ -52,7 +64,7 @@
 
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1" >Delivery Time:</h5>
+                                        <h5 class="font-size-15 mb-1">Delivery Time:</h5>
                                         <p class="text-colour">{{ $order->time_option }}</p>
                                     </div>
 
@@ -63,60 +75,61 @@
                         </div>
 
 
-                        <div class="py-2">
-                            <h5 class="font-size-15">Order Summary</h5>
+                        <div class="">
+                            <h5 class="font-size-15 ps-3">Order Summary</h5>
 
                             <div class="table-responsive">
                                 <table class="table align-middle table-nowrap table-centered mb-0 bg-transparent">
-                                    <thead>
+                                    <thead class="invoice"
+                                        style="background-color: #ff883e; border: 1px solid #ff883e;">
                                         <tr>
-                                            <th class="bg-transparent text-colour" style="width: 70px; ">No.</th>
-                                            <th class="bg-transparent text-colour">Item</th>
-                                            <th class="bg-transparent text-colour">Quantity</th>
-                                            <th class="text-end bg-transparent text-colour">Price</th>
-                                            <th class="text-end bg-transparent text-colour" style="width: 120px;">Total
+                                            <th class="text-center" style="width: 70px; ">No.</th>
+                                            <th class="text-center">Item</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th class="text-center">Price</th>
+                                            <th class="text-center" style="width: 120px;">Total
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style="border: 1px solid #ff883e !important;">
                                         {{-- @dd($order ) --}}
                                         @foreach ($order->products as $product)
-                                            <tr>
-                                                <th class="bg-transparent text-light" scope="row">{{ $product->id }}
+                                            <tr class="text-center">
+                                                <th class="bg-transparent text-center text-light" scope="row">{{ $product->id }}
                                                 </th>
-                                                <td class="bg-transparent text-light">
+                                                <td class="bg-transparent text-center text-light">
                                                     <div>
-                                                        <h5 class="text-truncate  font-size-14 mb-1">
+                                                        <h5 class="text-truncate   font-size-14 mb-1">
                                                             {{ $product->name }}
                                                             {{ $product->strength }}
                                                         </h5>
                                                         <p class="text-light mb-0">{{ $product->category->name }}</p>
                                                     </div>
                                                 </td>
-                                                <td class="bg-transparent text-light">{{ $product->pivot->quantity }}
+                                                <td class="bg-transparent text-center text-light">{{ $product->pivot->quantity }}
                                                 </td>
-                                                <td class="text-end bg-transparent text-light">
+                                                <td class="text-end bg-transparent text-center text-light">
                                                     {{ Settings::price($product->pivot->price) }}</td>
-                                                <td class="text-end bg-transparent text-light">
+                                                <td class="text-end bg-transparent text-center text-light">
                                                     {{ Settings::price($product->pivot->price * $product->pivot->quantity) }}
                                                 </td>
                                             </tr>
                                         @endforeach
                                         @foreach ($extras as $item)
                                             <tr>
-                                                <th class="bg-transparent text-light" scope="row">
+                                                <th class="bg-transparent text-center text-light" scope="row">
                                                     {{ $item['id'] }}</th>
-                                                <td class="bg-transparent text-light">
+                                                <td class="bg-transparent text-center text-light">
                                                     <div>
                                                         <h5 class="text-truncate font-size-14 mb-1">{{ $item['name'] }}
                                                         </h5>
                                                         {{-- <p class="text-muted mb-0">{{ $product->category->name }}</p> --}}
                                                     </div>
                                                 </td>
-                                                <td class="bg-transparent text-light">{{ $item['quantity'] }}</td>
-                                                <td class="text-end bg-transparent text-light">
+                                                <td class="bg-transparent text-center text-light">{{ $item['quantity'] }}</td>
+                                                <td class="text-end text-center bg-transparent text-light">
                                                     {{ Settings::price($item['price']) }}</td>
-                                                <td class="text-end bg-transparent text-light">
+                                                <td class="text-end text-center bg-transparent text-light">
                                                     {{ Settings::price($item['price'] * $item['quantity']) }}</td>
                                             </tr>
                                         @endforeach
