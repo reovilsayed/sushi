@@ -312,7 +312,7 @@
 
                                                     <tr style="border: 1px solid var(--accent-color)">
                                                         <td>
-                                                            <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Payment Methods
+                                                            <p class="fs-5 fw-medium ps-3 pt-2 pb-2">{{__(('sentence.paymentmethod'))}}
                                                             </p>
                                                             <div class="ps-3">
                                                                 <div class="form-check">
@@ -322,7 +322,7 @@
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
                                                                         for="payment_method1">
-                                                                        Cash on delivery
+                                                                        {{__(('sentence.cashondelivery'))}}
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mt-2 mb-3">
@@ -332,7 +332,7 @@
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
                                                                         for="payment_method2">
-                                                                        Card
+                                                                        {{__(('sentence.cart'))}}
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -341,7 +341,7 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr style="border-top: 1px solid var(--accent-color)">
-                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">Subtotal</td>
+                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">{{__(('sentence.subtotal'))}}</td>
                                                         <td class="fs-6 fw-medium text-center">
                                                             {{ Cart::getSubTotal() }} €
                                                         </td>

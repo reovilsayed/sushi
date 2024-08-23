@@ -115,15 +115,15 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            Option Name
+                                            {{__('sentence.optionname')}}
                                         </th>
 
                                         <th class="text-center w-auto">
-                                            Option Price
+                                            {{__('sentence.price')}}
                                         </th>
 
                                         <th class="text-center ">
-                                            Action
+                                            {{__('sentence.action')}}
                                         </th>
                                     </tr>
                                 </thead>

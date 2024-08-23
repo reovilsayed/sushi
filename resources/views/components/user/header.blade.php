@@ -16,7 +16,7 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ route('restaurant.home') }}" class="active">{{ __('sentence.home') }}<br></a></li>
-                    <li><a href="{{ asset('pdfs/menu-belfort.pdf') }}" target="_blank">La carte</a></li>
+                    <li><a href="{{ asset('pdfs/menu-belfort.pdf') }}" target="_blank">{{__(('sentence.themap'))}}</a></li>
                     <li class="dropdown"><a
                             href="{{ route('user.restaurants') }}"><span>{{ __('sentence.restaurants') }}</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -29,13 +29,13 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
                         </ul>
                     </li>
 
-                    <li><a href="{{ route('restaurant.recruitment') }}">Recruitment</a></li>
+                    <li><a href="{{ route('restaurant.recruitment') }}">{{__(('sentence.recruitment'))}}</a></li>
                     <li><a href="{{ route('restaurant.contact') }}">{{ __('sentence.contact') }}</a></li>
 
                     <li class="d-xl-none">
                         @auth
                             <a href="{{ route('user.dashboard') }}"
-                                style="color: var(--accent-color)">Dashboard</a>
+                                style="color: var(--accent-color)">{{__(('sentence.dashboard'))}}</a>
                         @else
                             <a href="{{ route('login') }}"
                                 style="color: var(--accent-color)">{{ __('sentence.login') }}</a>

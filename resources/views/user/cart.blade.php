@@ -139,9 +139,9 @@
                     </div>
                     <div class="btn-wrapper text-center pe-md-3">
                         @if (Cart::isEmpty())
-                            <a href="{{ route('restaurant.home') }}" class="checkout_btn">Proceed to checkout</a>
+                            <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{__(('sentence.proceedtocheckout'))}}</a>
                         @else
-                            <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">Proceed to checkout</a>
+                            <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">{{__(('sentence.proceedtocheckout'))}}</a>
                         @endif
                     </div>
 
@@ -151,7 +151,7 @@
 
     </section>
     @if (Cart::isEmpty())
-        <a href="{{ route('restaurant.home') }}" class="checkout_btn">Go Home</a>
+        <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{__(('sentence.gohome'))}}</a>
     @else
         <section id="" class="extra_section pt-1 bg-transparent">
             <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
@@ -206,7 +206,7 @@
                                             <input type="hidden"
                                                 name="restaurent_id"value="{{ $restaurant->id ?? '' }}">
                                             <button type="submit" id="add_cart_button_{{ $extra->id }}"
-                                                class="cart_submit">Add Cart</button>
+                                                class="cart_submit">{{__(('sentence.addtocart'))}}</button>
 
                                         </div>
                                     </form>

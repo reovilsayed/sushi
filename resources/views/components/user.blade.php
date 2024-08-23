@@ -80,7 +80,7 @@
         let userLatitude = null;
         let userLongitude = null;
 
-        
+
         document.getElementById('location-button').addEventListener('click', function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error);

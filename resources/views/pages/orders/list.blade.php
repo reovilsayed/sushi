@@ -50,7 +50,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
                                             <div class="widget">
-                                                <p>Total Orders: {{ $data['total']['count'] }}</p>
+                                                <p>{{ __('sentence.totalorders') }}: {{ $data['total']['count'] }}</p>
 
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
         </div>
     </div>
     <x-filter :url="route('orders.index')">
-        <h6 class="mb-4">Search</h6>
+        <h6 class="mb-4">{{__('sentence.search')}}</h6>
         <div class="row g-1">
             <div class="col-md-4">
                 <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="[
@@ -118,7 +118,7 @@
             </div>
         </div>
         <hr>
-        <h6 class="mb-4">Filter</h6>
+        <h6 class="mb-4">{{__('sentence.filter')}}</h6>
         <div class="row row-cols-2 g-1">
 
             {{-- <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
@@ -129,7 +129,7 @@
                 :show_empty_options="true" /> --}}
 
             <select class="form-select " aria-label="Default select example" name="restaurant">
-                <option selected value="">select Restaurant </option>
+                <option selected value="">{{__('sentence.selectrestaurant')}}</option>
                 @foreach ($restaurants as $restaurant)
                     <option value="{{ $restaurant->id }}"
                         {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}
@@ -163,27 +163,7 @@
         </div>
 
     </x-filter>
-    {{-- modal --}}
-    <div class="modal fade" id="deposite" tabindex="-1" aria-labelledby="depositeLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="depositeLabel">Pay the due amount</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('orders.due.pay') }}" method="post">
-                    @csrf
-                    <div class="modal-body">
-                        <x-form.input name="amount" label="Amount *" value="" autofocus required />
-                        <input type="hidden" name="order_id" id="orderId">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
     @push('script')
         <script>
             // Extract and display data when the modal is shown

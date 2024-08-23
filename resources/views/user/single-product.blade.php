@@ -24,18 +24,21 @@
                             <div class="row">
                                 <h2 class="col-md-2">{{ $product->price }}€</h2>
                                 @if ($productOption->isNotEmpty())
-                                    <div class="col-md-4">
-                                        <select class="form-select form-select mb-3 bg-transparent text-colour" style="border: 2px solid var(--accent-color);" name="option_id">
+                                    <div class="col-md-6">
+                                        <select class="form-select selectpicker  mb-3 text-colour"
+                                            style="border: 1px solid var(--accent-color); background-color: color-mix( var(--background-color), transparent 50%);"
+                                            name="option_id">
                                             <option selected>{{ __('sentence.otherOptions') }}</option>
                                             @foreach ($productOption as $option)
-                                                <option value="{{ $option->id }}">{{ $option->option_name }} {{ $option->option_price }}</option>
+                                                <option value="{{ $option->id }}">{{ $option->option_name }}
+                                                    {{ $option->option_price }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 @endif
                             </div>
                             <div class="my-4">
-                                <!-- Add to Cart -->                                
+                                <!-- Add to Cart -->
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">

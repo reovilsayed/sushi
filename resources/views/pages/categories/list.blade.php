@@ -88,14 +88,14 @@
             </div>
         </div>
         <hr>
-        <h6 class="mb-4">Filter</h6>
+        <h6 class="mb-4">{{ __('sentence.filter') }}</h6>
         <div class="row row-cols-2 g-1">
 
             <x-form.input type="date" name="date[created_at][from]" label="From" :value="@request()->date['created_at']['from']" />
             <x-form.input type="date" name="date[created_at][to]" label="To" :value="@request()->date['created_at']['to']" />
         </div>
         <hr>
-        <h6 class="mb-4">Order By</h6>
+        <h6 class="mb-4">{{ __('sentence.orderby') }}</h6>
 
         <div class="row row-cols-2">
 

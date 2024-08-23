@@ -13,7 +13,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="dash_head">Customer Details</h6>
+                                <h6 class="dash_head">{{ __('sentence.customerdetails') }}</h6>
 
                                 <div class="row row-cols-2">
                                     <x-form.input name="name" label="Name *"  required />
@@ -45,7 +45,7 @@
                             <div class="card-footer">
                                 <div class="d-grid">
                                     <button class="btn btn-success" type="submit" style="float: right">
-                                        <i class="fa fa-save"></i> Save
+                                        <i class="fa fa-save"></i> {{ __('sentence.save') }}
                                     </button>
                                 </div>
                             </div>
