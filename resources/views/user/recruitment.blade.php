@@ -1,4 +1,40 @@
 <x-user>
+    @push('css')
+        <style>
+            .form-select{
+                font-size: 14px !important;
+                padding: 10px 15px !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                color: var(--default-color) !important;
+                background-color:
+                    color-mix(in srgb, var(--background-color), transparent 50%) !important;
+                border-color:
+                    color-mix(in srgb, var(--accent-color), transparent 70%) !important;
+            }
+            .form-select:focus {
+                border-color: var(--accent-color) !important;
+            }
+            input[type="file"] {
+                font-size: 14px !important;
+                padding: 10px 15px !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                color: var(--default-color) !important;
+                background-color:
+                    color-mix(in srgb, var(--background-color), transparent 50%) !important;
+                border-color:
+                    color-mix(in srgb, var(--accent-color), transparent 70%) !important;
+            }
+
+            input[type='file']:focus {
+                border-color: var(--accent-color) !important;
+            }
+            input[type='file']::placeholder {
+                color: var(--accent-color) !important;
+            }
+        </style>
+    @endpush
     <br> <br> <br>
     <!-- Contact Section -->
     <section id="contact" class="contact section bg-transparent">
@@ -45,7 +81,7 @@
 
 
                             <div class="col-md-6">
-                                <select class="form-select form-select mb-3 bg-transparent text-colour"
+                                <select class="form-select mb-3"
                                     style="border: 1px solid var(--accent-color);" name="terget_position">
                                     <option selected>Target position </option>
                                     <option value="Versatile delivery person">Versatile delivery person</option>
@@ -56,7 +92,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <select class="form-select form-select mb-3 bg-transparent text-colour"
+                                <select class="form-select mb-3"
                                     style="border: 1px solid var(--accent-color);" name="city">
                                     <option selected>City</option>
                                     <option value="dijon">Dijon</option>
@@ -68,32 +104,20 @@
                             <div class="col-md-12 ">
                                 <div class="custom-file">
                                     <input type="file" id="fileInput" name="cv_file"
-                                        class="form-control bg-transparent" style="display: none;"
-                                        accept="application/pdf">
-                                    <label for="fileInput"
-                                        style="
-                                        border: 1px solid var(--accent-color); 
-                                        background-color: var(--accent-color); 
-                                        color: white; 
-                                        padding: 5px 10px; 
-                                        cursor: pointer; 
-                                        border-radius: 5px;
-                                    ">
-                                        Submit Your CV
-                                    </label>
-
+                                        class="form-control bg-transparent" accept="application/pdf"
+                                        placeholder="Your CV">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                             <div class="col-md-12">
                                 <textarea class="form-control" name="message" rows="6" placeholder="Message"></textarea>

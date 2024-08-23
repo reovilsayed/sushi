@@ -59,12 +59,12 @@ class CartController extends Controller
 
 
 
-		return back()->with('success_msg', 'Item has been updated!');
+		return back()->with('success', 'Item has been updated!');
 	}
 	public function destroy($id)
 	{
 		Cart::remove($id);
-		return back()->with('success_msg', 'Item has been removed!');
+		return back()->with('success', 'Item has been removed!');
 	}
 	public function updateVaritaiton(Request $request)
 	{
@@ -79,7 +79,7 @@ class CartController extends Controller
 			'id' => $product->id,
 		));
 
-		return back()->with('success_msg', 'Item has been Attribute add!');
+		return back()->with('success', 'Item has been Attribute add!');
 	}
 
 	// public function extras(request $request)  {
@@ -118,6 +118,6 @@ class CartController extends Controller
 			['restaurent' => $request->restaurent_id, 'extra' => $extra]
 		);
 
-		return back()->with('success_msg', 'Item has been added to cart!');
+		return back()->with('success', 'Item has been added to cart!');
 	}
 }
