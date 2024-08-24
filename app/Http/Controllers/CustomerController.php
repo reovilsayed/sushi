@@ -28,7 +28,7 @@ class CustomerController extends Controller
         //     ->filter()
         //     ->paginate(24)
         //     ->withQueryString();
-        $customers = User::latest()->paginate(24);
+        $customers = User::latest()->filter()->paginate(24);
        
 
         return view('pages.customers.list', compact('customers'));

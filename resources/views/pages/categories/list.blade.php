@@ -95,7 +95,7 @@
             <x-form.input type="date" name="date[created_at][to]" label="To" :value="@request()->date['created_at']['to']" />
         </div>
         <hr>
-        <h6 class="mb-4">{{ __('sentence.orderby') }}</h6>
+        {{-- <h6 class="mb-4">{{ __('sentence.orderby') }}</h6>
 
         <div class="row row-cols-2">
 
@@ -103,7 +103,7 @@
                 :show_empty_options="true" />
 
 
-        </div>
+        </div> --}}
 
     </x-filter>
 
