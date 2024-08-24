@@ -64,6 +64,12 @@
                     color: var(--accent-color);
                     opacity: 0.5 !important;
                 }
+                option{
+                    color: #e5d5bf !important;
+                }
+                .form-select{
+                    color: #e5d5bf !important;
+                }
             </style>
         @endpush
         <br><br><br>
