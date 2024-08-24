@@ -45,7 +45,7 @@ return [
     'add' => 'Add',
     'addtocart' => 'Add to cart',
     'thankyou' => 'Thank You',
-    'thankyoumessage' => ' We have send the link to your inbox. Lorem ipsum dolor sit,lorem lorem ',
+    'thankyoumessage' => ' We have send the Order to your Email Address',
     'loginwithus' => 'Login with us',
     'donthaveaaccount' => "Don't have a account?",
     'forgetpassword' => 'Forgotten Password?',
