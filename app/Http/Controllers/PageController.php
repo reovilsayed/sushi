@@ -245,7 +245,7 @@ class PageController extends Controller
 
 
         // Send the email with the attached file
-        Mail::to('asalaminsikder787@gmail.com')->send(new RecruitmentMail($data));
+        Mail::to('centralsushi@gmail.com')->send(new RecruitmentMail($data));
 
         // Return back with a success message
         return back()->with('success', 'Thank you for contacting us!');
