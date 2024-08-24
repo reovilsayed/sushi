@@ -13,7 +13,7 @@
                 padding: 4px 8px;
                 padding-left: 10px;
                 padding-right: 10px;
-                border: 1px solid #ff883e;
+                border: 1px solid #ba321c;
                 color: var(--section-bg-1);
             }
 
@@ -78,8 +78,8 @@
                                                 <div class="table-responsive">
                                                     @if ($orders->count() > 0)
                                                         <table class="table">
-                                                            <thead class="order" style="background-color: #ff883e;">
-                                                                <tr style="border:1px solid #ff883e">
+                                                            <thead class="order" style="background-color: #ba321c !important;">
+                                                                <tr style="border:1px solid #ba321c !important;">
                                                                     <th style="padding-left:20px;">
                                                                         {{ __('sentence.index') }}</th>
                                                                     <th>{{ __('sentence.order') }}</th>
@@ -88,7 +88,7 @@
                                                                     <th class="text-center">invoice</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="order" style="border: 1px solid #ff883e;">
+                                                            <tbody class="order" style="border: 1px solid #ba321c !important;">
                                                                 @foreach ($orders as $key => $order)
                                                                     <tr class="">
                                                                         <td class="py-3" style="padding-left:20px;">
@@ -285,9 +285,9 @@
     </div>
 
 
-    @push('css')
+    {{-- @push('css')
         <script src="{{ asset('js/plugins.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
-    @endpush
+    @endpush --}}
     <!-- WISHLIST AREA START -->
 </x-user>

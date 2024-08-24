@@ -867,7 +867,7 @@ select:focus {
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border: 1px solid #ddd;
+  border: 1px solid #ba321c;
 }
 
 code {
@@ -891,7 +891,7 @@ textarea {
   background-color:
     color-mix(in srgb, var(--background-color), transparent 50%) !important;
   border-color:
-    color-mix(in srgb, var(--accent-color), transparent 70%) !important;
+    color-mix(in srgb, #ba321c, transparent 70%) !important;
 }
 /* .input[type="email"]{
   background-color: ;
@@ -912,7 +912,7 @@ input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 textarea:focus {
-  border-color: var(--accent-color) !important;
+  border-color: #ba321c !important;
 }
 
 input[type="password"] {
@@ -15660,7 +15660,7 @@ input.cart-plus-minus-box {
 .ltn__tab-menu-list .nav {
   display: block;
   margin-right: 30px;
-  border: 1px solid #ff883e;
+  border: 1px solid #ba321c;
 }
 
 .ltn__tab-menu-list .nav a {
@@ -15675,7 +15675,7 @@ input.cart-plus-minus-box {
   -ms-flex-align: center;
   align-items: center;
   padding: 15px 20px;
-  border-bottom: 1px solid #ff883e;
+  border-bottom: 1px solid #ba321c;
 }
 
 .ltn__tab-menu-list .nav a:last-child {
@@ -15687,14 +15687,14 @@ input.cart-plus-minus-box {
 }
 
 .ltn__tab-menu-list .nav a.active {
-  background-color: #ff883e !important;
+  background-color: #ba321c !important;
   color: var(--white);
   border: none;
 }
 
 .ltn__myaccount-tab-content-inner>p {
   padding: 20px;
-  background-color: #ff883e;
+  background-color: #ba321c;
   color: var(--section-bg-1);
 }
 
@@ -16804,7 +16804,7 @@ input.cart-plus-minus-box {
 }
 .order tr th {
   color: var(--section-bg-1);
-  background: #ff883e !important;
+  background: #ba321c !important;
 }
 
 .table>:not(caption)>*>* {
@@ -16817,25 +16817,25 @@ input.cart-plus-minus-box {
 #update{
   background: transparent;
   color: #ff883e;
-  border: 1px solid #ff883e;
+  border: 1px solid #ba321c;
   padding: 6px 20px;
   font-size: 16px;
   font-weight: 700;
 }
 #update:hover{
-  background-color: #ff883e;
+  background-color: #ba321c;
   color: var(--section-bg-1);
 }
 #update_pass{
   background: transparent;
   color: #ff883e;
-  border: 1px solid #ff883e;
+  border: 1px solid #ba321c;
   padding: 6px 20px;
   font-size: 16px;
   font-weight: 700;
 }
 #update_pass:hover{
-  background-color: #ff883e;
+  background-color: #ba321c;
   color: var(--section-bg-1);
 }
 /* ----------------------------------------------------

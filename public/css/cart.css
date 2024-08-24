@@ -23,18 +23,18 @@
 .cart_table {
     width: 100%;
     height: auto;
-    border-left: 1px solid #ff883e;
-    border-bottom: 1px solid #ff883e;
-    border-right: 1px solid #ff883e;
+    border-left: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
+    border-right: 1px solid var(--accent-color);
 }
 
 .table_head {
     height: 48px;
-    background-color: #ff883e;
+    background-color: var(--accent-color);
 }
 
 .table_body tr {
-    border-bottom: 1px solid #ff883e;
+    border-bottom: 1px solid var(--accent-color);
     height: 72px;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .cart-plus-minus {
-    border: 2px solid #ff883e;
+    border: 2px solid var(--accent-color);
     height: auto;
     width: 50%;
     text-align: center;
@@ -71,7 +71,7 @@
     justify-content: center;
     align-items: center;
     float: left;
-    border-right: 2px solid #ff883e;
+    border-right: 2px solid var(--accent-color);
     color: var(--heading-color);
     cursor: pointer;
 }
@@ -81,7 +81,7 @@
     justify-content: center;
     align-items: center;
     float: right;
-    border-left: 2px solid #ff883e;
+    border-left: 2px solid var(--accent-color);
     color: var(--heading-color);
     cursor: pointer;
 }
@@ -124,7 +124,7 @@ input.cart-plus-minus-box {
 
 .cart_total_section {
     height: 48px;
-    background-color: #ff883e;
+    background-color: var(--accent-color);
 }
 
 .cart_total_section h4 {
@@ -150,7 +150,7 @@ input.cart-plus-minus-box {
 
 .subcart2 {
     padding: 5px;
-    border: 1px solid #ff883e;
+    border: 1px solid var(--accent-color);
     height: 150px;
     display: flex;
     justify-content: space-between;

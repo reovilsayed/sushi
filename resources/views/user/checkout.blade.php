@@ -11,8 +11,7 @@
                     border: 1px solid var(--accent-color);
                 }
 
-                .contact .php-email-form button[type=submit] {
-                    color: var(--default-color);
+                .contact .php-email-form button[type=submit] {;
                     background: none;
                     border: 2px solid var(--accent-color);
                     padding: 8px 36px;
@@ -25,7 +24,6 @@
                     padding: 10px 15px;
                     box-shadow: none;
                     border-radius: 0;
-                    color: var(--default-color);
                     background-color:
                         color-mix(in srgb, var(--background-color), transparent 50%);
                     border-color: var(--accent-color);
@@ -52,7 +50,6 @@
                     padding: 10px 15px !important;
                     box-shadow: none !important;
                     border-radius: 0 !important;
-                    color: var(--default-color) !important;
                     background-color:
                         color-mix(in srgb, var(--background-color), transparent 50%) !important;
                     border-color:
@@ -155,7 +152,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+{{-- @dd('we') --}}
                                     <div id="homeDeliveryForm" class="mt-5">
 
                                         @if ($restaurant)

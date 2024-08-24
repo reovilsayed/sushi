@@ -64,7 +64,7 @@ class OrderController extends Controller
     public function getChartDataMonth()
     {
         $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
-        
+
         if (count($earnings) > 0) {
             $months = [
                 9,
@@ -80,20 +80,19 @@ class OrderController extends Controller
                 7,
                 8,
             ];
-            $currentMonth =date('n');
-            
+            $currentMonth = date('n');
+
             $months = array_merge(array_slice($months, $currentMonth), array_slice($months, 0, $currentMonth));
 
             $data = [
                 'sales' => [],
                 'profit' => [],
             ];
-            
+
             foreach ($months as $month) {
                 $data['sales'][] = $earnings[$month]['sales'] ?? 0;
                 $data['profit'][] = $earnings[$month]['total_profit'] ?? 0;
             }
-            
         } else {
             $data = ['sales' => [], 'profit' => []];
         }
@@ -111,21 +110,22 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        $pass = Str::random(16);
-
         // Start a database transaction
         DB::beginTransaction();
 
         try {
-            $request->validate([
-                'email' => 'required|email|unique:users,email'
-            ]);
+
             // Handle user authentication
             if (!auth()->check()) {
+                $request->validate([
+                    'email' => 'required|email|unique:users,email'
+                ]);
+                $pass = Str::random(16);
                 $user = User::create([
                     'name' => $request->input('f_name') ?? $request->input('f_name'),
                     'l_name' => $request->input('l_name') ?? $request->input('l_name'),
                     'email' => $request->input('email') ?? $request->input('email'),
+                    'role_id' => 2,
                     'password' => Hash::make($pass), // Generate a random password
                 ]);
 
@@ -138,12 +138,13 @@ class OrderController extends Controller
                 ];
                 Mail::to($user->email)->send(new UserCreateMail($data));
             } else {
+
                 $user = auth()->user();
             }
 
             // Prepare shipping information
             $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
-            
+
             // Create the order
             $order = Order::create([
                 'customer_id' => $user->id,

@@ -40,7 +40,7 @@
 }
 
 .text-colour {
-    color: var(--accent-color) !important;
+    color: var(--accent-color) ;
 }
 
 .secondary-colour {
