@@ -56,9 +56,12 @@
                                             @endphp
                                             <td class="cart-product-image">
                                                 @if (isset($item->attributes['product']))
+                                                    @php
+                                                         $product = $item->attributes['product'];
+                                                    @endphp
                                                     <a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">
-                                                        <img src="{{ Storage::url($item->attributes['product']->image ?? '') }}"
+                                                        <img src="{{ $product->image ?? '' }}"
                                                             alt="">
                                                     </a>
                                                 @endif
