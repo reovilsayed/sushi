@@ -14,9 +14,9 @@ class CartController extends Controller
 
 	public function add(Request $request)
 	{
-
-
+		
 		$product = Product::find($request->product_id);
+		
 		if (!$product) {
 			return back()->withErrors('Product not found.');
 		}
@@ -28,15 +28,16 @@ class CartController extends Controller
 			$price = $product->price;
 			$name=$product->name ;
 		}
-		if (session()->has('resturent_id') && session('resturent_id') !== $request->restaurent_id) {
+		if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
 
 			return back()->with('error', 'Please add same resturent');
 		}
-		Session::put('resturent_id', $request->restaurent_id);
+
+		Session::put('restaurent_id', $request->restaurent_id);
 	
+		$RandomNumber =  rand(9999, 999999);
 
-
-		Cart::add($product->id . rand(4, 5), $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product]);
+		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product]);
 
 
 

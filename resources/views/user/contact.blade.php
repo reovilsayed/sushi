@@ -286,8 +286,7 @@
                     width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-        </div>
-
+        </div>  
         <div class="row pmclr">
             <div class="col-md-6">
                 <div id="card-list3" class="card-list opbg mb-5 card_hidden">
