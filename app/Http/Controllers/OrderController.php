@@ -183,9 +183,9 @@ class OrderController extends Controller
                 ]);
             }
 
+            session()->forget('resturent_id'); 
             // Clear the cart and session data
             Cart::clear();
-            session()->forget('resturent_id');
             DB::commit();
             // Send order confirmation email
             Mail::to($user->email)->send(new OrderConfirmationMail($order));
@@ -216,6 +216,7 @@ class OrderController extends Controller
             }
 
             return redirect()->route('thank_you');
+
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
