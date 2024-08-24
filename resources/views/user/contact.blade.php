@@ -150,7 +150,6 @@
                 transition: transform 0.3s ease !important;
             }
 
-
             tbody,
             td,
             tfoot,
@@ -193,7 +192,7 @@
                     </div>
                     <div id="card-list-content1" class="card-list-content hidden">
                         <p>Horaires d’ouverture</p>
-                        <table style="text-align: left;">
+                        <table style="text-align: left; width: 70%;">
                             <tr>
                                 <td>Lundi</td>
                                 <td>11h00 - 15h00 / 18h00 - 23h00</td>
@@ -248,7 +247,7 @@
                     </div>
                     <div id="card-list-content2" class="card-list-content hidden">
                         <p>Horaires d’ouverture</p>
-                        <table style="text-align: left;">
+                        <table style="text-align: left; width: 70%;">
                             <tr>
                                 <td>Lundi</td>
                                 <td>11h00 - 15h00 / 18h00 - 23h00</td>
@@ -303,7 +302,7 @@
                     </div>
                     <div id="card-list-content3" class="card-list-content hidden">
                         <p>Horaires d’ouverture</p>
-                        <table style="text-align: left;">
+                        <table style="text-align: left; width: 70%;">
                             <tr>
                                 <td>Lundi</td>
                                 <td>11h00 - 15h00 / 18h00 - 23h00</td>
@@ -497,6 +496,38 @@
 
             google.maps.event.addDomListener(window, 'load', initMap);
         </script> --}}
+
+        <script>
+            function initMapNOS() {
+                const locations = [{
+                        lat: 47.323430,
+                        lng: 5.031508
+                    }, // New York City
+                    {
+                        lat: 47.245721,
+                        lng: 6.028465
+                    }, // Los Angeles
+                    {
+                        lat: 47.631816,
+                        lng: 6.856420
+                    } // London
+                ];
+
+                const map = new google.maps.Map(document.getElementById('map-nos'), {
+                    zoom: 7,
+                    center: locations[0]
+                });
+
+                locations.forEach((location) => {
+                    new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                });
+            }
+
+            initMapNOS();
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
             integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
