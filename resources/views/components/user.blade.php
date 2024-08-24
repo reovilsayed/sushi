@@ -44,7 +44,7 @@
             font-family: "Montserrat", sans-serif !important;
             font-optical-sizing: auto !important;
             font-style: normal !important;
-            color: #e5d5bf !important;
+            /* color: #e5d5bf !important; */
         }
     </style>
 

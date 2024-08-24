@@ -13,9 +13,6 @@
                 <div class="col-lg-6 order-2 order-lg-1 content">
                     <h3>{{ $product->name }}</h3>
                     <p class="fst-italic">
-                        {{ __('sentence.compositions') }} | {{ $product->composition }}
-                    </p>
-                    <p class="fst-italic">
                         {{ __('sentence.allergenes') }} | {{ $product->allergenes }}
                     </p>
                     <form action="{{ route('cart.store') }}" method="post">

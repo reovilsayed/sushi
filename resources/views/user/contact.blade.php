@@ -8,7 +8,7 @@
             }
 
             .map_name {
-                color: #ff883e;
+                color: #ba321c;
                 font-family: inherit;
                 font-size: x-large;
                 letter-spacing: 2px;
@@ -33,11 +33,11 @@
             }
 
             .map_dody {
-                border: 1px solid #ff883e;
+                border: 1px solid #ba321c;
             }
 
             .map_dody tr {
-                border: 1px solid #ff883e;
+                border: 1px solid #ba321c;
             }
 
             .map_day {
@@ -51,7 +51,7 @@
                 max-width: 648px !important;
                 max-height: 332px !important;
                 min-width: 0px !important;
-                background-color: #ff883e !important;
+                background-color: #ba321c !important;
             }
 
             .gm-style-iw-d {
@@ -59,7 +59,7 @@
                 max-height: 307px !important;
                 scrollbar-width: thin;
                 /* makes the scrollbar thinner */
-                scrollbar-color: #ff883e #f1f1f1;
+                scrollbar-color: #ba321c #f1f1f1;
             }
         </style> --}}
 
@@ -357,7 +357,7 @@
             function initMap() {
                 const mapStyles = [{
                         "stylers": [{
-                                "hue": "#ff883e"
+                                "hue": "#ba321c"
                             },
                             {
                                 "saturation": 50
@@ -386,7 +386,7 @@
                         lat: 47.631498,
                         lng: 6.856458,
                         address: `
-                <div style="background-color: #ff883e; padding: 10px; border-radius: 10px;">
+                <div style="background-color: #ba321c; padding: 10px; border-radius: 10px;">
                     <h3 class="map_name" style="color: white;">Central Sushi Belfort</h3>
                     <p class="map_address" style="color: white;">60 Faubourg de Montbéliard 90000 BELFORT</p>
                     <p class="map_phone" style="color: white;">03 84 58 67 37</p>
@@ -414,7 +414,7 @@
                         lat: 47.2452395,
                         lng: 6.0284224,
                         address: `
-                <div style="background-color: #ff883e; padding: 10px; border-radius: 10px;">
+                <div style="background-color: #ba321c; padding: 10px; border-radius: 10px;">
                     <h3 class="map_name" style="color: white;">Central Sushi Besançon</h3>
                     <p class="map_address" style="color: white;">35 Avenue Carnot 25000 BESANCON</p>
                     <p class="map_phone" style="color: white;">03 70 88 97 00</p>
@@ -442,7 +442,7 @@
                         lat: 47.3234108,
                         lng: 5.0314998,
                         address: `
-                <div style="background-color: #ff883e; padding: 10px; border-radius: 10px;">
+                <div style="background-color: #ba321c; padding: 10px; border-radius: 10px;">
                     <h3 class="map_name" style="color: white;">Central Sushi Dijon</h3>
                     <p class="map_address" style="color: white;">25 Place Darcy 21000 DIJON</p>
                     <p class="map_phone" style="color: white;">03 80 23 22 00</p>

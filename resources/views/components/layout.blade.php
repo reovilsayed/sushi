@@ -6,8 +6,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0" />
         <!--fav icon-->
-        <link rel="shortcut icon" href="{{ asset('images/fabicon.png') }}" />
-        <link rel="icon" type="image/png" href="{{ asset('images/fabicon.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('logo/sushiFav.png') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('logo/sushiFav.png') }}" />
         <!-- text icons -->
         <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
             crossorigin="anonymous" />
