@@ -77,15 +77,6 @@
             </div>
         </div>
 
-        {{-- <x-form.input type="select" name="filter[gender]" label="Gender" :value="@request()->filter['gender']" :options="['male' => 'Male', 'female' => 'Female']"
-            :show_empty_options="true" /> --}}
-        {{-- <h5 class="mb-2">Order By</h5>
-        <hr>
-        <div class="row row-cols-1">
-            <x-form.input type="select" name="order[discount]" label="Discount" :value="@request()->order['discount']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
-                :show_empty_options="true" />
-
-        </div> --}}
 
     </x-filter>
 </x-layout>
