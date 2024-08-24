@@ -23,7 +23,7 @@
 :root {
   --background-color: #0c0b09;
   /* Background color for the entire website, including individual sections */
-  --default-color: rgba(255, 255, 255, 0.7);
+  --default-color: #E5D5BF;
   /* Default color used for the majority of the text content across the entire website */
   --heading-color: #E5D5BF;
   /* Color for headings, subheadings and title throughout the website */
@@ -61,8 +61,8 @@
 
 .dark-background {
   --background-color: #000000;
-  --default-color: #ffffff;
-  --heading-color: #ffffff;
+  --default-color: #E5D5BF;
+  --heading-color: #E5D5BF;
   --surface-color: #1a1a1a;
   --contrast-color: #ffffff;
 }
@@ -995,9 +995,9 @@ section,
 }
 
 .hero p {
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  margin: 10px 0 0 0;
+  color: var(--default-color);
   font-size: 24px;
+  margin: 10px 0 0 0;
 }
 
 .hero .cta-btn {
