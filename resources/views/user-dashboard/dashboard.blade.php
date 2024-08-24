@@ -5,7 +5,7 @@
         <!-- plugins css -->
         {{-- <link rel="stylesheet" href="{{ asset('css/plugins.css') }}"> --}}
         <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">    
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <!-- Responsive css -->
         {{-- <link rel="stylesheet" href="{{ asset('css/responsive.css') }}"> --}}
         <style>
@@ -19,7 +19,7 @@
 
             .logout {
                 background: transparent;
-                color: #ff883e;
+                color: #ba321c;
             }
         </style>
     @endpush
@@ -27,7 +27,8 @@
     <section id="about" class="cart_section pb-5 bg-transparent">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
             <h2 style="color: var(--accent-color); font-weight: 600; font-family: var(--heading-font">Welcome</h2>
-            <p style="color: var(--accent-color); margin: 0; font-size: 36px; font-weight: 600; font-family: var(--heading-font">
+            <p
+                style="color: var(--accent-color); margin: 0; font-size: 36px; font-weight: 600; font-family: var(--heading-font">
                 Our dashboard</p>
         </div>
     </section>
@@ -78,7 +79,8 @@
                                                 <div class="table-responsive">
                                                     @if ($orders->count() > 0)
                                                         <table class="table">
-                                                            <thead class="order" style="background-color: #ba321c !important;">
+                                                            <thead class="order"
+                                                                style="background-color: #ba321c !important;">
                                                                 <tr style="border:1px solid #ba321c !important;">
                                                                     <th style="padding-left:20px;">
                                                                         {{ __('sentence.index') }}</th>
@@ -88,7 +90,8 @@
                                                                     <th class="text-center">invoice</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="order" style="border: 1px solid #ba321c !important;">
+                                                            <tbody class="order"
+                                                                style="border: 1px solid #ba321c !important;">
                                                                 @foreach ($orders as $key => $order)
                                                                     <tr class="">
                                                                         <td class="py-3" style="padding-left:20px;">
@@ -186,8 +189,8 @@
                                                             <div class="col-md-6">
                                                                 <input type="email" class="form-control"
                                                                     name="email" placeholder="Your Email"
-                                                                    required=""
-                                                                    value="{{ auth()->user()->email }}" disabled>
+                                                                    required="" value="{{ auth()->user()->email }}"
+                                                                    disabled>
 
                                                             </div>
 

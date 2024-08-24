@@ -17,7 +17,7 @@ return [
     'dashboard' => 'Dashboard',
     'productname' => 'Product Name',
     'compositions' => 'Compositions',
-    'allergenes' => 'Allergenes',
+    'allergenes' => 'ALLERGÈNES',
     'contact' => 'Contact',
     'us' => 'Us',
     'call' => 'Call',

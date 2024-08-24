@@ -103,8 +103,9 @@
 
                             <div class="col-md-12 ">
                                 <div class="custom-file">
+                                    <label for="fileInpute">DÉPOSER VOTRE cv_file :</label>
                                     <input type="file" id="fileInput" name="cv_file"
-                                        class="form-control bg-transparent" accept="application/pdf"
+                                        class="form-control bg-transparent mt-2" accept="application/pdf"
                                         placeholder="Your CV">
                                 </div>
                             </div>
