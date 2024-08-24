@@ -83,8 +83,6 @@ class OrderController extends Controller
             $currentMonth =date('n');
             
             $months = array_merge(array_slice($months, $currentMonth), array_slice($months, 0, $currentMonth));
-            
-            dd($months);
 
             $data = [
                 'sales' => [],

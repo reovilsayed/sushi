@@ -6,10 +6,10 @@
                 const index = $('#priscription-products').children().length
                 const row = `<tr  class="table-row">
                             <td>
-                                <x-form.input name="option[${index}][name]" label="Option Name" value=""  />
+                                <x-form.input name="option[${index}][name]" label="Option Name" value=""  required/>
                             </td>
                             <td>
-                                <x-form.input name="option[${index}][price]" label="Option price" value=""  />
+                                <x-form.input name="option[${index}][price]" label="Option price" value=""  required/>
                             </td>
                             
 
