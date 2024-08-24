@@ -1,5 +1,10 @@
 @php
-    $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
+    $firstProduct = $order->products()->first();
+    $restaurant = null;
+
+    if ($firstProduct && $firstProduct->pivot && isset($firstProduct->pivot->restaurant_id)) {
+        $restaurant = App\Models\Restaurant::find($firstProduct->pivot->restaurant_id);
+    }
 @endphp
 
 <div class="card my-3 me-2 custom-fade-in h-100">
@@ -11,7 +16,6 @@
                     {{ $order->customer->l_name ?? 'Walk-in customer' }}
                     <br>
                 </h5>
-
                 <span class="text-white">{{ $restaurant->name ?? '' }}</span>
             </div>
             <div class="col-md-4 col-4 text-right ps-0">
