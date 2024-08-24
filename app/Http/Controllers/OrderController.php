@@ -118,6 +118,8 @@ class OrderController extends Controller
             // Handle user authentication
             if (!auth()->check()) {
                 $request->validate([
+                    'f_name' => 'required',
+                    'l_name' => 'required',  // Add validation for last name
                     'email' => 'required|email|unique:users,email'
                 ]);
                 $pass = Str::random(16);
@@ -136,7 +138,7 @@ class OrderController extends Controller
                     'button_link' => '',
                     'button_text' => '',
                 ];
-                Mail::to($user->email)->send(new UserCreateMail($data));
+                // Mail::to($user->email)->send(new UserCreateMail($data));
             } else {
 
                 $user = auth()->user();
@@ -188,7 +190,7 @@ class OrderController extends Controller
             Cart::clear();
             DB::commit();
             // Send order confirmation email
-            Mail::to($user->email)->send(new OrderConfirmationMail($order));
+            // Mail::to($user->email)->send(new OrderConfirmationMail($order));
 
             if ($request->payment_method == 'Card') {
                 $amount = $order->total * 100;

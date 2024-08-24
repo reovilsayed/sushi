@@ -5,7 +5,8 @@
         // $zone = $restaurant ? $restaurant->zones->get() : null;
     @endphp
     @push('css')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
         <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
         <style>
             .cart_submit {
@@ -39,13 +40,14 @@
                                 <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead>
-                            <tbody class="table_body">  
+                            <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
 
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
-                                                href="{{ url('/cart-destroy/' . $item->id) }}">x</a>
+                                                href="{{ url('/cart-destroy/' . $item->id) }}"><i class="bi bi-trash" style="color: var(--accent-color);"></i>
+                                            </a>
                                         </td>
 
                                         @if (isset($item->attributes['restaurent']))
@@ -57,12 +59,11 @@
                                             <td class="cart-product-image">
                                                 @if (isset($item->attributes['product']))
                                                     @php
-                                                         $product = $item->attributes['product'];
+                                                        $product = $item->attributes['product'];
                                                     @endphp
                                                     <a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">
-                                                        <img src="{{ $product->image ?? '' }}"
-                                                            alt="">
+                                                        <img src="{{ $product->image ?? '' }}" alt="">
                                                     </a>
                                                 @endif
                                             </td>
@@ -74,7 +75,8 @@
                                                 </td>
                                             @else
                                                 <td class="cart-product-info text-center">
-                                                    <h4><a href="#">{{ $item->attributes['extra']->name }}</a></h4>
+                                                    <h4><a href="#">{{ $item->attributes['extra']->name }}</a>
+                                                    </h4>
                                                 </td>
                                             @endif
                                         @endif
@@ -95,7 +97,8 @@
                                                     </div>
                                                     <div class="cart_quantity_item1">
                                                         <button type="submit" class="update_btn"><i
-                                                                class="fa-solid fa-floppy-disk"></i></button>
+                                                                class="bi bi-pencil"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -135,16 +138,19 @@
                                 <tr style="height: 40px;">
                                     <td class="ps-4"><strong>{{ __('sentence.order') }}
                                             {{ __('sentence.total') }}</strong></td>
-                                    <td><strong id="order_total_display">{{ number_format(Cart::getTotal(), 2) }} €</strong></td>
+                                    <td><strong id="order_total_display">{{ number_format(Cart::getTotal(), 2) }}
+                                            €</strong></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="btn-wrapper text-center pe-md-3">
                         @if (Cart::isEmpty())
-                            <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{__(('sentence.proceedtocheckout'))}}</a>
+                            <a href="{{ route('restaurant.home') }}"
+                                class="checkout_btn">{{ __('sentence.proceedtocheckout') }}</a>
                         @else
-                            <a href="{{ route('restaurant.checkout') }}" class="checkout_btn">{{__(('sentence.proceedtocheckout'))}}</a>
+                            <a href="{{ route('restaurant.checkout') }}"
+                                class="checkout_btn">{{ __('sentence.proceedtocheckout') }}</a>
                         @endif
                     </div>
 
@@ -154,7 +160,7 @@
 
     </section>
     @if (Cart::isEmpty())
-        <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{__(('sentence.gohome'))}}</a>
+        <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{ __('sentence.gohome') }}</a>
     @else
         <section id="" class="extra_section pt-1 bg-transparent">
             <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
@@ -180,8 +186,9 @@
                                                     -</div>
                                                 {{-- @dd($extra) --}}
                                                 <input type="text" value="0" name="quantity"
-                                                    class="cart-plus-minus-box" id="extra_quantity_{{ $extra->id }}"
-                                                    min="1" placeholder="0" data-price="{{ $extra->price }}"
+                                                    class="cart-plus-minus-box"
+                                                    id="extra_quantity_{{ $extra->id }}" min="1"
+                                                    placeholder="0" data-price="{{ $extra->price }}"
                                                     data-name="{{ $extra->name }}" readonly>
 
                                                 <div class="inc qtybutton"
@@ -193,8 +200,8 @@
                                             <div class="centerinput" style="width: 100px">
                                                 <p style="font-weight: 100;" class="mb-0">
                                                     <input name="" id="price_{{ $extra->id }}"
-                                                    style="width: 100px" class="p-0 text-center" readonly
-                                                    value="0">
+                                                        style="width: 100px" class="p-0 text-center" readonly
+                                                        value="0">
                                                     {{-- {{ $extra->price }} --}}
                                                 </p>
                                             </div>
@@ -209,7 +216,7 @@
                                             <input type="hidden"
                                                 name="restaurent_id"value="{{ $restaurant->id ?? '' }}">
                                             <button type="submit" id="add_cart_button_{{ $extra->id }}"
-                                                class="cart_submit">{{__(('sentence.addtocart'))}}</button>
+                                                class="cart_submit">{{ __('sentence.addtocart') }}</button>
 
                                         </div>
                                     </form>

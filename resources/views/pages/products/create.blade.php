@@ -44,7 +44,7 @@
             }
         </script>
     @endpush
-    @dd($product)
+    {{-- @dd($product) --}}
     <form action="{{ route('store.product') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="container mt-3">

@@ -1,6 +1,12 @@
 @php
     $extras = json_decode($order->extra, true) ?? [];
-    $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
+    // $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
+    $firstProduct = $order->products()->first();
+    $restaurant = null;
+
+    if ($firstProduct && $firstProduct->pivot && isset($firstProduct->pivot->restaurant_id)) {
+        $restaurant = App\Models\Restaurant::find($firstProduct->pivot->restaurant_id);
+    }
 @endphp
 {{-- @dd($extras) --}}
 <x-layout>
@@ -19,19 +25,20 @@
                             </div>
                         @endif
                         <hr class="mt-3 mb-4">
-                      
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Billed To:</h5>
-                                    <h5 class="font-size-15 mb-2">{{ $order->customer->name ?? 'Walk in customer' }} {{  $order->customer->l_name ?? '' }}
+                                    <h5 class="font-size-15 mb-2">{{ $order->customer->name ?? 'Walk in customer' }}
+                                        {{ $order->customer->l_name ?? '' }}
                                     </h5>
                                     {{-- <p class="mb-1">{{ $order->customer->address }}</p> --}}
                                     <p class="mb-1">{{ $order->customer->email }}</p>
                                     <p>{{ $order->customer->phone }}</p>
                                 </div>
                             </div>
-                         
+
                             <div class="col-sm-6">
                                 <div class="text-muted text-sm-end">
                                     <div>
@@ -50,12 +57,12 @@
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
                                         <p>{{ $order->created_at->format('d-M-y') }}</p>
                                     </div>
-                                
+
                                 </div>
                             </div>
-            
+
                         </div>
-                     
+
 
                         <div class="py-2">
                             <h5 class="font-size-15">Order Summary</h5>
@@ -78,19 +85,21 @@
                                                 <th scope="row">{{ $product->id }}</th>
                                                 <td>
                                                     <div>
-                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $product->name }} {{ $product->strength }}
+                                                        <h5 class="text-truncate font-size-14 mb-1">
+                                                            {{ $product->name }} {{ $product->strength }}
                                                         </h5>
                                                         <p class="text-muted mb-0">{{ $product->category->name }}</p>
                                                     </div>
                                                 </td>
                                                 <td>{{ $product->pivot->quantity }}</td>
-                                                
+
                                                 <td class="text-end">{{ Settings::price($product->pivot->price) }}</td>
-                                                <td class="text-end">{{ Settings::price($product->pivot->price * $product->pivot->quantity) }}</td>
+                                                <td class="text-end">
+                                                    {{ Settings::price($product->pivot->price * $product->pivot->quantity) }}
+                                                </td>
                                             </tr>
                                         @endforeach
-                                        @foreach ( $extras as $item)
-                                 
+                                        @foreach ($extras as $item)
                                             <tr>
                                                 <th scope="row">{{ $item['id'] }}</th>
                                                 <td>
@@ -103,7 +112,8 @@
                                                 <td>{{ $item['quantity'] }}</td>
 
                                                 <td class="text-end">{{ Settings::price($item['price']) }}</td>
-                                                <td class="text-end">{{ Settings::price($item['price'] * $item['quantity']) }}</td>
+                                                <td class="text-end">
+                                                    {{ Settings::price($item['price'] * $item['quantity']) }}</td>
                                             </tr>
                                         @endforeach
                                         {{-- @dd(Settings::price($order->sub_total)) --}}
@@ -171,18 +181,18 @@
         </div>
     </div>
 
-        @push('script')
-            <script type="text/javascript">
-                function printDiv(divName) {
-                    var printContents = document.getElementById(divName).innerHTML;
-                    var originalContents = document.body.innerHTML;
+    @push('script')
+        <script type="text/javascript">
+            function printDiv(divName) {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
 
-                    document.body.innerHTML = printContents;
+                document.body.innerHTML = printContents;
 
-                    window.print();
+                window.print();
 
-                    document.body.innerHTML = originalContents;
-                }
-            </script>
-        @endpush
+                document.body.innerHTML = originalContents;
+            }
+        </script>
+    @endpush
 </x-layout>
