@@ -45,21 +45,16 @@
                                     <div class="ltn__tab-menu-list mb-50">
                                         <div class="nav">
                                             <a class="active show" data-bs-toggle="tab" href="#liton_tab_1_1">Dashboard
-                                                <i class="fas fa-home"></i></a>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_2">Orders <i
-                                                    class="fas fa-file-alt"></i></a>
-                                            {{-- <a data-bs-toggle="tab" href="#liton_tab_1_3">Downloads <i
-                                                    class="fas fa-arrow-down"></i></a> --}}
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_5">Account Details <i
-                                                    class="fas fa-user"></i></a>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_4">Password Update <i
-                                                    class="fa-solid fa-lock"></i></a>
+                                                <i class="bi bi-house-fill"></i>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_2">Orders <i class="bi bi-file-earmark-text-fill"></i></a>
+                                           
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_5">Account Details <i class="bi bi-person-circle"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_4">Password Update <i class="bi bi-file-lock2"></i></a>
                                             <form action="{{ route('logout') }}" method="post" id="logout-form"
                                                 class="php-email-form"
                                                 style="height: 51px; display: flex; margin-left: 20px;">
                                                 @csrf
-                                                <button type="submit" class="logout">Logout <i
-                                                        class="fas fa-sign-out-alt"></i></button>
+                                                <button type="submit" class="logout">Logout <i class="bi bi-box-arrow-left"></i></button>
                                             </form>
                                         </div>
                                     </div>

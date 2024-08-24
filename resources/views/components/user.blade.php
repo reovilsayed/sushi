@@ -30,7 +30,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
-
+    
     @stack('css')
     <!-- =======================================================
   * Template Name: Restaurantly
