@@ -155,12 +155,10 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'composition' => 'required|string',
-            'allergenes' => 'required|string',
+            'composition' => 'nullable|string',
+            'allergenes' => 'nullable|string',
             'image' => 'nullable|image|max:1024',
             'price' => 'required|min:1',
-            // 'status' => 'nullable',
-            // 'featured' => 'nullable',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
@@ -215,8 +213,6 @@ class ProductController extends Controller
             'allergenes' => 'required|string',
             'image' => 'nullable|image',
             'price' => 'required|min:1',
-            // 'status' => 'nullable',
-            // 'featured' => 'nullable',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);

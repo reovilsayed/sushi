@@ -85,11 +85,11 @@
 
                             <div class="row row-cols">
                                 <x-form.input name="composition" label="Composition *" value=""
-                                    style="height: 130px" type="textarea" id="test" autofocus />
+                                    style="height: 130px" type="textarea" id="test" autofocus required/>
                             </div>
                             <div class="row row-cols-1">
                                 <x-form.input name="allergenes" wire:model="allergenes" label="Allergenes *"
-                                    value="" autofocus />
+                                    value="" autofocus required />
                             </div>
 
 
