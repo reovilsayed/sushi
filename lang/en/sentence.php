@@ -40,7 +40,7 @@ return [
     'returningcustomer' => 'Returning Customer?',
     'openthismenu'=> 'Open the menu',
     'takeaway' => 'Take Away',
-    'homedelevery' => 'Home Delevery',
+    'homedelivery' => 'Home Delivery',
     'yourorder' => 'Your Order',
     'add' => 'Add',
     'addtocart' => 'Add to cart',
