@@ -110,7 +110,7 @@
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
                                             <option value="take_away">{{ __('sentence.takeaway') }}</option>
-                                            <option value="home_delivery">{{ __('sentence.homedelevery') }}</option>
+                                            <option value="home_delivery">{{ __('sentence.homedelivery') }}</option>
                                         </select>
                                     </div>
 
