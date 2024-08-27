@@ -135,13 +135,31 @@ class PageController extends Controller
     }
 
     public function cart()
-    {
-        if (Cart::getContent()->isEmpty()) {
-            $restaurants = Restaurant::all();
-            return view('user.restaurant', compact('restaurants'));
+    { 
+      
+        
+        if (Cart::getContent()->count() == 0) {
+            
+           return redirect()->route('user.restaurants')->withErrors('hello');
         } else {
             $extras = Extra::latest()->where('type', 'cart')->get();
-            return view('user.cart', compact('extras'));
+            $relatedProductsQuery = Product::whereHas('category',function ($q) {
+                return $q->where('featured','checked');
+            })->get(); 
+            $relatedProducts = $relatedProductsQuery->sortBy('count')->reverse()->groupBy('category_id')->map(function ($product) {
+        
+                    $categoryName = $product->first()->category->name;
+            
+                    return [
+                        'category_name' => $categoryName,
+                        'products' => $product,
+                    ];
+                });
+
+
+          
+    
+            return view('user.cart', compact('extras','relatedProducts'));
         }
     }
     public function checkLocation(Request $request)
