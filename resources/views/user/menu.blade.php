@@ -52,20 +52,67 @@
             .category-button i {
                 transition: transform 0.5s ease;
             }
-            .accordion , .accordion-item{
+
+            .accordion,
+            .accordion-item {
                 background-color: transparent !important;
                 border: none !important;
-                
+
             }
+
             .accordion-button:focus {
+
+                outline: none !important;
                 box-shadow: none !important;
             }
-            .accordion-button{
+
+            .accordion-button {
                 /* background-color: transparent !important; */
                 background-color: transparent !important;
             }
-            .accordion-collapse{
+
+            .accordion-collapse {
                 padding-left: 40px
+            }
+
+            .accordion-button::after {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+            }
+
+            .accordion-button:not(.collapsed)::after {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+            }
+
+            .price-container {
+                position: relative;
+                display: inline-block;
+            }
+            .price {
+                opacity: 1;
+                visibility: visible;
+                position: relative;
+                top: 20px;
+                transition: top .4s cubic-bezier(0.215, 0.610, 0.355, 1);
+            }
+
+            .add-button {
+                opacity: 0;
+                visibility: hidden;
+                position: relative;
+                top: 10px;
+                transition: top .5s cubic-bezier(0.215, 0.610, 0.355, 1);
+
+            }
+
+            .product-hover:hover .price {
+                top: -10px;
+                opacity: 0;
+                visibility: hidden;
+            }
+            .product-hover:hover .add-button {
+                top: -10px;
+                opacity: 1;
+                visibility: visible;
             }
         </style>
     @endpush
@@ -111,63 +158,45 @@
 
         </div><!-- End Section Title -->
 
+
+        <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="background: transparent; border: none">
+            <i class="fs-1 bi bi-list"></i>
+          </button>
+
+
         <div class="container-fluid isotope-layout" data-default-filter="*" data-layout="masonry"
             data-sort="original-order">
             <div class="row">
-                {{-- <div class="col-md-2"
+
+                <div class="col-md-2 d-none d-md-block "
                     style="
-                            position: -webkit-sticky;
-                            position: sticky;
-                            top: 150px; /* Adjust as needed */
-                            height: 100vh;
-                            overflow-y: auto;">
+                    position: -webkit-sticky;
+                    position: sticky;
+                    top: 150px; /* Adjust as needed */
+                    height: 100vh;
+                    overflow-y: auto;">
                     @foreach ($categories as $category)
-                        <div class="category-container" data-aos="fade-up" data-aos-delay="200">
-                            <div class="category">
-                                <button class="category-button secondary-colour">
-                                    {{ $category->name }}
-                                    <i class="bi bi-plus-lg float-end"></i> <!-- Add the icon here -->
-                                </button>
-                                <div class="subcategory-container" style="display: none;">
-                                    @if ($category->childs->count() > 0)
-                                        @foreach ($category->childs as $child)
-                                            <div class="subcategory">
-                                                <a href="#{{ $child->name }}"
-                                                    class="subcategory-button">{{ $child->name }}</a>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div> --}}
-                <div class="col-md-2"  style="
-                position: -webkit-sticky;
-                position: sticky;
-                top: 150px; /* Adjust as needed */
-                height: 100vh;
-                overflow-y: auto;">
-                    @foreach ($categories as $category)
-                        <div class="accordion" id="accordionExample{{$category->id}}">
+                        <div class="accordion" id="accordionExample{{ $category->id }}">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree{{$category->id}}" aria-expanded="false"
-                                        aria-controls="collapseThree" style="color: var(--default-color);">
+                                    <button class="accordion-button collapsed fw-bold" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
+                                        aria-expanded="false" aria-controls="collapseThree"
+                                        style="color: var(--default-color);">
                                         {{ $category->name }}
                                     </button>
                                 </h2>
                                 @if ($category->childs->count() > 0)
-                                @foreach ($category->childs as $child)
-                                
-                                <div id="collapseThree{{$child->parent_id}}" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample{{$child->parent_id}}">
-                                    <a href="#{{ $child->name }}" class="accordion-body" style="color: var(--default-color);">
-                                        <div>{{ $child->name }}</div>
-                                    </a>
-                                </div>
-                                @endforeach
+                                    @foreach ($category->childs as $child)
+                                        <div id="collapseThree{{ $child->parent_id }}"
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample{{ $child->parent_id }}">
+                                            <a href="#{{ $child->name }}" class="accordion-body"
+                                                style="color: var(--default-color);">
+                                                <div>{{ $child->name }}</div>
+                                            </a>
+                                        </div>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -180,9 +209,10 @@
                     <div class="row ">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
-                                <div class="menu-header d-flex justify-content-center" data-aos="fade-up"
+                                <div class="menu-header text-center" data-aos="fade-up"
                                     data-aos-delay="200">
                                     <a id="{{ $child->name }}" href="" class="  h4">{{ $child->name }}</a>
+                                    <p class="mt-2">{{ $child->description }}</p>
                                     <hr>
                                 </div>
 
@@ -192,50 +222,54 @@
                                             <div class="isotope-container" data-aos="fade-up" data-aos-delay="200">
                                                 <div class="card mb-3" style="background: transparent; border:none">
                                                     <div class="card-body">
-                                                        <div class="text-center">
+                                                        <div class="text-center product-hover">
                                                             <a
                                                                 href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}">
                                                                 <img class="img-fluid"
                                                                     src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
                                                             </a>
-                                                            <h4 class="text-colour"
-                                                                style="font-family: var(--bs-body-font-family);">
-                                                                <a
-                                                                    href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}">{{ $product->name }}</a>
+                                                            <h4 class="fs-6"
+                                                                style="font-family: var(--bs-body-font-family); ">
+                                                                <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
+                                                                    style="color: #e5d5bf !important;">{{ $product->name }}</a>
                                                             </h4>
                                                             <div class="d-flex gap-3 justify-content-center">
-                                                                <h5 class="fw-bold">{{ $product->price }} €</h5>
-                                                                @php
-                                                                    $productOption = App\Models\ProductOption::where(
-                                                                        'product_id',
-                                                                        $product->id,
-                                                                    )->get();
-                                                                @endphp
-                                                                @if ($productOption->isNotEmpty())
-                                                                    <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                                                                        class="fw-bold text-colour"
-                                                                        style="background: transparent; border:none">
-                                                                        <i
-                                                                            class="bi bi-plus"></i>{{ __('sentence.add') }}
-                                                                    </a>
-                                                                @else
-                                                                    <form action="{{ route('cart.store') }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <input type="hidden" name="quantity"
-                                                                            value="1">
-                                                                        <input type="hidden" name="product_id"
-                                                                            value="{{ $product->id }}">
-                                                                        <input type="hidden" name="restaurent_id"
-                                                                            value="{{ $restaurant->id }}">
-                                                                        <button type="submit"
-                                                                            class="fw-bold text-colour"
-                                                                            style="background: transparent; border:none">
+                                                                <div class="price-container">
+                                                                    <h5 class="fw-bold price">{{ $product->price }} €
+                                                                    </h5>
+
+                                                                    @php
+                                                                        $productOption = App\Models\ProductOption::where(
+                                                                            'product_id',
+                                                                            $product->id,
+                                                                        )->get();
+                                                                    @endphp
+
+                                                                    @if ($productOption->isNotEmpty())
+                                                                        <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
+                                                                            class="fw-bold text-colour add-button btn"
+                                                                            style="background:#e5d5bf; ">
                                                                             <i
                                                                                 class="bi bi-plus"></i>{{ __('sentence.add') }}
-                                                                        </button>
-                                                                    </form>
-                                                                @endif
+                                                                        </a>
+                                                                    @else
+                                                                        <form action="{{ route('cart.store') }}"
+                                                                            method="post" class="add-button">
+                                                                            @csrf
+                                                                            <input type="hidden" name="quantity"
+                                                                                value="1">
+                                                                            <input type="hidden" name="product_id"
+                                                                                value="{{ $product->id }}">
+                                                                            <input type="hidden" name="restaurent_id"
+                                                                                value="{{ $restaurant->id }}">
+                                                                            <button type="submit"
+                                                                                class="fw-bold text-colour btn"
+                                                                                style="background:#e5d5bf; "> <i
+                                                                                    class="bi bi-plus"></i>{{ __('sentence.add') }}</button>
+                                                                        </form>
+                                                                    @endif
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -260,7 +294,8 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">
@@ -284,6 +319,43 @@
             </div>
         </div>
     </div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background: rgba(0, 0, 0, 0.5)">
+        <div class="offcanvas-header" >
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            @foreach ($categories as $category)
+            <div class="accordion" id="accordionExample{{ $category->id }}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
+                            aria-expanded="false" aria-controls="collapseThree"
+                            style="color: var(--default-color);">
+                            {{ $category->name }}
+                        </button>
+                    </h2>
+                    @if ($category->childs->count() > 0)
+                        @foreach ($category->childs as $child)
+                            <div id="collapseThree{{ $child->parent_id }}"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#accordionExample{{ $child->parent_id }}">
+                                <a href="#{{ $child->name }}" class="accordion-body"
+                                    style="color: var(--default-color);">
+                                    <div>{{ $child->name }}</div>
+                                </a>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        @endforeach
+        </div>
+      </div>
+
+
     @push('js')
         <script>
             document.addEventListener('DOMContentLoaded', function() {

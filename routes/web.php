@@ -90,7 +90,7 @@ Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoice');
 
 Route::get('/test', function () {
-    return view('emails.contact');
+    return view('test');
 });
 
 
