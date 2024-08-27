@@ -321,7 +321,7 @@
 
 
                                             <div class="col-md-6">
-                                                <select name="time_option"class="form-select selectpicker"
+                                                <select name="time_option" class="form-select selectpicker"
                                                     data-container="body" disabled>
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}

@@ -1,3 +1,8 @@
+@php
+    $api_key = json_decode($restaurant->api_key, true);
+    
+@endphp
+   
 <x-layout>
     <form action="{{ route('update.restaurant',$restaurant) }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -48,11 +53,14 @@
                     <div class="card ">
                         <div class="card-body">
                             <div class="row row-cols-2">
-
                                 <x-form.input id="longitude" name="address[longitude]" value="{{$restaurant->address['longitude']}}" wire:model="longitude"
                                     label="Longitude" required />
                                 <x-form.input id="latitude" name="address[latitude]" value="{{$restaurant->address['latitude']}}" wire:model="latitude"
                                     label="Latitude"  required />
+                                    <x-form.input id="merchantId" name="merchantId" 
+                                    label="Merchant Id" value="{{$api_key['merchantId']}}" required />
+                                <x-form.input id="secretKey" name="secretKey" 
+                                    label="Secret Key" value="{{$api_key['secretKey']}}" required />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{__('sentence.save')}}

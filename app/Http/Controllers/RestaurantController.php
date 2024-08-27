@@ -24,8 +24,10 @@ class RestaurantController extends Controller
         $validated = $request->validate([
             'name' => 'required|string',
         ]);
-        
-        
+        $api_key = [
+            'merchantId' => $request->merchantId,
+            'secretKey' => $request->secretKey,
+        ];
         
         $restaurant = new Restaurant;
 
@@ -35,7 +37,9 @@ class RestaurantController extends Controller
         $restaurant->number = $request->number;
 
         $restaurant->address = $request->address;
-        
+
+        $restaurant->api_key = json_encode($api_key);
+
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
             if ($restaurant->image && Storage::exists($restaurant->image)) {
@@ -54,14 +58,18 @@ class RestaurantController extends Controller
     }
     public function updateRestaurant(Request $request, Restaurant $restaurant)
     {
-
+        ;
         if ($request->has('image')) {
             $image = $request->file('image')->store('restaurant', 'public');
             Storage::delete($request->image);
         } else {
             $image = $restaurant->image;
         }
-
+        $api_key = [
+            'merchantId' => $request->merchantId,
+            'secretKey' => $request->secretKey,
+        ];
+        
         $restaurant->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
@@ -70,7 +78,7 @@ class RestaurantController extends Controller
             'email' => $request->email,
             'number' => $request->number,
             'address' => $request->address,
-
+            'api_key' => json_encode($api_key),
         ]);
         $restaurant->save();
 

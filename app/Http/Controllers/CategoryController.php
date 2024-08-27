@@ -90,4 +90,20 @@ class CategoryController extends Controller
         $category->delete();
         return redirect('/admin/categories')->with('message', 'Category Delete successFull !');
     }
+    public function toggle(Category $category)
+    {
+        $data = Category::find($category->id);
+
+        
+        if($data->featured == 'unchecked'){
+            $data->update(['featured' => 'checked']);
+        }else{
+            $data->update(['featured' => 'unchecked']);
+        }
+        return redirect()->back();
+
+    }
+    
+
+
 }

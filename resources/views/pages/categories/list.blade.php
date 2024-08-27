@@ -41,22 +41,29 @@
                             <table class="list_table all">
                                 <thead>
                                     <tr>
+                                        <th scope="col">{{ __('sentence.featured') }}</th>
                                         <th scope="col">#</th>
-                                        {{-- <th scope="col">Image</th> --}}
-                                        <th scope="col">{{__('sentence.name')}} </th>
-                                        <th scope="col">{{__('sentence.createdat')}} </th>
-                                        <th scope="col">{{__('sentence.action')}} </th>
+                                        <th scope="col">{{ __('sentence.name') }}</th>
+                                        <th scope="col">{{ __('sentence.createdat') }}</th>
+                                        <th scope="col">{{ __('sentence.action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $key=>$category)
+                                    @foreach ($categories as $key => $category)
                                         <tr>
+                                            <td>
+                                                <form method="POST" action="{{ route('check.submit', $category) }}">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="checkbox" name="is_checked" 
+                                                        onchange="this.form.submit()" {{ $category->featured == 'checked' ? 'checked' : '' }}>
+                                                </form>
+                                            </td>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->created_at }}</td>
                                             <td class="d-flex">
-                                                <a class="btn btn-primary btn-sm me-2"
-                                                    href="{{ route('categories.edit', $category) }} ">
+                                                <a class="btn btn-primary btn-sm me-2" href="{{ route('categories.edit', $category) }}">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <x-actions.delete :action="route('categories.destroy', $category)" />
@@ -65,6 +72,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            
+                            
                         </div>
                     </div>
 
@@ -106,5 +115,7 @@
         </div> --}}
 
     </x-filter>
+
+
 
 </x-layout>

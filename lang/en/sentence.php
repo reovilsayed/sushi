@@ -139,5 +139,5 @@ return [
     'customerdetails' => 'Customer Details',
     'totalorders' => 'Total Orders',
     'selectrestaurant' => 'Select Restaurant',
-    ''
+    'featured' => 'Featured',
 ];
