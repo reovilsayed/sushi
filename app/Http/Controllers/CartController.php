@@ -14,19 +14,19 @@ class CartController extends Controller
 
 	public function add(Request $request)
 	{
-		
+
 		$product = Product::find($request->product_id);
-		
+
 		if (!$product) {
 			return back()->withErrors('Product not found.');
 		}
 		if ($request->has('option_id')) {
 			$option = ProductOption::find($request->option_id);
 			$price = $option->option_price;
-			$name=$product->name .'-'.$option->option_name;
+			$name = $product->name . '-' . $option->option_name;
 		} else {
 			$price = $product->price;
-			$name=$product->name ;
+			$name = $product->name;
 		}
 		if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
 
@@ -34,7 +34,7 @@ class CartController extends Controller
 		}
 
 		Session::put('restaurent_id', $request->restaurent_id);
-	
+
 		$RandomNumber =  rand(9999, 999999);
 
 		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product]);
@@ -64,8 +64,15 @@ class CartController extends Controller
 	}
 	public function destroy($id)
 	{
-		Cart::remove($id);
-		session()->forget('restaurent_id');
+
+		if (Cart::getContent()->count() == 1) {
+
+			Cart::remove($id);
+			session()->forget('restaurent_id');
+		}else{
+
+			Cart::remove($id);
+		}
 		return back()->with('success', 'Item has been removed!');
 	}
 	public function updateVaritaiton(Request $request)
