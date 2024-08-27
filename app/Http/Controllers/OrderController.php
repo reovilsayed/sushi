@@ -111,7 +111,7 @@ class OrderController extends Controller
     {
 
         // Start a database transaction
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
         try {
 
@@ -138,7 +138,7 @@ class OrderController extends Controller
                     'button_link' => '',
                     'button_text' => '',
                 ];
-                // Mail::to($user->email)->send(new UserCreateMail($data));
+                Mail::to($user['email'])->send(new UserCreateMail($data));
             } else {
 
                 $user = auth()->user();
@@ -190,7 +190,7 @@ class OrderController extends Controller
             Cart::clear();
             DB::commit();
             // Send order confirmation email
-            // Mail::to($user->email)->send(new OrderConfirmationMail($order));
+            Mail::to($user['email'])->send(new OrderConfirmationMail($order));
 
             if ($request->payment_method == 'Card') {
                 $amount = $order->total * 100;
