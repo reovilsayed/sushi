@@ -21,6 +21,7 @@
                     height: 100% !important;
                     width: 415px !important;
                 }
+
                 .order_btn:hover {
                     border-radius: 0px !important;
                     border: 0px !important;
@@ -28,7 +29,7 @@
                     font-weight: 600 !important;
                     height: 100% !important;
                     width: 415px !important;
-                    background:color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    background: color-mix(in srgb, var(--accent-color), transparent 20%) !important;
                     color: var(--background-color) !important;
                 }
 
@@ -166,13 +167,12 @@
             </style>
         @endpush
         <br><br><br>
-
-
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
             {{-- @dd($zone) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
+                {{-- @dd(session('current_location')) --}}
 
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
@@ -316,18 +316,30 @@
 
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Your Address"
-                                                    required=""value={{ auth()->user()->address ?? '' }}>
+                                                    placeholder="Your Address" required=""
+                                                    value="{{ auth()->check() && auth()->user()->address
+                                                        ? auth()->user()->address
+                                                        : trim(
+                                                            session('current_location.street', '') .
+                                                                ' ' .
+                                                                session('current_location.district', '') .
+                                                                ' ' .
+                                                                session('current_location.state', '') .
+                                                                ' ' .
+                                                                session('current_location.country', ''),
+                                                        ) }}">
+
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required=""
-                                                    value={{ auth()->user()->city ?? '' }}>
+                                                    value="{{ auth()->check() && auth()->user()->city ? auth()->user()->city : session('current_location.city') ?? '' }}">
+
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
                                                     placeholder="Your Post Code" required=""
-                                                    value={{ auth()->user()->post_code ?? '' }}>
+                                                    value={{ auth()->check() && auth()->user()->post_code ? auth()->user()->post_cod : session('current_location.post_code') ?? '' }}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -459,8 +471,7 @@
                                                                         checked value="Card">
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
-                                                                        for="payment_method2">
-                                                                        {{ __('sentence.cart') }}
+                                                                        for="payment_method2">Credit Cart
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -487,8 +498,8 @@
                                             </table>
                                         </div>
                                         <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
-                                            <button type="submit" class="order_btn" id="orderButton"
-                                                disabled>ORDER NOW
+                                            <button type="submit" class="order_btn" id="orderButton" disabled>ORDER
+                                                NOW
                                             </button>
                                         </div>
                                         {{-- <div class="col-md-12 text-start"

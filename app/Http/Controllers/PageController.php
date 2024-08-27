@@ -34,40 +34,40 @@ class PageController extends Controller
 
     public function menu($slug)
     {
-          // Set the timezone to France (Europe/Paris)
-          $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
+        // Set the timezone to France (Europe/Paris)
+        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
 
-          // Define the sections
-          $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
-          $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
-  
-          $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
-          $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
-  
-          // Generate time slots for the morning/afternoon section
-          $timeSlots = [];
-          for ($time = $morningStartTime; $time->lte($morningEndTime);) {
-              if ($time->gte($currentTime)) {
-                  $endSlot = $time->copy()->addMinutes(30);
-                  $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-              }
-              // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-              $time->addMinutes(45);
-          }
-  
-          // Generate time slots for the evening/night section
-          for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
-              if ($time->gte($currentTime)) {
-                  $endSlot = $time->copy()->addMinutes(30);
-                  $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-              }
-              // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-              $time->addMinutes(45);
-          }
+        // Define the sections
+        $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
+        $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
+
+        $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
+        $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
+
+        // Generate time slots for the morning/afternoon section
+        $timeSlots = [];
+        for ($time = $morningStartTime; $time->lte($morningEndTime);) {
+            if ($time->gte($currentTime)) {
+                $endSlot = $time->copy()->addMinutes(30);
+                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
+            }
+            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
+            $time->addMinutes(45);
+        }
+
+        // Generate time slots for the evening/night section
+        for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
+            if ($time->gte($currentTime)) {
+                $endSlot = $time->copy()->addMinutes(30);
+                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
+            }
+            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
+            $time->addMinutes(45);
+        }
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
-        return view('user.menu', compact('categories', 'sub_categories', 'restaurant','timeSlots'));
+        return view('user.menu', compact('categories', 'sub_categories', 'restaurant', 'timeSlots'));
     }
     public function userCheckout()
     {
@@ -135,31 +135,31 @@ class PageController extends Controller
     }
 
     public function cart()
-    { 
-      
-        
+    {
+
+
         if (Cart::getContent()->count() == 0) {
-            
-           return redirect()->route('user.restaurants')->withErrors('hello');
+
+            return redirect()->route('user.restaurants')->withErrors('hello');
         } else {
             $extras = Extra::latest()->where('type', 'cart')->get();
-            $relatedProductsQuery = Product::whereHas('category',function ($q) {
-                return $q->where('featured','checked');
-            })->get(); 
+            $relatedProductsQuery = Product::whereHas('category', function ($q) {
+                return $q->where('featured', 'checked');
+            })->get();
             $relatedProducts = $relatedProductsQuery->sortBy('count')->reverse()->groupBy('category_id')->map(function ($product) {
-        
-                    $categoryName = $product->first()->category->name;
-            
-                    return [
-                        'category_name' => $categoryName,
-                        'products' => $product,
-                    ];
-                });
+
+                $categoryName = $product->first()->category->name;
+
+                return [
+                    'category_name' => $categoryName,
+                    'products' => $product,
+                ];
+            });
 
 
-          
-    
-            return view('user.cart', compact('extras','relatedProducts'));
+
+
+            return view('user.cart', compact('extras', 'relatedProducts'));
         }
     }
     public function checkLocation(Request $request)
@@ -297,5 +297,36 @@ class PageController extends Controller
 
         // Return back with a success message
         return back()->with('success', 'Thank you for contacting us!');
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'location' => 'required|string',
+        ]);
+
+        // Get the full address string from the request
+        $fullAddress = $request->input('location');
+
+        // Explode the address into parts (assuming the address is comma-separated)
+        $addressParts = explode(',', $fullAddress);
+
+        // Create an associative array for the address parts
+        $addressName = [
+            'city' => $addressParts[0] ?? null,
+            'street' => $addressParts[1] ?? null,
+            'district' => $addressParts[2] ?? null,
+            'state' => $addressParts[3] ?? null,
+            'post_code' => $addressParts[4] ?? null,
+            'country' => $addressParts[5] ?? null, // Use the correct index for country
+        ];
+        // Store the exploded address parts in the session
+        session([
+            'current_location' => $addressName, // Store the entire array
+        ]);
+
+        // Handle the rest of the form submission
+        return redirect()->back()->with('success', 'Location stored successfully!');
     }
 }
