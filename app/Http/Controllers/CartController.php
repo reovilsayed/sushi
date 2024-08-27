@@ -65,6 +65,7 @@ class CartController extends Controller
 	public function destroy($id)
 	{
 		Cart::remove($id);
+		session()->forget('restaurent_id');
 		return back()->with('success', 'Item has been removed!');
 	}
 	public function updateVaritaiton(Request $request)

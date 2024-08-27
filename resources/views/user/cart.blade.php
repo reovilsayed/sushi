@@ -29,7 +29,7 @@
     @endpush
 
     <livewire:cart />
-    <x-cart.slider />
+    <x-cart.slider :relatedProducts="$relatedProducts"/>
 
     @push('js')
         @livewireScripts
