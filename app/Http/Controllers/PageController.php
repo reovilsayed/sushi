@@ -34,10 +34,40 @@ class PageController extends Controller
 
     public function menu($slug)
     {
+          // Set the timezone to France (Europe/Paris)
+          $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
+
+          // Define the sections
+          $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
+          $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
+  
+          $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
+          $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
+  
+          // Generate time slots for the morning/afternoon section
+          $timeSlots = [];
+          for ($time = $morningStartTime; $time->lte($morningEndTime);) {
+              if ($time->gte($currentTime)) {
+                  $endSlot = $time->copy()->addMinutes(30);
+                  $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
+              }
+              // Add 45 minutes to the current time (30-minute slot + 15-minute break)
+              $time->addMinutes(45);
+          }
+  
+          // Generate time slots for the evening/night section
+          for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
+              if ($time->gte($currentTime)) {
+                  $endSlot = $time->copy()->addMinutes(30);
+                  $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
+              }
+              // Add 45 minutes to the current time (30-minute slot + 15-minute break)
+              $time->addMinutes(45);
+          }
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
-        return view('user.menu', compact('categories', 'sub_categories', 'restaurant'));
+        return view('user.menu', compact('categories', 'sub_categories', 'restaurant','timeSlots'));
     }
     public function userCheckout()
     {

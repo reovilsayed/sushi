@@ -18,9 +18,20 @@ class Restaurant extends Model
     
     public function address(): Attribute
     {
+          
         return Attribute::make(
+            
             get: fn($value) => json_decode($value,true),
             set: fn($value) => json_encode($value),
         );
     }
+    // public function api_key(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn($value) => json_decode($value,true),
+    //         set: fn($value) => json_encode($value),
+    //     );
+    // }
+
+    
 }

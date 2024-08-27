@@ -25,6 +25,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::delete('/restaurant/delete/{restaurant}', 'destroyRestaurant')->name('delete.restaurant');
     });
     Route::resource('categories', CategoryController::class);
+    Route::patch('categories/check/submit/{category}', [CategoryController::class, 'toggle'])->name('check.submit');
 
 
     Route::controller(ProductController::class)->group(function () {
