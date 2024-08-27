@@ -10,75 +10,99 @@ class Cart extends Component
 {
     public $extras;
 
-    public const CHOPSTICK = 5;
+    public const CHOPSTICK = 4;
 
+    public  $extraBucket = [];
+    public  $extraPrice = ['discountedItem' => 0];
+
+    public $restuarant;
     public $cartForExtras = ['totalQty' => 0, 'chopstickQty' => 0];
-    protected $total = 0;
+    public $total = 0;
     public function mount()
     {
 
         $this->extras =  Extra::latest()->where('type', 'cart')->get();
         foreach ($this->extras as $extra) {
-            $this->cartForExtras[$extra->id] = ['qty' => 0,'unit'=>$extra->price ,'total' => 0];
+
+            $this->extraBucket[$extra->id] = ['model' => $extra, 'qty' => CartFacade::get('extra_' . $extra->id)['quantity'] ?? 0, 'unit' => $extra->price];
+            if ($extra->id == $this::CHOPSTICK) {
+                $this->extraPrice[$extra->id] = ['subtotal' => 0, 'discount' => $extra->price * 15, 'total' => 0];
+            } else {
+                $this->extraPrice[$extra->id] = ['subtotal' => 0, 'discount' => 0, 'total' => 0];
+            }
+            // $this->cartForExtras[$extra->id] = ['qty' => 0, 'unit' => $extra->price, 'total' => 0];
         }
         $this->total =  CartFacade::getTotal();
+        $this->restuarant = CartFacade::getContent()->first()['attributes']['restaurent'];
+        $this->calculatePrice();
     }
 
     public function addExtra($id)
     {
-        ++$this->cartForExtras[$id]['qty'];
-        if ($id == $this::CHOPSTICK) {
-            ++$this->cartForExtras['chopstickQty'];
-        } {
-            ++$this->cartForExtras['totalQty'];
-        }
-        $this->incrementExtraPrice($id);
+        ++$this->extraBucket[$id]['qty'];
+        $this->calculatePrice();
     }
     public function removeExtra($id)
     {
-        
-        if ($this->cartForExtras[$id]['qty'] > 0 && $this->cartForExtras['totalQty'] > 0) {
-            --$this->cartForExtras[$id]['qty'];
-            if ($id == $this::CHOPSTICK) {
-                if ($this->cartForExtras['chopstickQty'] > 0) {
-                    --$this->cartForExtras['chopstickQty'];
-                }
-            } {
-                --$this->cartForExtras['totalQty'];
-            }
-        }
-        $this->decrementExtraPrice($id);
+        if ($this->extraBucket[$id]['qty'] > 0 == false) return;
+        --$this->extraBucket[$id]['qty'];
+        $this->calculatePrice();
     }
 
-    public function incrementExtraPrice($id)
+
+    public function calculatePrice()
     {
-        if ($id == $this::CHOPSTICK) {
-            $totalFreeItem = 15;
-            if ($this->cartForExtras['chopstickQty'] > $totalFreeItem) {
-                $this->cartForExtras[$id]['total'] += $this->cartForExtras[$id]['unit'];
+
+        $bucket = $this->extraBucket;
+        unset($bucket[$this::CHOPSTICK]);
+
+        $total_items = collect($bucket)->map(fn($extra) => $extra['qty'])->sum();
+
+        $freeItems = floor(round($this->total) / 10);
+        if ($total_items <= $freeItems) {
+            $this->extraPrice['discountedItem'] = 0;
+        }
+
+        foreach ($this->extraBucket as $id => $data) {
+
+            $this->extraPrice[$id]['subtotal'] = $data['unit'] * $data['qty'];
+            $this->extraPrice[$id]['discount'] =  $this->extraPrice[$id]['discount'];
+            if ($id == $this::CHOPSTICK) {
+
+                $this->extraPrice[$id]['total'] = $this->extraPrice[$id]['subtotal'] - $this->extraPrice[$id]['discount'];
+
+                if ($this->extraPrice[$id]['total'] < 0) {
+                    $this->extraPrice[$id]['total'] = 0;
+                }
+            } else {
+
+                if ($data['qty'] > 0 && $data['qty'] <= $freeItems && $this->extraPrice['discountedItem'] < $freeItems) {
+                    $this->extraPrice[$id]['discount'] = $data['unit'] * $data['qty'];
+                    $this->extraPrice['discountedItem'] += $data['qty'];
+                }
+                $this->extraPrice[$id]['total'] = $this->extraPrice[$id]['subtotal'] - $this->extraPrice[$id]['discount'];
             }
-        } else {
-            $totalFreeItem = round($this->total) / 10;
-            
-            if ($this->cartForExtras['totalQty'] > $totalFreeItem) {
-                $this->cartForExtras[$id]['total'] += $this->cartForExtras[$id]['unit'];
+
+
+            CartFacade::remove('extra_' . $id);
+            if ($data['qty'] > 0) {
+
+                CartFacade::add([
+                    'id' => 'extra_' . $id,
+                    'name' => $data['model']->name,
+                    'price' => $this->extraPrice[$id]['total'] / $data['qty'],
+                    'quantity' => $data['qty'],
+                    'associatedModel' => $data['model'],
+                    'attributes' => [
+                        'restaurent' => $this->restuarant,
+                        'extra' => $data['model']
+                    ]
+                ]);
             }
         }
     }
-    public function decrementExtraPrice($id)
-    {
-        if ($id == $this::CHOPSTICK) {
-            $totalFreeItem = 15;
-            if ($this->cartForExtras['chopstickQty'] <= $totalFreeItem) {
-                $this->cartForExtras[$id]['total'] -= $this->cartForExtras[$id]['unit'];
-            }
-        } else {
-            $totalFreeItem = round($this->total) / 10;
-            if ($this->cartForExtras['totalQty'] < $totalFreeItem) {
-                $this->cartForExtras[$id]['total'] -= $this->cartForExtras[$id]['unit'];
-            }
-        }
-    }
+
+
     public function render()
     {
         return view('livewire.cart');
