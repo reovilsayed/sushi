@@ -64,6 +64,31 @@
         </style> --}}
 
         <style>
+            .accordion {
+                --bs-accordion-color: #E4D4BF;
+                --bs-accordion-bg: transparent;
+                --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+                --bs-accordion-border-color: transparent;
+                --bs-accordion-border-width: var(--bs-border-width);
+                --bs-accordion-border-radius: var(--bs-border-radius);
+                --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+                --bs-accordion-btn-padding-x: 1.25rem;
+                --bs-accordion-btn-padding-y: 1rem;
+                --bs-accordion-btn-color: #E4D4BF;
+                --bs-accordion-btn-bg: transparent;
+                --bs-accordion-btn-icon: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cstyle%3Esvg%7Bfill:%23e4d48f%7D%3C/style%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z' /%3E%3C/svg%3E);
+                --bs-accordion-btn-icon-width: 1.25rem;
+                --bs-accordion-btn-icon-transform: rotate(-180deg);
+                --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
+                --bs-accordion-btn-active-icon: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cstyle%3Esvg%7Bfill:%23e4d48f%7D%3C/style%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z' /%3E%3C/svg%3E);
+                --bs-accordion-btn-focus-border-color: #86b7fe;
+                --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+                --bs-accordion-body-padding-x: 1.25rem;
+                --bs-accordion-body-padding-y: 1rem;
+                --bs-accordion-active-color: #E4D4BF;
+                --bs-accordion-active-bg: transparent;
+            }
+
             * {
                 font-family: "Montserrat", sans-serif !important;
                 font-optical-sizing: auto !important;
@@ -108,11 +133,28 @@
                 border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
             }
 
-            .icon-btn {
-                cursor: pointer;
-                font-size: 24px;
-                font-weight: bold;
-                color: #ba321c;
+            /* .icon-btn {
+                        cursor: pointer;
+                        position: absolute;
+                        font-size: 20px;
+                        top: 0;
+                        right: 0;
+                        z-index: 9999;
+                        font-size: 52px;
+                        padding: 10px;
+                        transition: transform 0.3s ease !important;
+                    } */
+
+            .icon-btn::after {
+                flex-shrink: 0 !important;
+                width: var(--bs-accordion-btn-icon-width) !important;
+                height: var(--bs-accordion-btn-icon-width) !important;
+                margin-left: auto !important;
+                content: "";
+                background-image: var(--bs-accordion-btn-icon) !important;
+                background-repeat: no-repeat !important;
+                background-size: var(--bs-accordion-btn-icon-width) !important;
+                transition: var(--bs-accordion-btn-icon-transition) !important;
             }
 
             .opbg {
@@ -148,6 +190,11 @@
                 font-size: 52px !important;
                 padding: 10px;
                 transition: transform 0.3s ease !important;
+            }
+
+            .icon-btn {
+                transform: rotate(180deg) !important;
+                /* Rotate the icon to show "+" when active */
             }
 
             tbody,
@@ -286,7 +333,7 @@
                     width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-        </div>  
+        </div>
         <div class="row pmclr">
             <div class="col-md-6">
                 <div id="card-list3" class="card-list opbg mb-5 card_hidden">
