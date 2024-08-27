@@ -148,7 +148,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Choose Delivery Here
                         </button>
-                        <ul class="dropdown-menu delivery-dropdown">
+                        <ul class="dropdown-menu delivery-dropdown" style="width: 216px !important;">
                             <li><a class="dropdown-item text-colour" href="#">{{ __('sentence.takeaway') }}</a>
                             </li>
                             <li><button class="dropdown-item text-colour" data-bs-toggle="modal"
@@ -158,9 +158,7 @@
                 </div>
                 <div class="section-title col-md-4">
                     <h2>Choose Delivery Time</h2>
-                    <select
-                        name="time_option"class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time ''"
-                        data-container="body">
+                    <select name="time_option"class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time ''" data-container="body">
                         @foreach ($timeSlots as $time)
                             <option value="{{ $time }}" class="''">{{ $time }}
                             </option>

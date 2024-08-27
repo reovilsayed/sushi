@@ -7,6 +7,31 @@
     <x-user>
         @push('css')
             <style>
+                .btn-wrapper {
+                    background:
+                        color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    padding: 15px 0px;
+                }
+
+                .order_btn {
+                    border: 0px !important;
+                    font-size: 20px !important;
+                    font-weight: 600 !important;
+                    /* padding: 5px 12px; */
+                    height: 100% !important;
+                    width: 415px !important;
+                }
+                .order_btn:hover {
+                    border-radius: 0px !important;
+                    border: 0px !important;
+                    font-size: 20px !important;
+                    font-weight: 600 !important;
+                    height: 100% !important;
+                    width: 415px !important;
+                    background:color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    color: var(--background-color) !important;
+                }
+
                 .checkout_main_body {
                     border: 1px solid var(--accent-color);
                 }
@@ -226,7 +251,7 @@
                                             </div>
 
 
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <div class="select-wrapper ">
                                                     <select id="year" class="select-hidden">
                                                         <option value="hide">-- Year --</option>
@@ -251,7 +276,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
                                     </div>
@@ -348,13 +373,6 @@
                                         </div>
                                     </div>
 
-
-
-                                    <div class="col-md-12 text-start mt-5">
-                                        <button type="submit" id="orderButton" disabled>{{ __('sentence.order') }}
-                                        </button>
-                                    </div>
-
                                     {{-- </div> --}}
 
                                 </div>
@@ -419,7 +437,7 @@
                                                     <td class="fs-5 fw-medium text-center">0 €</td>
                                                 </tr> --}}
 
-                                                    <tr style="border: 1px solid var(--accent-color)">
+                                                    <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td>
                                                             <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
                                                                 {{ __('sentence.paymentmethod') }}
@@ -457,17 +475,26 @@
                                                             {{ number_format(Cart::getSubTotal(), 2) }} €
                                                         </td>
                                                     </tr>
-                                                    <tr
-                                                        style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+                                                    <tr>
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
                                                         <td class="fs-5 fw-medium text-center">
                                                             {{ number_format(Cart::getTotal(), 2) }}
                                                             €
                                                         </td>
                                                     </tr>
+
                                                 </tfoot>
                                             </table>
                                         </div>
+                                        <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
+                                            <button type="submit" class="order_btn" id="orderButton"
+                                                disabled>ORDER NOW
+                                            </button>
+                                        </div>
+                                        {{-- <div class="col-md-12 text-start"
+                                            style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
