@@ -1,3 +1,4 @@
+
 <style>
     .nav-tabs .nav-item.show .nav-link,
     .nav-tabs .nav-link.active {
@@ -60,14 +61,9 @@
                                         <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
                                             <div class="row">
                                                 @foreach ($chunkItems as $product)
+                                                    
                                                     <div class="col-md-4 text-center">
-                                                        <div class="product-card">
-                                                            <img style="width: 150px !important; height: auto;" src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}"
-                                                                alt="{{ $product->name }}">
-                                                            <h5 class="mt-3">{{ $product->name }}</h5>
-                                                            <p>${{ $product->price }}</p>
-                                                            <button class="btn btn-primary">Add to Cart</button>
-                                                        </div>
+                                                        <x-viewProduct.product :restaurant="App\Models\Restaurant::find(session()->get('restaurent_id'))" :product="$product" />
                                                     </div>
                                                 @endforeach
                                             </div>

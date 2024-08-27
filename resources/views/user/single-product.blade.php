@@ -26,8 +26,8 @@
                                     <div class="col-md-6">
                                         <select class="form-select selectpicker  mb-3 text-colour"
                                             style="border: 1px solid var(--accent-color); background-color: color-mix( var(--background-color), transparent 50%);"
-                                            name="option_id">
-                                            <option selected>{{ __('sentence.otherOptions') }}</option>
+                                            name="option_id" required>
+                                            <option selected value="">{{ __('sentence.otherOptions') }}</option>
                                             @foreach ($productOption as $option)
                                                 <option value="{{ $option->id }}">{{ $option->option_name }}
                                                     {{ $option->option_price }}</option>

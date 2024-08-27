@@ -87,6 +87,7 @@
                 position: relative;
                 display: inline-block;
             }
+
             .price {
                 opacity: 1;
                 visibility: visible;
@@ -109,6 +110,7 @@
                 opacity: 0;
                 visibility: hidden;
             }
+
             .product-hover:hover .add-button {
                 top: -10px;
                 opacity: 1;
@@ -159,9 +161,11 @@
         </div><!-- End Section Title -->
 
 
-        <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="background: transparent; border: none">
+        <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+            style="background: transparent; border: none">
             <i class="fs-1 bi bi-list"></i>
-          </button>
+        </button>
 
 
         <div class="container-fluid isotope-layout" data-default-filter="*" data-layout="masonry"
@@ -209,8 +213,7 @@
                     <div class="row ">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
-                                <div class="menu-header text-center" data-aos="fade-up"
-                                    data-aos-delay="200">
+                                <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <a id="{{ $child->name }}" href="" class="  h4">{{ $child->name }}</a>
                                     <p class="mt-2">{{ $child->description }}</p>
                                     <hr>
@@ -219,62 +222,7 @@
                                 <div class="row justify-content-center">
                                     @foreach ($child->products as $product)
                                         <div class="col-md-2">
-                                            <div class="isotope-container" data-aos="fade-up" data-aos-delay="200">
-                                                <div class="card mb-3" style="background: transparent; border:none">
-                                                    <div class="card-body">
-                                                        <div class="text-center product-hover">
-                                                            <a
-                                                                href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}">
-                                                                <img class="img-fluid"
-                                                                    src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
-                                                            </a>
-                                                            <h4 class="fs-6"
-                                                                style="font-family: var(--bs-body-font-family); ">
-                                                                <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                                                                    style="color: #e5d5bf !important;">{{ $product->name }}</a>
-                                                            </h4>
-                                                            <div class="d-flex gap-3 justify-content-center">
-                                                                <div class="price-container">
-                                                                    <h5 class="fw-bold price">{{ $product->price }} €
-                                                                    </h5>
-
-                                                                    @php
-                                                                        $productOption = App\Models\ProductOption::where(
-                                                                            'product_id',
-                                                                            $product->id,
-                                                                        )->get();
-                                                                    @endphp
-
-                                                                    @if ($productOption->isNotEmpty())
-                                                                        <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                                                                            class="fw-bold text-colour add-button btn"
-                                                                            style="background:#e5d5bf; ">
-                                                                            <i
-                                                                                class="bi bi-plus"></i>{{ __('sentence.add') }}
-                                                                        </a>
-                                                                    @else
-                                                                        <form action="{{ route('cart.store') }}"
-                                                                            method="post" class="add-button">
-                                                                            @csrf
-                                                                            <input type="hidden" name="quantity"
-                                                                                value="1">
-                                                                            <input type="hidden" name="product_id"
-                                                                                value="{{ $product->id }}">
-                                                                            <input type="hidden" name="restaurent_id"
-                                                                                value="{{ $restaurant->id }}">
-                                                                            <button type="submit"
-                                                                                class="fw-bold text-colour btn"
-                                                                                style="background:#e5d5bf; "> <i
-                                                                                    class="bi bi-plus"></i>{{ __('sentence.add') }}</button>
-                                                                        </form>
-                                                                    @endif
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
                                         </div>
                                     @endforeach
                                 </div>
@@ -294,8 +242,7 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">
@@ -306,8 +253,7 @@
                     <div class="input-group  text-center">
                         <input type="text" id="location-input"
                             class="form-control form-control-lg location text-center text-colour"
-                            placeholder="Enter Location" aria-label="Enter Location"
-                            aria-describedby="button-addon2">
+                            placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
                         <button class="btn btn-outline-orange" type="button" id="location-button">
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                         </button>
@@ -320,40 +266,40 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background: rgba(0, 0, 0, 0.5)">
-        <div class="offcanvas-header" >
-          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel" style="background: rgba(0, 0, 0, 0.5)">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             @foreach ($categories as $category)
-            <div class="accordion" id="accordionExample{{ $category->id }}">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
-                            aria-expanded="false" aria-controls="collapseThree"
-                            style="color: var(--default-color);">
-                            {{ $category->name }}
-                        </button>
-                    </h2>
-                    @if ($category->childs->count() > 0)
-                        @foreach ($category->childs as $child)
-                            <div id="collapseThree{{ $child->parent_id }}"
-                                class="accordion-collapse collapse"
-                                data-bs-parent="#accordionExample{{ $child->parent_id }}">
-                                <a href="#{{ $child->name }}" class="accordion-body"
-                                    style="color: var(--default-color);">
-                                    <div>{{ $child->name }}</div>
-                                </a>
-                            </div>
-                        @endforeach
-                    @endif
+                <div class="accordion" id="accordionExample{{ $category->id }}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
+                                aria-expanded="false" aria-controls="collapseThree"
+                                style="color: var(--default-color);">
+                                {{ $category->name }}
+                            </button>
+                        </h2>
+                        @if ($category->childs->count() > 0)
+                            @foreach ($category->childs as $child)
+                                <div id="collapseThree{{ $child->parent_id }}" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionExample{{ $child->parent_id }}">
+                                    <a href="#{{ $child->name }}" class="accordion-body"
+                                        style="color: var(--default-color);">
+                                        <div>{{ $child->name }}</div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
         </div>
-      </div>
+    </div>
 
 
     @push('js')
