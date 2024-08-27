@@ -3,7 +3,6 @@
         <style>
             .delivery {
                 border: 1px solid var(--accent-color);
-                font-weight: bold
             }
 
             .delivery:hover,
@@ -88,6 +87,7 @@
                 display: inline-block;
             }
 
+
             .price {
                 opacity: 1;
                 visibility: visible;
@@ -111,11 +111,23 @@
                 visibility: hidden;
             }
 
+
             .product-hover:hover .add-button {
                 top: -10px;
                 opacity: 1;
                 visibility: visible;
             }
+
+            .btn-close {
+                background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3e%3cpath d="M14.293 7.293a1 1 0 0 1 1.414 0L19 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414L20.414 12l3.293 3.293a1 1 0 0 1-1.414 1.414L19 13.414l-3.293 3.293a1 1 0 0 1-1.414-1.414L17.586 12l-3.293-3.293a1 1 0 0 1 0-1.414z"/%3e%3c/svg%3e');
+                background-size: contain;
+                background-position: calc(50% - 10px);
+            }
+
+            .btn-close:focus {
+                box-shadow: none !important;
+            }
+            
         </style>
     @endpush
     <br><br><br>
@@ -147,10 +159,10 @@
                 <div class="section-title col-md-4">
                     <h2>Choose Delivery Time</h2>
                     <select
-                        name="time_option"class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time fw-bold"
+                        name="time_option"class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time ''"
                         data-container="body">
                         @foreach ($timeSlots as $time)
-                            <option value="{{ $time }}" class="fw-bold">{{ $time }}
+                            <option value="{{ $time }}" class="''">{{ $time }}
                             </option>
                         @endforeach
                     </select>
@@ -160,6 +172,11 @@
 
         </div><!-- End Section Title -->
 
+
+        <a class="btn btn-sm d-block d-md-none" type="button" style="position:fixed;bottom:80px;right:15px;background: #e5d5bf;display: flex; align-items: center; justify-content: center;padding:0 5px;"
+    data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+    <i class="fs-1 bi bi-list"></i>
+</a>
 
         <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
@@ -183,7 +200,7 @@
                         <div class="accordion" id="accordionExample{{ $category->id }}">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed fw-bold" type="button"
+                                    <button class="accordion-button collapsed ''" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
                                         aria-expanded="false" aria-controls="collapseThree"
                                         style="color: var(--default-color);">
@@ -213,6 +230,7 @@
                     <div class="row ">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
+                                <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <a id="{{ $child->name }}" href="" class="  h4">{{ $child->name }}</a>
                                     <p class="mt-2">{{ $child->description }}</p>
@@ -271,6 +289,11 @@
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel" style="background: rgba(0, 0, 0, 0.5)">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             @foreach ($categories as $category)
@@ -299,6 +322,7 @@
                 </div>
             @endforeach
         </div>
+    </div>
     </div>
 
 
