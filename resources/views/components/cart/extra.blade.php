@@ -4,7 +4,7 @@
         <div class="cart-plus-minus">
             <button class="dec decrease-btn qtybutton" wire:click="removeExtra({{$extra->id}})" >
                 -</button>
-            <input type="text" value="{{$cartForExtras[$extra->id]['qty'] }}" name="quantity"
+            <input type="text" value="{{$extraBucket[$extra->id]['qty'] }}" name="quantity"
                 class="cart-plus-minus-box"
                 id="extra_quantity_{{ $extra->id }}" min="1"
                 placeholder="0" data-price="{{ $extra->price }}"
@@ -19,7 +19,7 @@
             <p style="font-weight: 100;" class="mb-0">
                 <input name="" id="price_{{ $extra->id }}"
                     style="width: 100px" class="p-0 text-center" readonly
-                    value="{{  $cartForExtras[$extra->id]['total']}}">
+                    value="{{$prices[$extra->id]['total']}}">
             </p>
         </div>
     </div>

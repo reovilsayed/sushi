@@ -16,13 +16,12 @@
                                 </th>
                                 <th class="cart-product-image">{{ __('sentence.image') }}</th>
                                 <th class="cart-product-info text-center">{{ __('sentence.name') }}</th>
-                                <th class="cart-product-price">{{ __('sentence.price') }}</th>
                                 <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead>
                             <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
-
+                                
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
@@ -63,7 +62,6 @@
                                         @endif
 
 
-                                        <td class="cart-product-price">{{ number_format($item->price, 2) }}€</td>
 
 
                                         <form action="{{ route('cart.update') }}" method="POST">
@@ -156,13 +154,15 @@
                             @foreach ($extras as $extra)
                             
                                 <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2">
-                                    <x-cart.extra :extra="$extra" :restuarant="$restuarant" :cartForExtras="$cartForExtras"/>
+                                <x-cart.extra :extra="$extra" :restuarant="$restuarant" :extraBucket="$extraBucket" :prices="$extraPrice"/>
                                 </div>
                             @endforeach
                         </div>
                        
                     </div>
                 </div>
+                
+                
             </div>
         </section>
     @endif

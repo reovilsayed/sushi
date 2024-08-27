@@ -38,14 +38,13 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-
+        // dd($request->all()); 
         $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'parent_id' => $request->parent_id,
+            'description' => $request->description
         ];
-
-
         Category::create($data);
 
         return redirect('/admin/categories')->with('message', 'Category Added Successfully');
@@ -77,6 +76,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'parent_id' => $request->parent_id,
+            'description' => $request->description
         ]);
         return redirect('/admin/categories')->with('message', 'Category Edit SuccessFull');
     }

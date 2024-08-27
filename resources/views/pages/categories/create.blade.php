@@ -16,7 +16,7 @@
                         <div class="mb-3">
                             <label for="inputName1" class="form-label">{{ __('sentence.categoryname') }}</label>
                             <input type="text" class="form-control" id="inputName1" placeholder="Category Name"
-                                data-name="name" name="name">
+                                data-name="name" name="name" autofocus>
                         </div>
                     </div>
                     <div class="item-content mb-3">
@@ -28,6 +28,11 @@
                             @endforeach
 
                         </select>
+                    </div>
+                    <div class="item-content mb-3">
+                        <label class="control-label">Category Description </label>
+                        <x-form.input name="description"  value=""
+                                    style="height: 130px" type="textarea" id="test"  />
                     </div>
                     <!-- Repeater Remove Btn -->
                     <div class="repeater-remove-btn">
