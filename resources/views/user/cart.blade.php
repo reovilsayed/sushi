@@ -46,7 +46,8 @@
                                     <tr>
                                         <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
-                                                href="{{ url('/cart-destroy/' . $item->id) }}"><i class="bi bi-trash" style="color: var(--accent-color);"></i>
+                                                href="{{ url('/cart-destroy/' . $item->id) }}"><i class="bi bi-trash"
+                                                    style="color: var(--accent-color);"></i>
                                             </a>
                                         </td>
 
@@ -172,8 +173,6 @@
                     <div class="col-md-12">
                         <div class="row text-center p-2">
                             @foreach ($extras as $extra)
-                                {{-- @dd($extra); --}}
-
                                 <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2"
                                     style="flex-direction: column; justify-content: space-between;">
                                     <h5 class="ft-16 p-2 seccolr">{{ $extra->name }}</h5>
@@ -181,19 +180,18 @@
                                         @csrf
                                         <div class="cart-product-quantity d-flex justify-content-center">
                                             <div class="cart-plus-minus">
-                                                <div class="dec qtybutton"
+                                                <button class="dec decrease-btn qtybutton"
                                                     onclick="changeQuantity(-1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
-                                                    -</div>
-                                                {{-- @dd($extra) --}}
+                                                    -</button>
                                                 <input type="text" value="0" name="quantity"
                                                     class="cart-plus-minus-box"
                                                     id="extra_quantity_{{ $extra->id }}" min="1"
                                                     placeholder="0" data-price="{{ $extra->price }}"
                                                     data-name="{{ $extra->name }}" readonly>
 
-                                                <div class="inc qtybutton"
+                                                <button class="inc increase-btn qtybutton"
                                                     onclick="changeQuantity(1, '{{ $extra->id }}', {{ $extra->price }}, '{{ $extra->name }}')">
-                                                    +</div>
+                                                    +</button>
                                             </div>
                                         </div>
                                         <div class="pricetag justify-content-center">
@@ -202,24 +200,21 @@
                                                     <input name="" id="price_{{ $extra->id }}"
                                                         style="width: 100px" class="p-0 text-center" readonly
                                                         value="0">
-                                                    {{-- {{ $extra->price }} --}}
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="mb-2">
-
-                                            {{-- <input type="hidden" name="quantity" id="form_quantity_{{ $extra->id }}"
-                                            value="1"> --}}
                                             <input type="hidden" name="product_id" value="{{ $extra->id }}">
                                             <input type="hidden" name="price" id="{{ $extra->id }}"
                                                 value="{{ $extra->price }}">
                                             <input type="hidden"
                                                 name="restaurent_id"value="{{ $restaurant->id ?? '' }}">
-                                            <button type="submit" id="add_cart_button_{{ $extra->id }}"
-                                                class="cart_submit">{{ __('sentence.addtocart') }}</button>
+                                            {{-- <button type="submit" id="add_cart_button_{{ $extra->id }}"
+                                                class="cart_submit">{{ __('sentence.addtocart') }}</button> --}}
 
                                         </div>
                                     </form>
+
                                 </div>
                             @endforeach
                         </div>
@@ -230,6 +225,23 @@
     @endif
     @push('js')
         <script>
+            // const increaseButtons = document.querySelectorAll('.increase-btn');
+            // const decreaseButtons = document.querySelectorAll('.decrease-btn');
+
+            // // Add click event listener to each increase button
+            // increaseButtons.forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         updateSession(this.getAttribute('data-item'), 1); // Increase quantity by 1
+            //     });
+            // });
+
+            // // Add click event listener to each decrease button
+            // decreaseButtons.forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         updateSession(this.getAttribute('data-item'), -1); // Decrease quantity by 1
+            //     });
+            // });
+
             function changeQuantity(change, id, price, name) {
                 const quantityInput = document.getElementById(`extra_quantity_${id}`);
                 const currentQuantity = Math.max(0, parseInt(quantityInput.value) + change);

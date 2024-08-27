@@ -11,7 +11,7 @@
                     border: 1px solid var(--accent-color);
                 }
 
-                .contact .php-email-form button[type=submit] {;
+                .contact .php-email-form button[type=submit] {
                     background: none;
                     border: 2px solid var(--accent-color);
                     padding: 8px 36px;
@@ -64,11 +64,79 @@
                     color: var(--accent-color);
                     opacity: 0.5 !important;
                 }
-                option{
+
+                option {
                     color: #e5d5bf !important;
                 }
-                .form-select{
+
+                .form-select {
                     color: #e5d5bf !important;
+                }
+
+
+
+
+                .select-hidden {
+                    display: none;
+                }
+
+                .select {
+                    cursor: pointer;
+                    position: relative;
+                    width: 200px;
+                }
+
+                .select-styled {
+                    position: relative;
+                    /* background-color: #b04332; */
+                    padding: 10px;
+                    font-size: 16px;
+                    color: #fff;
+                    border: 1px solid #c35443;
+                }
+
+                .select-styled:after {
+                    content: "";
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    width: 0;
+                    height: 0;
+                    border: 6px solid transparent;
+                    border-top-color: #fff;
+                    transform: translateY(-50%);
+                }
+
+                .select-styled.active:after {
+                    border-bottom-color: #fff;
+                    border-top-color: transparent;
+                }
+
+                .select-options {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background-color: #b04332;
+                    border: 1px solid #c35443;
+                    border-radius: 4px;
+                    margin-top: 5px;
+                    z-index: 999;
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .select-options li {
+                    padding: 10px;
+                    color: #fff;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+
+                .select-options li:hover,
+                .select-options li.is-selected {
+                    background-color: #c35443;
                 }
             </style>
         @endpush
@@ -156,9 +224,38 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="select-wrapper ">
+                                                    <select id="year" class="select-hidden">
+                                                        <option value="hide">-- Year --</option>
+                                                        <option value="2020">2020</option>
+                                                        <option value="2021">2021</option>
+                                                        <option value="2022">2022</option>
+                                                        <option value="2023">2023</option>
+                                                        <option value="2024">2024</option>
+                                                        <option value="2025">2025</option>
+                                                    </select>
+
+                                                    <div class="select">
+                                                        <div class="select-styled">-- Year --</div>
+                                                        <ul class="select-options">
+                                                            <li rel="hide">-- Year --</li>
+                                                            <li rel="2020">2020</li>
+                                                            <li rel="2021">2021</li>
+                                                            <li rel="2022">2022</li>
+                                                            <li rel="2023">2023</li>
+                                                            <li rel="2024">2024</li>
+                                                            <li rel="2025">2025</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-{{-- @dd('we') --}}
+                                    {{-- @dd('we') --}}
                                     <div id="homeDeliveryForm" class="mt-5">
 
                                         @if ($restaurant)
@@ -324,7 +421,8 @@
 
                                                     <tr style="border: 1px solid var(--accent-color)">
                                                         <td>
-                                                            <p class="fs-5 fw-medium ps-3 pt-2 pb-2">{{__(('sentence.paymentmethod'))}}
+                                                            <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
+                                                                {{ __('sentence.paymentmethod') }}
                                                             </p>
                                                             <div class="ps-3">
                                                                 <div class="form-check">
@@ -334,7 +432,7 @@
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
                                                                         for="payment_method1">
-                                                                        {{__(('sentence.cashondelivery'))}}
+                                                                        {{ __('sentence.cashondelivery') }}
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mt-2 mb-3">
@@ -344,7 +442,7 @@
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
                                                                         for="payment_method2">
-                                                                        {{__(('sentence.cart'))}}
+                                                                        {{ __('sentence.cart') }}
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -353,7 +451,8 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr style="border-top: 1px solid var(--accent-color)">
-                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">{{__(('sentence.subtotal'))}}</td>
+                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
+                                                            {{ __('sentence.subtotal') }}</td>
                                                         <td class="fs-6 fw-medium text-center">
                                                             {{ number_format(Cart::getSubTotal(), 2) }} €
                                                         </td>
@@ -361,7 +460,8 @@
                                                     <tr
                                                         style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
-                                                        <td class="fs-5 fw-medium text-center">{{ number_format(Cart::getTotal(), 2) }}
+                                                        <td class="fs-5 fw-medium text-center">
+                                                            {{ number_format(Cart::getTotal(), 2) }}
                                                             €
                                                         </td>
                                                     </tr>
@@ -381,6 +481,8 @@
             </div>
         </section><!-- /Contact Section -->
         @push('js')
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="script.js"></script>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const deliveryOption = document.getElementById('deliveryOption');
@@ -424,6 +526,42 @@
 
                     // Initialize the form state on page load
                     updateFormVisibility();
+                });
+            </script>
+
+
+            <script>
+                $(document).ready(function() {
+                    var $select = $('#year');
+                    var $styledSelect = $('.select-styled');
+                    var $optionsList = $('.select-options');
+
+                    // Initialize the styled select with the first option text
+                    $styledSelect.text($select.find('option:selected').text());
+
+                    // Handle dropdown toggle
+                    $styledSelect.click(function(e) {
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
+                        $optionsList.toggle();
+                    });
+
+                    // Handle option click
+                    $optionsList.on('click', 'li', function(e) {
+                        e.stopPropagation();
+                        var selectedValue = $(this).attr('rel');
+                        $styledSelect.text($(this).text()).removeClass('active');
+                        $select.val(selectedValue);
+                        $optionsList.hide();
+                        $optionsList.find('.is-selected').removeClass('is-selected');
+                        $(this).addClass('is-selected');
+                    });
+
+                    // Hide dropdown when clicking outside
+                    $(document).click(function() {
+                        $styledSelect.removeClass('active');
+                        $optionsList.hide();
+                    });
                 });
             </script>
         @endpush

@@ -74,6 +74,9 @@
     border-right: 2px solid var(--accent-color);
     color: var(--heading-color);
     cursor: pointer;
+    background-color: transparent;
+    border-top: 0px;
+    border-left: 0px;
 }
 
 .inc.qtybutton {
@@ -84,6 +87,8 @@
     border-left: 2px solid var(--accent-color);
     color: var(--heading-color);
     cursor: pointer;
+    background-color: transparent;
+    border-top: 0px;
 }
 
 input.cart-plus-minus-box {
