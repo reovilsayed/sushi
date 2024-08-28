@@ -152,7 +152,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::post('/customer/store', [POSController::class, 'customerStore'])->name('customer.store');
     Route::get('purchase/invoice/{purchase}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
 
-
+    Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::get('send-reports/{customer}', [ReportsController::class, 'send_report'])->name('reports.send');
     Route::get('scrap', [ScrapController::class, 'scrap'])->name('scrap');
     Route::get('/test-email', function () {

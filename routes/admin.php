@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
+    
     Route::controller(RestaurantController::class)->group(function () {
         Route::get('/restaurant', 'viewRestaurants')->name('admin.restaurants');
         Route::get('/restaurant/create', 'createRestaurant')->name('create.restaurant');
