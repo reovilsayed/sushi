@@ -9,17 +9,17 @@
                 </a>
                 <h4 class="fs-6" style="font-family: var(--bs-body-font-family); ">
                     <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                        style="color: #e5d5bf !important;">{{ $product->name }}</a>
+                        style="color: #e5d5bf !important; font-size: 18px !important;">{{ $product->name }}</a>
                 </h4>
                 <div class="d-flex gap-3 justify-content-center">
                     <div class="price-container">
-                        <h5 class="fw-bold price">{{ number_format($product->price , 2)}} €
+                        <h5 class=" price" style="font-size: 14px !important;">{{ number_format($product->price , 2)}} €
                         </h5>
 
 
                         @if ($product->options->count())
                             <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                                class="fw-bold text-colour add-button btn" style="background:#e5d5bf; ">
+                                class=" text-colour add-button btn" style="background:#e5d5bf; font-size: 14px;">
                                 <i class="bi bi-plus"></i>{{ __('sentence.add') }}
                             </a>
                         @else
@@ -28,7 +28,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="fw-bold text-colour btn" style="background:#e5d5bf; ">
+                                <button type="submit" class="text-colour btn" style="background:#e5d5bf; font-size: 14px !important; ">
                                     <i class="bi bi-plus"></i>{{ __('sentence.add') }}</button>
                             </form>
                         @endif

@@ -41,7 +41,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="btn-orange">{{ __('sentence.addtocart') }}</button>
+                                <button type="submit" class="btn-orange" style="">{{ __('sentence.addtocart') }}</button>
 
                             </div>
                         </div>
