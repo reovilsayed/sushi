@@ -52,4 +52,12 @@ $app->singleton(
 |
 */
 
+function setMinValue($value, $min) {
+    if($value < $min){
+        return $min;
+    }else{
+        return $value;
+    }
+}
+
 return $app;
