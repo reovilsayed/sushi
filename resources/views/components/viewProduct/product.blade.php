@@ -17,7 +17,7 @@
                         </h5>
 
 
-                        @if ($product->options)
+                        @if ($product->options->count())
                             <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
                                 class="fw-bold text-colour add-button btn" style="background:#e5d5bf; ">
                                 <i class="bi bi-plus"></i>{{ __('sentence.add') }}
