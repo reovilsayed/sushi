@@ -4,7 +4,7 @@
             <div class="text-center product-hover">
                 <a
                     href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}">
-                    <img class="img-fluid" src="{{asset('images/new/no-image.jpg')}}"
+                    <img class="img-fluid" loading="lazy" src="{{asset('images/new/no-image.jpg')}}"
                         data-src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
                 </a>
                 <h4 class="fs-6" style="font-family: var(--bs-body-font-family); ">
