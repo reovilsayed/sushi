@@ -30,7 +30,7 @@
                                             <option selected value="">{{ __('sentence.otherOptions') }}</option>
                                             @foreach ($productOption as $option)
                                                 <option value="{{ $option->id }}">{{ $option->option_name }}
-                                                    {{ $option->option_price }}</option>
+                                                    {{ number_format($option->option_price, 2) }}</option>
                                             @endforeach
                                         </select>
                                     </div>

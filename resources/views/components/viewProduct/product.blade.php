@@ -13,7 +13,7 @@
                 </h4>
                 <div class="d-flex gap-3 justify-content-center">
                     <div class="price-container">
-                        <h5 class="fw-bold price">{{ $product->price }} €
+                        <h5 class="fw-bold price">{{ number_format($product->price , 2)}} €
                         </h5>
 
 
