@@ -66,7 +66,7 @@
         <!-- Section Title -->
         <div class="container section-title text-center " data-aos="fade-up">
             <h2>{{ __('sentence.location') }}</h2>
-            <p>{{ __('sentence.locationtitle') }}</p>
+            <p style="color: #E5D5BF">{{ __('sentence.locationtitle') }}</p>
         </div><!-- End Section Title -->
 
         <div class="container mb-5" data-default-filter="*" data-layout="masonry" data-sort="original-order">
