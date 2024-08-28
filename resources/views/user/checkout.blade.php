@@ -1,9 +1,12 @@
     @php
         $firstItem = Cart::getContent()->first();
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
-        $locations=explode(',',session()->get('current_location'));
+        $locations = explode(',', session()->get('current_location'));
+
+        $timeSelect = session()->get('delivery_time') 
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
+
     @endphp
 
     <x-user>
@@ -171,7 +174,7 @@
         <br><br><br>
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
-            {{-- @dd($zone) --}}
+            {{-- @dd($time) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 {{-- @dd(session('current_location')) --}}
@@ -196,6 +199,14 @@
                         <form action="{{ route('order_store') }}" method="post" class="php-email-form"
                             data-aos="fade-up" data-aos-delay="200">
                             @csrf
+
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}<br>
+                                    @endforeach
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col-md-8 mb-3">
                                     <div class="col-md-12">
@@ -204,8 +215,10 @@
                                             <option selected style="color: var(--accent-color)">
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
-                                            <option value="take_away" >{{ __('sentence.takeaway') }}</option>
-                                            <option value="home_delivery" {{ session()->get('current_location') ? 'selected' :'' }}>{{ __('sentence.homedelivery') }}</option>
+                                            <option value="take_away">{{ __('sentence.takeaway') }}</option>
+                                            <option value="home_delivery"
+                                                {{ session()->get('current_location') ? 'selected' : '' }}>
+                                                {{ __('sentence.homedelivery') }}</option>
                                         </select>
                                     </div>
 
@@ -236,17 +249,24 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="email" name="email" disabled class="form-control"
-                                                    placeholder="Your Email" required
-                                                    value={{ auth()->user()->email ?? '' }}>
+                                                <input type="email" name="email" disabled
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    placeholder="Your Email" required=""
+                                                    value="{{ old('email', auth()->user()->email ?? '') }}">
+                                                @error('email')
+                                                    <p class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </p>
+                                                @enderror
                                             </div>
+                                        
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}">{{ $time }}
+                                                        <option value="{{ $time }}" {{ $time==$timeSelect ? 'selected' :'' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -312,26 +332,26 @@
 
                                             <div class="col-md-12">
                                                 <input type="email" name="email" class="form-control"
-                                                    placeholder="Your Email" required=""
+                                                    placeholder="Your Email" required
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Your Address" required=""
-                                                    value="{{auth()->user()->address ?? $locations[1] ?? ''}}" >
+                                                    placeholder="Your Address" required
+                                                    value="{{ auth()->user()->address ?? ($locations[1] ?? '') }}">
 
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required=""
-                                                    value="{{ auth()->user()->city ?? $locations[0] ?? '' }}">
+                                                    value="{{ auth()->user()->city ?? ($locations[0] ?? '') }}">
 
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
                                                     placeholder="Your Post Code" required=""
-                                                    value={{auth()->user()->post_code ??   $locations[4] ?? ''}}>
+                                                    value={{ auth()->user()->post_code ?? ($locations[4] ?? '') }}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -344,7 +364,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="Your House" required=""
+                                                    placeholder="Your House"
                                                     value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
@@ -355,7 +375,7 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}">{{ $time }}
+                                                        <option value="{{ $time }}" {{ $time==$timeSelect ? 'selected' :'' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -519,7 +539,7 @@
                     const takeAwayForm = document.getElementById('takeAwayForm');
                     const homeDeliveryForm = document.getElementById('homeDeliveryForm');
                     const orderButton = document.getElementById('orderButton');
-            
+
                     // Function to set the disabled state for all inputs within a form
                     const setFormDisabledState = (form, disabled) => {
                         if (form) {
@@ -527,11 +547,11 @@
                             inputs.forEach(input => input.disabled = disabled);
                         }
                     };
-            
+
                     // Function to update form visibility and input state based on the selected option
                     const updateFormVisibility = () => {
                         const selectedOption = deliveryOption.value;
-            
+
                         if (selectedOption === 'take_away') {
                             takeAwayForm.style.display = 'block';
                             homeDeliveryForm.style.display = 'none';
@@ -552,10 +572,10 @@
                             orderButton.disabled = true;
                         }
                     };
-            
+
                     // Event listener to detect changes in the delivery option
                     deliveryOption.addEventListener('change', updateFormVisibility);
-            
+
                     // Initialize the form state on page load
                     updateFormVisibility();
                 });

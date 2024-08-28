@@ -32,7 +32,7 @@ class Category extends Model
     }
     public function childs()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id')->with('products');
     }
     public function products()
     {

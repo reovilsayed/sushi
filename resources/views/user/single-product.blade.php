@@ -21,7 +21,7 @@
                         @csrf
                         <div class="price mb-5">
                             <div class="row">
-                                <h2 class="col-md-2">{{ $product->price }}€</h2>
+                                <h2 class="col-md-2">{{ number_format($product->price, 2) }}€</h2>
                                 @if ($productOption->isNotEmpty())
                                     <div class="col-md-6">
                                         <select class="form-select selectpicker  mb-3 text-colour"
@@ -30,7 +30,7 @@
                                             <option selected value="">{{ __('sentence.otherOptions') }}</option>
                                             @foreach ($productOption as $option)
                                                 <option value="{{ $option->id }}">{{ $option->option_name }}
-                                                    {{ $option->option_price }}</option>
+                                                    {{ number_format($option->option_price, 2) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -41,7 +41,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="btn-orange">{{ __('sentence.addtocart') }}</button>
+                                <button type="submit" class="btn-orange" style="">{{ __('sentence.addtocart') }}</button>
 
                             </div>
                         </div>

@@ -80,7 +80,7 @@ class Cart extends Component
                     $this->extraPrice[$id]['discount'] = $data['unit'] * $data['qty'];
                     $this->extraPrice['discountedItem'] += $data['qty'];
                 }
-                $this->extraPrice[$id]['total'] = $this->extraPrice[$id]['subtotal'] - $this->extraPrice[$id]['discount'];
+                $this->extraPrice[$id]['total'] = setMinValue($this->extraPrice[$id]['subtotal'] - $this->extraPrice[$id]['discount'], 0);
             }
 
 

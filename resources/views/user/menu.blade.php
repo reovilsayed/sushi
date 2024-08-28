@@ -229,15 +229,18 @@
                 </div>
 
                 <div class="section-title col-md-4">
-                    <h2>Choose Delivery Time</h2>
-                    <select
-                        name="time_option"class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time ''"
-                        data-container="body">
-                        @foreach ($timeSlots as $time)
-                            <option value="{{ $time }}" class="''">{{ $time }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <form id="timeForm" action="{{ route('time_update') }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <h2>Choose Delivery Time</h2>
+                        <select name="TimeOption"
+                            class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time"
+                            data-container="body" onchange="submitTimeForm()">
+                            @foreach ($timeSlots as $time)
+                                <option value="{{ $time }}">{{ $time }}</option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
 
             </div>
@@ -302,13 +305,14 @@
                 <div class="col-md-10">
                     <div class="row ">
                         @foreach ($categories as $category)
+                        @
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                         <a id="{{ $child->name }}" href=""
                                             class="  h4">{{ $child->name }}</a>
                                         <p class="mt-2">{{ $child->description }}</p>
-                                        <hr>
+                                        {{-- <hr> --}}
                                     </div>
 
                                     <div class="row justify-content-center">
@@ -356,11 +360,12 @@
                                 id="home-delivery">{{ __('sentence.enter') }}</button>
                         </div>
                     </form> --}}
-          
+
                     <form action="{{ route('location.store') }}" method="post" id="location-form">
                         @csrf
                         <div class="input-group text-center">
-                            <input type="text" id="location-input" name="location" value="{{ session()->get('current_location') ?? '' }}"
+                            <input type="text" id="location-input" name="location"
+                                value="{{ session()->get('current_location') ?? '' }}"
                                 class="form-control form-control-lg location text-center"
                                 style="color: var(--accent-color);" placeholder="Enter Location"
                                 aria-label="Enter Location" aria-describedby="button-addon2">
@@ -424,6 +429,13 @@
 
 
         @push('js')
+            <script>
+                function submitTimeForm() {
+                    // Submit the form when an option is selected
+                    document.getElementById('timeForm').submit();
+                }
+            </script>
+
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const categoryButtons = document.querySelectorAll('.category-button');

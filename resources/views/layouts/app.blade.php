@@ -62,7 +62,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!--custom script-->
     <script src="{{asset('js/custom.js')}}"></script>
-
+    
 </body>
 
 </html>
