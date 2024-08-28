@@ -7,9 +7,9 @@
                     <img class="img-fluid" loading="lazy" src="{{asset('images/new/no-image.jpg')}}"
                         data-src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
                 </a>
-                <h4 class="fs-6" style="font-family: var(--bs-body-font-family); ">
+                <h4 class="" style="">
                     <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                        style="color: #e5d5bf !important; font-size: 18px !important;">{{ $product->name }}</a>
+                        style="color: #ff883e !important; !important; font-size: 16px !important; font-weight: 300 !important;">{{ $product->name }}</a>
                 </h4>
                 <div class="d-flex gap-3 justify-content-center">
                     <div class="price-container">

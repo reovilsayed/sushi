@@ -21,7 +21,7 @@
                         @csrf
                         <div class="price mb-5">
                             <div class="row">
-                                <h2 class="col-md-2">{{ $product->price }}€</h2>
+                                <h2 class="col-md-2">{{ number_format($product->price, 2) }}€</h2>
                                 @if ($productOption->isNotEmpty())
                                     <div class="col-md-6">
                                         <select class="form-select selectpicker  mb-3 text-colour"
