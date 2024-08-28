@@ -13,10 +13,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 d-flex flex-column align-items-center align-items-lg-start">
-                    <h2 data-aos="fade-up" data-aos-delay="100">{{ __('sentence.welcome') }}
+                    <h2 class="text-center" data-aos="fade-up" data-aos-delay="100">{{ __('sentence.welcome') }}
                         <span>{{ Settings::setting('site.title') }}</span>
                     </h2>
-                    <p data-aos="fade-up" data-aos-delay="200">{{ __('sentence.sitesubtitle') }}</p>
+                    <p data-aos="fade-up" data-aos-delay="200">{{ Settings::setting('site.subtitle')}}</p>
                     <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
                         {{-- <a href="#" class="cta-btn">Our Menu</a> --}}
                         <a href="#location" class="cta-btn">{{ __('sentence.location') }}</a>
@@ -27,6 +27,40 @@
         </div>
 
     </section><!-- /Hero Section -->
+    {{-- @dd(Settings::setting('slide.laft')) --}}
+    <section>
+        <div class="container ">
+            <div class="row">
+              <div class="col-3 mt-5" data-aos="fade-right">
+                <img src="{{Storage::url(Settings::setting('slide.laft'))}}" class="img-fluid" alt="laft">
+              </div>
+              <div class="col-3">
+                <div class="row">
+                  <div class="col-12" data-aos="fade-up">
+                    <img src="{{Storage::url(Settings::setting('slide.laft_top'))}}" class="img-fluid" alt="laft_top">
+                  </div>
+                  <div class="col-12 " data-aos="fade-down">
+                    <img src="{{Storage::url(Settings::setting('slide.laft_bottom'))}}" class="img-fluid" alt="laft_bottom">
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="row">
+                  <div class="col-12 " data-aos="fade-right">
+                    <img src="{{Storage::url(Settings::setting('slide.right_top'))}}" class="img-fluid" alt="right_top">
+                  </div>
+                  <div class="col-12" data-aos="fade-left">
+                    <img src="{{Storage::url(Settings::setting('slide.right_bottom'))}}" class="img-fluid" alt="right_bottom">
+                  </div>
+          
+                </div>
+              </div>
+              <div class="col-3  mt-5" data-aos="fade-down">
+                <img src="{{Storage::url(Settings::setting('slide.right'))}}" class="img-fluid" alt="right">
+              </div>
+            </div>
+          </div>
+    </section>
     <section id="location" class="menu section bg-transparent">
 
         <!-- Section Title -->

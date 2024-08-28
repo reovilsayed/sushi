@@ -25,6 +25,16 @@ class SettingTableSeeder extends Seeder
             ]
         );
         $setting = Setting::firstOrCreate(
+            ['key' => 'site.subtitle'],
+            [
+                'display_name' => 'name site-subtitle',
+                'value' => 'value site subtitle',
+                'details' => '',
+
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
             ['key' => 'site.email'],
             [
                 'display_name' => 'name site-email',
@@ -101,6 +111,61 @@ class SettingTableSeeder extends Seeder
                 'value' => 'value site google_analytics_tracking_id',
                 'details' => '',
 
+                'group' => 'Site',
+            ]
+        );
+
+        $setting = Setting::firstOrCreate(
+            ['key' => 'slide.laft'],
+            [
+                'display_name' => 'laft slide',
+                'value' => 'value slide',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'slide.laft_top'],
+            [
+                'display_name' => 'laft slide Top',
+                'value' => 'value slide',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'slide.laft_bottom'],
+            [
+                'display_name' => 'laft slide Bottom' ,
+                'value' => 'value slide',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'slide.right'],
+            [
+                'display_name' => 'right slide',
+                'value' => 'value slide',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'slide.right_top'],
+            [
+                'display_name' => 'right slide Top',
+                'value' => 'value slide',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'slide.right_bottom'],
+            [
+                'display_name' => 'right slide Bottom',
+                'value' => 'value slide',
+                'details' => '',
                 'group' => 'Site',
             ]
         );

@@ -26,7 +26,8 @@
     <link href="{{ asset('niko/assets/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-
+    {{-- aos link  --}}
+    <link rel="stylesheet" href="{{asset('aos/aos.css')}}">
     <!-- Main CSS File -->
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
@@ -80,7 +81,8 @@
     <script src="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     {{-- logout  --}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt4M6sXKliR4X6j3l3ubOt8HeXN-CKMMY"></script>
-
+    {{-- aos link  --}}
+    <link rel="stylesheet" href="{{asset('aos/aos.js')}}">
     <!-- Main JS File -->
     <script src="{{ asset('niko/assets/js/main.js') }}"></script>
     <script>
