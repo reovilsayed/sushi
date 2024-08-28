@@ -312,7 +312,7 @@
                                         <a id="{{ $child->name }}" href=""
                                             class="  h4">{{ $child->name }}</a>
                                         <p class="mt-2">{{ $child->description }}</p>
-                                        <hr>
+                                        {{-- <hr> --}}
                                     </div>
 
                                     <div class="row justify-content-center">
