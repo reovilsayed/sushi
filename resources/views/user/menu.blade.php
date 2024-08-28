@@ -128,6 +128,75 @@
             .btn-close:focus {
                 box-shadow: none !important;
             }
+
+            .disabled-link {
+                pointer-events: none;
+                cursor: default;
+                color: gray;
+            }
+
+            .select-hidden {
+                display: none;
+            }
+
+            .select {
+                cursor: pointer;
+                position: relative;
+                width: 200px;
+            }
+
+            .select-styled {
+                position: relative;
+                /* background-color: #b04332; */
+                padding: 10px;
+                font-size: 16px;
+                color: #fff;
+                border: 1px solid #c35443;
+            }
+
+            .select-styled:after {
+                content: "";
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                width: 0;
+                height: 0;
+                border: 6px solid transparent;
+                border-top-color: #fff;
+                transform: translateY(-50%);
+            }
+
+            .select-styled.active:after {
+                border-bottom-color: #fff;
+                border-top-color: transparent;
+            }
+
+            .select-options {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #b04332;
+                border: 1px solid #c35443;
+                border-radius: 4px;
+                margin-top: 5px;
+                z-index: 999;
+                list-style: none;
+                padding: 0;
+            }
+
+            .select-options li {
+                padding: 10px;
+                color: #fff;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .select-options li:hover,
+            .select-options li.is-selected {
+                background-color: #c35443;
+            }
         </style>
     @endpush
     <br><br><br>
@@ -149,13 +218,16 @@
                             Choose Delivery Here
                         </button>
                         <ul class="dropdown-menu delivery-dropdown" style="width: 216px !important;">
-                            <li><a class="dropdown-item text-colour" href="#">{{ __('sentence.takeaway') }}</a>
+                            <li><a class="dropdown-item text-colour disabled-link"
+                                    href="#">{{ __('sentence.takeaway') }}</a></li>
+
                             </li>
                             <li><button class="dropdown-item text-colour" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">{{ __('sentence.homedelivery') }}</button></li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="section-title col-md-4">
                     <h2>Choose Delivery Time</h2>
                     <select
@@ -284,12 +356,13 @@
                                 id="home-delivery">{{ __('sentence.enter') }}</button>
                         </div>
                     </form> --}}
-
+          
                     <form action="{{ route('location.store') }}" method="post" id="location-form">
                         @csrf
                         <div class="input-group text-center">
-                            <input type="text" id="location-input" name="location"
-                                class="form-control form-control-lg location text-center" placeholder="Enter Location"
+                            <input type="text" id="location-input" name="location" value="{{ session()->get('current_location') ?? '' }}"
+                                class="form-control form-control-lg location text-center"
+                                style="color: var(--accent-color);" placeholder="Enter Location"
                                 aria-label="Enter Location" aria-describedby="button-addon2">
                             <button class="btn btn-outline-orange" type="button" id="location-button">
                                 <i class="bi bi-geo-alt"></i>
@@ -305,7 +378,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel" style="background: rgba(0, 0, 0, 0.5)">
         <div class="offcanvas-header">
@@ -374,6 +447,7 @@
                     });
                 });
             </script>
+
 
 
             {{-- <script>

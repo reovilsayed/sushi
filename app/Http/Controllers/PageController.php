@@ -18,6 +18,7 @@ use App\Models\Attachment;
 use Cart;
 use Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -301,30 +302,13 @@ class PageController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request
         $request->validate([
             'location' => 'required|string',
         ]);
 
-        // Get the full address string from the request
         $fullAddress = $request->input('location');
 
-        // Explode the address into parts (assuming the address is comma-separated)
-        $addressParts = explode(',', $fullAddress);
-
-        // Create an associative array for the address parts
-        $addressName = [
-            'city' => $addressParts[0] ?? null,
-            'street' => $addressParts[1] ?? null,
-            'district' => $addressParts[2] ?? null,
-            'state' => $addressParts[3] ?? null,
-            'post_code' => $addressParts[4] ?? null,
-            'country' => $addressParts[5] ?? null, // Use the correct index for country
-        ];
-        // Store the exploded address parts in the session
-        session([
-            'current_location' => $addressName, // Store the entire array
-        ]);
+        Session::put('current_location',$fullAddress);
 
         // Handle the rest of the form submission
         return redirect()->back()->with('success', 'Location stored successfully!');

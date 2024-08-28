@@ -1,6 +1,8 @@
     @php
         $firstItem = Cart::getContent()->first();
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
+        $locations=explode(',',session()->get('current_location'));
+
         // $zone = $restaurant ? $restaurant->zones->get() : null;
     @endphp
 
@@ -202,8 +204,8 @@
                                             <option selected style="color: var(--accent-color)">
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
-                                            <option value="take_away">{{ __('sentence.takeaway') }}</option>
-                                            <option value="home_delivery">{{ __('sentence.homedelivery') }}</option>
+                                            <option value="take_away" >{{ __('sentence.takeaway') }}</option>
+                                            <option value="home_delivery" {{ session()->get('current_location') ? 'selected' :'' }}>{{ __('sentence.homedelivery') }}</option>
                                         </select>
                                     </div>
 
@@ -223,19 +225,19 @@
 
                                             <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="f_name"
-                                                    placeholder="Your First Name" required=""
+                                                    placeholder="Your First Name" required
                                                     value={{ auth()->user()->name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <input type="text" name="l_name" class="form-control"
-                                                    placeholder="Your Last Name" required=""
+                                                    placeholder="Your Last Name" required
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <input type="email" name="email" disabled class="form-control"
-                                                    placeholder="Your Email" required=""
+                                                    placeholder="Your Email" required
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
@@ -317,29 +319,19 @@
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
                                                     placeholder="Your Address" required=""
-                                                    value="{{ auth()->check() && auth()->user()->address
-                                                        ? auth()->user()->address
-                                                        : trim(
-                                                            session('current_location.street', '') .
-                                                                ' ' .
-                                                                session('current_location.district', '') .
-                                                                ' ' .
-                                                                session('current_location.state', '') .
-                                                                ' ' .
-                                                                session('current_location.country', ''),
-                                                        ) }}">
+                                                    value="{{auth()->user()->address ?? $locations[1] ?? ''}}" >
 
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required=""
-                                                    value="{{ auth()->check() && auth()->user()->city ? auth()->user()->city : session('current_location.city') ?? '' }}">
+                                                    value="{{ auth()->user()->city ?? $locations[0] ?? '' }}">
 
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
                                                     placeholder="Your Post Code" required=""
-                                                    value={{ auth()->check() && auth()->user()->post_code ? auth()->user()->post_cod : session('current_location.post_code') ?? '' }}>
+                                                    value={{auth()->user()->post_code ??   $locations[4] ?? ''}}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -527,24 +519,26 @@
                     const takeAwayForm = document.getElementById('takeAwayForm');
                     const homeDeliveryForm = document.getElementById('homeDeliveryForm');
                     const orderButton = document.getElementById('orderButton');
-
+            
                     // Function to set the disabled state for all inputs within a form
                     const setFormDisabledState = (form, disabled) => {
-                        const inputs = form.querySelectorAll('input, select, textarea');
-                        inputs.forEach(input => input.disabled = disabled);
+                        if (form) {
+                            const inputs = form.querySelectorAll('input, select, textarea');
+                            inputs.forEach(input => input.disabled = disabled);
+                        }
                     };
-
+            
                     // Function to update form visibility and input state based on the selected option
                     const updateFormVisibility = () => {
                         const selectedOption = deliveryOption.value;
-
+            
                         if (selectedOption === 'take_away') {
                             takeAwayForm.style.display = 'block';
                             homeDeliveryForm.style.display = 'none';
                             setFormDisabledState(takeAwayForm, false);
                             setFormDisabledState(homeDeliveryForm, true);
                             orderButton.disabled = false;
-                        } else if (selectedOption === 'home_delivery') {
+                        } else if (selectedOption === 'home_delivery' || "{{ session()->has('current_location') }}") {
                             takeAwayForm.style.display = 'none';
                             homeDeliveryForm.style.display = 'block';
                             setFormDisabledState(takeAwayForm, true);
@@ -558,10 +552,10 @@
                             orderButton.disabled = true;
                         }
                     };
-
+            
                     // Event listener to detect changes in the delivery option
                     deliveryOption.addEventListener('change', updateFormVisibility);
-
+            
                     // Initialize the form state on page load
                     updateFormVisibility();
                 });
