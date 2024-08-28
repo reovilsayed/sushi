@@ -4,7 +4,13 @@
         $currencies = App\Constant\Dataset::CURRENCY;
 
     @endphp
-    
+    <style>
+        .btn-outline-dark:hover {
+            color: #fff !important;
+            background-color: #212529;
+            border-color: #212529;
+        }
+    </style>
     <form action="{{ route('setting.update') }}" method="POST" class="row g-3" enctype="multipart/form-data">
         @csrf
         <div class=" dashboard_content_setting">
@@ -16,7 +22,7 @@
                                 <div class="profile_pic_lft">
                                     <div class="">
                                         <div class="row row-cols-1 row-cols-md-2">
-                                            
+
                                             <div class="prf_box mt-3">
                                                 <div class="prf" data-profile-image>
                                                     <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('images/logo.png') }}"
@@ -41,8 +47,12 @@
                                                             href="">{{ Settings::setting('site.email') ? Settings::setting('site.email') : 'site Email' }}</a>
                                                     </p>
                                                     <p><img src="{{ asset('images/phone.png') }}"
-                                                            alt="" />{{Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone'}}
+                                                            alt="" />{{ Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone' }}
                                                     </p>
+                                                    <button type="button" class="btn btn-outline-success"
+                                                        data-bs-toggle="modal" data-bs-target="#ChangeHeroImage">
+                                                        Change Hero Image
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -60,7 +70,8 @@
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::setting('site.subtitle') ? Settings::setting('site.subtitle') : 'site subtitle' }}"
-                                                            placeholder="Site SubTitle" class="" name="site_subtitle">
+                                                            placeholder="Site SubTitle" class=""
+                                                            name="site_subtitle">
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
@@ -69,22 +80,24 @@
                                                         <input type="text"
                                                             value="{{ Settings::setting('site.email') ? Settings::setting('site.email') : 'site Email' }}"
                                                             placeholder="Site Email" class="" name="site_email">
-                                                    </div>  
+                                                    </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
                                                     <div class="label">{{ __('sentence.sitenumber') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone' }}"
-                                                            placeholder="Site Phone Number" class="" name="site_phone">
+                                                            placeholder="Site Phone Number" class=""
+                                                            name="site_phone">
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
                                                     <div class="label">{{ __('sentence.facebooklink') }}</div>
                                                     <div class="input">
                                                         <input type="text"
-                                                            value="{{ Settings::setting('facebook.link') ? Settings::setting('facebook.link')  : 'facebook link' }}"
-                                                            placeholder="facebook link" class="" name="facebook_link">
+                                                            value="{{ Settings::setting('facebook.link') ? Settings::setting('facebook.link') : 'facebook link' }}"
+                                                            placeholder="facebook link" class=""
+                                                            name="facebook_link">
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
@@ -92,7 +105,8 @@
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::setting('instagram.link') ? Settings::setting('instagram.link') : 'instagram link' }}"
-                                                            placeholder="Insatagram Link" class="" name="instagram_link">
+                                                            placeholder="Insatagram Link" class=""
+                                                            name="instagram_link">
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
@@ -104,46 +118,48 @@
                                                     </div>
                                                 </div>
 
-                                               
+
                                                 <div class="col-12 d-flex justify-content-between mt-2">
                                                     <button class="btn btn-outline-primary h-auto" type="submit"> <i
                                                             class="fa fa-save"></i> {{ __('sentence.save') }}</button>
                                                     <button type="button" class="btn btn-outline-primary"
                                                         data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                                        <i class="fa-solid fa-key"></i> {{ __('sentence.changepassword') }}
+                                                        <i class="fa-solid fa-key"></i>
+                                                        {{ __('sentence.changepassword') }}
                                                     </button>
+
                                                 </div>
 
                                             </div>
                                         </div>
                                         <hr class="my-4 ">
                                         <div class="slide-show mt-3 row">
-                                           <div class="form-group col-md-4">
-                                            <label for="laft">Laft Image</label>
-                                            <input type="file" class="form-control" name="laft">
-                                           </div>
-                                           <div class="form-group col-md-4">
-                                            <label for="laft-top">Laft Top Image</label>
-                                            <input type="file" class="form-control" name="laft-top">
-                                           </div>
-                                           <div class="form-group col-md-4">
-                                            <label for="laft-bottom">Laft bottom Image</label>
-                                            <input type="file" class="form-control" name="laft-bottom">
-                                           </div>
-                                           <div class="form-group col-md-4">
-                                            <label for="right">Right Image</label>
-                                            <input type="file" class="form-control" name="right">
-                                           </div>
-                                           <div class="form-group col-md-4">
-                                            <label for="right-top">Right Top Image</label>
-                                            <input type="file" class="form-control" name="right-top">
-                                           </div>
-                                           <div class="form-group col-md-4">
-                                            <label for="right-bottom">Right bottom Image</label>
-                                            <input type="file" class="form-control" name="right-bottom">
-                                           </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="laft">Laft Image (1080x1920)</label>
+                                                <input type="file" class="form-control" name="laft">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="laft-top">Laft Top Image (1920x1080)</label>
+                                                <input type="file" class="form-control" name="laft-top">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="laft-bottom">Laft bottom Image (1080x1920)</label>
+                                                <input type="file" class="form-control" name="laft-bottom">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="right">Right Image (1080x1920)</label>
+                                                <input type="file" class="form-control" name="right">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="right-top">Right Top Image (1080x1920)</label>
+                                                <input type="file" class="form-control" name="right-top">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="right-bottom">Right bottom Image (1920x1080)</label>
+                                                <input type="file" class="form-control" name="right-bottom">
+                                            </div>
 
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -155,6 +171,48 @@
         </div>
 
     </form>
+   
+    <div class="dashboard_content ps-0 mt-2">
+        <div class="dashboard_content_inner">
+            <div class="d-flex justify-content-between mt-1 mb-3">
+                <div style="float"class="mt-2">
+                    <h3>
+                        Slider Images Here
+                    </h3>
+                
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th scope="col">#</th>
+                        <th scope="col">{{ __('sentence.image') }}</th>
+                        <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($heros as $key => $hero)
+                    <tr>
+
+                        {{-- @dd($hero) --}}
+                        <th scope="row">{{ $key + 1 }}</th>
+                        <td>
+                            <img class="" height="100" width="100" src="{{ Storage::url($hero->slider_image) }}"
+                                alt="">
+                        </td>
+                        <td class="text-center">
+                            <x-actions.delete :action="route('delete.slide_image', $hero)" />
+                        </td>
+                    </tr>
+                @endforeach  
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -170,8 +228,8 @@
 
                         <div class="mb-3">
                             <label for="current_password" class="form-label">Current Password</label>
-                            <input type="password" class="form-control" id="current_password" name="current_password"
-                                required>
+                            <input type="password" class="form-control" id="current_password"
+                                name="current_password" required>
                         </div>
 
                         <div class="mb-3">
@@ -191,6 +249,39 @@
                                     class="fa-regular fa-circle-xmark"></i> Close</button>
                             <button type="submit" class="btn btn-outline-primary">
                                 <i class="fa-solid fa-key"></i> Change Password
+                            </button>
+                        </div>
+                    </form>
+                    <!-- End of Change Password Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ChangeHeroImage" tabindex="-1" aria-labelledby="ChangeHeroImageLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ChangeHeroImageLabel">Change Hero Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your Change Password Form -->
+                    <form method="POST" action="{{ route('store.heroImage') }}" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="mt-3">
+                            <div class="form-group ">
+                                <label for="hero_image">Hero Image (1920x1080)</label>
+                                <input type="file" class="form-control" name="hero_image[]" multiple>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                    class="fa-regular fa-circle-xmark"></i> Close</button>
+                            <button type="submit" class="btn btn-outline-success">
+                                 Change Hero Image
                             </button>
                         </div>
                     </form>

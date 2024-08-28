@@ -43,6 +43,8 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::controller(SettingController::class)->group(function () {
         Route::get('/settings', 'index')->name('settings.index');
         Route::post('/settings/update', 'updateSettings')->name('setting.update');
+        Route::post('/settings/update/hero', 'storeHeroImage')->name('store.heroImage');
+        Route::delete('/slider/image/{hero}', 'deleteImage')->name('delete.slide_image');
     });
     Route::controller(PageController::class)->group(function () {
         Route::get('/pages', 'adminPages')->name('admin.pages');

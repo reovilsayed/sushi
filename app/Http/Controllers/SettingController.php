@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Models\SliderImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -14,9 +15,9 @@ class SettingController extends Controller
     //  */
     public function index()
     {
-
-
-        return view('pages.settings.update');
+        
+        $heros = SliderImage::latest()->get();
+        return view('pages.settings.update',compact('heros'));
     }
 
 
@@ -110,6 +111,14 @@ class SettingController extends Controller
             $path = $request->file('right-bottom')->store('images', 'public');
             Setting::where('key', 'slide.right_bottom')->update(['value' => $path]);
         }
+        if ($request->hasFile('hero_image')) {
+            $currentImage = Setting::where('key', 'site.hero_image')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('hero_image')->store('images', 'public');
+            Setting::where('key', 'site.hero_image')->update(['value' => $path]);
+        }
 
 
 
@@ -136,5 +145,20 @@ class SettingController extends Controller
         $user->save();
 
         return back()->with('success', 'Password changed successfully');
+    }
+    public function storeHeroImage(Request $request)
+    {
+        foreach ($request->hero_image as $image) {
+            SliderImage::create([
+                'slider_image' => $image->store('images'),
+            ]);
+        }
+        return redirect(route('settings.index'))->with('success', 'Hero image was successfully stored');
+    }
+    public function deleteImage(SliderImage $hero){
+        
+            $hero->delete();
+            return redirect()->back()->with('success', 'Slider Image deleted');
+
     }
 }

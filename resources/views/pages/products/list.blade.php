@@ -9,12 +9,12 @@
 
     <div class="dashboard_content ps-0 mt-2">
         <div class="dashboard_content_inner">
-            <div class="d-flex justify-content-between mt-1 mb-3">
-                <div style="float"class="mt-2">
-                    <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
-                        {{ __('sentence.addnewproduct') }}</a>
+                <div class="d-flex justify-content-between mt-1 mb-3">
+                    <div style="float"class="mt-2">
+                        <a href="{{ route('create.product') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
+                            {{ __('sentence.addnewproduct') }}</a>
+                    </div>
                 </div>
-            </div>
             <table class="table">
                 <thead>
                     <tr>

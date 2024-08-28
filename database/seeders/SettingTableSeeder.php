@@ -169,6 +169,7 @@ class SettingTableSeeder extends Seeder
                 'group' => 'Site',
             ]
         );
+
         
     }
 }

@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductOption;
 use App\Models\Restaurant;
+use App\Models\SliderImage;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -30,7 +31,8 @@ class PageController extends Controller
         // foreach ($zones as $zone) {
         //     dd($zone);
         // }
-        return view('user.home', compact('restaurants', 'zones'));
+        $heros = SliderImage::latest()->get();
+        return view('user.home', compact('restaurants', 'zones','heros'));
     }
 
     public function menu($slug)
