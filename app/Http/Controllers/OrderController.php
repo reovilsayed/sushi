@@ -199,8 +199,8 @@ class OrderController extends Controller
                 $amount = $order->total * 100;
                 $orderId = $order->id;
                 $merchantId = '083262709500018';
-                $secretKey = 'SaAw3gC5e_sFA3l8LB_AUbAuU8NHcVl3FvdOJrPWOKM';
-                $keyVersion = 3;        
+                $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+                $keyVersion = 3;
                 $normalRetrunUrl = url('payment/callback');
                 $currencyCode = 978;
 
