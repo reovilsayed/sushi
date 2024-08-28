@@ -39,84 +39,62 @@ class PageController extends Controller
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
 
-
         $restaurantId = $restaurant->id;
-      
-        // Get the restaurant ID dynamically
-        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
-        $dayOfWeek = $currentTime->dayOfWeek;  // Get the day of the week
+        $currentTime = Carbon::createFromTime(19, 32, 0, 'Europe/Paris');
+        $dayOfWeek = $currentTime->dayOfWeek;
 
         $timeSlots = [];
+        $timeRanges = $this->getTimeRanges($restaurantId, $dayOfWeek);
 
-        // Restaurant ID 4: Saturday to Thursday: 11:00 AM - 11:00 PM; Friday: 6:00 PM - 12:00 AM
-        if ($restaurantId == 4) {
-            if ($dayOfWeek == Carbon::FRIDAY) {
-                $startTime = Carbon::createFromTime(18, 0, 0, 'Europe/Paris');  // 6:00 PM
-                $endTime = Carbon::createFromTime(24, 0, 0, 'Europe/Paris');    // 12:00 AM
-            } else {
-                $startTime = Carbon::createFromTime(11, 0, 0, 'Europe/Paris');  // 11:00 AM
-                $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');    // 11:00 PM
-            }
+        foreach ((array) $timeRanges as $range) {
 
-            // Generate time slots for restaurant ID 4
-            for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {  // 30 min slot + 15 min break
-                if ($time->gte($currentTime)) {
-                    $endSlot = $time->copy()->addMinutes(30);
-                    $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
-                }
-            }
-
-            // Restaurant ID 5 and 6: Saturday to Thursday: 11:00 AM - 3:00 PM & 6:00 PM - 11:00 PM; Friday: 6:00 PM - 11:00 PM
-        } elseif (in_array($restaurantId, [5, 6])) {
-            if ($dayOfWeek == Carbon::FRIDAY) {
-                $startTime = Carbon::createFromTime(18, 0, 0, 'Europe/Paris');  // 6:00 PM
-                $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');    // 11:00 PM
-
-                // Generate evening time slots for Friday
-                for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
-                    if ($time->gte($currentTime)) {
-                        $endSlot = $time->copy()->addMinutes(30);
-                        $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
-                    }
-                }
-            } else {
-                // Generate morning time slots: 11:00 AM - 3:00 PM
-                $startTime = Carbon::createFromTime(11, 0, 0, 'Europe/Paris');
-                $endTime = Carbon::createFromTime(15, 0, 0, 'Europe/Paris');
-
-                for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
-                    if ($time->gte($currentTime)) {
-                        $endSlot = $time->copy()->addMinutes(30);
-                        $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
-                    }
-                }
-
-                // Generate evening time slots: 6:00 PM - 11:00 PM
-                $startTime = Carbon::createFromTime(18, 0, 0, 'Europe/Paris');
-                $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');
-
-                for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
-                    if ($time->gte($currentTime)) {
-                        $endSlot = $time->copy()->addMinutes(30);
-                        $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
-                    }
-                }
-            }
-
-            // Default schedule for other restaurants (if any)
-        } else {
-            $startTime = Carbon::createFromTime(11, 0, 0, 'Europe/Paris');  // Default start time
-            $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');    // Default end time
-
-            for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
-                if ($time->gte($currentTime)) {
-                    $endSlot = $time->copy()->addMinutes(30);
-                    $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
-                }
-            }
+            $startTime = Carbon::createFromTimeString($range['start'], 'Europe/Paris');
+            $endTime = Carbon::createFromTimeString($range['end'], 'Europe/Paris');
+            $this->generateTimeSlots($startTime, $endTime, $currentTime, $timeSlots);
         }
+
         return view('user.menu', compact('categories', 'sub_categories', 'restaurant', 'timeSlots'));
     }
+
+    private function getTimeRanges($restaurantId, $dayOfWeek)
+    {
+
+        $timeRanges = [
+            4 => [
+                Carbon::FRIDAY => [['start' => '18:00', 'end' => '24:00']], // Friday: 6:00 PM - 12:00 AM
+                'default' => [['start' => '11:00', 'end' => '23:00']], // Saturday to Thursday: 11:00 AM - 11:00 PM
+            ],
+            5 => [
+                Carbon::FRIDAY => [['start' => '18:00', 'end' => '23:00']], // Friday: 6:00 PM - 11:00 PM
+                'default' => [ // Split into morning and evening
+                    ['start' => '11:00', 'end' => '15:00'], // 11:00 AM - 3:00 PM
+                    ['start' => '18:00', 'end' => '23:00'], // 6:00 PM - 11:00 PM
+                ],
+            ],
+            6 => [
+                Carbon::FRIDAY => [['start' => '18:00', 'end' => '23:00']], // Friday: 6:00 PM - 11:00 PM
+                'default' => [ // Split into morning and evening
+                    ['start' => '11:00', 'end' => '15:00'], // 11:00 AM - 3:00 PM
+                    ['start' => '18:00', 'end' => '23:00'], // 6:00 PM - 11:00 PM
+                ],
+            ],
+        ];
+
+        // Return time ranges based on restaurant and day, or a default schedule
+        return $timeRanges[$restaurantId][$dayOfWeek] ?? $timeRanges[$restaurantId]['default'] ?? [['start' => '11:00', 'end' => '23:00']];
+    }
+
+    private function generateTimeSlots($startTime, $endTime, $currentTime, &$timeSlots)
+    {
+        // Generate slots for all time ranges irrespective of current time range
+        for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
+            $endSlot = $time->copy()->addMinutes(30);
+            if ($time->gte($currentTime) || $endSlot->gt($currentTime)) {
+                $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+            }
+        }
+    }
+
     public function userCheckout()
     {
         // Set the timezone to France (Europe/Paris)
