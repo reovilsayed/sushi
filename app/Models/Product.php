@@ -12,8 +12,9 @@ class Product extends Model
 {
     use HasFactory;
     use HasFilter;
+
     protected $guarded = [];
-    // protected $with = ['category', 'supplier', 'generic', 'batches'];
+    protected $with = ['category','options'];
 
     public function imageUrl(): Attribute
     {

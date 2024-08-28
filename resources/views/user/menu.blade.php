@@ -302,6 +302,7 @@
                 <div class="col-md-10">
                     <div class="row ">
                         @foreach ($categories as $category)
+                        @
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
