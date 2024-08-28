@@ -184,7 +184,7 @@ class OrderController extends Controller
                     'extra' => json_encode($extra),
                 ]);
             }
-
+            session()->forget('current_location');
             session()->forget('restaurent_id');
             // Clear the cart and session data
             Cart::clear();

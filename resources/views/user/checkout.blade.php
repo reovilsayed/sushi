@@ -7,6 +7,32 @@
     <x-user>
         @push('css')
             <style>
+                .btn-wrapper {
+                    background:
+                        color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    padding: 15px 0px;
+                }
+
+                .order_btn {
+                    border: 0px !important;
+                    font-size: 20px !important;
+                    font-weight: 600 !important;
+                    /* padding: 5px 12px; */
+                    height: 100% !important;
+                    width: 415px !important;
+                }
+
+                .order_btn:hover {
+                    border-radius: 0px !important;
+                    border: 0px !important;
+                    font-size: 20px !important;
+                    font-weight: 600 !important;
+                    height: 100% !important;
+                    width: 415px !important;
+                    background: color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    color: var(--background-color) !important;
+                }
+
                 .checkout_main_body {
                     border: 1px solid var(--accent-color);
                 }
@@ -141,13 +167,12 @@
             </style>
         @endpush
         <br><br><br>
-
-
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
             {{-- @dd($zone) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
+                {{-- @dd(session('current_location')) --}}
 
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
@@ -226,7 +251,7 @@
                                             </div>
 
 
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <div class="select-wrapper ">
                                                     <select id="year" class="select-hidden">
                                                         <option value="hide">-- Year --</option>
@@ -251,7 +276,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
                                     </div>
@@ -291,18 +316,30 @@
 
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Your Address"
-                                                    required=""value={{ auth()->user()->address ?? '' }}>
+                                                    placeholder="Your Address" required=""
+                                                    value="{{ auth()->check() && auth()->user()->address
+                                                        ? auth()->user()->address
+                                                        : trim(
+                                                            session('current_location.street', '') .
+                                                                ' ' .
+                                                                session('current_location.district', '') .
+                                                                ' ' .
+                                                                session('current_location.state', '') .
+                                                                ' ' .
+                                                                session('current_location.country', ''),
+                                                        ) }}">
+
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required=""
-                                                    value={{ auth()->user()->city ?? '' }}>
+                                                    value="{{ auth()->check() && auth()->user()->city ? auth()->user()->city : session('current_location.city') ?? '' }}">
+
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
                                                     placeholder="Your Post Code" required=""
-                                                    value={{ auth()->user()->post_code ?? '' }}>
+                                                    value={{ auth()->check() && auth()->user()->post_code ? auth()->user()->post_cod : session('current_location.post_code') ?? '' }}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -346,13 +383,6 @@
                                                         class="bi bi-geo-alt flex-shrink-0"></i></button>
                                             </div> --}}
                                         </div>
-                                    </div>
-
-
-
-                                    <div class="col-md-12 text-start mt-5">
-                                        <button type="submit" id="orderButton" disabled>{{ __('sentence.order') }}
-                                        </button>
                                     </div>
 
                                     {{-- </div> --}}
@@ -419,7 +449,7 @@
                                                     <td class="fs-5 fw-medium text-center">0 €</td>
                                                 </tr> --}}
 
-                                                    <tr style="border: 1px solid var(--accent-color)">
+                                                    <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td>
                                                             <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
                                                                 {{ __('sentence.paymentmethod') }}
@@ -441,8 +471,7 @@
                                                                         checked value="Card">
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
-                                                                        for="payment_method2">
-                                                                        {{ __('sentence.cart') }}
+                                                                        for="payment_method2">Credit Cart
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -457,17 +486,26 @@
                                                             {{ number_format(Cart::getSubTotal(), 2) }} €
                                                         </td>
                                                     </tr>
-                                                    <tr
-                                                        style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+                                                    <tr>
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
                                                         <td class="fs-5 fw-medium text-center">
                                                             {{ number_format(Cart::getTotal(), 2) }}
                                                             €
                                                         </td>
                                                     </tr>
+
                                                 </tfoot>
                                             </table>
                                         </div>
+                                        <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
+                                            <button type="submit" class="order_btn" id="orderButton" disabled>ORDER
+                                                NOW
+                                            </button>
+                                        </div>
+                                        {{-- <div class="col-md-12 text-start"
+                                            style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

@@ -25,6 +25,57 @@
         height: 200px;
         width: 100px;
     }
+
+    .img-fluid {
+        max-width: 45% !important;
+        height: auto !important;
+    }
+
+    .price-container {
+        position: relative;
+        display: inline-block;
+    }
+
+
+    .price {
+        opacity: 1;
+        visibility: visible;
+        position: relative;
+        top: 20px;
+        transition: top .4s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+
+    .add-button {
+        opacity: 0;
+        visibility: hidden;
+        position: relative;
+        top: 10px;
+        transition: top .5s cubic-bezier(0.215, 0.610, 0.355, 1);
+
+    }
+
+    .product-hover:hover .price {
+        top: -10px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+
+    .product-hover:hover .add-button {
+        top: -10px;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .btn-close {
+        background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3e%3cpath d="M14.293 7.293a1 1 0 0 1 1.414 0L19 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414L20.414 12l3.293 3.293a1 1 0 0 1-1.414 1.414L19 13.414l-3.293 3.293a1 1 0 0 1-1.414-1.414L17.586 12l-3.293-3.293a1 1 0 0 1 0-1.414z"/%3e%3c/svg%3e');
+        background-size: contain;
+        background-position: calc(50% - 10px);
+    }
+
+    .btn-close:focus {
+        box-shadow: none !important;
+    }
 </style>
 <div class="container">
     <div class="row mb-5">
@@ -58,18 +109,17 @@
                                 <div class="carousel-inner">
                                     @foreach ($groupProducts['products']->chunk(3) as $chunkIndex => $chunkItems)
                                         <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                                            <div class="row">
-                                                @foreach ($chunkItems as $product)
-                                                    <div class="col-md-4 text-center">
-                                                        <div class="product-card">
-                                                            <img style="width: 150px !important; height: auto;" src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}"
-                                                                alt="{{ $product->name }}">
-                                                            <h5 class="mt-3">{{ $product->name }}</h5>
-                                                            <p>${{ $product->price }}</p>
-                                                            <button class="btn btn-primary">Add to Cart</button>
+                                            <div class="">
+                                                <div class="row">
+                                                    @foreach ($chunkItems as $product)
+                                                        <div class="col-md-4 text-center">
+                                                            <x-viewProduct.product :restaurant="App\Models\Restaurant::find(
+                                                                session()->get('restaurent_id'),
+                                                            )"
+                                                                :product="$product" />
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
