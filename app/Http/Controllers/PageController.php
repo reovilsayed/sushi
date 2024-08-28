@@ -18,6 +18,7 @@ use App\Models\Attachment;
 use Cart;
 use Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -34,41 +35,66 @@ class PageController extends Controller
 
     public function menu($slug)
     {
-          // Set the timezone to France (Europe/Paris)
-          $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
-
-          // Define the sections
-          $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
-          $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
-  
-          $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
-          $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
-  
-          // Generate time slots for the morning/afternoon section
-          $timeSlots = [];
-          for ($time = $morningStartTime; $time->lte($morningEndTime);) {
-              if ($time->gte($currentTime)) {
-                  $endSlot = $time->copy()->addMinutes(30);
-                  $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-              }
-              // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-              $time->addMinutes(45);
-          }
-  
-          // Generate time slots for the evening/night section
-          for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
-              if ($time->gte($currentTime)) {
-                  $endSlot = $time->copy()->addMinutes(30);
-                  $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-              }
-              // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-              $time->addMinutes(45);
-          }
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
-        return view('user.menu', compact('categories', 'sub_categories', 'restaurant','timeSlots'));
+
+        $restaurantId = $restaurant->id;
+        $currentTime = Carbon::createFromTime(19, 32, 0, 'Europe/Paris');
+        $dayOfWeek = $currentTime->dayOfWeek;
+
+        $timeSlots = [];
+        $timeRanges = $this->getTimeRanges($restaurantId, $dayOfWeek);
+
+        foreach ((array) $timeRanges as $range) {
+
+            $startTime = Carbon::createFromTimeString($range['start'], 'Europe/Paris');
+            $endTime = Carbon::createFromTimeString($range['end'], 'Europe/Paris');
+            $this->generateTimeSlots($startTime, $endTime, $currentTime, $timeSlots);
+        }
+
+        return view('user.menu', compact('categories', 'sub_categories', 'restaurant', 'timeSlots'));
     }
+
+    private function getTimeRanges($restaurantId, $dayOfWeek)
+    {
+
+        $timeRanges = [
+            4 => [
+                Carbon::FRIDAY => [['start' => '18:00', 'end' => '24:00']], // Friday: 6:00 PM - 12:00 AM
+                'default' => [['start' => '11:00', 'end' => '23:00']], // Saturday to Thursday: 11:00 AM - 11:00 PM
+            ],
+            5 => [
+                Carbon::FRIDAY => [['start' => '18:00', 'end' => '23:00']], // Friday: 6:00 PM - 11:00 PM
+                'default' => [ // Split into morning and evening
+                    ['start' => '11:00', 'end' => '15:00'], // 11:00 AM - 3:00 PM
+                    ['start' => '18:00', 'end' => '23:00'], // 6:00 PM - 11:00 PM
+                ],
+            ],
+            6 => [
+                Carbon::FRIDAY => [['start' => '18:00', 'end' => '23:00']], // Friday: 6:00 PM - 11:00 PM
+                'default' => [ // Split into morning and evening
+                    ['start' => '11:00', 'end' => '15:00'], // 11:00 AM - 3:00 PM
+                    ['start' => '18:00', 'end' => '23:00'], // 6:00 PM - 11:00 PM
+                ],
+            ],
+        ];
+
+        // Return time ranges based on restaurant and day, or a default schedule
+        return $timeRanges[$restaurantId][$dayOfWeek] ?? $timeRanges[$restaurantId]['default'] ?? [['start' => '11:00', 'end' => '23:00']];
+    }
+
+    private function generateTimeSlots($startTime, $endTime, $currentTime, &$timeSlots)
+    {
+        // Generate slots for all time ranges irrespective of current time range
+        for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
+            $endSlot = $time->copy()->addMinutes(30);
+            if ($time->gte($currentTime) || $endSlot->gt($currentTime)) {
+                $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+            }
+        }
+    }
+
     public function userCheckout()
     {
         // Set the timezone to France (Europe/Paris)
@@ -136,12 +162,30 @@ class PageController extends Controller
 
     public function cart()
     {
-        if (Cart::getContent()->isEmpty()) {
-            $restaurants = Restaurant::all();
-            return view('user.restaurant', compact('restaurants'));
+
+
+        if (Cart::getContent()->count() == 0) {
+
+            return redirect()->route('user.restaurants')->withErrors('hello');
         } else {
             $extras = Extra::latest()->where('type', 'cart')->get();
-            return view('user.cart', compact('extras'));
+            $relatedProductsQuery = Product::whereHas('category', function ($q) {
+                return $q->where('featured', 'checked');
+            })->get();
+            $relatedProducts = $relatedProductsQuery->sortBy('count')->reverse()->groupBy('category_id')->map(function ($product) {
+
+                $categoryName = $product->first()->category->name;
+
+                return [
+                    'category_name' => $categoryName,
+                    'products' => $product,
+                ];
+            });
+
+
+
+
+            return view('user.cart', compact('extras', 'relatedProducts'));
         }
     }
     public function checkLocation(Request $request)
@@ -279,5 +323,19 @@ class PageController extends Controller
 
         // Return back with a success message
         return back()->with('success', 'Thank you for contacting us!');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'location' => 'required|string',
+        ]);
+
+        $fullAddress = $request->input('location');
+
+        Session::put('current_location', $fullAddress);
+
+        // Handle the rest of the form submission
+        return redirect()->back()->with('success', 'Location stored successfully!');
     }
 }

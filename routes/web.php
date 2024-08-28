@@ -89,8 +89,13 @@ Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoice');
 
+
+// Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
+Route::post('/location-store', [PageController::class, 'store'])->name('location.store');
+
+
 Route::get('/test', function () {
-    return view('emails.contact');
+    return view('test');
 });
 
 
@@ -125,7 +130,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     );
 
     Route::resource('generics', GenericsController::class);
-    
+
     Route::post('deposite-full/{user}', [CustomerController::class, 'deposite_full'])->name('deposite.full');
     // Route::get('/invoice/{customer}', [CustomerController::class, 'invoice'])->name('invoice');
     // Route::get('/point-of-sale', [POSController::class, 'index'])->name('pos');

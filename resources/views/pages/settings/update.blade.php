@@ -46,13 +46,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="prf_data_box">
+                                            <div class="prf_data_box ">
                                                 <div class="prf_data_row" data-editable>
                                                     <div class="label">{{ __('sentence.sitetitle') }}</div>
                                                     <div class="input">
                                                         <input type="text"
                                                             value="{{ Settings::setting('site.title') ? Settings::setting('site.title') : 'site title' }}"
                                                             placeholder="Site Title" class="" name="site_title">
+                                                    </div>
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Site Subtitle</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::setting('site.subtitle') ? Settings::setting('site.subtitle') : 'site subtitle' }}"
+                                                            placeholder="Site SubTitle" class="" name="site_subtitle">
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
@@ -108,7 +116,35 @@
 
                                             </div>
                                         </div>
+                                        <hr class="my-4 ">
+                                        <div class="slide-show mt-3 row">
+                                           <div class="form-group col-md-4">
+                                            <label for="laft">Laft Image</label>
+                                            <input type="file" class="form-control" name="laft">
+                                           </div>
+                                           <div class="form-group col-md-4">
+                                            <label for="laft-top">Laft Top Image</label>
+                                            <input type="file" class="form-control" name="laft-top">
+                                           </div>
+                                           <div class="form-group col-md-4">
+                                            <label for="laft-bottom">Laft bottom Image</label>
+                                            <input type="file" class="form-control" name="laft-bottom">
+                                           </div>
+                                           <div class="form-group col-md-4">
+                                            <label for="right">Right Image</label>
+                                            <input type="file" class="form-control" name="right">
+                                           </div>
+                                           <div class="form-group col-md-4">
+                                            <label for="right-top">Right Top Image</label>
+                                            <input type="file" class="form-control" name="right-top">
+                                           </div>
+                                           <div class="form-group col-md-4">
+                                            <label for="right-bottom">Right bottom Image</label>
+                                            <input type="file" class="form-control" name="right-bottom">
+                                           </div>
 
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>

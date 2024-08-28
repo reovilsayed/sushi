@@ -24,6 +24,11 @@
 
                         </select>
                     </div>
+                    <div class="item-content mb-3">
+                        <label class="control-label">Category Description </label>
+                        <x-form.input name="description"  value="{{$category->description}}"
+                                    style="height: 130px" type="textarea" id="test"  />
+                    </div>
                     <div class="repeater-remove-btn">
                         <button type="submit" class="btn btn-success"
                             style="height: auto;">{{ __('sentence.submit') }}</button>

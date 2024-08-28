@@ -1,12 +1,41 @@
     @php
         $firstItem = Cart::getContent()->first();
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
+        $locations = explode(',', session()->get('current_location'));
+
         // $zone = $restaurant ? $restaurant->zones->get() : null;
+
     @endphp
 
     <x-user>
         @push('css')
             <style>
+                .btn-wrapper {
+                    background:
+                        color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    padding: 15px 0px;
+                }
+
+                .order_btn {
+                    border: 0px !important;
+                    font-size: 20px !important;
+                    font-weight: 600 !important;
+                    /* padding: 5px 12px; */
+                    height: 100% !important;
+                    width: 415px !important;
+                }
+
+                .order_btn:hover {
+                    border-radius: 0px !important;
+                    border: 0px !important;
+                    font-size: 20px !important;
+                    font-weight: 600 !important;
+                    height: 100% !important;
+                    width: 415px !important;
+                    background: color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+                    color: var(--background-color) !important;
+                }
+
                 .checkout_main_body {
                     border: 1px solid var(--accent-color);
                 }
@@ -141,13 +170,12 @@
             </style>
         @endpush
         <br><br><br>
-
-
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
             {{-- @dd($zone) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
+                {{-- @dd(session('current_location')) --}}
 
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
@@ -169,6 +197,14 @@
                         <form action="{{ route('order_store') }}" method="post" class="php-email-form"
                             data-aos="fade-up" data-aos-delay="200">
                             @csrf
+
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}<br>
+                                    @endforeach
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col-md-8 mb-3">
                                     <div class="col-md-12">
@@ -178,7 +214,9 @@
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
                                             <option value="take_away">{{ __('sentence.takeaway') }}</option>
-                                            <option value="home_delivery">{{ __('sentence.homedelivery') }}</option>
+                                            <option value="home_delivery"
+                                                {{ session()->get('current_location') ? 'selected' : '' }}>
+                                                {{ __('sentence.homedelivery') }}</option>
                                         </select>
                                     </div>
 
@@ -198,20 +236,26 @@
 
                                             <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="f_name"
-                                                    placeholder="Your First Name" required=""
+                                                    placeholder="Your First Name" required
                                                     value={{ auth()->user()->name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <input type="text" name="l_name" class="form-control"
-                                                    placeholder="Your Last Name" required=""
+                                                    placeholder="Your Last Name" required
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="email" name="email" disabled class="form-control"
+                                                <input type="email" name="email" disabled
+                                                    class="form-control @error('email') is-invalid @enderror"
                                                     placeholder="Your Email" required=""
-                                                    value={{ auth()->user()->email ?? '' }}>
+                                                    value="{{ old('email', auth()->user()->email ?? '') }}">
+                                                @error('email')
+                                                    <p class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </p>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
@@ -226,7 +270,7 @@
                                             </div>
 
 
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <div class="select-wrapper ">
                                                     <select id="year" class="select-hidden">
                                                         <option value="hide">-- Year --</option>
@@ -251,7 +295,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
                                     </div>
@@ -285,24 +329,26 @@
 
                                             <div class="col-md-12">
                                                 <input type="email" name="email" class="form-control"
-                                                    placeholder="Your Email" required=""
+                                                    placeholder="Your Email" required
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Your Address"
-                                                    required=""value={{ auth()->user()->address ?? '' }}>
+                                                    placeholder="Your Address" required
+                                                    value="{{ auth()->user()->address ?? ($locations[1] ?? '') }}">
+
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="Your City" required=""
-                                                    value={{ auth()->user()->city ?? '' }}>
+                                                    value="{{ auth()->user()->city ?? ($locations[0] ?? '') }}">
+
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
                                                     placeholder="Your Post Code" required=""
-                                                    value={{ auth()->user()->post_code ?? '' }}>
+                                                    value={{ auth()->user()->post_code ?? ($locations[4] ?? '') }}>
                                             </div>
                                             {{-- <div class="col-md-6">
                                                 <input type="text" name="zip" class="form-control"
@@ -315,7 +361,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="Your House" required=""
+                                                    placeholder="Your House"
                                                     value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
@@ -346,13 +392,6 @@
                                                         class="bi bi-geo-alt flex-shrink-0"></i></button>
                                             </div> --}}
                                         </div>
-                                    </div>
-
-
-
-                                    <div class="col-md-12 text-start mt-5">
-                                        <button type="submit" id="orderButton" disabled>{{ __('sentence.order') }}
-                                        </button>
                                     </div>
 
                                     {{-- </div> --}}
@@ -419,7 +458,7 @@
                                                     <td class="fs-5 fw-medium text-center">0 €</td>
                                                 </tr> --}}
 
-                                                    <tr style="border: 1px solid var(--accent-color)">
+                                                    <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td>
                                                             <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
                                                                 {{ __('sentence.paymentmethod') }}
@@ -441,8 +480,7 @@
                                                                         checked value="Card">
                                                                     <label class="form-check-label"
                                                                         style="font-size: 15px;"
-                                                                        for="payment_method2">
-                                                                        {{ __('sentence.cart') }}
+                                                                        for="payment_method2">Credit Cart
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -457,17 +495,26 @@
                                                             {{ number_format(Cart::getSubTotal(), 2) }} €
                                                         </td>
                                                     </tr>
-                                                    <tr
-                                                        style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+                                                    <tr>
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
                                                         <td class="fs-5 fw-medium text-center">
                                                             {{ number_format(Cart::getTotal(), 2) }}
                                                             €
                                                         </td>
                                                     </tr>
+
                                                 </tfoot>
                                             </table>
                                         </div>
+                                        <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
+                                            <button type="submit" class="order_btn" id="orderButton" disabled>ORDER
+                                                NOW
+                                            </button>
+                                        </div>
+                                        {{-- <div class="col-md-12 text-start"
+                                            style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
+
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -492,8 +539,10 @@
 
                     // Function to set the disabled state for all inputs within a form
                     const setFormDisabledState = (form, disabled) => {
-                        const inputs = form.querySelectorAll('input, select, textarea');
-                        inputs.forEach(input => input.disabled = disabled);
+                        if (form) {
+                            const inputs = form.querySelectorAll('input, select, textarea');
+                            inputs.forEach(input => input.disabled = disabled);
+                        }
                     };
 
                     // Function to update form visibility and input state based on the selected option
@@ -506,7 +555,7 @@
                             setFormDisabledState(takeAwayForm, false);
                             setFormDisabledState(homeDeliveryForm, true);
                             orderButton.disabled = false;
-                        } else if (selectedOption === 'home_delivery') {
+                        } else if (selectedOption === 'home_delivery' || "{{ session()->has('current_location') }}") {
                             takeAwayForm.style.display = 'none';
                             homeDeliveryForm.style.display = 'block';
                             setFormDisabledState(takeAwayForm, true);

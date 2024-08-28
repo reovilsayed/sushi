@@ -109,19 +109,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
+        if (!auth()->check()) {
+            $request->validate([
+                'f_name' => 'required|string|max:255',
+                'l_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email'
+            ]);
+        }
         // Start a database transaction
-        // DB::beginTransaction();
+        DB::beginTransaction();
 
         try {
 
             // Handle user authentication
             if (!auth()->check()) {
-                $request->validate([
-                    'f_name' => 'required',
-                    'l_name' => 'required',  // Add validation for last name
-                    'email' => 'required|email|unique:users,email'
-                ]);
+
                 $pass = Str::random(16);
                 $user = User::create([
                     'name' => $request->input('f_name') ?? $request->input('f_name'),
@@ -184,7 +186,7 @@ class OrderController extends Controller
                     'extra' => json_encode($extra),
                 ]);
             }
-
+            session()->forget('current_location');
             session()->forget('restaurent_id');
             // Clear the cart and session data
             Cart::clear();

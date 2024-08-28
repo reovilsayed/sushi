@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->enum('featured', ['checked', 'unchecked'])->default('unchecked');
+            $table->text('description')->nullable();
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn('featured');
+            $table->dropColumn('description');
         });
     }
 };
