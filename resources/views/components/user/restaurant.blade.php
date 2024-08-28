@@ -12,7 +12,7 @@
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
         <h2>{{__('sentence.restaurants')}}</h2>
-        <p>{{__('sentence.restaurantstitle')}}</p>
+        <p style="color: #E5D5BF">{{__('sentence.restaurantstitle')}}</p>
     </div><!-- End Section Title -->
     <div class="container">
         <div class="row gy-4">

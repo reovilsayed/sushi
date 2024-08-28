@@ -31,9 +31,11 @@ class SettingController extends Controller
             'site_phone' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+        // dd($request->all());
         // Update the site title
         Setting::where('key', 'site.title')->update(['value' => $request->input('site_title')]);
+        // Update the site title
+        Setting::where('key', 'site.subtitle')->update(['value' => $request->input('site_subtitle')]);
         // Update the site email
         Setting::where('key', 'site.email')->update(['value' => $request->input('site_email')]);
         // Update the site phone
@@ -48,15 +50,67 @@ class SettingController extends Controller
 
 
         if ($request->hasFile('image')) {
-
             $currentImage = Setting::where('key', 'site.logo')->value('value');
             if (Storage::exists($currentImage)) {
                 Storage::delete($currentImage);
             }
             $path = $request->file('image')->store('images', 'public');
-
             Setting::where('key', 'site.logo')->update(['value' => $path]);
         }
+
+        //laft
+        if ($request->hasFile('laft')) {
+            $currentImage = Setting::where('key', 'slide.laft')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('laft')->store('images', 'public');
+            Setting::where('key', 'slide.laft')->update(['value' => $path]);
+        }
+        if ($request->hasFile('laft-top')) {
+            $currentImage = Setting::where('key', 'slide.laft_top')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('laft-top')->store('images', 'public');
+            Setting::where('key', 'slide.laft_top')->update(['value' => $path]);
+        }
+        if ($request->hasFile('laft-bottom')) {
+            $currentImage = Setting::where('key', 'slide.laft_bottom')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('laft-bottom')->store('images', 'public');
+            Setting::where('key', 'slide.laft_bottom')->update(['value' => $path]);
+        }
+
+
+        //right
+        if ($request->hasFile('right')) {
+            $currentImage = Setting::where('key', 'slide.right')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('right')->store('images', 'public');
+            Setting::where('key', 'slide.right')->update(['value' => $path]);
+        }
+        if ($request->hasFile('right-top')) {
+            $currentImage = Setting::where('key', 'slide.right_top')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('right-top')->store('images', 'public');
+            Setting::where('key', 'slide.right_top')->update(['value' => $path]);
+        }
+        if ($request->hasFile('right-bottom')) {
+            $currentImage = Setting::where('key', 'slide.right_bottom')->value('value');
+            if (Storage::exists($currentImage)) {
+                Storage::delete($currentImage);
+            }
+            $path = $request->file('right-bottom')->store('images', 'public');
+            Setting::where('key', 'slide.right_bottom')->update(['value' => $path]);
+        }
+
 
 
         // Optionally, add a success message and redirect
