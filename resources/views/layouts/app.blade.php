@@ -62,7 +62,28 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!--custom script-->
     <script src="{{asset('js/custom.js')}}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            const imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.onload = function() {
+                            lazyImage.removeAttribute("data-src");
+                            lazyImage.removeAttribute("loading");
+                        };
+                        observer.unobserve(lazyImage);
+                    }
+                });
+            });
 
+            lazyImages.forEach(function(lazyImage) {
+                imageObserver.observe(lazyImage);
+            });
+        });
+    </script>
 </body>
 
 </html>
