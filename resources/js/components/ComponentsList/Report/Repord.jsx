@@ -5,7 +5,7 @@ import { usePost } from "../../Hooks/useFatch";
 import { ReportCard } from "./ReportCard/ReportCart";
 import { CustomerTable } from "./ReportTable/CustomerTable";
 import TopSellingTable from "./ReportTable/TopSellingTable";
-import TopSupplierTable from "./ReportTable/TopSupplierTable";
+//import TopSupplierTable from "./ReportTable/TopSupplierTable";
 import { TopDueCustomerTable } from "./ReportTable/TopDueCustomerTable";
 import moment from "moment";
 import { HashLoader, PulseLoader } from "react-spinners";
@@ -174,11 +174,11 @@ const Report = () => {
                                     <div
                                         style={{
                                             // maxHeight: "450px",
-                                            // height: "450px",
+                                            height: "450px",
 
                                             paddingTop: "20px",
-                                            // background: "red",
-                                            // overflowY: "scroll",
+                                           
+                                            overflowY: "scroll",
                                         }}
                                     >
                                         <TopSellingTable
@@ -188,7 +188,7 @@ const Report = () => {
                                         />
                                     </div>
                                 </div>
-                                <div
+                                {/* <div
                                     id="scroll_id"
                                     className="p-4 screen_table"
                                     style={{
@@ -209,14 +209,14 @@ const Report = () => {
                                             marginBottom: "20px",
                                         }}
                                     >
-                                        <span
+                                        {<span
                                             style={{
                                                 fontSize: "14px",
                                                 fontWeight: 600,
                                             }}
                                         >
                                             Top Suppliers
-                                        </span>
+                                        </span> }
                                         <span>
                                             <LiaLongArrowAltDownSolid
                                                 style={{
@@ -229,20 +229,20 @@ const Report = () => {
 
                                     <div
                                         style={{
-                                            // maxHeight: "450px",
-                                            // height: "450px",
+                                            maxHeight: "450px",
+                                            height: "450px",
                                             paddingTop: "20px",
-                                            // background: "red",
-                                            // overflowY: "scroll",
+                                            background: "red",
+                                             overflowY: "scroll",
                                         }}
                                     >
-                                        <TopSupplierTable
+                                        {<TopSupplierTable
                                             SupplierData={
                                                 data?.data?.top_suppliers
                                             }
-                                        />
+                                        /> }
                                     </div>
-                                </div>
+                                </div> */}
                                 <div
                                     className="p-4 screen_table"
                                     style={{

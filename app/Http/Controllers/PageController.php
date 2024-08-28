@@ -57,7 +57,7 @@ class PageController extends Controller
 
         // Cache the time slots
         $restaurantId = $restaurant->id;
-        $currentTime = Carbon::createFromTime(19, 32, 0, 'Europe/Paris');
+        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();
         $dayOfWeek = $currentTime->dayOfWeek;
 
         $timeSlotsCacheKey = 'restaurant_time_slots_' . $restaurantId . '_' . $dayOfWeek;
@@ -118,35 +118,20 @@ class PageController extends Controller
 
     public function userCheckout()
     {
-        // Set the timezone to France (Europe/Paris)
-        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
+        $restaurant =Restaurant::find(session()->get('restaurent_id'));
+   
+        $restaurantId = $restaurant->id;
+        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();
+        $dayOfWeek = $currentTime->dayOfWeek;
 
-        // Define the sections
-        $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
-        $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
-
-        $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
-        $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
-
-        // Generate time slots for the morning/afternoon section
         $timeSlots = [];
-        for ($time = $morningStartTime; $time->lte($morningEndTime);) {
-            if ($time->gte($currentTime)) {
-                $endSlot = $time->copy()->addMinutes(30);
-                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-            }
-            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-            $time->addMinutes(45);
-        }
+        $timeRanges = $this->getTimeRanges($restaurantId, $dayOfWeek);
 
-        // Generate time slots for the evening/night section
-        for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
-            if ($time->gte($currentTime)) {
-                $endSlot = $time->copy()->addMinutes(30);
-                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-            }
-            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-            $time->addMinutes(45);
+        foreach ((array) $timeRanges as $range) {
+
+            $startTime = Carbon::createFromTimeString($range['start'], 'Europe/Paris');
+            $endTime = Carbon::createFromTimeString($range['end'], 'Europe/Paris');
+            $this->generateTimeSlots($startTime, $endTime, $currentTime, $timeSlots);
         }
 
         return view('user.checkout', compact('timeSlots'));
@@ -358,5 +343,17 @@ class PageController extends Controller
 
         // Handle the rest of the form submission
         return redirect()->back()->with('success', 'Location stored successfully!');
+    }
+
+    public function updateTime(Request $request)
+    {
+        $validated = $request->validate([
+            'TimeOption' => 'required',
+        ]);
+        $selectedTime = $validated['TimeOption'];
+        Session::put('delivery_time' , $selectedTime);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Delivery time updated successfully!');
     }
 }

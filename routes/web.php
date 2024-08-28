@@ -92,6 +92,7 @@ Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoic
 
 // Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
 Route::post('/location-store', [PageController::class, 'store'])->name('location.store');
+Route::patch('/time-update', [PageController::class, 'updateTime'])->name('time_update');
 
 
 Route::get('/test', function () {
@@ -152,7 +153,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::post('/customer/store', [POSController::class, 'customerStore'])->name('customer.store');
     Route::get('purchase/invoice/{purchase}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
 
-
+    Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::get('send-reports/{customer}', [ReportsController::class, 'send_report'])->name('reports.send');
     Route::get('scrap', [ScrapController::class, 'scrap'])->name('scrap');
     Route::get('/test-email', function () {

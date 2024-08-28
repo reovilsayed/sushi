@@ -3,6 +3,8 @@
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
         $locations = explode(',', session()->get('current_location'));
 
+        $timeSelect = session()->get('delivery_time') 
+
         // $zone = $restaurant ? $restaurant->zones->get() : null;
 
     @endphp
@@ -172,7 +174,7 @@
         <br><br><br>
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
-            {{-- @dd($zone) --}}
+            {{-- @dd($time) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 {{-- @dd(session('current_location')) --}}
@@ -257,13 +259,14 @@
                                                     </p>
                                                 @enderror
                                             </div>
+                                        
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}">{{ $time }}
+                                                        <option value="{{ $time }}" {{ $time==$timeSelect ? 'selected' :'' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -372,7 +375,7 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}">{{ $time }}
+                                                        <option value="{{ $time }}" {{ $time==$timeSelect ? 'selected' :'' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
