@@ -35,39 +35,86 @@ class PageController extends Controller
 
     public function menu($slug)
     {
-        // Set the timezone to France (Europe/Paris)
-        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
-
-        // Define the sections
-        $morningStartTime = Carbon::createFromTime(9, 0, 0, 'Europe/Paris');    // 09:00 AM start
-        $morningEndTime = Carbon::createFromTime(14, 45, 0, 'Europe/Paris');    // 14:45 PM end
-
-        $eveningStartTime = Carbon::createFromTime(18, 15, 0, 'Europe/Paris');  // 18:15 PM start
-        $eveningEndTime = Carbon::createFromTime(22, 30, 0, 'Europe/Paris');    // 22:30 PM end
-
-        // Generate time slots for the morning/afternoon section
-        $timeSlots = [];
-        for ($time = $morningStartTime; $time->lte($morningEndTime);) {
-            if ($time->gte($currentTime)) {
-                $endSlot = $time->copy()->addMinutes(30);
-                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-            }
-            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-            $time->addMinutes(45);
-        }
-
-        // Generate time slots for the evening/night section
-        for ($time = $eveningStartTime; $time->lte($eveningEndTime);) {
-            if ($time->gte($currentTime)) {
-                $endSlot = $time->copy()->addMinutes(30);
-                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
-            }
-            // Add 45 minutes to the current time (30-minute slot + 15-minute break)
-            $time->addMinutes(45);
-        }
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::whereNull('parent_id')->get();
         $sub_categories = Category::whereNotNull('parent_id')->get();
+
+
+        $restaurantId = $restaurant->id;
+      
+        // Get the restaurant ID dynamically
+        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();  // Current time in France
+        $dayOfWeek = $currentTime->dayOfWeek;  // Get the day of the week
+
+        $timeSlots = [];
+
+        // Restaurant ID 4: Saturday to Thursday: 11:00 AM - 11:00 PM; Friday: 6:00 PM - 12:00 AM
+        if ($restaurantId == 4) {
+            if ($dayOfWeek == Carbon::FRIDAY) {
+                $startTime = Carbon::createFromTime(18, 0, 0, 'Europe/Paris');  // 6:00 PM
+                $endTime = Carbon::createFromTime(24, 0, 0, 'Europe/Paris');    // 12:00 AM
+            } else {
+                $startTime = Carbon::createFromTime(11, 0, 0, 'Europe/Paris');  // 11:00 AM
+                $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');    // 11:00 PM
+            }
+
+            // Generate time slots for restaurant ID 4
+            for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {  // 30 min slot + 15 min break
+                if ($time->gte($currentTime)) {
+                    $endSlot = $time->copy()->addMinutes(30);
+                    $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                }
+            }
+
+            // Restaurant ID 5 and 6: Saturday to Thursday: 11:00 AM - 3:00 PM & 6:00 PM - 11:00 PM; Friday: 6:00 PM - 11:00 PM
+        } elseif (in_array($restaurantId, [5, 6])) {
+            if ($dayOfWeek == Carbon::FRIDAY) {
+                $startTime = Carbon::createFromTime(18, 0, 0, 'Europe/Paris');  // 6:00 PM
+                $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');    // 11:00 PM
+
+                // Generate evening time slots for Friday
+                for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
+                    if ($time->gte($currentTime)) {
+                        $endSlot = $time->copy()->addMinutes(30);
+                        $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                    }
+                }
+            } else {
+                // Generate morning time slots: 11:00 AM - 3:00 PM
+                $startTime = Carbon::createFromTime(11, 0, 0, 'Europe/Paris');
+                $endTime = Carbon::createFromTime(15, 0, 0, 'Europe/Paris');
+
+                for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
+                    if ($time->gte($currentTime)) {
+                        $endSlot = $time->copy()->addMinutes(30);
+                        $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                    }
+                }
+
+                // Generate evening time slots: 6:00 PM - 11:00 PM
+                $startTime = Carbon::createFromTime(18, 0, 0, 'Europe/Paris');
+                $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');
+
+                for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
+                    if ($time->gte($currentTime)) {
+                        $endSlot = $time->copy()->addMinutes(30);
+                        $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                    }
+                }
+            }
+
+            // Default schedule for other restaurants (if any)
+        } else {
+            $startTime = Carbon::createFromTime(11, 0, 0, 'Europe/Paris');  // Default start time
+            $endTime = Carbon::createFromTime(23, 0, 0, 'Europe/Paris');    // Default end time
+
+            for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
+                if ($time->gte($currentTime)) {
+                    $endSlot = $time->copy()->addMinutes(30);
+                    $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                }
+            }
+        }
         return view('user.menu', compact('categories', 'sub_categories', 'restaurant', 'timeSlots'));
     }
     public function userCheckout()
@@ -308,7 +355,7 @@ class PageController extends Controller
 
         $fullAddress = $request->input('location');
 
-        Session::put('current_location',$fullAddress);
+        Session::put('current_location', $fullAddress);
 
         // Handle the rest of the form submission
         return redirect()->back()->with('success', 'Location stored successfully!');
