@@ -20,6 +20,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\ZoneController;
 use App\Mail\ContactFormMail;
 use App\Mail\CustomerReport;
 use App\Mail\DueClearReminder;
@@ -89,7 +90,8 @@ Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoice');
 
-
+Route::get('/store-in-session', [PageController::class, 'storeInSession'])->name('store-in-session');
+Route::get('/zones', [ZoneController::class, 'fetchZones']);
 // Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
 Route::post('/location-store', [PageController::class, 'store'])->name('location.store');
 Route::patch('/time-update', [PageController::class, 'updateTime'])->name('time_update');
