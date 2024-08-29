@@ -105,6 +105,16 @@ class SettingTableSeeder extends Seeder
             ]
         );
         $setting = Setting::firstOrCreate(
+            ['key' => 'google.map'],
+            [
+                'display_name' => 'google map',
+                'value' => 'no google map key' ,
+                'details' => '',
+
+                'group' => 'Site',
+            ]
+        );
+        $setting = Setting::firstOrCreate(
             ['key' => 'site.google_analytics_tracking_id'],
             [
                 'display_name' => 'name site-google_analytics_tracking_id',
