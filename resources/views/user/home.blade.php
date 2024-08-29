@@ -81,7 +81,7 @@
         </div><!-- End Section Title -->
 
 
-        <div class="container mb-5" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+        <div class="container mb-3" data-default-filter="*" data-layout="masonry" data-sort="original-order">
             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <form action="{{ route('location.store') }}" method="post" id="location-form">
