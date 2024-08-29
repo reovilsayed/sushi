@@ -155,7 +155,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::get('send-reports/{customer}', [ReportsController::class, 'send_report'])->name('reports.send');
-    Route::get('scrap', [ScrapController::class, 'scrap'])->name('scrap');
+    // Route::get('scrap', [ScrapController::class, 'scrap'])->name('scrap');
     Route::get('/test-email', function () {
         $customers = User::where('role_id', 2)->where(function ($query) {
             $query->whereNull('last_reminder_date')
@@ -256,3 +256,5 @@ Route::post('payment/callback', function (Request $request) {
 require('sushi_old.php');
 require('admin.php');
 require('user.php');
+
+Route::get('test-payment', [PaymentController::class, 'index']);
