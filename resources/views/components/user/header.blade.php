@@ -12,7 +12,7 @@ $restaurantNames = App\Models\Restaurant::latest()->get();
             <a href="{{ route('restaurant.home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
 
                 <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('logo/mainLogo.png') }}"
-                    alt="">
+                    alt="" class="img-fluid">
 
             </a>
 

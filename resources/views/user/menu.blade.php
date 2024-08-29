@@ -305,13 +305,12 @@
                 <div class="col-md-10">
                     <div class="row ">
                         @foreach ($categories as $category)
-                        @
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                         <a id="{{ $child->name }}" href=""
                                             class="  h4">{{ $child->name }}</a>
-                                        <p class="mt-2">{{ $child->description }}</p>
+                                        <p class="mt-2 fst-italic" >{{ $child->description }}</p>
                                         {{-- <hr> --}}
                                     </div>
 
