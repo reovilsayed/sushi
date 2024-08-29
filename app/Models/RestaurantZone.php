@@ -11,4 +11,9 @@ class RestaurantZone extends Model
     protected $table = 'restaurant_zone';
 
     protected $guarded = [];
+
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
+    }
 }

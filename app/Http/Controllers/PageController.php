@@ -333,18 +333,31 @@ class PageController extends Controller
         return back()->with('success', 'Thank you for contacting us!');
     }
 
-    public function store(Request $request)
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'location' => 'required|string',
+    //     ]);
+
+    //     $fullAddress = $request->input('location');
+
+    //     Session::put('current_location', $fullAddress);
+
+    //     // Handle the rest of the form submission
+    //     return redirect()->back()->with('success', 'Location stored successfully!');
+    // }
+    public function storeInSession(Request $request)
     {
-        $request->validate([
-            'location' => 'required|string',
-        ]);
+        // Alternatively, you can use Session::put() method
+        dd(Session::put('restaurant', $request->input('restaurant')));
+        Session::put('method', $request->input('method'));
+        Session::put('restaurant', $request->input('restaurant'));
+        Session::put('address', $request->input('address'));
 
-        $fullAddress = $request->input('location');
+        // Session::put('current_location', $fullAddress);
 
-        Session::put('current_location', $fullAddress);
-
-        // Handle the rest of the form submission
-        return redirect()->back()->with('success', 'Location stored successfully!');
+        // // Handle the rest of the form submission
+        // return redirect()->back()->with('success', 'Location stored successfully!');
     }
 
     public function updateTime(Request $request)

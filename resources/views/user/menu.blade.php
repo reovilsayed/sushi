@@ -181,7 +181,7 @@
                 border: 1px solid #c35443;
                 border-radius: 4px;
                 margin-top: 5px;
-                z-index: 9999 !important;
+                z-index: 999;
                 list-style: none;
                 padding: 0;
             }
@@ -228,7 +228,7 @@
 
                             </li>
                             <li><button class="dropdown-item text-colour" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModaladdress">{{ __('sentence.homedelivery') }}</button>
+                                    data-bs-target="#exampleModal">{{ __('sentence.homedelivery') }}</button>
                             </li>
                         </ul>
                     </div>
@@ -343,7 +343,7 @@
     </section>
 
     <!-- Modal -->
-    {{-- <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">
@@ -351,33 +351,37 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('location.store') }}" method="post" id="location-form">
-                        @csrf
+                    {{-- <form action="{{ route('location.store') }}" method="post" id="location-form">
+                        @csrf --}}
                         <div class="input-group text-center">
-                            <input type="text" id="location-input" name="location"
-                                value="{{ session()->get('current_location') ?? '' }}"
+                            <input type="text" id="map_address_input" name="location"
+                                value=""
                                 class="form-control form-control-lg location text-center"
                                 style="color: var(--accent-color);" placeholder="Enter Location"
                                 aria-label="Enter Location" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-orange" type="button" id="location-button">
+                            <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()" id="location-button">
                                 <i class="bi bi-geo-alt"></i>
                             </button>
-                            <button type="submit" class="btn btn-outline-orange">
+                            <button id="checkDZ"class="btn btn-outline-orange">
                                 {{ __('Enter') }}
                             </button>
                         </div>
-                    </form>
+                        <div id="result" class="result-container">
+                            <span id="resultText"></span>
+                            <button id="closeButton" onclick="closeResult()">X</button>
+                        </div>
+                    {{-- </form> --}}
 
                 </div><!--  Item -->
 
             </div>
         </div>
-    </div> --}}
+    </div>
 
 
 
     <!-- Modal HTML -->
-    <div class="modal fade" id="exampleModaladdress" tabindex="-1" aria-labelledby="exampleModaladdress"
+    {{-- <div class="modal fade" id="exampleModaladdress" tabindex="-1" aria-labelledby="exampleModaladdress"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="">
@@ -426,10 +430,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Styles -->
-
+    </div> --}}
 
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
@@ -612,15 +613,17 @@
                                 // Now that the Google Maps API is loaded, you can use it
 
                                 // Autocomplete functionality
-                                var input = document.getElementById('map-address-input');
+                                var input = document.getElementById('map_address_input');
+                              
                                 var options = {
                                     componentRestrictions: {
                                         country: 'fr'
                                     }
                                 };
-
+                             
+                               
                                 var autocomplete = new google.maps.places.Autocomplete(input, options);
-
+                               
                                 // Fetch the current location when the document is ready
                                 // Function to geocode an address
                                 function geocodeAddress(address, callback) {
@@ -638,7 +641,7 @@
                                         }
                                     });
                                 }
-
+                                console.log(geocodeAddress);
                                 function checkIfPointInAnyZone(point, callback) {
                                     var xhr = new XMLHttpRequest();
                                     xhr.open('GET', '/zones', true);
@@ -664,15 +667,15 @@
 
                                 // Your other code here
                                 $('#checkDZ').click(function() {
-                                    var address = $('#map-address-input').val();
-
+                                    var address = $('#map_address_input').val();
+                                    console.log(address);
                                     geocodeAddress(address, function(location) {
                                         var lat = location.lat;
                                         var lng = location.lng;
-                                        console.log(location.lat, location.lng);
+                                        console.log(lat, lng);
 
                                         var point = new google.maps.LatLng(lat, lng);
-
+                                        // console.log(point);
                                         checkIfPointInAnyZone(point, function(zone) {
                                             if (zone) {
                                                 $.ajax({
@@ -680,7 +683,7 @@
                                                     method: 'POST',
                                                     data: {
                                                         'method': 'delivery',
-                                                        'restaurent': zone.rest_id,
+                                                        'restaurant': zone.restaurant_id,
                                                         'address': address,
                                                         _token: '{{ csrf_token() }}'
                                                     },
@@ -689,7 +692,7 @@
                                                             'Restaurant name stored in session'
                                                         );
                                                         console.log(zone
-                                                            .rest_id);
+                                                            .restaurant_id);
                                                         window.location.href =
                                                             "/menu";
                                                     },
@@ -729,7 +732,7 @@
                     }, function(results, status) {
                         if (status === 'OK') {
                             if (results[0]) {
-                                document.getElementById('map-address-input').value = results[0].formatted_address;
+                                document.getElementById('map_address_input').value = results[0].formatted_address;
                             } else {
                                 alert('No results found');
                             }
