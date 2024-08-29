@@ -952,7 +952,6 @@ section,
 --------------------------------------------------------------*/
 .hero {
   width: 100%;
-  /* min-height: 100vh; */
   position: relative;
   padding: 0 0;
   display: flex;
@@ -960,6 +959,7 @@ section,
   justify-content: center;
   color: var(--default-color);
 }
+
 .hero:before {
   content: "";
   background: color-mix(in srgb, var(--background-color), transparent 50%);
