@@ -117,6 +117,14 @@
                                                             placeholder="tiktok link" class="" name="tiktok_link">
                                                     </div>
                                                 </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Google Map Api Key</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::setting('google.map') ? Settings::setting('google.map') : 'Google Api Key' }}"
+                                                            placeholder="Google Api Key" class="" name="google_map">
+                                                    </div>
+                                                </div>
 
 
                                                 <div class="col-12 d-flex justify-content-between mt-2">
