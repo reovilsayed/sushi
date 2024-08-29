@@ -197,6 +197,11 @@
             .select-options li.is-selected {
                 background-color: #c35443;
             }
+            /* niko  */
+            
+            .modal-content{
+                background-color: var(--default-color);
+            }
         </style>
     @endpush
     <br><br><br>
@@ -375,17 +380,32 @@
     <div class="modal fade" id="exampleModaladdress" tabindex="-1" aria-labelledby="exampleModaladdress"
         aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Entrez votre adresse de livraison</h5>
+                    <h5 class="modal-title text-colour" id="exampleModalLabel">Entrez votre adresse de livraison</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="pmclr p-2">LIVRAISON</h5>
+                    <h5 class="pmclr p-2 text-colour" >LIVRAISON</h5>
                     <div class="input-container" style="position: relative;">
-                        <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
-                            class="form-control">
-                        <button id="checkDZ" class="btn btn-primary">Entrer</button>
+                        {{-- here  --}}
+                        <div class="input-group text-center">
+                            <input type="text" id="map-address-input" name="location"
+                                value="{{ session()->get('current_location') ?? '' }}"
+                                class="form-control form-control-lg location text-center"
+                                style="color: var(--accent-color);" placeholder="Enter Location"
+                                aria-label="Enter Location" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-orange" onclick="getCurrentLocation()">
+                                <i class="bi bi-geo-alt"></i>
+                            </button>
+                            <button id="checkDZ" class="btn btn-outline-orange">
+                                {{ __('Enter') }}
+                            </button>
+                        </div>
+                        {{-- here --}}
+                        {{-- <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
+                            class="form-control"> --}}
+                        {{-- <button id="checkDZ" class="btn btn-primary">Entrer</button>
                         <button onclick="getCurrentLocation()" class="btn btn-outline-secondary location-btn">
                             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em"
                                 viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
@@ -397,7 +417,7 @@
                                         d="M240 383 c-28 -10 -50 -36 -50 -60 0 -12 5 -23 10 -23 6 0 10 8 10 18 0 46 69 59 95 18 30 -46 -18 -101 -65 -76 -28 15 -40 2 -16 -16 37 -27 80 -15 101 27 20 38 19 54 -7 83 -25 26 -54 37 -78 29z" />
                                 </g>
                             </svg>
-                        </button>
+                        </button> --}}
                         <div id="result" class="result-container">
                             <span id="resultText"></span>
                             <button id="closeButton" onclick="closeResult()">X</button>
@@ -581,7 +601,7 @@
                         .then(response => response.text())
                         .then(apiKey => {
                             let key = JSON.parse(apiKey);
-                            // console.log(JSON.parse(apiKey));
+                            console.log(JSON.parse(apiKey));
                             // Load Google Maps API with the retrieved API key
                             const script = document.createElement('script');
                             script.src =
