@@ -33,7 +33,7 @@ class PageController extends Controller
         //     dd($zone);
         // }
         $heros = SliderImage::latest()->get();
-        return view('user.home', compact('restaurants', 'zones','heros'));
+        return view('user.home', compact('restaurants', 'zones', 'heros'));
     }
 
     public function menu($slug)
@@ -120,8 +120,8 @@ class PageController extends Controller
 
     public function userCheckout()
     {
-        $restaurant =Restaurant::find(session()->get('restaurent_id'));
-   
+        $restaurant = Restaurant::find(session()->get('restaurent_id'));
+
         $restaurantId = $restaurant->id;
         $currentTime = Carbon::now('Europe/Paris')->startOfMinute();
         $dayOfWeek = $currentTime->dayOfWeek;
@@ -353,7 +353,7 @@ class PageController extends Controller
             'TimeOption' => 'required',
         ]);
         $selectedTime = $validated['TimeOption'];
-        Session::put('delivery_time' , $selectedTime);
+        Session::put('delivery_time', $selectedTime);
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Delivery time updated successfully!');

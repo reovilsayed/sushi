@@ -181,7 +181,7 @@
                 border: 1px solid #c35443;
                 border-radius: 4px;
                 margin-top: 5px;
-                z-index: 999;
+                z-index: 9999 !important;
                 list-style: none;
                 padding: 0;
             }
@@ -223,7 +223,8 @@
 
                             </li>
                             <li><button class="dropdown-item text-colour" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">{{ __('sentence.homedelivery') }}</button></li>
+                                    data-bs-target="#exampleModaladdress">{{ __('sentence.homedelivery') }}</button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -310,7 +311,7 @@
                                     <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                         <a id="{{ $child->name }}" href=""
                                             class="  h4">{{ $child->name }}</a>
-                                        <p class="mt-2 fst-italic" >{{ $child->description }}</p>
+                                        <p class="mt-2 fst-italic">{{ $child->description }}</p>
                                         {{-- <hr> --}}
                                     </div>
 
@@ -337,7 +338,7 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">
@@ -345,21 +346,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form action="save.location" method="post">
-                        @csrf
-                        <div class="input-group  text-center">
-                            <input type="text" id="location-input" name="location"
-                                class="form-control form-control-lg location text-center text-colour"
-                                placeholder="Enter Location" aria-label="Enter Location"
-                                aria-describedby="button-addon2">
-                            <button class="btn btn-outline-orange" type="button" id="location-button">
-                                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                            </button>
-                            <button type="submit" class="btn btn-outline-orange" type="button"
-                                id="home-delivery">{{ __('sentence.enter') }}</button>
-                        </div>
-                    </form> --}}
-
                     <form action="{{ route('location.store') }}" method="post" id="location-form">
                         @csrf
                         <div class="input-group text-center">
@@ -381,7 +367,50 @@
 
             </div>
         </div>
+    </div> --}}
+
+
+
+    <!-- Modal HTML -->
+    <div class="modal fade" id="exampleModaladdress" tabindex="-1" aria-labelledby="exampleModaladdress"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Entrez votre adresse de livraison</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="pmclr p-2">LIVRAISON</h5>
+                    <div class="input-container" style="position: relative;">
+                        <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
+                            class="form-control">
+                        <button id="checkDZ" class="btn btn-primary">Entrer</button>
+                        <button onclick="getCurrentLocation()" class="btn btn-outline-secondary location-btn">
+                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em"
+                                viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
+                                <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)"
+                                    fill="var(--primary-color)" stroke="none">
+                                    <path
+                                        d="M194 461 c-57 -26 -87 -72 -92 -141 -4 -51 0 -63 43 -145 100 -192 125 -199 203 -56 39 71 25 83 -16 15 -15 -26 -37 -59 -50 -73 l-22 -26 -25 30 c-47 56 -115 203 -115 247 0 167 236 193 279 30 14 -50 36 -58 26 -9 -15 68 -45 106 -108 132 -47 20 -73 19 -123 -4z" />
+                                    <path
+                                        d="M240 383 c-28 -10 -50 -36 -50 -60 0 -12 5 -23 10 -23 6 0 10 8 10 18 0 46 69 59 95 18 30 -46 -18 -101 -65 -76 -28 15 -40 2 -16 -16 37 -27 80 -15 101 27 20 38 19 54 -7 83 -25 26 -54 37 -78 29z" />
+                                </g>
+                            </svg>
+                        </button>
+                        <div id="result" class="result-container">
+                            <span id="resultText"></span>
+                            <button id="closeButton" onclick="closeResult()">X</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Styles -->
+
+
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel" style="background: rgba(0, 0, 0, 0.5)">
@@ -513,7 +542,7 @@
             </script> --}}
 
 
-            <script>
+            {{-- <script>
                 document.getElementById('location-button').addEventListener('click', function() {
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position) {
@@ -539,6 +568,172 @@
                         console.error('Geolocation is not supported by this browser.');
                     }
                 });
+            </script> --}}
+
+
+            <script>
+                // Function to initialize the map for map-nos div
+
+
+                $(document).ready(function() {
+                    // Fetch Google Maps API key from the server
+                    fetch('/get-google-maps-api-key')
+                        .then(response => response.text())
+                        .then(apiKey => {
+                            let key = JSON.parse(apiKey);
+                            // console.log(JSON.parse(apiKey));
+                            // Load Google Maps API with the retrieved API key
+                            const script = document.createElement('script');
+                            script.src =
+                                `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=geometry,places&callback=initMapNOS`;
+                            script.async = true;
+                            script.defer = true;
+                            script.onload = function() {
+                                // Now that the Google Maps API is loaded, you can use it
+
+                                // Autocomplete functionality
+                                var input = document.getElementById('map-address-input');
+                                var options = {
+                                    componentRestrictions: {
+                                        country: 'fr'
+                                    }
+                                };
+
+                                var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+                                // Fetch the current location when the document is ready
+                                // Function to geocode an address
+                                function geocodeAddress(address, callback) {
+                                    var geocoder = new google.maps.Geocoder();
+                                    geocoder.geocode({
+                                        'address': address
+                                    }, function(results, status) {
+                                        if (status === 'OK') {
+                                            callback({
+                                                lat: results[0].geometry.location.lat(),
+                                                lng: results[0].geometry.location.lng()
+                                            });
+                                        } else {
+                                            alert('Select Correct Address');
+                                        }
+                                    });
+                                }
+
+                                function checkIfPointInAnyZone(point, callback) {
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('GET', '/zones', true);
+                                    xhr.onload = function() {
+                                        var zones = JSON.parse(xhr.responseText);
+                                        for (var i = 0; i < zones.length; i++) {
+                                            var zone = zones[i];
+                                            var polygon = new google.maps.Polygon({
+                                                paths: zone.coordinates.map(coord => ({
+                                                    lat: coord.lat,
+                                                    lng: coord.lng
+                                                }))
+                                            });
+                                            if (google.maps.geometry.poly.containsLocation(point, polygon)) {
+                                                callback(zone);
+                                                return;
+                                            }
+                                        }
+                                        callback(null);
+                                    };
+                                    xhr.send();
+                                }
+
+                                // Your other code here
+                                $('#checkDZ').click(function() {
+                                    var address = $('#map-address-input').val();
+
+                                    geocodeAddress(address, function(location) {
+                                        var lat = location.lat;
+                                        var lng = location.lng;
+                                        console.log(location.lat, location.lng);
+
+                                        var point = new google.maps.LatLng(lat, lng);
+
+                                        checkIfPointInAnyZone(point, function(zone) {
+                                            if (zone) {
+                                                $.ajax({
+                                                    url: '/store-in-session',
+                                                    method: 'POST',
+                                                    data: {
+                                                        'method': 'delivery',
+                                                        'restaurent': zone.rest_id,
+                                                        'address': address,
+                                                        _token: '{{ csrf_token() }}'
+                                                    },
+                                                    success: function(response) {
+                                                        console.log(
+                                                            'Restaurant name stored in session'
+                                                        );
+                                                        console.log(zone
+                                                            .rest_id);
+                                                        window.location.href =
+                                                            "/menu";
+                                                    },
+                                                    error: function(jqXHR,
+                                                        textStatus, errorThrown
+                                                    ) {
+                                                        alert(
+                                                            'An error occurred. Please try again.'
+                                                        );
+                                                    }
+                                                });
+                                            } else {
+                                                alert(
+                                                    'Nous ne pouvons pas délivrer cette adresse, veuillez sélectionner un restaurant pour retirer votre commande'
+                                                );
+                                            }
+                                        });
+                                    });
+                                });
+                            };
+
+                            // Append the script to the document head
+                            document.head.appendChild(script);
+                        });
+                });
+
+                // Function to get address from latitude and longitude
+                function getAddressFromLatLng(lat, lng) {
+                    var geocoder = new google.maps.Geocoder();
+                    var latlng = {
+                        lat: parseFloat(lat),
+                        lng: parseFloat(lng)
+                    };
+
+                    geocoder.geocode({
+                        'location': latlng
+                    }, function(results, status) {
+                        if (status === 'OK') {
+                            if (results[0]) {
+                                document.getElementById('map-address-input').value = results[0].formatted_address;
+                            } else {
+                                alert('No results found');
+                            }
+                        } else {
+                            alert('Geocoder failed due to: ' + status);
+                        }
+                    });
+                }
+
+                // Function to get the current location of the user
+                function getCurrentLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            var latitude = position.coords.latitude;
+                            var longitude = position.coords.longitude;
+
+                            getAddressFromLatLng(latitude, longitude);
+                        }, function(error) {
+                            alert('Error occurred. Error code: ' + error.code);
+                        });
+                    } else {
+                        alert("Geolocation is not supported by this browser.");
+                    }
+                }
             </script>
         @endpush
 </x-user>
