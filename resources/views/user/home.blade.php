@@ -1,22 +1,58 @@
 <x-user>
-    <style>
-        #location-input:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-    </style>
+    @push('css')
+        <style>
+            #location-input:focus {
+                outline: none !important;
+                box-shadow: none !important;
+            }
+
+            @media (min-width: 375px) and (max-width: 667px) {
+                .header {
+                    background-color: rgb(26, 15, 15);
+                    color: var(--default-color) !important;
+                    transition: all 0.5s;
+                    z-index: 997;
+                }
+                #hero{
+                    padding-top: 60px !important;
+                }
+            }
+            @media (min-width: 360px) and (max-width: 740px) {
+                .header {
+                    background-color: rgb(26, 15, 15);
+                    color: var(--default-color) !important;
+                    transition: all 0.5s;
+                    z-index: 997;
+                }
+                #hero{
+                    padding-top: 60px !important;
+                }
+            }
+            @media (min-width: 768px) and (max-width: 1024px) {
+                .header {
+                    background-color: rgb(26, 15, 15);
+                    color: var(--default-color) !important;
+                    transition: all 0.5s;
+                    z-index: 997;
+                }
+                #hero{
+                    padding-top: 60px !important;
+                }
+            }
+        </style>
+    @endpush
 
     <section id="hero" class="hero section dark-background bg-transparent">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @foreach ($heros as $index => $hero)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="{{ Storage::url($hero->slider_image) }}" class="d-block w-100 img-fluid" alt="">
-                </div>
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <img src="{{ Storage::url($hero->slider_image) }}" class="d-block w-100 img-fluid" alt="">
+                    </div>
                 @endforeach
             </div>
         </div>
-        
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 d-flex flex-column align-items-center align-items-lg-start">
@@ -38,7 +74,7 @@
     <section>
         <div class="container ">
             <div class="row">
-                <div class="col-3 mt-5" data-aos="fade-right" >
+                <div class="col-3 mt-5" data-aos="fade-right">
                     <img src="{{ Storage::url(Settings::setting('slide.laft')) }}" class="img-fluid" alt="laft">
                 </div>
                 <div class="col-3">
