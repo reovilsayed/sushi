@@ -197,10 +197,60 @@
             .select-options li.is-selected {
                 background-color: #c35443;
             }
+
             /* niko  */
-            
-            .modal-content{
+
+            .modal-content {
                 background-color: var(--default-color);
+            }
+
+            .pac-container {
+                width: 355px !important;
+                position: absolute;
+                left: 535px !important;
+                /* top: 688px !important; */
+                background-color: black !important;
+                color: #f38a00 !important;
+                border: none !important;
+                z-index: 1000000 !important;
+            }
+
+            .pac-item {
+                padding: 8px;
+                cursor: pointer;
+                line-height: 30px;
+                text-align: left;
+                border-top: 1px solid #e6e6e6;
+                font-size: 11px;
+                color: #515151;
+            }
+
+            .pac-item-query {
+                color: #e4d4bf;
+                font-weight: bold;
+                font-size: 13px;
+                padding-right: 3px;
+            }
+
+            .pac-matched {
+                text-decoration: underline;
+            }
+
+            .input-container {
+                display: flex !important;
+                align-items: center !important;
+                height: 53px !important;
+                overflow: hidden !important;
+            }
+
+            .input-group>.form-control,
+            .input-group>.form-floating,
+            .input-group>.form-select {
+                position: relative;
+                flex: 1 1 auto;
+                width: 1%;
+                min-width: 0;
+                box-shadow: none !important;
             }
         </style>
     @endpush
@@ -211,7 +261,7 @@
         <!-- Section Title -->
         <div class="container " data-aos="fade-up">
             <div class="row">
-                <div class="section-title col-md-4">
+                <div class="section-title col-md-3">
                     <h2>{{ __('sentence.menu') }}</h2>
                     <p style="color: var(--default-color)">{{ $restaurant->name }}</p>
                 </div>
@@ -353,23 +403,24 @@
                 <div class="modal-body">
                     {{-- <form action="{{ route('location.store') }}" method="post" id="location-form">
                         @csrf --}}
-                        <div class="input-group text-center">
-                            <input type="text" id="map_address_input" name="location"
-                                value=""
-                                class="form-control form-control-lg location text-center"
-                                style="color: var(--accent-color);" placeholder="Enter Location"
-                                aria-label="Enter Location" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()" id="location-button">
-                                <i class="bi bi-geo-alt"></i>
-                            </button>
-                            <button id="checkDZ"class="btn btn-outline-orange">
-                                {{ __('Enter') }}
-                            </button>
-                        </div>
-                        <div id="result" class="result-container">
-                            <span id="resultText"></span>
-                            <button id="closeButton" onclick="closeResult()">X</button>
-                        </div>
+                    <div class="input-group text-center">
+                        <input type="text" id="map_address_input" name="location" value=""
+                            class="form-control form-control-lg location text-center"
+                            style="color: var(--accent-color); border-radius: 0px !important;"
+                            placeholder="Enter Location" aria-label="Enter Location"
+                            aria-describedby="button-addon2">
+                        <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()"
+                            id="location-button">
+                            <i class="bi bi-geo-alt"></i>
+                        </button>
+                        <button id="checkDZ"class="btn btn-outline-orange">
+                            {{ __('Enter') }}
+                        </button>
+                    </div>
+                    {{-- <div id="result" class="result-container">
+                        <span id="resultText"></span>
+                        <button id="closeButton" onclick="closeResult()">X</button>
+                    </div> --}}
                     {{-- </form> --}}
 
                 </div><!--  Item -->
@@ -392,7 +443,6 @@
                 <div class="modal-body">
                     <h5 class="pmclr p-2 text-colour" >LIVRAISON</h5>
                     <div class="input-container" style="position: relative;">
-                        {{-- here  --}}
                         <div class="input-group text-center">
                             <input type="text" id="map-address-input" name="location"
                                 value="{{ session()->get('current_location') ?? '' }}"
@@ -406,10 +456,9 @@
                                 {{ __('Enter') }}
                             </button>
                         </div>
-                        {{-- here --}}
-                        {{-- <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
-                            class="form-control"> --}}
-                        {{-- <button id="checkDZ" class="btn btn-primary">Entrer</button>
+                        <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
+                            class="form-control">
+                        <button id="checkDZ" class="btn btn-primary">Entrer</button>
                         <button onclick="getCurrentLocation()" class="btn btn-outline-secondary location-btn">
                             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em"
                                 viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
@@ -421,7 +470,7 @@
                                         d="M240 383 c-28 -10 -50 -36 -50 -60 0 -12 5 -23 10 -23 6 0 10 8 10 18 0 46 69 59 95 18 30 -46 -18 -101 -65 -76 -28 15 -40 2 -16 -16 37 -27 80 -15 101 27 20 38 19 54 -7 83 -25 26 -54 37 -78 29z" />
                                 </g>
                             </svg>
-                        </button> --}}
+                        </button>
                         <div id="result" class="result-container">
                             <span id="resultText"></span>
                             <button id="closeButton" onclick="closeResult()">X</button>
@@ -614,16 +663,16 @@
 
                                 // Autocomplete functionality
                                 var input = document.getElementById('map_address_input');
-                              
+
                                 var options = {
                                     componentRestrictions: {
                                         country: 'fr'
                                     }
                                 };
-                             
-                               
+
+
                                 var autocomplete = new google.maps.places.Autocomplete(input, options);
-                               
+
                                 // Fetch the current location when the document is ready
                                 // Function to geocode an address
                                 function geocodeAddress(address, callback) {
@@ -642,6 +691,7 @@
                                     });
                                 }
                                 console.log(geocodeAddress);
+
                                 function checkIfPointInAnyZone(point, callback) {
                                     var xhr = new XMLHttpRequest();
                                     xhr.open('GET', '/zones', true);
@@ -683,7 +733,8 @@
                                                     method: 'POST',
                                                     data: {
                                                         'method': 'delivery',
-                                                        'restaurant': zone.restaurant_id,
+                                                        'restaurant': zone
+                                                            .restaurant_id,
                                                         'address': address,
                                                         _token: '{{ csrf_token() }}'
                                                     },
