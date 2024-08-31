@@ -206,6 +206,7 @@ class ProductController extends Controller
     }
     public function updateProduct(Request $request, Product $product)
     {
+        Cache::flush();
         // dd($request);
         $validated = $request->validate([
             'name' => 'required|string',

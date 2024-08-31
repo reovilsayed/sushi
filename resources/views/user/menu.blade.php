@@ -267,23 +267,10 @@
                 </div>
                 <div class="section-title col-md-4">
                     <h2 class="mb-2">Choose Delivery</h2>
-                    <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;">
+                    <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;" hidden>
                         Current location : (15 to 20 Minutes)</h6>
-                    <div class="dropdown">
-                        <button class="btn bg-transparent dropdown-toggle  text-colour delivery" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Choose Delivery Here
-                        </button>
-                        <ul class="dropdown-menu delivery-dropdown" style="width: 216px !important;">
-                            <li><a class="dropdown-item text-colour disabled-link"
-                                    href="#">{{ __('sentence.takeaway') }}</a></li>
-
-                            </li>
-                            <li><button class="dropdown-item text-colour" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">{{ __('sentence.homedelivery') }}</button>
-                            </li>
-                        </ul>
-                    </div>
+                        <button class="btn text-colour"  data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" style="border: solid 1px var(--accent-color)">{{ __('sentence.homedelivery') }}</button>
                 </div>
 
                 <div class="section-title col-md-4">

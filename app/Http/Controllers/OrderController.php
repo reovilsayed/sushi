@@ -7,6 +7,7 @@ use App\Mail\OrderConfirmationMail;
 use App\Mail\UserCreateMail;
 use App\Models\Order;
 use App\Models\Restaurant;
+use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Report\Earnings;
@@ -57,7 +58,7 @@ class OrderController extends Controller
     public function getChartData()
     {
         $eranings = Earnings::range(now()->subDays(15), now()->startOfDay())->graph();
-        dd($eranings);
+        // dd($eranings);
         return response()->json(['data' => $eranings]);
     }
 
@@ -118,7 +119,7 @@ class OrderController extends Controller
         }
         // Start a database transaction
         DB::beginTransaction();
-
+       
         try {
 
             // Handle user authentication
@@ -161,6 +162,7 @@ class OrderController extends Controller
                 // 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
             ]);
+            
             $extra = [];
             foreach (Cart::getContent() as $item) {
 
@@ -186,15 +188,19 @@ class OrderController extends Controller
                     'extra' => json_encode($extra),
                 ]);
             }
+            $order_mail =  Setting::where('key', 'order.mail')->value('value');
+            $restaurant = Restaurant::find(session()->get('restaurent_id'));
+            $emails = [$user['email'], $restaurant->email, $order_mail];
+
+            foreach ($emails as $email) {
+                Mail::to($email)->send(new OrderConfirmationMail($order));
+            }
             session()->forget('current_location');
             session()->forget('delivery_time');
             session()->forget('restaurent_id');
             // Clear the cart and session data
             Cart::clear();
             DB::commit();
-            // Send order confirmation email
-            Mail::to($user['email'])->send(new OrderConfirmationMail($order));
-
             // if ($request->payment_method == 'Card') {
             //     $amount = $order->total * 100;
             //     $orderId = $order->id;

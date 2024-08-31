@@ -20,20 +20,31 @@ class OrderConfirmationMail extends Mailable
     {
         $this->order = $order;
     }
-
-    public function build()
-    {
-        return $this->view('emails.order_confirmation');
-    }
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Order placed #'. $this->order->id,
+            subject: 'order Mail',
         );
     }
+    public function content(): Content
+    {
+        return new Content(
+            markdown: 'emails.order_confirmation',
+        );
+    }
+    // public function build()
+    // {
+    //     return $this->view('emails.order_confirmation');
+    // }
+    /**
+     * Get the message envelope.
+     */
+    // public function envelope(): Envelope
+    // {
+    //     return new Envelope(
+    //         subject: 'New Order placed #'. $this->order->id,
+    //     );
+    // }
 
     /**
      * Get the message content definition.

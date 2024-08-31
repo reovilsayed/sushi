@@ -1,5 +1,5 @@
 <x-user>
-
+    
 
     <section id="hero" class="hero section dark-background bg-transparent">
         <div id="carouselExampleDark" class="carousel carousel-dark slide">
