@@ -348,17 +348,15 @@ class PageController extends Controller
     // }
     public function storeInSession(Request $request)
     {
-        // Alternatively, you can use Session::put() method
-        dd(Session::put('restaurant', $request->input('restaurant')));
+        // Store the received data in the session
         Session::put('method', $request->input('method'));
         Session::put('restaurant', $request->input('restaurant'));
         Session::put('address', $request->input('address'));
 
-        // Session::put('current_location', $fullAddress);
-
-        // // Handle the rest of the form submission
-        // return redirect()->back()->with('success', 'Location stored successfully!');
+        // Optionally, return a JSON response to indicate success
+        return response()->json(['success' => true, 'message' => 'Data stored in session successfully!']);
     }
+
 
     public function updateTime(Request $request)
     {

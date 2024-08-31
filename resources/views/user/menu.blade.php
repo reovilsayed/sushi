@@ -651,7 +651,7 @@
                         .then(response => response.text())
                         .then(apiKey => {
                             let key = JSON.parse(apiKey);
-                            console.log(JSON.parse(apiKey));
+
                             // Load Google Maps API with the retrieved API key
                             const script = document.createElement('script');
                             script.src =
@@ -718,14 +718,13 @@
                                 // Your other code here
                                 $('#checkDZ').click(function() {
                                     var address = $('#map_address_input').val();
-                                    console.log(address);
+
                                     geocodeAddress(address, function(location) {
                                         var lat = location.lat;
                                         var lng = location.lng;
-                                        console.log(lat, lng);
 
                                         var point = new google.maps.LatLng(lat, lng);
-                                        // console.log(point);
+
                                         checkIfPointInAnyZone(point, function(zone) {
                                             if (zone) {
                                                 $.ajax({
@@ -736,31 +735,24 @@
                                                         'restaurant': zone
                                                             .restaurant_id,
                                                         'address': address,
-                                                        _token: '{{ csrf_token() }}'
+                                                        _token: '{{ csrf_token() }}' // Ensure you have CSRF token included
                                                     },
                                                     success: function(response) {
-                                                        console.log(
-                                                            'Restaurant name stored in session'
-                                                        );
-                                                        console.log(zone
-                                                            .restaurant_id);
-                                                        window.location.href =
-                                                            "/menu";
+                                                        console.log('Restaurant name stored in session');
+                                                        console.log(zone.restaurant_id);
+                                                        window.location.href ="/menu"; // Redirect to the menu page
                                                     },
                                                     error: function(jqXHR,
                                                         textStatus, errorThrown
-                                                    ) {
-                                                        alert(
-                                                            'An error occurred. Please try again.'
-                                                        );
+                                                        ) {
+                                                        alert('An error occurred. Please try again.');
                                                     }
                                                 });
                                             } else {
-                                                alert(
-                                                    'Nous ne pouvons pas délivrer cette adresse, veuillez sélectionner un restaurant pour retirer votre commande'
-                                                );
+                                                alert('Nous ne pouvons pas délivrer cette adresse, veuillez sélectionner un restaurant pour retirer votre commande');
                                             }
                                         });
+
                                     });
                                 });
                             };
