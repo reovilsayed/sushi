@@ -1,3 +1,6 @@
+@php
+$timeSelect = session()->get('delivery_time');
+@endphp
 <x-user>
     @push('css')
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -293,11 +296,11 @@
                         <h6
                             style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;">
                             Current delay : (15 to 20 Minutes)</h6>
-                        <select name="TimeOption"
-                            class="form-select selectpicker  bg-transparent text-colour delivery-time"
+                        <select name="TimeOption" class="form-select selectpicker  bg-transparent text-colour delivery-time"
                             data-container="body" onchange="submitTimeForm()">
                             @foreach ($timeSlots as $time)
-                                <option value="{{ $time }}">{{ $time }}</option>
+                                <option value="{{ $time }}" {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>
+                                    {{ $time }}</option>
                             @endforeach
                         </select>
                     </form>
@@ -743,18 +746,24 @@
                                                         _token: '{{ csrf_token() }}' // Ensure you have CSRF token included
                                                     },
                                                     success: function(response) {
-                                                        console.log('Restaurant name stored in session');
-                                                        console.log(zone.restaurant_id);
-                                                        window.location.href ="/menu"; // Redirect to the menu page
+                                                        console.log(
+                                                            'Restaurant name stored in session'
+                                                            );
+                                                        console.log(zone
+                                                            .restaurant_id);
+                                                        window.location.href =
+                                                            "/menu"; // Redirect to the menu page
                                                     },
                                                     error: function(jqXHR,
                                                         textStatus, errorThrown
-                                                        ) {
-                                                        alert('An error occurred. Please try again.');
+                                                    ) {
+                                                        alert(
+                                                            'An error occurred. Please try again.');
                                                     }
                                                 });
                                             } else {
-                                                alert('Nous ne pouvons pas délivrer cette adresse, veuillez sélectionner un restaurant pour retirer votre commande');
+                                                alert(
+                                                    'Nous ne pouvons pas délivrer cette adresse, veuillez sélectionner un restaurant pour retirer votre commande');
                                             }
                                         });
 

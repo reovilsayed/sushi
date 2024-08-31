@@ -266,7 +266,7 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}" {{ $time==$timeSelect ? 'selected' :'' }}>{{ $time }}
+                                                        <option value="{{ $time }}" {{ $time==$timeSelect[0] ? 'selected' :'' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -375,7 +375,7 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}" {{ $time==$timeSelect ? 'selected' :'' }}>{{ $time }}
+                                                        <option value="{{ $time }}" {{ $time==$timeSelect[0] ? 'selected' :'' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
