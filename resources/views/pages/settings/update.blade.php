@@ -49,10 +49,7 @@
                                                     <p><img src="{{ asset('images/phone.png') }}"
                                                             alt="" />{{ Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone' }}
                                                     </p>
-                                                    <button type="button" class="btn btn-outline-success"
-                                                        data-bs-toggle="modal" data-bs-target="#ChangeHeroImage">
-                                                        Change Hero Image
-                                                    </button>
+                                                    
                                                 </div>
                                             </div>
 
@@ -89,6 +86,15 @@
                                                             value="{{ Settings::setting('site.phone') ? Settings::setting('site.phone') : 'site Phone' }}"
                                                             placeholder="Site Phone Number" class=""
                                                             name="site_phone">
+                                                    </div>
+                                                </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Order Mail</div>
+                                                    <div class="input">
+                                                        <input type="text"
+                                                            value="{{ Settings::setting('order.mail') ? Settings::setting('order.mail') : 'order mail' }}"
+                                                            placeholder="Site Order Mail" class=""
+                                                            name="order_mail">
                                                     </div>
                                                 </div>
                                                 <div class="prf_data_row" data-editable>
@@ -179,48 +185,7 @@
         </div>
 
     </form>
-   
-    <div class="dashboard_content ps-0 mt-2">
-        <div class="dashboard_content_inner">
-            <div class="d-flex justify-content-between mt-1 mb-3">
-                <div style="float"class="mt-2">
-                    <h3>
-                        Slider Images Here
-                    </h3>
-                
-                </div>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
 
-                        <th scope="col">#</th>
-                        <th scope="col">{{ __('sentence.image') }}</th>
-                        <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($heros as $key => $hero)
-                    <tr>
-
-                        {{-- @dd($hero) --}}
-                        <th scope="row">{{ $key + 1 }}</th>
-                        <td>
-                            <img class="" height="100" width="100" src="{{ Storage::url($hero->slider_image) }}"
-                                alt="">
-                        </td>
-                        <td class="text-center">
-                            <x-actions.delete :action="route('delete.slide_image', $hero)" />
-                        </td>
-                    </tr>
-                @endforeach  
-
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -265,37 +230,5 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="ChangeHeroImage" tabindex="-1" aria-labelledby="ChangeHeroImageLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ChangeHeroImageLabel">Change Hero Image</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Your Change Password Form -->
-                    <form method="POST" action="{{ route('store.heroImage') }}" enctype="multipart/form-data">
-                        @csrf
 
-                        <div class="mt-3">
-                            <div class="form-group ">
-                                <label for="hero_image">Hero Image (1920x1080)</label>
-                                <input type="file" class="form-control" name="hero_image[]" multiple>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
-                                    class="fa-regular fa-circle-xmark"></i> Close</button>
-                            <button type="submit" class="btn btn-outline-success">
-                                 Change Hero Image
-                            </button>
-                        </div>
-                    </form>
-                    <!-- End of Change Password Form -->
-                </div>
-            </div>
-        </div>
-    </div>
 </x-layout>
