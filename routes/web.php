@@ -96,7 +96,6 @@ Route::get('/zones', [ZoneController::class, 'fetchZones']);
 Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
 Route::post('/location-store', [PageController::class, 'store'])->name('location.store');
 Route::patch('/time-update', [PageController::class, 'updateTime'])->name('time_update');
-Route::post('/restaurant-select', [PageController::class, 'restaurantSelect'])->name('restaurant_select');
 
 Route::get('/get-google-maps-api-key', function () {
     return response()->json(config('services.google_maps.api_key'));
