@@ -1,43 +1,40 @@
 <x-user>
-    
+    <style>
+        .btn-orange-normal {
+            color: var(--default-color);
+            border: 2px solid var(--accent-color);
+            background: transparent;
+            padding: 8px 30px;
+            transition: 0.4s;
+            border-radius: 50px;
+        }
+    </style>
 
-    <section id="hero" class="hero section dark-background bg-transparent">
-        <div id="carouselExampleDark" class="carousel carousel-dark slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-            </div>
+    <section style="height: 100vh;padding: 0px 0;">
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
             <div class="carousel-inner">
                 @foreach ($sliders as $index => $slider)
-                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="10000">
-                        <img src="{{ Storage::url($slider->image) }}" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{ $slider->heading }}</h5>
-                            <p>{{ $slider->title }}</p>
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="4000">
+                        <div style="position: relative; display: inline-block;">
+                            <img src="{{ Storage::url($slider->image) }}" class="d-block w-100" alt="...">
+                            <div
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+                            </div>
+                        </div>
+                        <div class="carousel-caption d-block text-start" style="top: 50%; ">
+                            <h1 style="font-family: 'Montserrat', sans-serif ;font-size: 48px;font-weight: 700;">
+                                {{ $slider->heading }} <span
+                                    style="color: var(--accent-color)">{{ $slider->heading_end }}</span>
+                            </h1>
+                            <p class="col-8" style="color: var(--default-color);font-size: 24px;">{{ $slider->title }}</p>
+                            <a href="#location" class="btn btn-orange-normal">Location</a>
                         </div>
                     </div>
                 @endforeach
-
-
-
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+    </section>
 
-    </section><!-- /Hero Section -->
 
     <section>
         <div class="container ">

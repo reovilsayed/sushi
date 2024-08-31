@@ -56,7 +56,7 @@
                             <h6 class="dash_head">{{ __('sentence.productdetails') }}</h6>
 
                             <div class="row row-cols-1">
-                                <x-form.input name="name" wire:model="name" label="Name *" value="" autofocus
+                                <x-form.input name="name" wire:model="name" label="Product Name *" value="" autofocus
                                     required />
                             </div>
                             <div class="row row-cols-1">

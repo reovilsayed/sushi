@@ -11,8 +11,10 @@
                         <div class="card-body">
                             <h6 class="dash_head">Slider Image</h6>
 
-                            <div class="row row-cols-1">
+                            <div class="row row-cols-2">
                                 <x-form.input name="heading"  label="Heading *" value="" autofocus
+                                    required />
+                                <x-form.input name="heading_end"  label="Heading End *" value="" autofocus
                                     required />
                             </div>
 

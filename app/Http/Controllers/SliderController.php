@@ -22,6 +22,7 @@ class SliderController extends Controller
         $slider = new Slider;
         $slider->title = $request->title;
         $slider->heading = $request->heading;
+        $slider->heading_end = $request->heading_end;
         if ($request->hasFile('image')) {
             $slider->image = $request->file('image')->store('uploads', 'public');
         }
@@ -53,6 +54,7 @@ class SliderController extends Controller
         // dd($request->all());
         $slider->title = $request->title;
         $slider->heading = $request->heading;
+        $slider->heading_end = $request->heading_end;
         if ($request->hasFile('image')) {
             if ($slider->image && Storage::exists($slider->image)) {
                 Storage::delete($slider->image);
