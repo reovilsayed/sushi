@@ -11,15 +11,15 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="table-responsive">
                         <table class="cart_table  table-responsive">
-                            <thead class="table_head text-dark">
+                            {{-- <thead class="table_head text-dark">
                                 <th class="cart-product-remove" style="padding-left:20px;">{{ __('sentence.remove') }}
                                 </th>
                                 <th class="cart-product-image">{{ __('sentence.image') }}</th>
                                 <th class="cart-product-info text-center">{{ __('sentence.name') }}</th>
                                 <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
-                            </thead>
-                            <tbody class="table_body">
+                            </thead> --}}
+                            <tbody class="table_body" style="border-top: 1px solid var(--accent-color);">
                                 @forelse (Cart::getContent() as $item)
                                 
                                     <tr>

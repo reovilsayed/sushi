@@ -93,7 +93,7 @@ Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoic
 Route::post('/store-in-session', [PageController::class, 'storeInSession'])->name('store-in-session');
 
 Route::get('/zones', [ZoneController::class, 'fetchZones']);
-// Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
+Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
 Route::post('/location-store', [PageController::class, 'store'])->name('location.store');
 Route::patch('/time-update', [PageController::class, 'updateTime'])->name('time_update');
 

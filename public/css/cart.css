@@ -71,7 +71,7 @@
     justify-content: center;
     align-items: center;
     float: left;
-    border-right: 2px solid var(--accent-color);
+    /* border-right: 2px solid var(--accent-color); */
     color: var(--heading-color);
     cursor: pointer;
     background-color: transparent;

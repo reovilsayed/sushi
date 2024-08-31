@@ -34,50 +34,6 @@ class PageController extends Controller
         return view('user.home', compact('restaurants', 'zones','sliders'));
     }
 
-    public function menu($slug)
-    {
-        // Cache the restaurant and categories to avoid hitting the database multiple times
-        $cacheKey = 'restaurant_menu_' . $slug;
-        $menuData = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($slug) {
-            $restaurant = Restaurant::where('slug', $slug)->first();
-
-            if (!$restaurant) {
-                abort(404); // Handle the case where the restaurant is not found
-            }
-
-            $categories = Category::whereNull('parent_id')->with('childs', 'products')->get();
-            // dd($categories);
-            $subCategories = Category::whereNotNull('parent_id')->get();
-
-            return compact('restaurant', 'categories', 'subCategories');
-        });
-
-        $restaurant = $menuData['restaurant'];
-        $categories = $menuData['categories'];
-        $subCategories = $menuData['subCategories'];
-
-        // Cache the time slots
-        $restaurantId = $restaurant->id;
-        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();
-        $dayOfWeek = $currentTime->dayOfWeek;
-
-        $timeSlotsCacheKey = 'restaurant_time_slots_' . $restaurantId . '_' . $dayOfWeek;
-        $timeSlots = Cache::remember($timeSlotsCacheKey, now()->addMinutes(60), function () use ($restaurantId, $dayOfWeek, $currentTime) {
-            $timeSlots = [];
-            $timeRanges = $this->getTimeRanges($restaurantId, $dayOfWeek);
-
-            foreach ((array) $timeRanges as $range) {
-                $startTime = Carbon::createFromTimeString($range['start'], 'Europe/Paris');
-                $endTime = Carbon::createFromTimeString($range['end'], 'Europe/Paris');
-                $this->generateTimeSlots($startTime, $endTime, $currentTime, $timeSlots);
-            }
-
-            return $timeSlots;
-        });
-
-        return view('user.menu', compact('categories', 'subCategories', 'restaurant', 'timeSlots'));
-    }
-
     private function getTimeRanges($restaurantId, $dayOfWeek)
     {
 
@@ -112,11 +68,54 @@ class PageController extends Controller
         for ($time = $startTime; $time->lte($endTime); $time->addMinutes(45)) {
             $endSlot = $time->copy()->addMinutes(30);
             if ($time->gte($currentTime) || $endSlot->gt($currentTime)) {
-                $timeSlots[] = $time->format('g:i A') . ' - ' . $endSlot->format('g:i A');
+                $timeSlots[] = $time->format('H:i') . ' - ' . $endSlot->format('H:i');
             }
         }
     }
 
+
+    public function menu($slug)
+    {
+        // Cache the restaurant and categories to avoid hitting the database multiple times
+        $cacheKey = 'restaurant_menu_' . $slug;
+        $menuData = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($slug) {
+            $restaurant = Restaurant::where('slug', $slug)->first();
+            dd($restaurant);
+            if (!$restaurant) {
+                abort(404); // Handle the case where the restaurant is not found
+            }
+
+            $categories = Category::whereNull('parent_id')->with('childs', 'products')->get();
+            // dd($categories);
+            $subCategories = Category::whereNotNull('parent_id')->get();
+
+            return compact('restaurant', 'categories', 'subCategories');
+        });
+
+        $restaurant = $menuData['restaurant'];
+        $categories = $menuData['categories'];
+        $subCategories = $menuData['subCategories'];
+
+        // Cache the time slots
+        $restaurantId = $restaurant->id;
+        $currentTime = Carbon::now('Europe/Paris')->startOfMinute();
+        $dayOfWeek = $currentTime->dayOfWeek;
+
+        $timeSlotsCacheKey = 'restaurant_time_slots_' . $restaurantId . '_' . $dayOfWeek;
+        $timeSlots = Cache::remember($timeSlotsCacheKey, now()->addMinutes(60), function () use ($restaurantId, $dayOfWeek, $currentTime) {
+            $timeSlots = [];
+            $timeRanges = $this->getTimeRanges($restaurantId, $dayOfWeek);
+
+            foreach ((array) $timeRanges as $range) {
+                $startTime = Carbon::createFromTimeString($range['start'], 'Europe/Paris');
+                $endTime = Carbon::createFromTimeString($range['end'], 'Europe/Paris');
+                $this->generateTimeSlots($startTime, $endTime, $currentTime, $timeSlots);
+            }
+            return $timeSlots;
+        });
+        // dd(getTimeRanges());
+        return view('user.menu', compact('categories', 'subCategories', 'restaurant', 'timeSlots'));
+    }
     public function userCheckout()
     {
         $restaurant = Restaurant::find(session()->get('restaurent_id'));
@@ -362,9 +361,17 @@ class PageController extends Controller
         $validated = $request->validate([
             'TimeOption' => 'required',
         ]);
-        $selectedTime = $validated['TimeOption'];
-        Session::put('delivery_time', $selectedTime);
 
+        $selectedTime = $validated['TimeOption'];
+
+        // Check if the session has data
+        if (Session::has('delivery_time')) {
+            // Delete previous session data
+            Session::forget('delivery_time');
+        }
+
+        // Add new session data
+        Session::put('delivery_time', [$selectedTime]);
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Delivery time updated successfully!');
     }
