@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use App\Models\SliderImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -123,7 +124,7 @@ class SettingController extends Controller
         }
 
 
-
+        Cache::flush();
         // Optionally, add a success message and redirect
         return redirect()->back()->with('success', 'Settings updated successfully.');
     }

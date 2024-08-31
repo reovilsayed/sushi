@@ -197,9 +197,10 @@
             .select-options li.is-selected {
                 background-color: #c35443;
             }
+
             /* niko  */
-            
-            .modal-content{
+
+            .modal-content {
                 background-color: var(--default-color);
             }
         </style>
@@ -216,9 +217,11 @@
                     <p style="color: var(--default-color)">{{ $restaurant->name }}</p>
                 </div>
                 <div class="section-title col-md-4">
-                    <h2>Choose Delivery</h2>
+                    <h2 class="mb-2">Choose Delivery</h2>
+                    <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;">
+                        Current location : (15 to 20 Minutes)</h6>
                     <div class="dropdown">
-                        <button class="btn bg-transparent dropdown-toggle mt-2 text-colour delivery" type="button"
+                        <button class="btn bg-transparent dropdown-toggle  text-colour delivery" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Choose Delivery Here
                         </button>
@@ -238,9 +241,11 @@
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <h2>Choose Delivery Time</h2>
+                        <h6
+                            style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;">
+                            Current delay : (15 to 20 Minutes)</h6>
                         <select name="TimeOption"
-                            class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time"
+                            class="form-select selectpicker  bg-transparent text-colour delivery-time"
                             data-container="body" onchange="submitTimeForm()">
                             @foreach ($timeSlots as $time)
                                 <option value="{{ $time }}">{{ $time }}</option>
@@ -343,7 +348,8 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">
@@ -353,23 +359,23 @@
                 <div class="modal-body">
                     {{-- <form action="{{ route('location.store') }}" method="post" id="location-form">
                         @csrf --}}
-                        <div class="input-group text-center">
-                            <input type="text" id="map_address_input" name="location"
-                                value=""
-                                class="form-control form-control-lg location text-center"
-                                style="color: var(--accent-color);" placeholder="Enter Location"
-                                aria-label="Enter Location" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()" id="location-button">
-                                <i class="bi bi-geo-alt"></i>
-                            </button>
-                            <button id="checkDZ"class="btn btn-outline-orange">
-                                {{ __('Enter') }}
-                            </button>
-                        </div>
-                        <div id="result" class="result-container">
-                            <span id="resultText"></span>
-                            <button id="closeButton" onclick="closeResult()">X</button>
-                        </div>
+                    <div class="input-group text-center">
+                        <input type="text" id="map_address_input" name="location" value=""
+                            class="form-control form-control-lg location text-center"
+                            style="color: var(--accent-color);" placeholder="Enter Location"
+                            aria-label="Enter Location" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()"
+                            id="location-button">
+                            <i class="bi bi-geo-alt"></i>
+                        </button>
+                        <button id="checkDZ"class="btn btn-outline-orange">
+                            {{ __('Enter') }}
+                        </button>
+                    </div>
+                    <div id="result" class="result-container">
+                        <span id="resultText"></span>
+                        <button id="closeButton" onclick="closeResult()">X</button>
+                    </div>
                     {{-- </form> --}}
 
                 </div><!--  Item -->
@@ -393,23 +399,22 @@
                     <h5 class="pmclr p-2 text-colour" >LIVRAISON</h5>
                     <div class="input-container" style="position: relative;">
                         {{-- here  --}}
-                        <div class="input-group text-center">
-                            <input type="text" id="map-address-input" name="location"
-                                value="{{ session()->get('current_location') ?? '' }}"
-                                class="form-control form-control-lg location text-center"
-                                style="color: var(--accent-color);" placeholder="Enter Location"
-                                aria-label="Enter Location" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-orange" onclick="getCurrentLocation()">
-                                <i class="bi bi-geo-alt"></i>
-                            </button>
-                            <button id="checkDZ" class="btn btn-outline-orange">
-                                {{ __('Enter') }}
-                            </button>
-                        </div>
-                        {{-- here --}}
-                        {{-- <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
+    <div class="input-group text-center">
+        <input type="text" id="map-address-input" name="location"
+            value="{{ session()->get('current_location') ?? '' }}"
+            class="form-control form-control-lg location text-center" style="color: var(--accent-color);"
+            placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
+        <button class="btn btn-outline-orange" onclick="getCurrentLocation()">
+            <i class="bi bi-geo-alt"></i>
+        </button>
+        <button id="checkDZ" class="btn btn-outline-orange">
+            {{ __('Enter') }}
+        </button>
+    </div>
+    {{-- here --}}
+    {{-- <input type="text" id="map-address-input" placeholder="Entrez votre adresse de livraison…"
                             class="form-control"> --}}
-                        {{-- <button id="checkDZ" class="btn btn-primary">Entrer</button>
+    {{-- <button id="checkDZ" class="btn btn-primary">Entrer</button>
                         <button onclick="getCurrentLocation()" class="btn btn-outline-secondary location-btn">
                             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em"
                                 viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
@@ -422,15 +427,15 @@
                                 </g>
                             </svg>
                         </button> --}}
-                        <div id="result" class="result-container">
-                            <span id="resultText"></span>
-                            <button id="closeButton" onclick="closeResult()">X</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    <div id="result" class="result-container">
+        <span id="resultText"></span>
+        <button id="closeButton" onclick="closeResult()">X</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
@@ -614,16 +619,16 @@
 
                                 // Autocomplete functionality
                                 var input = document.getElementById('map_address_input');
-                              
+
                                 var options = {
                                     componentRestrictions: {
                                         country: 'fr'
                                     }
                                 };
-                             
-                               
+
+
                                 var autocomplete = new google.maps.places.Autocomplete(input, options);
-                               
+
                                 // Fetch the current location when the document is ready
                                 // Function to geocode an address
                                 function geocodeAddress(address, callback) {
@@ -642,6 +647,7 @@
                                     });
                                 }
                                 console.log(geocodeAddress);
+
                                 function checkIfPointInAnyZone(point, callback) {
                                     var xhr = new XMLHttpRequest();
                                     xhr.open('GET', '/zones', true);
@@ -683,7 +689,8 @@
                                                     method: 'POST',
                                                     data: {
                                                         'method': 'delivery',
-                                                        'restaurant': zone.restaurant_id,
+                                                        'restaurant': zone
+                                                            .restaurant_id,
                                                         'address': address,
                                                         _token: '{{ csrf_token() }}'
                                                     },
