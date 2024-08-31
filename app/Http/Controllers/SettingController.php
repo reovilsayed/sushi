@@ -25,7 +25,7 @@ class SettingController extends Controller
 
     public function updateSettings(Request $request)
     {
-
+        Cache::flush();
         // Validate the form data
         $request->validate([
             'site_title' => 'required|string|max:255',
@@ -122,9 +122,6 @@ class SettingController extends Controller
             $path = $request->file('hero_image')->store('images', 'public');
             Setting::where('key', 'site.hero_image')->update(['value' => $path]);
         }
-
-
-        Cache::flush();
         // Optionally, add a success message and redirect
         return redirect()->back()->with('success', 'Settings updated successfully.');
     }
