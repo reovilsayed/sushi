@@ -48,6 +48,7 @@ class PageController extends Controller
             }
 
             $categories = Category::whereNull('parent_id')->with('childs', 'products')->get();
+            // dd($categories);
             $subCategories = Category::whereNotNull('parent_id')->get();
 
             return compact('restaurant', 'categories', 'subCategories');

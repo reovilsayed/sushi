@@ -266,9 +266,11 @@
                     <p style="color: var(--default-color)">{{ $restaurant->name }}</p>
                 </div>
                 <div class="section-title col-md-4">
-                    <h2>Choose Delivery</h2>
+                    <h2 class="mb-2">Choose Delivery</h2>
+                    <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;">
+                        Current location : (15 to 20 Minutes)</h6>
                     <div class="dropdown">
-                        <button class="btn bg-transparent dropdown-toggle mt-2 text-colour delivery" type="button"
+                        <button class="btn bg-transparent dropdown-toggle  text-colour delivery" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Choose Delivery Here
                         </button>
@@ -288,9 +290,11 @@
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <h2>Choose Delivery Time</h2>
+                        <h6
+                            style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;">
+                            Current delay : (15 to 20 Minutes)</h6>
                         <select name="TimeOption"
-                            class="form-select selectpicker mt-2 bg-transparent text-colour delivery-time"
+                            class="form-select selectpicker  bg-transparent text-colour delivery-time"
                             data-container="body" onchange="submitTimeForm()">
                             @foreach ($timeSlots as $time)
                                 <option value="{{ $time }}">{{ $time }}</option>
@@ -393,7 +397,8 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">

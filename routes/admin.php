@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -86,22 +87,13 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
        
     });
 
+    Route::controller(SliderController::class)->group(function () {
+        Route::get('/slider', 'sliderList')->name('slider.list');
+        Route::get('/slider/create', 'sliderCreate')->name('slider.create');
+        Route::get('/slider/edit/{slider}', 'sliderEdit')->name('edit.slider');
+        Route::post('/slider/store', 'sliderStore')->name('slider.store');
+        Route::post('/slider/update/{slider}', 'sliderUpdate')->name('slider.update');
+        Route::delete('/slider/delete/{slider}', 'sliderDelete')->name('delete.slider');
+    });
 
-
-    // Route::group(
-    //     [
-    //         'as' => 'products.',
-    //         'prefix' => 'products',
-    //         'controller' => ProductController::class
-    //     ],
-    //     function () {
-    //         Route::get('edit/{product}', 'edit')->name('edit');
-    //         // Route::get('create', 'create')->name('create');
-    //         Route::get('create-or-edit/{product?}', 'createOrEdit')->name('createOrEdit');
-    //         Route::post('duplicate', 'duplicateProduct')->name('duplicate');
-    //         Route::post('save/{product?}', 'save')->name('save');
-    //         Route::get('list', 'index')->name('index');
-    //         Route::delete('delete/{product}', 'destroy')->name('delete');
-    //     }
-    // );
 });
