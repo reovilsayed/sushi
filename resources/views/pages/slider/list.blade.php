@@ -16,6 +16,7 @@
                         <th scope="col">#</th>
                         <th scope="col">{{ __('sentence.image') }}</th>
                         <th scope="col">Heading</th>
+                        <th scope="col">Heading End</th>
                         <th scope="col">Title</th>
                         <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
                     </tr>
@@ -32,6 +33,7 @@
                                     alt="">
                             </td>
                             <td>{{ $slider->heading }}</td>
+                            <td>{{ $slider->heading_end }}</td>
                             <td>{{ $slider->title }}</td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.slider', $slider) }}"><i

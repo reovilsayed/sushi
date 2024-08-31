@@ -11,8 +11,10 @@
                         <div class="card-body">
                             <h6 class="dash_head">Slider Image</h6>
 
-                            <div class="row row-cols-1">
+                            <div class="row row-cols-2">
                                 <x-form.input name="heading"  label="Heading *" value="{{$slider->heading}}" autofocus
+                                    required />
+                                <x-form.input name="heading"  label="Heading End*" value="{{$slider->heading_end}}" autofocus
                                     required />
                             </div>
                             <img class="mb-3" height="300" width="300" src="{{ Storage::url($slider->image) }}"
