@@ -11,179 +11,17 @@
 
     <x-user>
         @push('css')
-            <style>
-                .btn-wrapper {
-                    background:
-                        color-mix(in srgb, var(--accent-color), transparent 20%) !important;
-                    padding: 15px 0px;
-                }
-
-                .order_btn {
-                    border: 0px !important;
-                    font-size: 20px !important;
-                    font-weight: 600 !important;
-                    /* padding: 5px 12px; */
-                    height: 100% !important;
-                    width: 415px !important;
-                }
-
-                .order_btn:hover {
-                    border-radius: 0px !important;
-                    border: 0px !important;
-                    font-size: 20px !important;
-                    font-weight: 600 !important;
-                    height: 100% !important;
-                    width: 415px !important;
-                    background: color-mix(in srgb, var(--accent-color), transparent 20%) !important;
-                    color: var(--background-color) !important;
-                }
-
-                .checkout_main_body {
-                    border: 1px solid var(--accent-color);
-                }
-
-                .contact .php-email-form button[type=submit] {
-                    background: none;
-                    border: 2px solid var(--accent-color);
-                    padding: 8px 36px;
-                    transition: 0.4s;
-                    border-radius: 0px !important;
-                }
-
-                .form-select {
-                    font-size: 14px;
-                    padding: 10px 15px;
-                    box-shadow: none;
-                    border-radius: 0;
-                    background-color:
-                        color-mix(in srgb, var(--background-color), transparent 50%);
-                    border-color: var(--accent-color);
-
-                }
-
-                .form-select:focus {
-                    border: 1px solid var(--accent-color);
-                    box-shadow: none;
-                }
-
-                #takeAwayForm,
-                #homeDeliveryForm {
-                    display: none;
-                }
-
-                .form-select option {
-                    background-color:
-                        color-mix(in srgb, var(--background-color) 90%, white 5%);
-                }
-
-                input[type="number"] {
-                    font-size: 14px !important;
-                    padding: 10px 15px !important;
-                    box-shadow: none !important;
-                    border-radius: 0 !important;
-                    background-color:
-                        color-mix(in srgb, var(--background-color), transparent 50%) !important;
-                    border-color:
-                        color-mix(in srgb, var(--accent-color), transparent 70%) !important;
-                }
-
-                input[type="number"]:focus {
-                    border-color: var(--accent-color) !important;
-                }
-
-                input[type='number']::placeholder {
-                    color: var(--accent-color);
-                    opacity: 0.5 !important;
-                }
-
-                option {
-                    color: #e5d5bf !important;
-                }
-
-                .form-select {
-                    color: #e5d5bf !important;
-                }
-
-
-
-
-                .select-hidden {
-                    display: none;
-                }
-
-                .select {
-                    cursor: pointer;
-                    position: relative;
-                    width: 200px;
-                }
-
-                .select-styled {
-                    position: relative;
-                    /* background-color: #b04332; */
-                    padding: 10px;
-                    font-size: 16px;
-                    color: #fff;
-                    border: 1px solid #c35443;
-                }
-
-                .select-styled:after {
-                    content: "";
-                    position: absolute;
-                    right: 10px;
-                    top: 50%;
-                    width: 0;
-                    height: 0;
-                    border: 6px solid transparent;
-                    border-top-color: #fff;
-                    transform: translateY(-50%);
-                }
-
-                .select-styled.active:after {
-                    border-bottom-color: #fff;
-                    border-top-color: transparent;
-                }
-
-                .select-options {
-                    display: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    right: 0;
-                    background-color: #b04332;
-                    border: 1px solid #c35443;
-                    border-radius: 4px;
-                    margin-top: 5px;
-                    z-index: 999;
-                    list-style: none;
-                    padding: 0;
-                }
-
-                .select-options li {
-                    padding: 10px;
-                    color: #fff;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-
-                .select-options li:hover,
-                .select-options li.is-selected {
-                    background-color: #c35443;
-                }
-            </style>
+            <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
         @endpush
         <br><br><br>
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
-            {{-- @dd($time) --}}
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
-                {{-- @dd(session('current_location')) --}}
-
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
                         <div class="container content mb-5 ps-0" data-aos="fade-up">
                             <div class=" section-title aos-init aos-animate pb-0" data-aos="fade-up">
-                                {{-- <h2>Menu</h2> --}}
                                 <p class="">{{ __('sentence.checkout') }}</p>
                             </div>
                             @auth
@@ -266,7 +104,7 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}" {{ $time==$timeSelect[0] ? 'selected' :'' }}>{{ $time }}
+                                                        <option value="{{ $time }}" {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -375,7 +213,7 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}" {{ $time==$timeSelect[0] ? 'selected' :'' }}>{{ $time }}
+                                                        <option value="{{ $time }}" {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>{{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>

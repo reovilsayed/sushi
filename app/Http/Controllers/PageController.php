@@ -80,7 +80,6 @@ class PageController extends Controller
         $cacheKey = 'restaurant_menu_' . $slug;
         $menuData = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($slug) {
             $restaurant = Restaurant::where('slug', $slug)->first();
-            dd($restaurant);
             if (!$restaurant) {
                 abort(404); // Handle the case where the restaurant is not found
             }

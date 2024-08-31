@@ -1,6 +1,4 @@
 <x-user>
-    
-
     <section id="hero" class="hero section dark-background bg-transparent">
         <div id="carouselExampleDark" class="carousel carousel-dark slide">
             <div class="carousel-indicators">
@@ -88,19 +86,19 @@
         <div class="container mb-3" data-default-filter="*" data-layout="masonry" data-sort="original-order">
             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
-                    <form action="{{ route('location.store') }}" method="post" id="location-form">
-                        @csrf
-                        <div class="input-group mb-3 text-center">
-                            <input type="text" id="location-input"
-                                class="form-control form-control-lg location text-center" placeholder="Enter Location"
-                                aria-label="Enter Location" aria-describedby="button-addon2" name="location"
-                                value="{{ session()->get('current_location') ?? '' }}">
-                            <button class="btn btn-outline-orange" type="button" id="location-button">
-                                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                            </button>
-                            <button class="btn btn-outline-orange" type="submit">{{ __('sentence.enter') }}</button>
-                        </div>
-                    </form>
+                    {{-- <form action="{{ route('location.store') }}" method="post" id="location-form">
+                        @csrf --}}
+                    <div class="input-group mb-3 text-center">
+                        <input type="text" id="location-input"
+                            class="form-control form-control-lg location text-center" placeholder="Enter Location"
+                            aria-label="Enter Location" aria-describedby="button-addon2" name="location"
+                            value="{{ session()->get('current_location') ?? '' }}">
+                        <button class="btn btn-outline-orange" type="button" id="location-button">
+                            <i class="bi bi-geo-alt flex-shrink-0"></i>
+                        </button>
+                        <button class="btn btn-outline-orange" type="submit">{{ __('sentence.enter') }}</button>
+                    </div>
+                    {{-- </form> --}}
                 </div><!--  Item -->
             </div><!--  Container -->
         </div>
