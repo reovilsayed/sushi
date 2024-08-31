@@ -179,6 +179,15 @@ class SettingTableSeeder extends Seeder
                 'group' => 'Site',
             ]
         );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'order.mail'],
+            [
+                'display_name' => 'Order Mail',
+                'value' => 'value order mail',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
 
         
     }

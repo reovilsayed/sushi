@@ -17,8 +17,8 @@ class SettingController extends Controller
     public function index()
     {
         
-        $heros = SliderImage::latest()->get();
-        return view('pages.settings.update',compact('heros'));
+
+        return view('pages.settings.update',);
     }
 
 
@@ -50,6 +50,8 @@ class SettingController extends Controller
         Setting::where('key', 'tiktok.link')->update(['value' => $request->input('tiktok_link')]);
         // Update the site google api
         Setting::where('key', 'google.map')->update(['value' => $request->input('google_map')]);
+        // Update the site order mail
+        Setting::where('key', 'order.mail')->update(['value' => $request->input('order_mail')]);
 
 
 
