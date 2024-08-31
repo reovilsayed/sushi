@@ -195,30 +195,30 @@ class OrderController extends Controller
             // Send order confirmation email
             Mail::to($user['email'])->send(new OrderConfirmationMail($order));
 
-            if ($request->payment_method == 'Card') {
-                $amount = $order->total * 100;
-                $orderId = $order->id;
-                $merchantId = '083262709500018';
-                $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
-                $keyVersion = 3;
-                $normalRetrunUrl = url('payment/callback');
-                $currencyCode = 978;
+            // if ($request->payment_method == 'Card') {
+            //     $amount = $order->total * 100;
+            //     $orderId = $order->id;
+            //     $merchantId = '083262709500018';
+            //     $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+            //     $keyVersion = 3;
+            //     $normalRetrunUrl = url('payment/callback');
+            //     $currencyCode = 978;
 
-                $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            //     $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
-                $interfaceVersion = "HP_3.2";
+            //     $interfaceVersion = "HP_3.2";
 
-                $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
+            //     $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
 
-                $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
+            //     $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
 
-                $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
-                    'DATA' => $data,
-                    'SEAL' => $seal,
-                    'interfaceVersion' => $interfaceVersion,
-                ]);
-                return $response->body();
-            }
+            //     $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
+            //         'DATA' => $data,
+            //         'SEAL' => $seal,
+            //         'interfaceVersion' => $interfaceVersion,
+            //     ]);
+            //     return $response->body();
+            // }
 
             return redirect()->route('thank_you');
         } catch (\Exception $e) {
