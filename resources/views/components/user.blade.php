@@ -68,7 +68,7 @@
             color: #ffff !important;
         }
 
-        .fl-main-container .fl-container.fl-success .fl-message {
+        .fl-main-container .fl-flasher .fl-content.fl-message {
             color: #ffff !important;
         }
 
@@ -79,7 +79,7 @@
         .fl-main-container .fl-container.fl-flasher .fl-message {
             font-size: .875em;
             margin-top: .25em;
-            color: red !important;
+            color: #ffffff !important;
         }
     </style>
 
