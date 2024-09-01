@@ -1,16 +1,9 @@
 <x-user>
-    <style>
-        .btn-orange-normal {
-            color: var(--default-color);
-            border: 2px solid var(--accent-color);
-            background: transparent;
-            padding: 8px 30px;
-            transition: 0.4s;
-            border-radius: 50px;
-        }
-    </style>
+    @push('css')
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    @endpush
 
-    <section style="height: 100vh;padding: 0px 0;">
+    <section class="Mainslide" style="height: 100vh;padding: 0px 0;">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
             <div class="carousel-inner">
                 @foreach ($sliders as $index => $slider)
@@ -21,12 +14,13 @@
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
                             </div>
                         </div>
-                        <div class="carousel-caption d-block text-start" style="top: 50%; ">
-                            <h1 style="font-family: 'Montserrat', sans-serif ;font-size: 48px;font-weight: 700;">
+                        <div class="carousel-caption d-block text-start" style="top: 25%; left: 8%;">
+                            <h1 class="homeSlide">
                                 {{ $slider->heading }} <span
                                     style="color: var(--accent-color)">{{ $slider->heading_end }}</span>
                             </h1>
-                            <p class="col-8" style="color: var(--default-color);font-size: 24px;">{{ $slider->title }}</p>
+                            <p class="col-8 slidetext">{{ $slider->title }}
+                            </p>
                             <a href="#location" class="btn btn-orange-normal">Location</a>
                         </div>
                     </div>
