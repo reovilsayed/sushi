@@ -6,14 +6,14 @@
     @push('css')
         <style>
             .sushibtn {
-                padding: 8px 12px !important;
+                padding: 4px 3px !important;
                 border: 1px solid var(--accent-color) !important;
                 border-radius: 0px;
                 color: #ffffff;
             }
 
             .sushibtn {
-                padding: 8px 12px !important;
+                padding: 4px 3px !important;
                 border: 1px solid var(--accent-color) !important;
                 border-radius: 0px;
                 background-color: var(--accent-color);
