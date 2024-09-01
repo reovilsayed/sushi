@@ -7,6 +7,8 @@
 
         $extras = json_decode($order->extra, true) ?? [];
         $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
+
+        $customer = json_decode($order->shipping_info, true);
     @endphp
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 0 27px;">
         <tbody>
@@ -30,6 +32,31 @@
             </tr>
         </tbody>
     </table>
+    {{-- @dd($customer['f_name']); --}}
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 0 27px;">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="title title-2 text-start">
+                        <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0; margin-bottom: 15px;">Customer Information
+                        </h2>
+                        {{-- <p style="font-size: 14px;margin: 5px auto 0;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
+                            
+                        </p>
+                       
+                        <p
+                            style="font-size: 14px;margin: 5px auto 0;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
+                            Best regards, {{ $restaurant->name }}</p> --}}
+
+                            <strong style="font-size:16px; font-weight:normal;color:#333333; margin-left: 30px;"><span style="font-weight:500;">Customer Name :</span> {{ $customer['f_name'] ?? '' }} {{ $customer['l_name'] ?? ''}}</strong><br>
+                            <strong style="font-size:16px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span style="font-weight:500;">Customer email :</span> {{ $customer['email'] ?? ''}}</strong><br>
+                            <strong style="font-size:16px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span style="font-weight:500;">Customer Phone :</span> {{ $customer['phone'] ?? ''}}</strong><br>
+                            <strong style="font-size:16px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span style="font-weight:500;">Customer Address :</span> {{$customer['city'] ?? '' }} ,{{$customer['address'] ?? '' }} ,{{$customer['post_code'] ?? '' }} ,{{$customer['house'] ?? '' }}</strong><br>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 
     <table class="shipping-table" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
@@ -37,7 +64,7 @@
         <thead>
             <tr>
                 <th
-                    style="font-size: 17px;font-weight: 700;padding-bottom: 8px;border-bottom: 1px solid rgba(217, 217, 217, 0.5);text-align: left;">
+                    style="font-size: 17px;font-weight: 700;padding-bottom: 8px;border-bottom: 1px solid rgba(217, 217, 217, 0.5);text-align: left; margin-top: 18px;">
                     Purchased Items</th>
             </tr>
         </thead>
