@@ -65,7 +65,7 @@
                                             {{-- <li>{{ $product->strength }}</li> --}}
                                             <li>QTY: <span>{{ Settings::price($product->pivot->price) }}</span></li>
                                             <li>Price:
-                                                <span>{{ $option->price }}</span>
+                                                <span>{{ Settings::price($product->pivot->price) }}</span>
                                             </li>
                                         </ul>
                                     </td>
