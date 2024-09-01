@@ -197,7 +197,7 @@
                                             </div> --}}
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
-                                                    class="form-control" placeholder="Your Phone Number"
+                                                    class="form-control" placeholder="Your Phone Number" required
                                                     value={{ auth()->user()->phone ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
