@@ -49,23 +49,23 @@
                         width="100%">
                         <tbody>
                             @foreach ($order->products as $product)
-                                {{-- @dd($product->quantity) --}}
                                 <tr>
                                     <td style="padding: 28px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                        <img src="{{ Storage::url($product->image) ?? asset('img/images.png') }}"
+                                        <img src="{{ $product->image ?? asset('img/images.png') }}"
                                             alt="{{ $product->name ?? 'Product Image' }}" />
                                     </td>
                                     <td style=" padding: 28px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                         <ul class="product-detail">
                                             <li>{{ $product->name }}
-                                                <span
-                                                    style="color: #000; font-size: 13px;">({{ $product->category?->name }})</span>
+                                                {{-- @foreach ($product->options as $option)
+                                                    <span style="color: #000; font-size: 13px;">({{ $option->name ?? '' }})</span>
+                                                @endforeach --}}
                                             </li>
 
                                             {{-- <li>{{ $product->strength }}</li> --}}
-                                            <li>QTY: <span>{{ $product->pivot->quantity }}</span></li>
+                                            <li>QTY: <span>{{ Settings::price($product->pivot->price) }}</span></li>
                                             <li>Price:
-                                                <span>{{ Settings::price($product->pivot->price) }}</span>
+                                                <span>{{ $option->price }}</span>
                                             </li>
                                         </ul>
                                     </td>

@@ -149,7 +149,7 @@
                                     <span style="display: block; text-align: left;">
                                         {{-- <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('images/logo.png') }}"
                                             class="main-logo" alt="logo" width="60"> --}}
-                                        <img style="height: 33px; width: auto;" src="{{ asset('logo/mainLogo.png') }}" class="main-logo" alt="logo">
+                                        <img style="height: 33px; width: auto;" src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('logo/mainLogo.png') }}" class="main-logo" alt="logo">
                                     </span>
                                 </td>
                             </tr>

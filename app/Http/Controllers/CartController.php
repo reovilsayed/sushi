@@ -47,20 +47,16 @@ class CartController extends Controller
 
 	public function update(Request $request)
 	{
-
-
 		Cart::update($request->product_id, array(
 			'quantity' => array(
 				'relative' => false,
-				'value' => $request->quantity
+				'value' => (int)$request->quantity
 			),
 
 		));
 
 
-
-
-		return back()->with('success', 'Item has been updated!');
+		return redirect()->back()->with('success', 'Item has been updated!');
 	}
 	public function destroy($id)
 	{
@@ -71,7 +67,7 @@ class CartController extends Controller
 			session()->forget('restaurent_id');
 			session()->forget('current_location');
 			session()->forget('delivery_time');
-		}else{
+		} else {
 
 			Cart::remove($id);
 		}

@@ -119,118 +119,120 @@ class OrderController extends Controller
         }
         // Start a database transaction
         DB::beginTransaction();
-       
-        try {
 
-            // Handle user authentication
-            if (!auth()->check()) {
+        // try {
 
-                $pass = Str::random(16);
-                $user = User::create([
-                    'name' => $request->input('f_name') ?? $request->input('f_name'),
-                    'l_name' => $request->input('l_name') ?? $request->input('l_name'),
-                    'email' => $request->input('email') ?? $request->input('email'),
-                    'role_id' => 2,
-                    'password' => Hash::make($pass), // Generate a random password
-                ]);
+        // Handle user authentication
+        if (!auth()->check()) {
 
-                $data = [
-                    'name' => $request->name,
-                    'subject' => 'We Create User Account to Sushi',
-                    'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
-                    'button_link' => '',
-                    'button_text' => '',
-                ];
-                Mail::to($user['email'])->send(new UserCreateMail($data));
-            } else {
-
-                $user = auth()->user();
-            }
-
-            // Prepare shipping information
-            $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
-
-            // Create the order
-            $order = Order::create([
-                'customer_id' => $user->id,
-                'shipping_info' => json_encode($shipping),
-                'sub_total' => Cart::getSubTotal(),
-                'total' => Cart::getTotal(),
-                'comment' => $request->input('commment'),
-                'time_option' => $request->time_option,
-                'payment_method' => $request->input('payment_method'),
-                // 'status' => 'PENDING',
-                'delivery_option' => $request->input('delivery_option'),
+            $pass = Str::random(16);
+            $user = User::create([
+                'name' => $request->input('f_name') ?? $request->input('f_name'),
+                'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                'email' => $request->input('email') ?? $request->input('email'),
+                'role_id' => 2,
+                'password' => Hash::make($pass), // Generate a random password
             ]);
-            
-            $extra = [];
-            foreach (Cart::getContent() as $item) {
 
-                if (isset($item->attributes['product'])) {
-                    $order->products()->attach($item->attributes['product']->id, [
-                        'quantity' => $item->quantity,
-                        'price' => $item->price,
-                        'restaurant_id' => $item->attributes['restaurent'],
-                    ]);
-                }
+            $data = [
+                'name' => $request->name,
+                'subject' => 'We Create User Account to Sushi',
+                'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
+                'button_link' => '',
+                'button_text' => '',
+            ];
+            Mail::to($user['email'])->send(new UserCreateMail($data));
+        } else {
 
-                if (isset($item->attributes['extra'])) {
-                    $extra[] = [
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'price' => $item->price,
-                        'quantity' => $item->quantity,
-                    ];
-                }
-            }
-            if (!empty($extra)) {
-                $order->update([
-                    'extra' => json_encode($extra),
+            $user = auth()->user();
+        }
+
+        // Prepare shipping information
+        $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
+
+        // Create the order
+        $order = Order::create([
+            'customer_id' => $user->id,
+            'shipping_info' => json_encode($shipping),
+            'sub_total' => Cart::getSubTotal(),
+            'total' => Cart::getTotal(),
+            'comment' => $request->input('commment'),
+            'time_option' => $request->time_option,
+            'payment_method' => $request->input('payment_method'),
+            // 'status' => 'PENDING',
+            'delivery_option' => $request->input('delivery_option'),
+        ]);
+
+        $extra = [];
+        foreach (Cart::getContent() as $item) {
+
+            if (isset($item->attributes['product'])) {
+                $order->products()->attach($item->attributes['product']->id, [
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
+                    'restaurant_id' => $item->attributes['restaurent'],
                 ]);
             }
-            $order_mail =  Setting::where('key', 'order.mail')->value('value');
-            $restaurant = Restaurant::find(session()->get('restaurent_id'));
-            $emails = [$user['email'], $restaurant->email, $order_mail];
 
-            foreach ($emails as $email) {
+            if (isset($item->attributes['extra'])) {
+                $extra[] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity,
+                ];
+            }
+        }
+        if (!empty($extra)) {
+            $order->update([
+                'extra' => json_encode($extra),
+            ]);
+        }
+        $order_mail = Setting::where('key', 'order.mail')->value('value');
+        $restaurant = Restaurant::find(session()->get('restaurent_id'));
+        $emails = array_filter([$user['email'], $restaurant->email ?? null, $order_mail]);
+
+        foreach ($emails as $email) {
+            if (!empty($email)) {
                 Mail::to($email)->send(new OrderConfirmationMail($order));
             }
-            session()->forget('current_location');
-            session()->forget('delivery_time');
-            session()->forget('restaurent_id');
-            // Clear the cart and session data
-            Cart::clear();
-            DB::commit();
-            // if ($request->payment_method == 'Card') {
-            //     $amount = $order->total * 100;
-            //     $orderId = $order->id;
-            //     $merchantId = '083262709500018';
-            //     $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
-            //     $keyVersion = 3;
-            //     $normalRetrunUrl = url('payment/callback');
-            //     $currencyCode = 978;
-
-            //     $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-
-            //     $interfaceVersion = "HP_3.2";
-
-            //     $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
-
-            //     $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
-
-            //     $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
-            //         'DATA' => $data,
-            //         'SEAL' => $seal,
-            //         'interfaceVersion' => $interfaceVersion,
-            //     ]);
-            //     return $response->body();
-            // }
-
-            return redirect()->route('thank_you');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
         }
+        session()->forget('current_location');
+        session()->forget('delivery_time');
+        session()->forget('restaurent_id');
+        // Clear the cart and session data
+        Cart::clear();
+        DB::commit();
+        // if ($request->payment_method == 'Card') {
+        //     $amount = $order->total * 100;
+        //     $orderId = $order->id;
+        //     $merchantId = '083262709500018';
+        //     $secretKey = 'iPPdH5CgxCQV05UiWF5tK4tsu1wcWwbHL2KZWiFCDY0';
+        //     $keyVersion = 3;
+        //     $normalRetrunUrl = url('payment/callback');
+        //     $currencyCode = 978;
+
+        //     $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        //     $interfaceVersion = "HP_3.2";
+
+        //     $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
+
+        //     $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
+
+        //     $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
+        //         'DATA' => $data,
+        //         'SEAL' => $seal,
+        //         'interfaceVersion' => $interfaceVersion,
+        //     ]);
+        //     return $response->body();
+        // }
+
+        return redirect()->route('thank_you');
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'There was an issue placing your order. Please try again.');
+        // }
     }
 
 

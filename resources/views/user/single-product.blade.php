@@ -37,8 +37,7 @@
                                             name="option_id" id="option-select" required>
                                             {{-- <option selected value="">{{ __('sentence.otherOptions') }}</option> --}}
                                             @foreach ($productOption as $option)
-                                                <option value="{{ $option->id }}" data-price="{{ $option->option_price }}">{{ $option->option_name }}
-                                                    {{ number_format($option->option_price, 2) }}</option>
+                                                <option value="{{ $option->id }}" data-price="{{ $option->option_price }}">{{ $option->option_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

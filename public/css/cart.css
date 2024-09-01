@@ -23,9 +23,9 @@
 .cart_table {
     width: 100%;
     height: auto;
-    border-left: 1px solid var(--accent-color);
-    border-bottom: 1px solid var(--accent-color);
-    border-right: 1px solid var(--accent-color);
+    border-left: 0px !important;
+    border-bottom: 0px !important;
+    border-right: 0px !important;
 }
 
 .table_head {
@@ -34,7 +34,7 @@
 }
 
 .table_body tr {
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom:0px !important;
     height: 72px;
 }
 
@@ -340,4 +340,19 @@ input.cart-plus-minus-box {
 
 #extraButton:hover {
     background-color: var(--accent-color) !important;
+}
+
+.sushibtn {
+    padding: 8px 12px !important;
+    border: 1px solid var(--accent-color) !important;
+    border-radius: 0px;
+    color: #ffffff;
+}
+
+.sushibtn {
+    padding: 8px 12px !important;
+    border: 1px solid var(--accent-color) !important;
+    border-radius: 0px;
+    background-color: var(--accent-color);
+    color: #ffffff;
 }

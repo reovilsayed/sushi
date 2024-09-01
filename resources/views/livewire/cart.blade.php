@@ -1,10 +1,39 @@
+@php
+    $firstItem = Cart::getContent()->first();
+    $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
+@endphp
 <div>
+    @push('css')
+        <style>
+            .sushibtn {
+                padding: 8px 12px !important;
+                border: 1px solid var(--accent-color) !important;
+                border-radius: 0px;
+                color: #ffffff;
+            }
+
+            .sushibtn {
+                padding: 8px 12px !important;
+                border: 1px solid var(--accent-color) !important;
+                border-radius: 0px;
+                background-color: var(--accent-color);
+                color: #ffffff;
+            }
+        </style>
+    @endpush
     <section id="about" class="cart_section pb-5 bg-transparent">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
+            <div class="mb-4">
+                <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
+                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Retour</a>
+
+                <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
+                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a>
+            </div>
+
             <h2>{{ __('sentence.cart') }}</h2>
             <p>{{ __('sentence.products') }}</p>
         </div>
-
         <div class="container">
 
             <div class="row gy-4">
@@ -19,16 +48,16 @@
                                 <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead> --}}
-                            <tbody class="table_body" style="border-top: 1px solid var(--accent-color);">
+                            <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
-                                
+
                                     <tr>
-                                        <td class="cart-product-remove text-start ps-4">
+                                        {{-- <td class="cart-product-remove text-start ps-4">
                                             <a class="cart-product-remove text-center"
                                                 href="{{ url('/cart-destroy/' . $item->id) }}"><i class="bi bi-trash"
                                                     style="color: var(--accent-color);"></i>
                                             </a>
-                                        </td>
+                                        </td> --}}
 
                                         @if (isset($item->attributes['restaurent']))
                                             @php
@@ -60,15 +89,8 @@
                                                 </td>
                                             @endif
                                         @endif
-
-
-
-
-                                        <form action="{{ route('cart.update') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $item->id }}" />
-                                            <td class="cart-product-quantity d-flex justify-content-center mt-3">
-                                                <div class="text-start d-flex cart_quantity">
+                                        <td class="cart-product-quantity d-flex justify-content-center mt-3">
+                                            {{-- <div class="text-start d-flex cart_quantity">
                                                     <div class="cart_quantity_item">
 
                                                         <input type="text" value="{{ $item->quantity }}"
@@ -80,11 +102,35 @@
                                                                 class="bi bi-pencil"></i>
                                                         </button>
                                                     </div>
+                                                </div> --}}
+                                            <form id="update-cart-form-{{ $item->id }}" method="post">
+                                                <div class="cart-product-quantity d-flex justify-content-center">
+                                                    <div class="cart-plus-minus" style="border: 0px !important;">
+                                                        <button class="dec decrease-btn qtybutton"
+                                                            style="border: 0px !important;"
+                                                            onclick="event.preventDefault(); updateQuantity('{{ $item->id }}', -1);">-</button>
+
+                                                        <input type="text" value="{{ $item->quantity }}"
+                                                            name="quantity" class="cart-plus-minus-box"
+                                                            id="product_quantity_{{ $item->id }}" min="1"
+                                                            placeholder="0" data-price="{{ $item->price }}"
+                                                            data-name="{{ $item->name }}" readonly>
+
+                                                        <button class="inc increase-btn qtybutton"
+                                                            style="border: 0px !important;"
+                                                            onclick="event.preventDefault(); updateQuantity('{{ $item->id }}', 1);">+</button>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                        </form>
+                                            </form>
+                                        </td>
                                         <td class="cart-product-subtotal text-center">
-                                            {{ number_format($item->price * $item->quantity, 2) }} €</td>
+                                            {{ number_format($item->price * $item->quantity, 2) }} €
+
+                                            <a class="cart-product-remove text-center d-block mt-2"
+                                                style="color: var(--accent-color);"
+                                                href="{{ url('/cart-destroy/' . $item->id) }}">Supprimer
+                                            </a>
+                                        </td>
                                     </tr>
 
                                 @empty
@@ -152,18 +198,52 @@
                     <div class="col-md-12">
                         <div class="row text-center p-2">
                             @foreach ($extras as $extra)
-                            
                                 <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2">
-                                <x-cart.extra :extra="$extra" :restuarant="$restuarant" :extraBucket="$extraBucket" :prices="$extraPrice"/>
+                                    <x-cart.extra :extra="$extra" :restuarant="$restuarant" :extraBucket="$extraBucket"
+                                        :prices="$extraPrice" />
                                 </div>
                             @endforeach
                         </div>
-                       
+
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </section>
     @endif
 </div>
+@push('js')
+    <script>
+        function updateQuantity(productId, change) {
+            // Get the current quantity
+            let quantityInput = document.getElementById(`product_quantity_${productId}`);
+            let currentQuantity = parseInt(quantityInput.value);
+
+            // Calculate the new quantity
+            let newQuantity = currentQuantity + change;
+            if (newQuantity < 1) return; // Ensure the quantity doesn't go below 1
+
+            // Update the quantity input field with the new value
+            quantityInput.value = newQuantity;
+
+            // Send an AJAX request to update the cart
+            $.ajax({
+                url: "{{ route('cart.update') }}", // Replace with your route
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    product_id: productId,
+                    quantity: newQuantity,
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    // Handle the error
+                }
+            });
+        }
+    </script>
+@endpush
