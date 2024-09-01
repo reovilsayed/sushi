@@ -24,8 +24,8 @@
     <section id="about" class="cart_section pb-5 bg-transparent">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
             <div class="mb-4">
-                <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
-                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Retour</a>
+                <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
+                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Back</a>
 
                 <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
                     class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a>

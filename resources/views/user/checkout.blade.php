@@ -3,7 +3,7 @@
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
         $locations = explode(',', session()->get('current_location'));
 
-        $timeSelect = session()->get('delivery_time') 
+        $timeSelect = session()->get('delivery_time');
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
 
@@ -12,6 +12,23 @@
     <x-user>
         @push('css')
             <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
+
+            <style>
+                .sushibtn {
+                    padding: 4px 3px !important;
+                    border: 1px solid var(--accent-color) !important;
+                    border-radius: 0px;
+                    color: #ffffff;
+                }
+
+                .sushibtn {
+                    padding: 4px 3px !important;
+                    border: 1px solid var(--accent-color) !important;
+                    border-radius: 0px;
+                    background-color: var(--accent-color);
+                    color: #ffffff;
+                }
+            </style>
         @endpush
         <br><br><br>
         <!-- Contact Section -->
@@ -21,6 +38,13 @@
                 <div class="row gy-4">
                     <div class="col-md-12 col-sm-12 mb-4">
                         <div class="container content mb-5 ps-0" data-aos="fade-up">
+                            <div class="mb-2">
+                                <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
+                                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Back</a>
+
+                                <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
+                                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a>
+                            </div>
                             <div class=" section-title aos-init aos-animate pb-0" data-aos="fade-up">
                                 <p class="">{{ __('sentence.checkout') }}</p>
                             </div>
@@ -97,14 +121,16 @@
                                                     </p>
                                                 @enderror
                                             </div>
-                                        
+
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}" {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>{{ $time }}
+                                                        <option value="{{ $time }}"
+                                                            {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>
+                                                            {{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -202,8 +228,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="Your House"
-                                                    value={{ auth()->user()->house ?? '' }}>
+                                                    placeholder="Your House" value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
 
@@ -213,7 +238,9 @@
                                                     {{-- <option  style="color: var(--accent-color)">Select a time
                                                     </option> --}}
                                                     @foreach ($timeSlots as $time)
-                                                        <option value="{{ $time }}" {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>{{ $time }}
+                                                        <option value="{{ $time }}"
+                                                            {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>
+                                                            {{ $time }}
                                                         </option>
                                                     @endforeach
                                                 </select>
