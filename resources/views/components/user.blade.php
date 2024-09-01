@@ -27,11 +27,11 @@
     <link href="{{ asset('niko/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     {{-- aos link  --}}
-    <link rel="stylesheet" href="{{asset('aos/aos.css')}}">
+    <link rel="stylesheet" href="{{ asset('aos/aos.css') }}">
     <!-- Main CSS File -->
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
-    
+
     @stack('css')
     <!-- =======================================================
   * Template Name: Restaurantly
@@ -46,6 +46,40 @@
             font-optical-sizing: auto !important;
             font-style: normal !important;
             /* color: #e5d5bf !important; */
+        }
+
+        .fl-success {
+            border-left: .8em solid #008607 !important;
+            border-right: none !important;
+        }
+
+        .fl-content {
+            align-items: center !important;
+            display: flex !important;
+            padding: .75em !important;
+            background: linear-gradient(63deg, rgba(255, 136, 62, 1) 0%, rgba(169, 90, 41, 1) 3%, rgba(133, 71, 32, 1) 5%, rgba(96, 51, 23, 1) 11%, rgba(41, 22, 10, 1) 17%, rgba(0, 0, 0, 1) 23%, rgba(20, 5, 3, 1) 64%, rgba(30, 8, 5, 1) 81%, rgba(50, 14, 8, 1) 85%, rgba(81, 22, 12, 1) 91%, rgba(128, 34, 19, 1) 96%, rgba(186, 50, 28, 1) 100%) !important;
+        }
+
+        .fl-main-container .fl-container.fl-success .fl-icon {
+            background-color: #008607 !important;
+        }
+
+        .fl-main-container .fl-container.fl-success .fl-title {
+            color: #ffff !important;
+        }
+
+        .fl-main-container .fl-container.fl-success .fl-message {
+            color: #ffff !important;
+        }
+
+        .fl-main-container .fl-container.fl-success .fl-progress-bar {
+            background-color: #008607 !important;
+        }
+
+        .fl-main-container .fl-container.fl-flasher .fl-message {
+            font-size: .875em;
+            margin-top: .25em;
+            color: red !important;
         }
     </style>
 
@@ -72,7 +106,9 @@
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('niko/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/aos/aos.js') }}"></script>
@@ -83,7 +119,7 @@
     {{-- logout  --}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt4M6sXKliR4X6j3l3ubOt8HeXN-CKMMY"></script>
     {{-- aos link  --}}
-    <link rel="stylesheet" href="{{asset('aos/aos.js')}}">
+    <link rel="stylesheet" href="{{ asset('aos/aos.js') }}">
     <!-- Main JS File -->
     <script src="{{ asset('niko/assets/js/main.js') }}"></script>
     <script>

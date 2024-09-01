@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Storage;
 
 class SliderController extends Controller
@@ -19,6 +20,7 @@ class SliderController extends Controller
     }
     public function sliderStore(Request $request)
     {
+        
         $slider = new Slider;
         $slider->title = $request->title;
         $slider->heading = $request->heading;
@@ -26,19 +28,6 @@ class SliderController extends Controller
         if ($request->hasFile('image')) {
             $slider->image = $request->file('image')->store('uploads', 'public');
         }
-
-        // Check the total number of sliders in the table
-        $totalSliders = Slider::count();
-
-        if ($totalSliders >= 4) {
-            // Find and delete the oldest slider (assuming 'created_at' is used to determine age)
-            $oldestSlider = Slider::orderBy('created_at')->first();
-            if ($oldestSlider->image && Storage::exists($oldestSlider->image)) {
-                Storage::delete($oldestSlider->image);
-            }
-            $oldestSlider->delete();
-        }
-//new
         // Save the new slider
         $slider->save();
 
@@ -51,7 +40,6 @@ class SliderController extends Controller
     }
     public function sliderUpdate(Request $request, Slider $slider)
     {
-        // dd($request->all());
         $slider->title = $request->title;
         $slider->heading = $request->heading;
         $slider->heading_end = $request->heading_end;

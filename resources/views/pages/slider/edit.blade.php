@@ -15,12 +15,12 @@
                                 <x-form.input name="heading"  label="Heading *" value="{{$slider->heading}}" autofocus
                                     required />
                                 <x-form.input name="heading"  label="Heading End*" value="{{$slider->heading_end}}" autofocus
-                                    required />
+                                     />
                             </div>
                             <img class="mb-3" height="300" width="300" src="{{ Storage::url($slider->image) }}"
                                     alt="">
                             <div class="row row-cols-1">
-                                <x-form.input name="image" wire:model="image" value="{{$slider->image}}" type="file"
+                                <x-form.input name="image" value="{{$slider->image}}" type="file"
                                 label="Drag image to upload For background" style="padding:50px;" />
                             </div>
                             

@@ -15,11 +15,11 @@
                                 <x-form.input name="heading"  label="Heading *" value="" autofocus
                                     required />
                                 <x-form.input name="heading_end"  label="Heading End *" value="" autofocus
-                                    required />
+                                     />
                             </div>
 
                             <div class="row row-cols-1">
-                                <x-form.input name="image" wire:model="image" value="" type="file"
+                                <x-form.input name="image" value="" type="file"
                                 label="Drag image to upload For background" style="padding:50px;" />
                             </div>
                             

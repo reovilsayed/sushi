@@ -31,7 +31,7 @@ class SettingController extends Controller
             'site_title' => 'required|string|max:255',
             'site_email' => 'required|email|max:255',
             'site_phone' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         // dd($request->all());
         // Update the site title
