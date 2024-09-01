@@ -14,14 +14,14 @@
                 </h4>
                 <div class="d-flex gap-3 justify-content-center">
                     <div class="price-container">
-                        <h5 class=" price" style="font-size: 14px !important;">{{ number_format($product->price , 2)}} €
+                        <h5 class=" price" style="font-size: 14px !important; color: #e4d4bf !important;">{{ number_format($product->price , 2)}} €
                         </h5>
 
 
                         @if ($product->options->count())
                             <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                                class=" text-colour add-button btn" style="background:#e5d5bf; font-size: 14px;">
-                                <i class="bi bi-plus"></i>{{ __('sentence.add') }}
+                                class=" text-colour add-button btn" style="background:#e5d5bf; color:#000 !important; font-size: 10px;">
+                                <i class="bi bi-plus"></i>Possibilities
                             </a>
                         @else
                             <form action="{{ route('cart.store') }}" method="post" class="add-button">
@@ -29,7 +29,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="text-colour btn" style="background:#e5d5bf; font-size: 14px !important; ">
+                                <button type="submit" class="text-colour btn" style="background:#e5d5bf; color: #000 !important; font-size: 10px !important; ">
                                     <i class="bi bi-plus"></i>{{ __('sentence.add') }}</button>
                             </form>
                         @endif
