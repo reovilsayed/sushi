@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 226px;">
+                <div class="col-lg-4 col-sm-12 order-2 order-lg-1 content p-md-0" style="height: 314px;">
                     <div class="cart_total_section">
                         <h4 class="ms-3 pt-2" style="">{{ __('sentence.cart') }} {{ __('sentence.total') }}
                         </h4>
@@ -169,6 +169,10 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="">
+                            <p class="mb-0 me-5 ms-4 text-start" style="color: var(--accent-color)">Management fees: 0.95€</p>
+                            <p class="mb-0 me-5 ms-4 mt-2 mb-3 text-start" style="color: var(--accent-color)">By placing an order, you accept the terms of the T&Cs</p>
+                        </div>
                     </div>
                     <div class="btn-wrapper text-center pe-md-3">
                         @if (Cart::isEmpty())
