@@ -78,10 +78,10 @@
     }
 </style>
 <div class="container">
-    <div class="row mb-5">
-        <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
-            <h2>{{ __('sentence.menu') }}</h2>
-            <p>Laissez-vous tenter par…</p>
+    <div class="row">
+        <div class="container section-title aos-init aos-animate pb-4" data-aos="fade-up">
+            {{-- <h2>{{ __('sentence.menu') }}</h2> --}}
+            <p class="fw-light fs-2" style="color: #ff883e!important;">Laissez-vous tenter par…</p>
         </div>
         <div class="col-12">
             <!-- Nav tabs -->
@@ -142,5 +142,23 @@
             </div>
         </div>
 
+    </div>
+    <div class="d-md-flex justify-content-end">
+        <div class="col-lg-5 col-sm-12 order-2 order-lg-1 content p-md-0">
+            <div class="table-responsive">
+                <div class="">
+                    <p class="mb-0 text-end" style="color:#ff883e ">Management fees: 0.95€</p>
+                    <p class="mb-0 mt-2 mb-3 text-end" style="color:#ff883e ">By placing an
+                        order,
+                        you accept the terms of the T&Cs</p>
+                </div>
+            </div>
+            <div class="btn-wrapper text-center mb-3">
+                <a href="{{ route('restaurant.checkout') }}"
+                    class="checkout_btn d-flex justify-content-between ms-2 me-2"><h4>SUBTOTAL</h4> <h4>{{ number_format(Cart::getSubTotal(), 2) }} €</h4></a>
+
+            </div>
+
+        </div>
     </div>
 </div>

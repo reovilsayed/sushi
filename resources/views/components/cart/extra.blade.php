@@ -4,7 +4,7 @@
         <div class="cart-plus-minus" style="border: 0px !important;">
             <button class="dec decrease-btn qtybutton" style="border: 0px !important;" wire:click="removeExtra({{$extra->id}})" >
                 -</button>
-            <input type="text" value="{{$extraBucket[$extra->id]['qty'] }}" name="quantity"
+            <input type="text" style="font-weight: 300;" value="{{$extraBucket[$extra->id]['qty'] }}" name="quantity"
                 class="cart-plus-minus-box"
                 id="extra_quantity_{{ $extra->id }}" min="1"
                 placeholder="0" data-price="{{ $extra->price }}"
@@ -17,7 +17,7 @@
     <div class="pricetag justify-content-center">
         <div class="centerinput" style="width: 100px">
             <p style="font-weight: 100;" class="mb-0">
-                <input name="" id="price_{{ $extra->id }}"
+                <input style="font-weight: 300;" name="" id="price_{{ $extra->id }}"
                     style="width: 100px" class="p-0 text-center" readonly
                     value="{{ number_format($prices[$extra->id]['total'], 2) }}">
             </p>

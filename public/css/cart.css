@@ -34,7 +34,7 @@
 }
 
 .table_body tr {
-    border-bottom:none !important;
+    border-bottom: none !important;
     height: 72px;
 }
 
@@ -123,8 +123,8 @@ input.cart-plus-minus-box {
 }
 
 .content {
-    background-color:
-        color-mix(in srgb, var(--background-color) 90%, white 5%);
+    /* background-color:
+        color-mix(in srgb, var(--background-color) 90%, white 5%); */
 }
 
 .cart_total_section {
@@ -155,7 +155,7 @@ input.cart-plus-minus-box {
 
 .subcart2 {
     padding: 5px;
-    border: 1px solid var(--accent-color);
+    border: 1px solid #ff883e;
     height: 150px;
     display: flex;
     justify-content: space-between;
@@ -164,7 +164,8 @@ input.cart-plus-minus-box {
 
 .seccolr {
     font-size: 16px;
-    color: var(--accent-color);
+    color: #ff883e;
+    font-weight: 300;
 }
 
 .pricetag {
@@ -201,8 +202,7 @@ input.cart-plus-minus-box {
 }
 
 .btn-wrapper {
-    background:
-        color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+    background:#ba321c !important;
     padding: 15px 0px;
 }
 
@@ -279,8 +279,8 @@ input.cart-plus-minus-box {
 }
 
 #myTab {
-    border-bottom: 2px solid var(--accent-color) !important;
-    color: var(--accent-color) !important;
+    border-bottom: 2px solid #ff883e !important;
+    color: #ff883e !important;
 }
 
 .nav-item {
@@ -312,8 +312,12 @@ input.cart-plus-minus-box {
     outline: none !important;
 }
 
+.nav-link:hover {
+    color: #fff;
+}
+
 .nav-tabs .nav-link.active {
-    background-color: var(--accent-color) !important;
+    background-color: #ff883e !important;
     color: var(--heading-color) !important;
     border-color: var(--sec-color);
     border-radius: 0 !important;
@@ -322,9 +326,9 @@ input.cart-plus-minus-box {
 }
 
 #myTabContent {
-    border-right: 1px solid var(--accent-color) !important;
-    border-bottom: 1px solid var(--accent-color) !important;
-    border-left: 1px solid var(--accent-color) !important;
+    /* border-right: 1px solid #ff883e  !important;
+    border-bottom: 1px solid #ff883e  !important;
+    border-left: 1px solid #ff883e  !important; */
 }
 
 #extraButton {
