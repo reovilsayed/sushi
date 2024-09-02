@@ -147,7 +147,7 @@
         <div class="col-lg-5 col-sm-12 order-2 order-lg-1 content p-md-0">
             <div class="table-responsive">
                 <div class="">
-                    <p class="mb-0 text-end" style="color:#ff883e ">Management fees: 0.95€</p>
+                    <p class="mb-0 text-end" style="color:#ff883e ">Management fees: {{ $extra_charge }}€</p>
                     <p class="mb-0 mt-2 mb-3 text-end" style="color:#ff883e ">By placing an
                         order,
                         you accept the terms of the T&Cs</p>
