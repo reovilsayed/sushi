@@ -170,7 +170,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->sequency = $request->sequency;
+        $product->Sequence = $request->Sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -216,7 +216,7 @@ class ProductController extends Controller
             'allergenes' => 'required|string',
             'image' => 'nullable|image',
             'price' => 'required|min:1',
-            'sequency' => 'required|integer',
+            'sequence' => 'required|integer',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
@@ -225,7 +225,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->sequency = $request->sequency;
+        $product->sequence = $request->sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;

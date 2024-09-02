@@ -168,7 +168,7 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input id="sequency"  name="sequency"  label="Sequency *"
+                                <x-form.input id="sequence"  name="sequence"  label="Sequence *"
                                     value="{{ $product->sequence }}" required />
                             </div>
                         </div>
