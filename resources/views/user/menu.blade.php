@@ -72,6 +72,7 @@
                     top: 150px; /* Adjust as needed */
                     height: 100vh;
                     overflow-y: auto;">
+                    {{-- @dd($categories ); --}}
                     @foreach ($categories as $category)
                         <div class="accordion" id="accordionExample{{ $category->id }}">
                             <div class="accordion-item">

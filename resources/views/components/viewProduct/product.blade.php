@@ -8,14 +8,10 @@
                     <img class="img-fluid" loading="lazy" src="{{asset('images/new/no-image.jpg')}}"
                         data-src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
                 </a>
+              
                 <h4 class="" style="">
                     <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
                         style="color: #ff883e !important; !important; font-size: 15px !important; font-weight: 300 !important;">{{ $product->name }}</a>
-                </h4>
-                {{-- @dd($product) --}}
-                <h4 class="" style="text-align: justify;">
-                    <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                        style="color: #ff883e !important; !important; font-size: 13px !important; font-weight: 300 !important;">{{ $product->composition }}</a>
                 </h4>
                 <div class="d-flex gap-3 justify-content-center">
                     <div class="price-container">

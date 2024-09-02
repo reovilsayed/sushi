@@ -31,7 +31,7 @@ class PageController extends Controller
 
         $zones = Zone::with('restaurants')->get();
         $sliders = Slider::all();
-        return view('user.home', compact('restaurants', 'zones','sliders'));
+        return view('user.home', compact('restaurants', 'zones', 'sliders'));
     }
 
     private function getTimeRanges($restaurantId, $dayOfWeek)
@@ -77,6 +77,7 @@ class PageController extends Controller
     public function menu($slug)
     {
         // Cache the restaurant and categories to avoid hitting the database multiple times
+        Cache::flush();
         $cacheKey = 'restaurant_menu_' . $slug;
         $menuData = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($slug) {
             $restaurant = Restaurant::where('slug', $slug)->first();
