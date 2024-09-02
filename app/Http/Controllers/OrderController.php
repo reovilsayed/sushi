@@ -159,8 +159,8 @@ class OrderController extends Controller
                 'comment' => $request->input('commment'),
                 'time_option' => $request->time_option,
                 'payment_method' => $request->input('payment_method'),
-                // 'status' => 'PENDING',
                 'delivery_option' => $request->input('delivery_option'),
+                'restaurent_id' => session()->get('restaurent_id'),
             ]);
 
             $extra = [];
@@ -188,9 +188,8 @@ class OrderController extends Controller
                     'extra' => json_encode($extra),
                 ]);
             }
-            $order_mail = Setting::where('key', 'order.mail')->value('value');
-            $restaurant = Restaurant::find(session()->get('restaurent_id'));
-            $emails = array_filter([$user['email'], $restaurant->email ?? null, $order_mail]);
+            $order_mail = Setting::setting('order.mail');
+            $emails = array_filter([$order->email, $order->restaurent->email, $order_mail]);
 
             foreach ($emails as $email) {
                 if (!empty($email)) {

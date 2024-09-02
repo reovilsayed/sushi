@@ -73,4 +73,7 @@ class Order extends Model
             set: fn($value) => $value * 100,
         );
     }
+    public function restaurent(){
+        return $this->belongsTo(Restaurant::class);
+    }
 }
