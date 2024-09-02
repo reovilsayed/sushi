@@ -149,7 +149,7 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input type="number" id="sequency" name="sequency"  label="Sequency *"
+                                <x-form.input type="number" id="sequency" name="sequence"  label="Sequency *"
                                     value="" required />
                             </div>
                         </div>

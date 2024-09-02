@@ -86,7 +86,7 @@ class PageController extends Controller
             }
 
             $categories = Category::whereNull('parent_id')
-                ->orderBy('sequency', 'DESC')
+                ->orderBy('sequency', 'asc')
                 ->with('childs', 'products')
                 ->get();
             $subCategories = Category::whereNotNull('parent_id')->get();

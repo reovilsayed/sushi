@@ -32,7 +32,7 @@ class Category extends Model
     }
     public function childs()
     {
-        return $this->hasMany(Category::class, 'parent_id')->with('products')->orderBy('sequency', 'DESC');
+        return $this->hasMany(Category::class, 'parent_id')->with('products')->orderBy('sequency', 'asc');
     }
     public function products()
     {

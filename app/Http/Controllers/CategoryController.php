@@ -16,7 +16,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Cache::flush();
         $categories = Category::filter()->latest()->paginate(30);
         return view('pages.categories.list', compact('categories'));
     }
@@ -35,11 +34,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Cache::flush();
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-
+        
         // dd($request->all()); 
         $data = [
             'name' => $request->name,
@@ -48,6 +46,7 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
             'description' => $request->description
         ];
+        Cache::flush();
         Category::create($data);
 
         return redirect('/admin/categories')->with('message', 'Category Added Successfully');
@@ -75,17 +74,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        Cache::flush();
-
+        
         $slug = Str::slug($request->name);
-
+        
         $existingSlugCount = Category::where('slug', $slug)
-            ->where('id', '!=', $category->id)
-            ->count();
-
+        ->where('id', '!=', $category->id)
+        ->count();
+        
         if ($existingSlugCount > 0) {
             $slug = $slug . '-' . ($existingSlugCount + 1);
         }
+        Cache::flush();
         $category->update([
             'name' => $request->name,
             'sequency' => $request->sequency,
