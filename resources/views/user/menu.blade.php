@@ -62,7 +62,7 @@
                         <div class="mt-2 text-end">
                             <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
                                 class="btn sushibtn p-md-3 goback">
-                                Back <i class="bi bi-chevron-right"></i>
+                                Cart <i class="bi bi-chevron-right"></i>
                             </a>
                         </div>
                     @endif
