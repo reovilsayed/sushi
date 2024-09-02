@@ -43,7 +43,7 @@
                                     <tr>
                                         <th scope="col">{{ __('sentence.featured') }}</th>
                                         <th scope="col">#</th>
-                                        <th scope="col" class="text-center">Sequency</th>
+                                        <th scope="col" class="text-center">Sequence</th>
                                         <th scope="col">{{ __('sentence.name') }}</th>
                                         <th scope="col">{{ __('sentence.createdat') }}</th>
                                         <th scope="col">{{ __('sentence.action') }}</th>

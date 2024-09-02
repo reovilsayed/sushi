@@ -183,7 +183,7 @@ class ProductController extends Controller
             }
             $product->image = $request->file('image')->store('uploads', 'public');
         }
-
+        Cache::flush();
         $product->save();
 
         if ($request->option) {
@@ -236,6 +236,7 @@ class ProductController extends Controller
             }
             $product->image = $request->file('image')->store('uploads', 'public');
         }
+        Cache::flush();
         $product->save();
 
         if ($request->option) {
