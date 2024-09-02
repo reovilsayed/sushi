@@ -20,8 +20,8 @@
                     <tr>
 
                         <th scope="col">#</th>
-                        <th scope="col">Sequence</th>
                         <th scope="col">{{ __('sentence.image') }}</th>
+                        <th scope="col">Sequence</th>
                         <th scope="col">{{__('sentence.productname')}}</th>
                         <th scope="col">{{ __('sentence.price') }}</th>
                         {{-- <th scope="col">status</th> --}}
@@ -37,11 +37,11 @@
 
 
                             <th scope="row">{{ $key + 1 }}</th>
-                            <th scope="row">{{ $product->sequence }}</th>
                             <td>
                                 <img class="" height="100" width="100" src="{{ $product->image }}"
-                                    alt="">
+                                alt="">
                             </td>
+                            <th scope="row">{{ $product->sequence }}</th>
                             <td>{{ $product->name }}</td>
                             <td>{{ Settings::price($product->price) }}</td>
                             <td>{{ $product->SKU }}</td>
