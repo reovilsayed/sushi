@@ -242,31 +242,31 @@
                         <table style="text-align: left; width: 70%;">
                             <tr>
                                 <td>Lundi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
+                                <td>11:00 AM - 11:00 PM</td>
                             </tr>
                             <tr>
                                 <td>Mardi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
+                                <td>11:00 AM - 11:00 PM</td>
                             </tr>
                             <tr>
                                 <td>Mercredi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
+                                <td>11:00 AM - 11:00 PM</td>
                             </tr>
                             <tr>
                                 <td>Jeudi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
+                                <td>11:00 AM - 11:00 PM</td>
                             </tr>
                             <tr>
                                 <td>Vendredi</td>
-                                <td>18h00 - 23h00</td>
+                                <td>6:00 pM - 12:00 AM</td>
                             </tr>
                             <tr>
                                 <td>Samedi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
+                                <td>11:00 AM - 12:00 AM</td>
                             </tr>
                             <tr>
                                 <td>Dimanche</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
+                                <td>11:00 AM - 11:00 PM</td>
                             </tr>
                         </table>
                     </div>
