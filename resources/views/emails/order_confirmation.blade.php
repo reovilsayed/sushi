@@ -4,10 +4,7 @@
     <x-emails.tableImage :logo="asset('images/orderSuccess.jpg')" />
     @php
         $previousDues = $order->customer->orders->where('id', '!=', $order->id)->where('due', '!=', 0);
-
         $extras = json_decode($order->extra, true) ?? [];
-        $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
-
         $customer = json_decode($order->shipping_info, true);
     @endphp
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 0 27px;">
@@ -26,7 +23,7 @@
                         {{-- @dd($restaurant->name) --}}
                         <p
                             style="font-size: 14px;margin: 5px auto 0;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
-                            Best regards, {{ $restaurant->name }}</p>
+                            Best regards, {{ $order->restaurent->name ?? '' }}</p>
                     </div>
                 </td>
             </tr>
@@ -57,7 +54,7 @@
             </tr>
         </tbody>
     </table>
-
+   
 
     <table class="shipping-table" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
         style="padding: 0 27px;">

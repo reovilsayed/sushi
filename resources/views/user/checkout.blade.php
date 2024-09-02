@@ -360,13 +360,13 @@
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
                                                             {{ __('sentence.subtotal') }}</td>
                                                         <td class="fs-6 fw-medium text-center">
-                                                            {{ number_format(Cart::getSubTotal() + $extra_charge, 2) }} €
+                                                            {{ number_format(Cart::getSubTotal() + (float)($extra_charge ?? 0), 2) }}€
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
                                                         <td class="fs-5 fw-medium text-center">
-                                                            {{ number_format(Cart::getSubTotal() + $extra_charge, 2) }} €
+                                                            {{ number_format(Cart::getSubTotal() + (float)($extra_charge ?? 0), 2) }} €
                                                         </td>
                                                     </tr>
 

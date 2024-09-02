@@ -147,7 +147,7 @@
         <div class="col-lg-5 col-sm-12 order-2 order-lg-1 content p-md-0">
             <div class="table-responsive">
                 <div class="">
-                    <p class="mb-0 text-end" style="color:#ff883e ">Management fees: {{ $extra_charge }}€</p>
+                    <p class="mb-0 text-end" style="color:#ff883e ">Management fees: {{ $extra_charge ?? ''}}€</p>
                     <p class="mb-0 mt-2 mb-3 text-end" style="color:#ff883e ">By placing an
                         order,
                         you accept the terms of the T&Cs</p>
@@ -160,8 +160,7 @@
                 <a href="{{ route('restaurant.checkout') }}"
                     class="checkout_btn d-flex justify-content-between ms-2 me-2" id="checkout-button" title="">
                     <h4 class="mb-0 fs-4" id="button-text">SUBTOTAL</h4>
-                    <h4 class="mb-0">{{ number_format(Cart::getSubTotal() + $extra_charge, 2) }} €</h4>
-
+                    <h4 class="mb-0">{{ number_format(Cart::getSubTotal() + (float)($extra_charge ?? 0), 2) }} €</h4>
                 </a>
 
 
