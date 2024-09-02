@@ -16,7 +16,7 @@
 
             .sushibtn {
                 padding: 6px 4px !important;
-                border: 1px solid var(--accent-color)!important;
+                border: 1px solid var(--accent-color) !important;
                 border-radius: 0px;
                 background-color: var(--accent-color);
                 color: #ffffff;
@@ -87,27 +87,57 @@
             <i class="fs-1 bi bi-list"></i>
         </button>
 
+        <!-- Offcanvas Menu -->
+        <!-- Offcanvas Menu -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Categories</h5>
+                <!-- Close Button -->
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="bi bi-x-lg fs-1"></i></button>
+            </div>
+            <div class="offcanvas-body" style="background-color: #810707 !important;">
+                @foreach ($categories as $category)
+                    <div class="accordion" id="accordionExample{{ $category->id }}">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree{{ $category->id }}" aria-expanded="false"
+                                    aria-controls="collapseThree" style="color: var(--default-color);">
+                                    {{ $category->name }}
+                                </button>
+                            </h2>
+                            @if ($category->childs->count() > 0)
+                                @foreach ($category->childs as $child)
+                                    <div id="collapseThree{{ $child->parent_id }}" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample{{ $child->parent_id }}">
+                                        <a href="#{{ $child->id }}" class="accordion-body"
+                                            style="color: var(--default-color);">
+                                            <div>{{ $child->name }}</div>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-        <div class="container-fluid isotope-layout" data-default-filter="*" data-layout="masonry"
-            data-sort="original-order">
+
+        <div class="container-fluid isotope-layout">
             <div class="row">
-
-                <div class="col-md-2 d-none d-md-block "
-                    style="
-                    position: -webkit-sticky;
-                    position: sticky;
-                    top: 150px; /* Adjust as needed */
-                    height: 100vh;
-                    overflow-y: auto;">
-                    {{-- @dd($categories ); --}}
+                <!-- Sidebar for larger screens -->
+                <div class="col-md-3 col-sm-12 d-none d-md-block"
+                    style="position: sticky; top: 150px; height: 100vh; overflow-y: auto;">
                     @foreach ($categories as $category)
                         <div class="accordion" id="accordionExample{{ $category->id }}">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed ''" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
-                                        aria-expanded="false" aria-controls="collapseThree"
-                                        style="color: var(--default-color);">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree{{ $category->id }}" aria-expanded="false"
+                                        aria-controls="collapseThree" style="color: var(--default-color);">
                                         {{ $category->name }}
                                     </button>
                                 </h2>
@@ -126,48 +156,39 @@
                             </div>
                         </div>
                     @endforeach
-
-
                 </div>
 
-                <div class="col-md-10">
-                    <div class="row ">
+                <!-- Main Content Area -->
+                <div class="col-md-9 col-sm-12">
+                    <div class="row">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
-                   
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
-                                    <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
-                                        <a id="{{ $child->name }}" href=""
-                                            class="  h4">{{ $child->name }}</a>
-                                        <p class="mt-2 fst-italic">{{ $child->description }}</p>
-                                        {{-- <hr> --}}
-                                    </div>
+                                    <a id="{{ $child->name }}" href=""
+                                        class="h4">{{ $child->name }}</a>
+                                    <p class="mt-2 fst-italic">{{ $child->description }}</p>
+                                </div>
 
-                                    <div class="row justify-content-center">
-                                        @foreach ($child->products as $product)
-                                  
-                                            <div class="col-md-2">
-                                                <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                <div class="row justify-content-center">
+                                    @foreach ($child->products as $product)
+                                        <div class="col-md-2 col-sm-6 col-12">
+                                            <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
+                                        </div>
+                                    @endforeach
+                                </div>
                             @endforeach
                         @endforeach
-
-
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
+
 
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: var(--default-color)">
                 <div class="modal-header">

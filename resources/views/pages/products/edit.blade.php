@@ -169,7 +169,7 @@
                         <div class="card-body">
                             <div class="row row-cols-1">
                                 <x-form.input id="sequency"  name="sequency"  label="Sequency *"
-                                    value="{{ $product->sequency }}" required />
+                                    value="{{ $product->sequence }}" required />
                             </div>
                         </div>
                     </div>
