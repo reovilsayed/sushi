@@ -155,7 +155,7 @@ input.cart-plus-minus-box {
 
 .subcart2 {
     padding: 5px;
-    border: 1px solid #ff883e;
+    border: 1px solid var(--accent-color) !important;
     height: 150px;
     display: flex;
     justify-content: space-between;
@@ -279,8 +279,8 @@ input.cart-plus-minus-box {
 }
 
 #myTab {
-    border-bottom: 2px solid #ff883e !important;
-    color: #ff883e !important;
+    border-bottom: 2px solid var(--accent-color) !important;
+    color: var(--accent-color) !important;
 }
 
 .nav-item {
@@ -317,7 +317,7 @@ input.cart-plus-minus-box {
 }
 
 .nav-tabs .nav-link.active {
-    background-color: #ff883e !important;
+    background-color: var(--accent-color)  !important;
     color: var(--heading-color) !important;
     border-color: var(--sec-color);
     border-radius: 0 !important;
@@ -326,9 +326,9 @@ input.cart-plus-minus-box {
 }
 
 #myTabContent {
-    /* border-right: 1px solid #ff883e  !important;
-    border-bottom: 1px solid #ff883e  !important;
-    border-left: 1px solid #ff883e  !important; */
+    /* border-right: 1px solid var(--accent-color)  !important;
+    border-bottom: 1px solid var(--accent-color)  !important;
+    border-left: 1px solid var(--accent-color)  !important; */
 }
 
 #extraButton {

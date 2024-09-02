@@ -7,7 +7,6 @@ use App\Mail\OrderConfirmationMail;
 use App\Mail\UserCreateMail;
 use App\Models\Order;
 use App\Models\Restaurant;
-use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Report\Earnings;
@@ -20,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Http;
-
+use Settings;
 class OrderController extends Controller
 {
     /**
@@ -154,13 +153,13 @@ class OrderController extends Controller
             $order = Order::create([
                 'customer_id' => $user->id,
                 'shipping_info' => json_encode($shipping),
-                'sub_total' => Cart::getSubTotal(),
-                'total' => Cart::getTotal(),
+                'sub_total' => Cart::getSubTotal()+0.95,
+                'total' => Cart::getTotal()+0.95,
                 'comment' => $request->input('commment'),
                 'time_option' => $request->time_option,
                 'payment_method' => $request->input('payment_method'),
                 'delivery_option' => $request->input('delivery_option'),
-                'restaurent_id' => session()->get('restaurent_id'),
+                'restaurant_id' => session()->get('restaurent_id'),
             ]);
 
             $extra = [];
@@ -170,7 +169,6 @@ class OrderController extends Controller
                     $order->products()->attach($item->attributes['product']->id, [
                         'quantity' => $item->quantity,
                         'price' => $item->price,
-                        'restaurant_id' => $item->attributes['restaurent'],
                     ]);
                 }
 
@@ -188,8 +186,9 @@ class OrderController extends Controller
                     'extra' => json_encode($extra),
                 ]);
             }
-            $order_mail = Setting::setting('order.mail');
-            $emails = array_filter([$order->email, $order->restaurent->email, $order_mail]);
+            $order_mail = Settings::setting('order.mail');
+
+            $emails = array_filter([$order->customer->email, $order->restaurent->email, $order_mail]);
 
             foreach ($emails as $email) {
                 if (!empty($email)) {

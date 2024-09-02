@@ -7,16 +7,16 @@
         <style>
             .sushibtn {
                 padding: 4px 3px !important;
-                border: 1px solid #ff883e !important;
+                border: 1px solid var(--accent-color) !important;
                 border-radius: 0px;
                 color: #ffffff;
             }
 
             .sushibtn {
                 padding: 4px 3px !important;
-                border: 1px solid #ff883e !important;
+                border: 1px solid var(--accent-color)!important;
                 border-radius: 0px;
-                background-color: #ff883e;
+                background-color: var(--accent-color);
                 color: #ffffff;
             }
         </style>
@@ -25,10 +25,10 @@
         <div class="container section-title aos-init aos-animate pb-2 mt-4" data-aos="fade-up">
             <div class="">
                 <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Back</a>
+                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Menu</a>
 
-                <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a>
+                {{-- <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
+                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a> --}}
             </div>
 
             {{-- <h2>{{ __('sentence.cart') }}</h2> --}}

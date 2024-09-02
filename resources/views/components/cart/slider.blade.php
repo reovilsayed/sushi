@@ -81,7 +81,7 @@
     <div class="row">
         <div class="container section-title aos-init aos-animate pb-4" data-aos="fade-up">
             {{-- <h2>{{ __('sentence.menu') }}</h2> --}}
-            <p class="fw-light fs-2" style="color: #ff883e!important;">Laissez-vous tenter par…</p>
+            <p class="">Laissez-vous tenter par…</p>
         </div>
         <div class="col-12">
             <!-- Nav tabs -->
@@ -153,12 +153,34 @@
                         you accept the terms of the T&Cs</p>
                 </div>
             </div>
+            @php
+                $extra_charge = Settings::setting('extra.charge')
+            @endphp
             <div class="btn-wrapper text-center mb-3">
                 <a href="{{ route('restaurant.checkout') }}"
-                    class="checkout_btn d-flex justify-content-between ms-2 me-2"><h4>SUBTOTAL</h4> <h4>{{ number_format(Cart::getSubTotal(), 2) }} €</h4></a>
+                    class="checkout_btn d-flex justify-content-between ms-2 me-2" id="checkout-button" title="">
+                    <h4 class="mb-0 fs-4" id="button-text">SUBTOTAL</h4>
+                    <h4 class="mb-0">{{ number_format(Cart::getSubTotal() + $extra_charge, 2) }} €</h4>
+
+                </a>
+
 
             </div>
 
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkoutButton = document.getElementById('checkout-button');
+        var buttonText = document.getElementById('button-text');
+
+        checkoutButton.addEventListener('mouseenter', function() {
+            buttonText.textContent = 'PROCEED TO CHECKOUT';
+        });
+
+        checkoutButton.addEventListener('mouseleave', function() {
+            buttonText.textContent = 'SUBTOTAL';
+        });
+    });
+</script>

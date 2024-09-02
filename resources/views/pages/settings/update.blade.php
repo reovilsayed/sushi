@@ -132,6 +132,16 @@
                                                             name="google_map">
                                                     </div>
                                                 </div>
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">Extra Charge</div>
+                                                    <div class="input">
+                                                        {{-- @dd(Settings::setting('extra.charge')) --}}
+                                                        <input type="text"
+                                                            value="{{ Settings::setting('extra.charge') ? Settings::setting('extra.charge') : 'Extra Charge' }}"
+                                                            placeholder="Extra Charge" class=""
+                                                            name="extra_charge">
+                                                    </div>
+                                                </div>
 
 
                                                 <div class="col-12 d-flex justify-content-between mt-2">

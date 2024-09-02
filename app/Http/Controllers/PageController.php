@@ -85,8 +85,9 @@ class PageController extends Controller
                 abort(404); // Handle the case where the restaurant is not found
             }
 
-            $categories = Category::whereNull('parent_id')->with('childs', 'products')->get();
-            // dd($categories);
+            $categories = Category::whereNull('parent_id')
+                ->with('childs', 'products')
+                ->get();
             $subCategories = Category::whereNotNull('parent_id')->get();
 
             return compact('restaurant', 'categories', 'subCategories');

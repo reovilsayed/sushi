@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -15,8 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
-
+        Cache::flush();
         $categories = Category::filter()->latest()->paginate(30);
         return view('pages.categories.list', compact('categories'));
     }
@@ -35,6 +35,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Cache::flush();
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
@@ -72,6 +73,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        Cache::flush();
         $category->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),

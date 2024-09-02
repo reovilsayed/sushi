@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
+            $table->foreignId('restaurant_id')->nullable()->constrained()->nullOnDelete();
             $table->json('shipping_info')->nullable();
             $table->text('comment')->nullable();
             $table->text('delivery_option')->nullable();
@@ -25,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('shipping_info','comment', 'delivery_option', 'extra');
+            $table->dropColumn('restaurant_id','shipping_info','comment', 'delivery_option', 'extra');
         });
     }
 };

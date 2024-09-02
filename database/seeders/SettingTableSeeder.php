@@ -188,6 +188,15 @@ class SettingTableSeeder extends Seeder
                 'group' => 'Site',
             ]
         );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'extra.charge'],
+            [
+                'display_name' => 'Extra Charge',
+                'value' => 'Extra Chagre',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
 
         
     }

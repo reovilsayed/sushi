@@ -16,7 +16,7 @@ class SettingController extends Controller
     //  */
     public function index()
     {
-        
+
 
         return view('pages.settings.update',);
     }
@@ -52,6 +52,8 @@ class SettingController extends Controller
         Setting::where('key', 'google.map')->update(['value' => $request->input('google_map')]);
         // Update the site order mail
         Setting::where('key', 'order.mail')->update(['value' => $request->input('order_mail')]);
+        // Update the site Extra Charge
+        Setting::where('key', 'extra.charge')->update(['value' => $request->input('extra_charge')]);
 
 
 
@@ -157,10 +159,10 @@ class SettingController extends Controller
         }
         return redirect(route('settings.index'))->with('success', 'Hero image was successfully stored');
     }
-    public function deleteImage(SliderImage $hero){
-        
-            $hero->delete();
-            return redirect()->back()->with('success', 'Slider Image deleted');
+    public function deleteImage(SliderImage $hero)
+    {
 
+        $hero->delete();
+        return redirect()->back()->with('success', 'Slider Image deleted');
     }
 }

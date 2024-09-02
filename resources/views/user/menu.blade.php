@@ -5,6 +5,23 @@
     @push('css')
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+
+        <style>
+            .sushibtn {
+                padding: 6px 4px !important;
+                border: 1px solid var(--accent-color) !important;
+                border-radius: 0px;
+                color: #ffffff;
+            }
+
+            .sushibtn {
+                padding: 6px 4px !important;
+                border: 1px solid var(--accent-color)!important;
+                border-radius: 0px;
+                background-color: var(--accent-color);
+                color: #ffffff;
+            }
+        </style>
     @endpush
     <br><br><br>
     {{-- <x-user.about /> --}}
@@ -30,7 +47,7 @@
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf
                         @method('PATCH')
-                       <label for="" class="form-content mb-2">Current delay : (15 to 20 Minutes)</label>
+                        <label for="" class="form-content mb-2">Current delay : (15 to 20 Minutes)</label>
                         <select name="TimeOption"
                             class="form-select selectpicker  bg-transparent text-colour delivery-time"
                             data-container="body" onchange="submitTimeForm()">
@@ -41,6 +58,16 @@
                             @endforeach
                         </select>
                     </form>
+                    @if (!Cart::isEmpty())
+                        <div class="mt-2 text-end">
+                            <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
+                                class="btn sushibtn p-md-3 goback">
+                                Back <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    @endif
+
+
                 </div>
 
             </div>
