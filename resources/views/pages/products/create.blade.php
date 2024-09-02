@@ -145,15 +145,21 @@
                         </div>
                         
                     </div>
+
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
+                                <x-form.input type="number" id="sequency" name="sequency"  label="Sequency *"
+                                    value="" required />
+                            </div>
+                        </div>
+                    </div>
 
-                                {{-- <x-form.input id="quantity" name="quantity" wire:model="quantity" label="Quantity"
-                                    value="" /> --}}
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="row row-cols-1">
                                 <x-form.input id="price" name="price" wire:model="price" label="Price *"
                                     value="" required />
-
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}

@@ -134,6 +134,7 @@
                     <div class="row ">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
+                   
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                     <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
                                         <a id="{{ $child->name }}" href=""
@@ -144,6 +145,7 @@
 
                                     <div class="row justify-content-center">
                                         @foreach ($child->products as $product)
+                                  
                                             <div class="col-md-2">
                                                 <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
                                             </div>

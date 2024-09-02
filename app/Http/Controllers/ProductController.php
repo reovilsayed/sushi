@@ -18,8 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        Cache::flush();
         $minutes = 5;
-
         $products = Product::latest()->filter()->paginate(16)->withQueryString();
         $categories = Cache::remember('categories', $minutes, function () {
             return Category::all()->pluck('name', 'id')->toArray();
@@ -153,6 +153,7 @@ class ProductController extends Controller
     }
     public function storeProduct(Request $request)
     {
+        Cache::flush();
         $validated = $request->validate([
             'name' => 'required|string',
             'composition' => 'nullable|string',
@@ -169,6 +170,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
+        $product->sequency = $request->sequency;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -214,6 +216,7 @@ class ProductController extends Controller
             'allergenes' => 'required|string',
             'image' => 'nullable|image',
             'price' => 'required|min:1',
+            'sequency' => 'required|integer',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
@@ -222,6 +225,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
+        $product->sequency = $request->sequency;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;

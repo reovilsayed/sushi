@@ -12,6 +12,15 @@
                         <input type="text" id="disabledTextInput" class="form-control" placeholder="Category Name"
                             name="name" value="{{ $category->name }}">
                     </div>
+                    
+                    <div class="item-content">
+                        <div class="mb-3">
+                            <label for="sequency" class="form-label">Sequency</label>
+                            <input type="number" class="form-control" id="sequency" placeholder="Sequency"
+                                data-name="sequency" name="sequency" value="{{ $category->sequency }}">
+                        </div>
+                    </div>
+                    
                     <div class="item-content mb-3">
                         <label class="control-label">Category</label>
                         <select class="form-control select2" name="parent_id">

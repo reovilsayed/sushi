@@ -26,9 +26,6 @@
             <div class="">
                 <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
                     class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Menu</a>
-
-                {{-- <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a> --}}
             </div>
 
             {{-- <h2>{{ __('sentence.cart') }}</h2> --}}

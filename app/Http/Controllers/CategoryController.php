@@ -27,7 +27,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::whereNull('parent_id')->get();
-        return view('pages.categories.create',compact('categories'));
+        return view('pages.categories.create', compact('categories'));
     }
 
     /**
@@ -39,9 +39,11 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
+
         // dd($request->all()); 
         $data = [
             'name' => $request->name,
+            'sequency' => $request->sequency,
             'slug' => Str::slug($request->name),
             'parent_id' => $request->parent_id,
             'description' => $request->description
@@ -74,9 +76,20 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         Cache::flush();
+
+        $slug = Str::slug($request->name);
+
+        $existingSlugCount = Category::where('slug', $slug)
+            ->where('id', '!=', $category->id)
+            ->count();
+
+        if ($existingSlugCount > 0) {
+            $slug = $slug . '-' . ($existingSlugCount + 1);
+        }
         $category->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'sequency' => $request->sequency,
+            'slug' => $slug,
             'parent_id' => $request->parent_id,
             'description' => $request->description
         ]);
@@ -96,16 +109,12 @@ class CategoryController extends Controller
     {
         $data = Category::find($category->id);
 
-        
-        if($data->featured == 'unchecked'){
+
+        if ($data->featured == 'unchecked') {
             $data->update(['featured' => 'checked']);
-        }else{
+        } else {
             $data->update(['featured' => 'unchecked']);
         }
         return redirect()->back();
-
     }
-    
-
-
 }

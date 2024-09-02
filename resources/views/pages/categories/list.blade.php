@@ -43,6 +43,7 @@
                                     <tr>
                                         <th scope="col">{{ __('sentence.featured') }}</th>
                                         <th scope="col">#</th>
+                                        <th scope="col" class="text-center">Sequency</th>
                                         <th scope="col">{{ __('sentence.name') }}</th>
                                         <th scope="col">{{ __('sentence.createdat') }}</th>
                                         <th scope="col">{{ __('sentence.action') }}</th>
@@ -60,6 +61,7 @@
                                                 </form>
                                             </td>
                                             <td>{{ $key + 1 }}</td>
+                                            <td class="text-center">{{ $category->sequency }}</td>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->created_at }}</td>
                                             <td class="d-flex">
