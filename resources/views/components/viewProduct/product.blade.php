@@ -15,7 +15,7 @@
                 </h4>
                 <div class="d-flex gap-3 justify-content-center">
                     <div class="price-container">
-                        <h5 class=" price" style="font-size: 14px !important; color: #e4d4bf !important;">{{ number_format($product->price , 2)}} €
+                        <h5 class=" price" style="font-size: 14px !important; color: #e4d4bf !important;">{{ Settings::price($product->price) }}
                         </h5>
 
 

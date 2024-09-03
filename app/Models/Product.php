@@ -81,14 +81,6 @@ class Product extends Model
     {
         return $query->orderBy('sold_unit', 'desc');
     }
-
-    public function price(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => $value ? $value / 100 : null,
-            set: fn($value) => $value * 100,
-        );
-    }
     public function tradePrice(): Attribute
     {
         return Attribute::make(
@@ -97,6 +89,14 @@ class Product extends Model
         );
     }
 
+    
+    public function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
+        );
+    }
 
     public function boxPrice(): Attribute
     {

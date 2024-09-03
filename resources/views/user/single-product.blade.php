@@ -88,8 +88,7 @@
                             <form action="{{ route('cart.store') }}" method="post">
                                 @csrf
                                 <div class="d-flex ">
-                                    <h2 class="col-md-2" id="product-price">{{ number_format($product->price, 2) }}€
-                                    </h2>
+                                    <h2 class="col-md-2" id="product-price">{{ Settings::price($product->price) }}</h2>
 
                                     @if ($productOption->count() !== 0)
                                         <div class="col-md-6 ms-2">
