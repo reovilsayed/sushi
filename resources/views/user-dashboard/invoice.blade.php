@@ -57,7 +57,7 @@
                                     <div class="mt-4">
                                         {{-- @dd($order->products) --}}
                                         <h5 class="font-size-15 mb-1">Restaurant Name:</h5>
-                                        <p class="text-colour">{{ $restaurant->name ?? '' }}</p>
+                                        <p class="text-colour">{{ $order->restaurent->name ?? ''}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
@@ -96,57 +96,57 @@
                                         {{-- @dd($order ) --}}
                                         @foreach ($order->products as $product)
                                             <tr class="text-center">
-                                                <th class="bg-transparent text-center  " scope="row">
+                                                <th class="bg-transparent text-center text-light  " scope="row">
                                                     {{ $product->id }}
                                                 </th>
-                                                <td class="bg-transparent text-center  ">
+                                                <td class="bg-transparent text-center text-light  ">
                                                     <div>
-                                                        <h5 class="text-truncate   font-size-14 mb-1">
+                                                        <h5 class="text-truncate text-light font-size-14 mb-1">
                                                             {{ $product->name }}
                                                             {{ $product->strength }}
                                                         </h5>
-                                                        <p class="  mb-0">{{ $product->category->name }}</p>
+                                                        <p class="text-light  mb-0">{{ $product->category->name }}</p>
                                                     </div>
                                                 </td>
-                                                <td class="bg-transparent text-center  ">
+                                                <td class="bg-transparent text-center text-light ">
                                                     {{ $product->pivot->quantity }}
                                                 </td>
-                                                <td class="text-end bg-transparent text-center  ">
+                                                <td class="text-end bg-transparent text-center text-light ">
                                                     {{ Settings::price($product->pivot->price) }}</td>
-                                                <td class="text-end bg-transparent text-center  ">
+                                                <td class="text-end bg-transparent text-center text-light ">
                                                     {{ Settings::price($product->pivot->price * $product->pivot->quantity) }}
                                                 </td>
                                             </tr>
                                         @endforeach
                                         @foreach ($extras as $item)
                                             <tr>
-                                                <th class="bg-transparent text-center  " scope="row">
+                                                <th class="bg-transparent text-center text-light " scope="row">
                                                     {{ $item['id'] }}</th>
-                                                <td class="bg-transparent text-center  ">
+                                                <td class="bg-transparent text-center text-light ">
                                                     <div>
-                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $item['name'] }}
+                                                        <h5 class="text-truncate font-size-14 mb-1 text-light">{{ $item['name'] }}
                                                         </h5>
                                                         {{-- <p class="text-muted mb-0">{{ $product->category->name }}</p> --}}
                                                     </div>
                                                 </td>
-                                                <td class="bg-transparent text-center  ">
+                                                <td class="bg-transparent text-center text-light ">
                                                     {{ $item['quantity'] }}</td>
-                                                <td class="text-end text-center bg-transparent  ">
+                                                <td class="text-end text-center bg-transparent text-light ">
                                                     {{ Settings::price($item['price']) }}</td>
-                                                <td class="text-end text-center bg-transparent  ">
+                                                <td class="text-end text-center bg-transparent text-light ">
                                                     {{ Settings::price($item['price'] * $item['quantity']) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th scope="row" colspan="4"
-                                                class="text-end bg-transparent  ">Sub Total</th>
-                                            <td class="text-end bg-transparent  ">
+                                                class="text-end bg-transparent text-light ">Sub Total</th>
+                                            <td class="text-end bg-transparent text-light ">
                                                 {{ Settings::price($order->sub_total) }}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="4"
-                                                class="border-0 text-end bg-transparent  ">Total</th>
-                                            <td class="border-0 text-end bg-transparent  ">
+                                                class="border-0 text-end bg-transparent text-light ">Total</th>
+                                            <td class="border-0 text-end bg-transparent text-light ">
                                                 <h4 class="m-0 fw-semibold">{{ Settings::price($order->total) }}</h4>
                                             </td>
                                         </tr>
