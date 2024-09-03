@@ -170,7 +170,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->sequence = $request->sequence;
+        $product->sequency = $request->sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -225,7 +225,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->sequence = $request->sequence;
+        $product->sequency = $request->sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
