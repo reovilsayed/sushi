@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Settings\Settings as SettingsSettings;
 use App\Mail\DuePaidMail;
 use App\Mail\OrderConfirmationMail;
 use App\Mail\UserCreateMail;
@@ -148,13 +149,13 @@ class OrderController extends Controller
 
             // Prepare shipping information
             $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
-
+            $extra_charge = Settings::setting('extra.charge');
             // Create the order
             $order = Order::create([
                 'customer_id' => $user->id,
                 'shipping_info' => json_encode($shipping),
-                'sub_total' => Cart::getSubTotal()+0.95,
-                'total' => Cart::getTotal()+0.95,
+                'sub_total' => Cart::getSubTotal(),
+                'total' => Cart::getTotal()+ $extra_charge,
                 'comment' => $request->input('commment'),
                 'time_option' => $request->time_option,
                 'payment_method' => $request->input('payment_method'),

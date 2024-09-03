@@ -85,9 +85,8 @@
                                                     <span style="color: #000; font-size: 13px;">({{ $option->name ?? '' }})</span>
                                                 @endforeach --}}
                                             </li>
-
                                             {{-- <li>{{ $product->strength }}</li> --}}
-                                            <li>QTY: <span>{{ Settings::price($product->pivot->price) }}</span></li>
+                                            <li>QTY: <span>{{ $product->pivot->quantity }} </span></li>
                                             <li>Price:
                                                 <span>{{ Settings::price($product->pivot->price) }}</span>
                                             </li>
