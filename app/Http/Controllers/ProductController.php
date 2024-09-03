@@ -22,7 +22,7 @@ class ProductController extends Controller
         $minutes = 5;
         $products = Product::latest()->filter()->paginate(16)->withQueryString();
         $categories = Cache::remember('categories', $minutes, function () {
-            return Category::all()->pluck('name', 'id')->toArray();
+            return Category::whereNotNull('parent_id')->get()->pluck('name', 'id')->toArray();
         });
         return view('pages.products.list', compact('products', 'categories'));
     }
