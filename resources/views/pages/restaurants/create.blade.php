@@ -48,16 +48,18 @@
                     <div class="card ">
                         <div class="card-body">
                             <div class="row row-cols-2">
-                                <x-form.input id="longitude" name="address[longitude]" wire:model="longitude"
+                                {{-- <x-form.input id="longitude" name="address[longitude]" wire:model="longitude"
                                     label="Longitude" value="" required />
                                 <x-form.input id="latitude" name="address[latitude]" wire:model="latitude"
-                                    label="Latitude" value="" required />
+                                    label="Latitude" value="" required /> --}}
                                 <x-form.input id="merchantId" name="merchantId" 
                                     label="Merchant Id" value="" required />
                                 <x-form.input id="secretKey" name="secretKey" 
                                     label="Secret Key" value="" required />
-                                
-                            </div>
+                                    
+                                </div>
+                                <x-form.input id="key_version" name="key_version" 
+                                    label="Key Version" value="" required />
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{__('sentence.save')}}
                             </button>

@@ -39,7 +39,7 @@ class RestaurantController extends Controller
         $restaurant->address = $request->address;
 
         $restaurant->api_key = json_encode($api_key);
-
+        $restaurant->key_version = $request->key_version;
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
             if ($restaurant->image && Storage::exists($restaurant->image)) {
@@ -79,6 +79,7 @@ class RestaurantController extends Controller
             'number' => $request->number,
             'address' => $request->address,
             'api_key' => json_encode($api_key),
+            'key_version' => $request->key_version,
         ]);
         $restaurant->save();
 
