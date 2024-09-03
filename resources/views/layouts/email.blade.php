@@ -172,14 +172,12 @@
                                         style="margin: 8px auto 20px">
                                         <tbody>
                                             <tr>
-
                                                 <td style="font-size: 15px; font-weight: 500">
                                                     <span style="color: #fff">
-                                                        Order By: <a href="https://sushi.sohojware.com/" style="color: #387ADF" target="_blank">{{ $order->restaurent->name }}</a>, 
-                                                        Email: <a href="{{ $order->restaurent->name }}" style="color: #387ADF" target="_blank">{{ $order->restaurent->name }}</a>
-                                                    </span>
+                                                        Order By: <a href="https://sushi.sohojware.com/" style="color: #387ADF" target="_blank"></a>, 
+                                                        Email: <a href="mailto:" style="color: #387ADF"></a>
+                                                    </span>                                                    
                                                 </td>
-                                                
                                             </tr>
                                         </tbody>
                                     </table>

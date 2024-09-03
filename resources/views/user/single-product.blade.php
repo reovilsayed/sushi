@@ -64,6 +64,36 @@
                 background-color: transparent;
                 color: #fff;
             }
+
+            .singlePrice {
+                color: var(--sec-color);
+                font-size: 2rem;
+            }
+
+            @media (min-width: 360px) and (max-width: 740px) {
+                .singlePrice {
+                    color: var(--sec-color);
+                    font-size: 2rem;
+                    text-align: center;
+                }
+
+                #product-price {
+                    text-align: center;
+                }
+
+                .submitBtn{
+                    text-align: center;
+                }
+            }
+            @media (min-width: 820px) and (max-width: 1180px) {
+                .mobil {
+                    display: flow !important;
+                }
+
+                #product-price {
+                    width: 100%;
+                }
+            }
         </style>
     @endpush
     <br><br><br>
@@ -83,11 +113,11 @@
                         </div>
 
                         <div class="col-md-7">
-                            <h2 class="mb-3" style="color: var(--sec-color); font-size: 2rem;">{{ $product->name }}
+                            <h2 class="mb-3 singlePrice">{{ $product->name }}
                             </h2>
                             <form action="{{ route('cart.store') }}" method="post">
                                 @csrf
-                                <div class="d-flex ">
+                                <div class="d-md-flex mobil">
                                     <h2 class="col-md-2" id="product-price">{{ Settings::price($product->price) }}</h2>
 
                                     @if ($productOption->count() !== 0)
@@ -105,11 +135,13 @@
                                     @endif
                                 </div>
 
-                                <input type="hidden" name="quantity" value="1">
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="sushibtn mt-3"
-                                    style="">{{ __('sentence.addtocart') }}</button>
+                                <div class="submitBtn">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
+                                    <button type="submit" class="sushibtn mt-3"
+                                        style="">{{ __('sentence.addtocart') }}</button>
+                                </div>
                             </form>
 
                             <div class="row mt-5">

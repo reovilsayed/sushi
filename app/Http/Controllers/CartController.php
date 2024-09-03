@@ -41,7 +41,7 @@ class CartController extends Controller
 
 
 
-		return back()->with('success', 'Item has been added to cart!');
+		return back();
 	}
 
 
@@ -56,7 +56,7 @@ class CartController extends Controller
 		));
 
 
-		return redirect()->back()->with('success', 'Item has been updated!');
+		return redirect()->back();
 	}
 	public function destroy($id)
 	{
@@ -71,7 +71,7 @@ class CartController extends Controller
 
 			Cart::remove($id);
 		}
-		return back()->with('success', 'Item has been removed!');
+		return back();
 	}
 	public function updateVaritaiton(Request $request)
 	{
@@ -125,6 +125,6 @@ class CartController extends Controller
 			['restaurent' => $request->restaurent_id, 'extra' => $extra]
 		);
 
-		return back()->with('success', 'Item has been added to cart!');
+		return back();
 	}
 }

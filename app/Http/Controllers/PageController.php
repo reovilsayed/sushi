@@ -330,7 +330,7 @@ class PageController extends Controller
         Mail::to('centralsushi@gmail.com')->send(new RecruitmentMail($data));
 
         // Return back with a success message
-        return back()->with('success', 'Thank you for contacting us!');
+        return back();
     }
 
     // public function store(Request $request)
@@ -354,7 +354,7 @@ class PageController extends Controller
         Session::put('address', $request->input('address'));
 
         // Optionally, return a JSON response to indicate success
-        return response()->json(['success' => true, 'message' => 'Data stored in session successfully!']);
+        return response()->json(['success' => true, ]);
     }
 
 
@@ -375,6 +375,6 @@ class PageController extends Controller
         // Add new session data
         Session::put('delivery_time', [$selectedTime]);
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Delivery time updated successfully!');
+        return redirect()->back();
     }
 }

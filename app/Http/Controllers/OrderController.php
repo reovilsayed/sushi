@@ -110,6 +110,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        
         if (!auth()->check()) {
             $request->validate([
                 'f_name' => 'required|string|max:255',
@@ -119,7 +120,6 @@ class OrderController extends Controller
         }
         // Start a database transaction
         DB::beginTransaction();
-
         try {
 
             // Handle user authentication

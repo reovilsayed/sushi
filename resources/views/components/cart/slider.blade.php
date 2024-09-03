@@ -112,7 +112,7 @@
                                             <div class="">
                                                 <div class="row">
                                                     @foreach ($chunkItems as $product)
-                                                        <div class="col-md-4 text-center">
+                                                        <div class="col-md-4 text-md-center">
                                                             <x-viewProduct.product :restaurant="App\Models\Restaurant::find(
                                                                 session()->get('restaurent_id'),
                                                             )"
@@ -163,7 +163,7 @@
                         class="checkout_btn d-flex justify-content-between align-items-center mx-2" id="checkout-button"
                         title="">
                         <h4 class="mb-0 fs-5" id="button-text">SUBTOTAL</h4>
-                        <h4 class="mb-0">{{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }} €
+                        <h4 class="mb-0">{{ number_format(Cart::getSubTotal(), 2) }} €
                         </h4>
                     </a>
                 </div>

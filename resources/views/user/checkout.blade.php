@@ -3,7 +3,7 @@
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
         $locations = explode(',', session()->get('current_location'));
         $timeSelect = session()->get('delivery_time');
-        $extra_charge = Settings::setting('extra.charge')
+        $extra_charge = Settings::setting('extra.charge');
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
 
@@ -201,9 +201,28 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <input type="text" name="address" class="form-control"
+                                                <input type="text" name="address" id="map_address_input" class="form-control"
                                                     placeholder="Your Address" required
                                                     value="{{ auth()->user()->address ?? ($locations[1] ?? '') }}">
+
+
+                                                {{-- <div class="input-group text-center">
+                                                    <input type="text" id="map_address_input" name="location"
+                                                        value=""
+                                                        class="form-control form-control-lg location text-center"
+                                                        style="color: #ffffff; border-radius: 0px !important; background-color: black; border: 0px; padding-right: 0;"
+                                                        placeholder="Enter Location" aria-label="Enter Location"
+                                                        aria-describedby="button-addon2">
+                                                    <button class="btn bg-black border-0 btn-outline-orange"
+                                                        style="border-left: 0px" type="button"
+                                                        onclick="getCurrentLocation()" id="location-button">
+                                                        <i class="bi bi-geo-alt fs-4"></i>
+                                                    </button>
+                                                    <button id="checkDZ"class="btn btn-outline-orange"
+                                                        style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;">
+                                                        {{ __('Enter') }}
+                                                    </button>
+                                                </div> --}}
 
                                             </div>
                                             <div class="col-md-12">
@@ -332,7 +351,7 @@
                                                                 {{ __('sentence.paymentmethod') }}
                                                             </p>
                                                             <div class="ps-3">
-                                                                <div class="form-check">
+                                                                <div class="form-check mb-2">
                                                                     <input class="form-check-input" type="radio"
                                                                         name="payment_method" id="payment_method1"
                                                                         value="Cash on delivery">
@@ -364,9 +383,17 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
+                                                            Extra Charge</td>
+                                                        <td class="fs-6 fw-medium text-center">
+                                                            {{ $extra_charge }}€
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
                                                         <td class="fs-5 fw-medium text-center">
-                                                            {{ number_format(Cart::getSubTotal() + (float)($extra_charge ?? 0), 2) }} €
+                                                            {{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }}
+                                                            €
                                                         </td>
                                                     </tr>
 

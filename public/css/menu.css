@@ -275,3 +275,40 @@ input[type=text]::placeholder {
     border: 1px solid var(--accent-color) !important;
     box-shadow: none !important;
 }
+
+@media (min-width: 360px) and (max-width: 740px) {
+    .form-select {
+        font-size: 14px;
+        padding: 10px 15px;
+        box-shadow: none;
+        border-radius: 0 !important;
+        border-color: #ffffff;
+        color: black !important;
+    }
+
+    .text-colour {
+        color: #ffffff !important;
+        background: var(--accent-color) !important;
+    }
+}
+
+@media (min-width: 344px) and (max-width: 882px) {
+    .form-select {
+        font-size: 14px;
+        padding: 10px 15px;
+        box-shadow: none;
+        border-radius: 0 !important;
+        border-color: #ffffff;
+        background: #b40e0f !important;
+        color: #ffffff !important;
+    }
+
+    .text-colour {
+        color: #ffffff !important;
+        background: transparent !important;
+    }
+    .section-title h2 {
+        /* display: none !important; */
+        font-size: 21px !important;
+    }
+}

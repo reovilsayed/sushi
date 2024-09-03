@@ -1,6 +1,9 @@
 <x-user>
     @push('css')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+        <style>
+            
+        </style>
     @endpush
 
     <section class="Mainslide" style="height: 100vh;padding: 0px 0;">

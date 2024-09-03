@@ -76,4 +76,15 @@ class Order extends Model
     public function restaurent(){
         return $this->belongsTo(Restaurant::class,'restaurant_id');
     }
+
+    public function delivery()
+    {
+        if ($this->take_away) {
+            return 'Take Away';
+        } elseif ($this->home_delivery) {
+            return 'Home Helivery';
+        } else {
+            return 'Null';
+        }   
+    }
 }
