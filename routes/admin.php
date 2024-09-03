@@ -4,6 +4,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::delete('/restaurant/delete/{restaurant}', 'destroyRestaurant')->name('delete.restaurant');
     });
     Route::resource('categories', CategoryController::class);
+    Route::resource('languages', LanguageController::class);
     Route::patch('categories/check/submit/{category}', [CategoryController::class, 'toggle'])->name('check.submit');
 
 

@@ -22,7 +22,7 @@ class ProductController extends Controller
         $minutes = 5;
         $products = Product::latest()->filter()->paginate(16)->withQueryString();
         $categories = Cache::remember('categories', $minutes, function () {
-            return Category::all()->pluck('name', 'id')->toArray();
+            return Category::whereNotNull('parent_id')->get()->pluck('name', 'id')->toArray();
         });
         return view('pages.products.list', compact('products', 'categories'));
     }
@@ -170,7 +170,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->sequence = $request->sequence;
+        $product->sequency = $request->sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -231,7 +231,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
-        $product->sequence = $request->sequence;
+        $product->sequency = $request->sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -265,7 +265,7 @@ class ProductController extends Controller
 
         }
 
-        return redirect(route('products.index'))->with('success', 'Product Updated Successfully');
+        return back()->with('success', 'Product Updated Successfully');
     }
     public function deleteProduct(Product $product)
     {

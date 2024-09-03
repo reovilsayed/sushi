@@ -41,7 +41,7 @@
                                 <img class="" height="100" width="100" src="{{ $product->image }}"
                                 alt="">
                             </td>
-                            <th scope="row">{{ $product->sequence }}</th>
+                            <th scope="row">{{ $product->sequency }}</th>
                             <td>{{ $product->name }}</td>
                             <td>{{ Settings::price($product->price) }}</td>
                             <td>{{ $product->SKU }}</td>

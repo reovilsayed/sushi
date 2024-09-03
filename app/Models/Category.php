@@ -34,6 +34,10 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id')->with('products')->orderBy('sequency', 'asc');
     }
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
     public function products()
     {
         return $this->hasMany(Product::class,'category_id');
