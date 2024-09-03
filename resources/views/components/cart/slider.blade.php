@@ -144,33 +144,38 @@
 
 
     </div>
+    @php
+        $extra_charge = Settings::setting('extra.charge');
+    @endphp
     <div class="container-fluid">
         <div class="d-md-flex justify-content-md-end justify-content-center">
             <div class="col-lg-5 col-md-8 col-sm-12 order-2 order-lg-1 content p-md-0">
                 <div class="table-responsive">
                     <div class="mb-3">
                         <p class="mb-0 text-end" style="color:#ff883e;">Management fees: {{ $extra_charge ?? '' }}€</p>
-                        <p class="mb-0 mt-2 text-end" style="color:#ff883e;">By placing an order, you accept the terms of the T&Cs</p>
+                        <p class="mb-0 mt-2 text-end" style="color:#ff883e;">By placing an order, you accept the terms
+                            of the T&Cs</p>
                     </div>
                 </div>
-                @php
-                    $extra_charge = Settings::setting('extra.charge');
-                @endphp
+
                 <div class="btn-wrapper text-center my-3">
-                    <a href="{{ route('restaurant.checkout') }}" class="checkout_btn d-flex justify-content-between align-items-center mx-2"
-                       id="checkout-button" title="">
+                    <a href="{{ route('restaurant.checkout') }}"
+                        class="checkout_btn d-flex justify-content-between align-items-center mx-2" id="checkout-button"
+                        title="">
                         <h4 class="mb-0 fs-5" id="button-text">SUBTOTAL</h4>
-                        <h4 class="mb-0">{{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }} €</h4>
+                        <h4 class="mb-0">{{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }} €
+                        </h4>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-<script>
-   document.addEventListener('DOMContentLoaded', () => {
-    const buttonText = document.getElementById('button-text');
-    document.getElementById('checkout-button').addEventListener('mouseover', () => buttonText.textContent = 'PROCEED TO CHECKOUT');
-    document.getElementById('checkout-button').addEventListener('mouseout', () => buttonText.textContent = 'SUBTOTAL');
-});
-
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttonText = document.getElementById('button-text');
+            document.getElementById('checkout-button').addEventListener('mouseover', () => buttonText.textContent =
+                'PROCEED TO CHECKOUT');
+            document.getElementById('checkout-button').addEventListener('mouseout', () => buttonText.textContent =
+                'SUBTOTAL');
+        });
+    </script>
