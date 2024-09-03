@@ -174,8 +174,8 @@
                                             <tr>
                                                 <td style="font-size: 15px; font-weight: 500">
                                                     <span style="color: #fff">
-                                                        Order By: <a href="https://sushi.sohojware.com/" style="color: #387ADF" target="_blank"></a>, 
-                                                        Email: <a href="mailto:" style="color: #387ADF"></a>
+                                                        Order By: <a href="https://sushi.sohojware.com/" style="color: #387ADF" target="_blank">{{ $order->restaurent->name }}</a>, 
+                                                        Email: <a href="mailto:{{ $order->restaurent->email }}" style="color: #387ADF">{{ $order->restaurent->email }}</a>
                                                     </span>                                                    
                                                 </td>
                                             </tr>
