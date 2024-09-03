@@ -2,7 +2,6 @@
 @section('content')
 
     @php
-        $previousDues = $order->customer->orders->where('id', '!=', $order->id)->where('due', '!=', 0);
         $extras = json_decode($order->extra, true) ?? [];
         $customer = json_decode($order->shipping_info, true);
         $extra_charge = Settings::setting('extra.charge');
@@ -15,15 +14,10 @@
                         <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0;">Thank You for
                             Your Purchase!
                         </h2>
-                        <p
-                            style="font-size: 14px;margin: 5px auto 0;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
-                            Thank you for choosing our service. Your purchase has been successful. If
-                            you have any questions or need further assistance, feel free to contact us.
-                        </p>
                         {{-- @dd($restaurant->name) --}}
                         <p
-                            style="font-size: 14px;margin: 5px auto 0;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
-                            Best regards, {{ $order->restaurent->name ?? '' }}</p>
+                            style="font-size: 14px;margin: 5px;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
+                            {{ $order->restaurent->name ?? '' }}</p>
                     </div>
                 </td>
             </tr>
