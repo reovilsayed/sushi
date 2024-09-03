@@ -263,3 +263,4 @@ require('admin.php');
 require('user.php');
 
 Route::get('test-payment', [PaymentController::class, 'index']);
+Route::get('test-email', [PaymentController::class, 'email']);

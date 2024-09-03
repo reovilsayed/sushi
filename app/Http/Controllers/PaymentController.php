@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmationMail;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -31,5 +33,9 @@ class PaymentController extends Controller
             'interfaceVersion' => $interfaceVersion,
         ]);
         return $response->body();
+    }
+    public function email() {
+        $order = Order::find(66);
+        return new OrderConfirmationMail($order);
     }
 }
