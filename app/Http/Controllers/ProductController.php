@@ -159,7 +159,7 @@ class ProductController extends Controller
             'composition' => 'nullable|string',
             'allergenes' => 'nullable|string',
             'image' => 'nullable|image|max:1024',
-            'price' => 'required|min:1',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
@@ -186,7 +186,13 @@ class ProductController extends Controller
         Cache::flush();
         $product->save();
 
+        
         if ($request->option) {
+           
+            $request->validate([
+                'option.*.price' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/']
+            ]);
+
             foreach ($request->option as $option) {
                 $product_option = new ProductOption;
                 $product_option->product_id = $product->id;
@@ -215,7 +221,7 @@ class ProductController extends Controller
             'composition' => 'required|string',
             'allergenes' => 'required|string',
             'image' => 'nullable|image',
-            'price' => 'required|min:1',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'sequence' => 'required|integer',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
@@ -239,7 +245,13 @@ class ProductController extends Controller
         Cache::flush();
         $product->save();
 
+        
         if ($request->option) {
+           
+            $request->validate([
+                'option.*.price' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/']
+            ]);
+           
             foreach ($request->option as $option) {
                 ProductOption::updateOrCreate(
                     ['id' => $option['id']], // Search criteria
