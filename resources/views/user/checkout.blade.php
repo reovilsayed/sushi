@@ -2,7 +2,7 @@
         $firstItem = Cart::getContent()->first();
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
         $locations = explode(',', session()->get('current_location'));
-        $timeSelect = session()->get('delivery_time');
+        $address = session()->get('address');
         $extra_charge = Settings::setting('extra.charge');
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
@@ -200,11 +200,20 @@
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
 
-                                            <div class="col-md-12">
-                                                <input type="text" name="address" id="map_address_input" class="form-control"
-                                                    placeholder="Your Address" required
-                                                    value="{{ auth()->user()->address ?? ($locations[1] ?? '') }}">
+                                            <div class="col-md-12 input-group text-center">
+                                                <input type="text" name="address" id="map_address_input"
+                                                    class="form-control" placeholder="Your Address" required
+                                                    value="{{ auth()->user()->address ?? $address }}">
 
+                                                <button class="btn bg-black border-0 btn-outline-orange"
+                                                    style="border-left: 0px" type="button"
+                                                    onclick="getCurrentLocation()" id="location-button">
+                                                    <i class="bi bi-geo-alt fs-4"></i>
+                                                </button>
+                                                <button id="checkDZ"class="btn btn-outline-orange"
+                                                    style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;">
+                                                    {{ __('Enter') }}
+                                                </button>
 
                                                 {{-- <div class="input-group text-center">
                                                     <input type="text" id="map_address_input" name="location"

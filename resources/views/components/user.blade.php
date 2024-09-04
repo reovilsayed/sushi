@@ -236,7 +236,7 @@
                     // Load Google Maps API with the retrieved API key
                     const script = document.createElement('script');
                     script.src =
-                        `https://maps.googleapis.com/maps/api/js?key=aMFouLkMjcxGopFBPmzjWGMKQCkVKPDMsghukTvPHaPWzsqALZZFfGRtpBgvEKVVLGDJjDBavveHcoVKhuqjovsRWhkgGEQiyRmX&libraries=geometry,places&callback=initMapNOS`;
+                        `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=geometry,places&callback=initMapNOS`;
                     script.async = true;
                     script.defer = true;
                     script.onload = function() {
