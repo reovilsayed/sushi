@@ -149,7 +149,9 @@
                                     <span style="display: block; text-align: left;">
                                         {{-- <img src="{{ Settings::option('logo') ? Storage::url(Settings::option('logo')) : asset('images/logo.png') }}"
                                             class="main-logo" alt="logo" width="60"> --}}
-                                        <img style="height: 33px; width: auto;" src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('logo/mainLogo.png') }}" class="main-logo" alt="logo">
+                                        <img style="height: 33px; width: auto;"
+                                            src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('logo/mainLogo.png') }}"
+                                            class="main-logo" alt="logo">
                                     </span>
                                 </td>
                             </tr>
@@ -174,9 +176,12 @@
                                             <tr>
                                                 <td style="font-size: 15px; font-weight: 500">
                                                     <span style="color: #fff">
-                                                        Order By: <a href="https://sushi.sohojware.com/" style="color: #387ADF" target="_blank"> Entral Sushi</a>, 
-                                                        Email: <a href="mailto: centralsushi@gmail.com" style="color: #387ADF"> centralsushi@gmail.com</a>
-                                                    </span>                                                    
+                                                        Order By: <a href="https://sushi.sohojware.com/"
+                                                            style="color: #387ADF"
+                                                            target="_blank">{{ $order->restaurent->name }}</a>,
+                                                        Email: <a href="mailto:{{ $order->restaurent->email }}"
+                                                            style="color: #387ADF">{{ $order->restaurent->email }}</a>
+                                                    </span>
                                                 </td>
                                             </tr>
                                         </tbody>

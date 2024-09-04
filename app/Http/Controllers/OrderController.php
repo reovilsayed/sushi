@@ -110,6 +110,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+       
         
         if (!auth()->check()) {
             $request->validate([
@@ -125,6 +126,7 @@ class OrderController extends Controller
             // Handle user authentication
             if (!auth()->check()) {
 
+                
                 $pass = Str::random(16);
                 $user = User::create([
                     'name' => $request->input('f_name') ?? $request->input('f_name'),
@@ -133,7 +135,6 @@ class OrderController extends Controller
                     'role_id' => 2,
                     'password' => Hash::make($pass), // Generate a random password
                 ]);
-
                 $data = [
                     'name' => $request->name,
                     'subject' => 'We Create User Account to Sushi',
@@ -141,12 +142,13 @@ class OrderController extends Controller
                     'button_link' => '',
                     'button_text' => '',
                 ];
+               
                 Mail::to($user['email'])->send(new UserCreateMail($data));
             } else {
 
                 $user = auth()->user();
             }
-
+            // dd('hello');
             // Prepare shipping information
             $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
             $extra_charge = Settings::setting('extra.charge');
@@ -188,9 +190,8 @@ class OrderController extends Controller
                 ]);
             }
             $order_mail = Settings::setting('order.mail');
-
+            DB::commit();   
             $emails = array_filter([$order->customer->email, $order->restaurent->email, $order_mail]);
-
             foreach ($emails as $email) {
                 if (!empty($email)) {
                     Mail::to($email)->send(new OrderConfirmationMail($order));
@@ -201,7 +202,7 @@ class OrderController extends Controller
             session()->forget('restaurent_id');
             // Clear the cart and session data
             Cart::clear();
-            DB::commit();
+        
             // if ($request->payment_method == 'Card') {
             //     $amount = $order->total * 100;
             //     $orderId = $order->id;
