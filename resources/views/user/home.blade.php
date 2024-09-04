@@ -85,7 +85,7 @@
                     {{-- <form action="{{ route('location.store') }}" method="post" id="location-form">
                         @csrf --}}
                     <div class="input-group mb-3 text-center">
-                        <input type="text" id="location-input"
+                        <input type="text" id="map_address_input"
                             class="form-control form-control-lg location text-center" placeholder="Enter Location"
                             aria-label="Enter Location" aria-describedby="button-addon2" name="location"
                             value="{{ session()->get('current_location') ?? '' }}">

@@ -323,13 +323,8 @@
                                                 _token: '{{ csrf_token() }}' // Ensure you have CSRF token included
                                             },
                                             success: function(response) {
-                                                console.log(
-                                                    'Restaurant name stored in session'
-                                                );
-                                                console.log(zone
-                                                    .restaurant_id);
-                                                window.location.href =
-                                                    "/"; // Redirect to the menu page
+                                        
+                                                window.location.href = "{{url('/')}}/"+ response.restaurant.slug
                                             },
                                             error: function(jqXHR,
                                                 textStatus, errorThrown
