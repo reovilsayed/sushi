@@ -161,8 +161,8 @@ class OrderController extends Controller
                 ]);
             }
             $order_mail = Settings::setting('order.mail');
-
-            $emails = array_filter([$order->customer->email, $order->restaurent->email, $order_mail]);
+             $customer = json_decode($order->shipping_info, true);
+            $emails = array_filter([$customer['email'], $order->restaurent->email, $order_mail]);
 
             foreach ($emails as $email) {
                 if (!empty($email)) {
