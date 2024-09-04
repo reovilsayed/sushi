@@ -6,7 +6,7 @@
         </style>
     @endpush
 
-    <section class="Mainslide" style="height: 100vh;padding: 0px 0;">
+    <section class="Mainslide" style="padding: 0px 0;">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
             <div class="carousel-inner">
                 @foreach ($sliders as $index => $slider)
