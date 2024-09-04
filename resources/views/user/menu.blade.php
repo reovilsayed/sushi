@@ -94,8 +94,8 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">Categories</h5>
                 <!-- Close Button -->
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"><i class="bi bi-x-lg fs-1"></i></button>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                        class="bi bi-x-lg fs-1"></i></button>
             </div>
             <div class="offcanvas-body" style="background-color: #810707 !important;">
                 @foreach ($categories as $category)
@@ -112,7 +112,7 @@
                                 @foreach ($category->childs as $child)
                                     <div id="collapseThree{{ $child->parent_id }}" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample{{ $child->parent_id }}">
-                                        <a href="#{{ $child->id }}" class="accordion-body"
+                                        <a href="#{{ $child->name }}" class="accordion-body"
                                             style="color: var(--default-color);">
                                             <div>{{ $child->name }}</div>
                                         </a>
@@ -293,6 +293,5 @@
                     });
                 });
             </script>
-            
         @endpush
 </x-user>

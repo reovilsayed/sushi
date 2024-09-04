@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Http;
 use Settings;
+
 class OrderController extends Controller
 {
     /**
@@ -110,101 +111,101 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-       
-        
- 
+
+
+        if (!auth()->check()) {
             $request->validate([
                 'f_name' => 'required|string|max:255',
                 'l_name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email'
             ]);
-  
+        }
         // Start a database transaction
         DB::beginTransaction();
         // try {
 
-            // Handle user authentication
-            if (!auth()->check()) {
+        // Handle user authentication
+        if (!auth()->check()) {
 
-                $pass = Str::random(16);
-                $user = User::create([
-                    'name' => $request->input('f_name') ?? $request->input('f_name'),
-                    'l_name' => $request->input('l_name') ?? $request->input('l_name'),
-                    'email' => $request->input('email') ?? $request->input('email'),
-                    'role_id' => 2,
-                    'password' => Hash::make($pass), // Generate a random password
-                ]);
-
-                $data = [
-                    'name' => $request->name,
-                    'subject' => 'We Create User Account to Sushi',
-                    'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
-                    'button_link' => '',
-                    'button_text' => '',
-                ];
-                Mail::to($user['email'])->send(new UserCreateMail($data));
-            } else {
-
-                $user = auth()->user();
-            }
-
-            // Prepare shipping information
-            $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
-            $extra_charge = Settings::setting('extra.charge');
-            // Create the order
-            $order = Order::create([
-                'customer_id' => auth()->check() ? auth()->id() : null,
-                'shipping_info' => json_encode($shipping),
-                'sub_total' => Cart::getSubTotal(),
-                'total' => Cart::getTotal()+ $extra_charge,
-                'comment' => $request->input('commment'),
-                'time_option' => $request->time_option,
-                'payment_method' => $request->input('payment_method'),
-                'delivery_option' => $request->input('delivery_option'),
-                'restaurant_id' => session()->get('restaurent_id'),
+            $pass = Str::random(16);
+            $user = User::create([
+                'name' => $request->input('f_name') ?? $request->input('f_name'),
+                'l_name' => $request->input('l_name') ?? $request->input('l_name'),
+                'email' => $request->input('email') ?? $request->input('email'),
+                'role_id' => 2,
+                'password' => Hash::make($pass), // Generate a random password
             ]);
 
-            $extra = [];
-            foreach (Cart::getContent() as $item) {
+            $data = [
+                'name' => $request->name,
+                'subject' => 'We Create User Account to Sushi',
+                'body' => 'Name:' . $user->name . '<br>' . 'Last Name:' . $user->l_name . '<br>' . 'Email:' . $user->email . '<br>' . 'Password:' . $pass,
+                'button_link' => '',
+                'button_text' => '',
+            ];
+            Mail::to($user['email'])->send(new UserCreateMail($data));
+        } else {
 
-                if (isset($item->attributes['product'])) {
-                    $order->products()->attach($item->attributes['product']->id, [
-                        'quantity' => $item->quantity,
-                        'price' => $item->price,
-                    ]);
-                }
+            $user = auth()->user();
+        }
 
-                if (isset($item->attributes['extra'])) {
-                    $extra[] = [
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'price' => $item->price,
-                        'quantity' => $item->quantity,
-                    ];
-                }
-            }
-            if (!empty($extra)) {
-                $order->update([
-                    'extra' => json_encode($extra),
+        // Prepare shipping information
+        $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
+        $extra_charge = Settings::setting('extra.charge');
+        // Create the order
+        $order = Order::create([
+            'customer_id' => auth()->check() ? auth()->id() : null,
+            'shipping_info' => json_encode($shipping),
+            'sub_total' => Cart::getSubTotal(),
+            'total' => Cart::getTotal() + $extra_charge,
+            'comment' => $request->input('commment'),
+            'time_option' => $request->time_option,
+            'payment_method' => $request->input('payment_method'),
+            'delivery_option' => $request->input('delivery_option'),
+            'restaurant_id' => session()->get('restaurent_id'),
+        ]);
+
+        $extra = [];
+        foreach (Cart::getContent() as $item) {
+
+            if (isset($item->attributes['product'])) {
+                $order->products()->attach($item->attributes['product']->id, [
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
                 ]);
             }
-            $order_mail = Settings::setting('order.mail');
-             $customer = json_decode($order->shipping_info, true);            DB::commit();   
-            $emails = array_filter([$customer['email'], $order->restaurent->email, $order_mail]);
-            foreach ($emails as $email) {
-                if (!empty($email)) {
-                    Mail::to($email)->send(new OrderConfirmationMail($order));
-                }
+
+            if (isset($item->attributes['extra'])) {
+                $extra[] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity,
+                ];
             }
-            session()->forget('current_location');
-            session()->forget('delivery_time');
-            session()->forget('restaurent_id');
-            // Clear the cart and session data
-            Cart::clear();
-        
+        }
+        if (!empty($extra)) {
+            $order->update([
+                'extra' => json_encode($extra),
+            ]);
+        }
+        $order_mail = Settings::setting('order.mail');
+        $customer = json_decode($order->shipping_info, true);
+        DB::commit();
+        $emails = array_filter([$customer['email'], $order->restaurent->email, $order_mail]);
+        foreach ($emails as $email) {
+            if (!empty($email)) {
+                Mail::to($email)->send(new OrderConfirmationMail($order));
+            }
+        }
+        session()->forget('current_location');
+        session()->forget('delivery_time');
+        session()->forget('restaurent_id');
+        // Clear the cart and session data
+        Cart::clear();
 
-            return redirect()->route('thank_you');
 
+        return redirect()->route('thank_you');
     }
 
 
