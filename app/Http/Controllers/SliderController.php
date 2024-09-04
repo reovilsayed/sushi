@@ -20,7 +20,12 @@ class SliderController extends Controller
     }
     public function sliderStore(Request $request)
     {
-        
+
+        $request->validate([
+            'heading' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
         $slider = new Slider;
         $slider->title = $request->title;
         $slider->heading = $request->heading;
@@ -32,7 +37,6 @@ class SliderController extends Controller
         $slider->save();
 
         return redirect(route('slider.list'))->with('success', 'Slider has been successfully added');
-
     }
     public function sliderEdit(Slider $slider)
     {
@@ -60,5 +64,4 @@ class SliderController extends Controller
         $slider->delete();
         return redirect(route('slider.list'))->with('success', 'slider deleted');
     }
-
 }
