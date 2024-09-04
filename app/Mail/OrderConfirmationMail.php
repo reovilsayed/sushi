@@ -18,6 +18,7 @@ class OrderConfirmationMail extends Mailable
      */
     public function __construct($order)
     {
+      
         $this->order = $order;
     }
     public function envelope(): Envelope

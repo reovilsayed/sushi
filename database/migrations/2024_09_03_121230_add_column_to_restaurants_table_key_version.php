@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::table('restaurants', function (Blueprint $table) {
             $table->string('key_version')->nullable();
+            $table->string('sid')->nullable();
+            $table->string('token')->nullable();
+            $table->string('printer_id')->nullable();
+            $table->string('serial_number')->nullable();
         });
     }
 
