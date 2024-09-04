@@ -169,9 +169,9 @@
                                     <p class="mt-2 fst-italic">{{ $child->description }}</p>
                                 </div>
 
-                                <div class="row justify-content-center">
+                                <div class="row">
                                     @foreach ($child->products as $product)
-                                        <div class="col-md-3 col-sm-6 col-12">
+                                        <div class="col-md-3 col-sm-12 col-12">
                                                 <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
                                         </div>
                                     @endforeach
