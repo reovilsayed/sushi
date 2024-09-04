@@ -329,7 +329,7 @@
                                                 console.log(zone
                                                     .restaurant_id);
                                                 window.location.href =
-                                                    "/menu"; // Redirect to the menu page
+                                                    "/"; // Redirect to the menu page
                                             },
                                             error: function(jqXHR,
                                                 textStatus, errorThrown

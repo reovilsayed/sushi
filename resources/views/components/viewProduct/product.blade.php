@@ -21,7 +21,7 @@
 
                         @if ($product->options->count())
                             <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
-                                class=" text-colour add-button btn" style="background:#e5d5bf; color:#000 !important; font-size: 10px;">
+                                class=" text-colour add-button btn" style="background:#e5d5bf !important; color:#000 !important; font-size: 10px;">
                                 <i class="bi bi-plus"></i>Possibilities
                             </a>
                         @else
@@ -30,7 +30,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                <button type="submit" class="text-colour btn" style="background:#e5d5bf; color: #000 !important; font-size: 10px !important; ">
+                                <button type="submit" class="text-colour btn" style="background:#e5d5bf !important; color: #000 !important; font-size: 10px !important; ">
                                     <i class="bi bi-plus"></i>{{ __('sentence.add') }}</button>
                             </form>
                         @endif
