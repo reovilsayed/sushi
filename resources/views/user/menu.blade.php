@@ -171,7 +171,7 @@
 
                                 <div class="row justify-content-center">
                                     @foreach ($child->products as $product)
-                                        <div class="col-md-2 col-sm-6 col-12">
+                                        <div class="col-md-3 col-sm-6 col-12">
                                             <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
                                         </div>
                                     @endforeach
