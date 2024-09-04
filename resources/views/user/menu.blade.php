@@ -272,23 +272,22 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const categoryButtons = document.querySelectorAll('.category-button');
+                    const offcanvasInstance = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasExample'));
 
-                    categoryButtons.forEach(button => {
-                        button.addEventListener('click', function() {
-                            const subcategoryContainer = this.nextElementSibling;
-                            const icon = this.querySelector('i');
+                    document.querySelectorAll('.offcanvas-body a').forEach(item => {
+                        item.addEventListener('click', () => {
+                            document.querySelector('[data-bs-target="#offcanvasExample"]').click();
+                        });
+                    });
 
-                            // Toggle display with slide effect
-                            if (subcategoryContainer.style.display === 'block') {
-                                subcategoryContainer.style.display = 'none';
-                                icon.classList.remove('bi-dash-lg');
-                                icon.classList.add('bi-plus-lg');
-                            } else {
-                                subcategoryContainer.style.display = 'block';
-                                icon.classList.remove('bi-plus-lg');
-                                icon.classList.add('bi-dash-lg');
-                            }
+                    document.querySelectorAll('.category-button').forEach(button => {
+                        button.addEventListener('click', () => {
+                            const subcategory = button.nextElementSibling;
+                            const icon = button.querySelector('i');
+                            const isVisible = subcategory.style.display === 'block';
+                            subcategory.style.display = isVisible ? 'none' : 'block';
+                            icon.classList.toggle('bi-plus-lg', isVisible);
+                            icon.classList.toggle('bi-dash-lg', !isVisible);
                         });
                     });
                 });
