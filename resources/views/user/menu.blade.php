@@ -171,7 +171,7 @@
 
                                 <div class="row justify-content-center">
                                     @foreach ($child->products as $product)
-                                        <div class="col-md-2 col-sm-6 col-12">
+                                        <div class="col-md-3 col-sm-6 col-12">
                                             <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
                                         </div>
                                     @endforeach
@@ -190,7 +190,7 @@
     <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content " style="background-color: var(--default-color)">
+            <div class="modal-content " style="background-color: #000">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 text-colour" id="exampleModalLabel">Enter your shipping address</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

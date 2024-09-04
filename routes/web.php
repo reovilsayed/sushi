@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpedyController;
 use App\Http\Controllers\GenericsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -264,3 +265,4 @@ require('user.php');
 
 Route::get('test-payment', [PaymentController::class, 'index']);
 Route::get('test-email', [PaymentController::class, 'email']);
+Route::get('test-printer', [ExpedyController::class, 'sendToPrinter']);
