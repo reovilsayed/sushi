@@ -12,9 +12,9 @@
                             <h6 class="dash_head">Slider Image</h6>
 
                             <div class="row row-cols-2">
-                                <x-form.input name="heading"  label="Heading *" value="{{$slider->heading}}" autofocus
+                                <x-form.input name="heading"  label="Heading *" value="{{$slider->heading}}" 
                                     required />
-                                <x-form.input name="heading"  label="Heading End*" value="{{$slider->heading_end}}" autofocus
+                                <x-form.input name="heading_end"  label="Heading End*" value="{{$slider->heading_end}}" 
                                      />
                             </div>
                             <img class="mb-3" height="300" width="300" src="{{ Storage::url($slider->image) }}"
@@ -25,7 +25,7 @@
                             </div>
                             
                             <div class="row row-cols-1">
-                                <x-form.input name="title"  label="Title *" value="{{$slider->title}}" autofocus
+                                <x-form.input name="title"  label="Title *" value="{{$slider->title}}" 
                                     required />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
