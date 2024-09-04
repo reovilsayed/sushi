@@ -40,6 +40,10 @@ class RestaurantController extends Controller
 
         $restaurant->api_key = json_encode($api_key);
         $restaurant->key_version = $request->key_version;
+        $restaurant->sid = $request->sid;
+        $restaurant->token = $request->token;
+        $restaurant->printer_id = $request->printer_id;
+        $restaurant->serial_number = $request->serial_number;
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
             if ($restaurant->image && Storage::exists($restaurant->image)) {
@@ -80,6 +84,10 @@ class RestaurantController extends Controller
             'address' => $request->address,
             'api_key' => json_encode($api_key),
             'key_version' => $request->key_version,
+            'sid' => $request->sid,
+            'token' => $request->token,
+            'printer_id' => $request->printer_id,
+            'serial_number' => $request->serial_number,
         ]);
         $restaurant->save();
 

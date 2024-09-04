@@ -6,7 +6,7 @@
                 <div class="col-md-8 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="dash_head">{{__('sentence.addrestaurant')}}</h6>
+                            <h6 class="dash_head">{{ __('sentence.addrestaurant') }}</h6>
                             <div class="row row-cols-1  ">
                                 <x-form.input name="name" wire:model="name" label="Title *" autofocus required />
                             </div>
@@ -25,7 +25,7 @@
                                     label="Restaurant Post Code*" autofocus required />
                             </div>
                             <div class="row row-cols-2  ">
-                                
+
                                 <x-form.input name="number" wire:model="number" label="Restaurant Number*" autofocus
                                     required />
                             </div>
@@ -44,6 +44,7 @@
                     </div>
 
                 </div>
+               
                 <div class="col-md-4">
                     <div class="card ">
                         <div class="card-body">
@@ -52,16 +53,40 @@
                                     label="Longitude" value="" required />
                                 <x-form.input id="latitude" name="address[latitude]" wire:model="latitude"
                                     label="Latitude" value="" required /> --}}
-                                <x-form.input id="merchantId" name="merchantId" 
-                                    label="Merchant Id" value="" required />
-                                <x-form.input id="secretKey" name="secretKey" 
-                                    label="Secret Key" value="" required />
-                                    
-                                </div>
-                                <x-form.input id="key_version" name="key_version" 
-                                    label="Key Version" value="" required />
+                                <x-form.input id="merchantId" name="merchantId" label="Merchant Id" value=""
+                                    required />
+                                <x-form.input id="secretKey" name="secretKey" label="Secret Key" value=""
+                                    required />
+
+                            </div>
+                            <x-form.input id="key_version" name="key_version" label="Key Version" value=""
+                                required />
+                            {{-- <button class="btn btn-success" type="submit" style="float: right">
+                                <i class="fa fa-save"></i> {{ __('sentence.save') }}
+                            </button> --}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 mt-3">
+                    <div class="card ">
+                        <div class="card-body">
+                            <div class="row row-cols-1">
+                                {{-- <x-form.input id="longitude" name="address[longitude]" wire:model="longitude"
+                                    label="Longitude" value="" required />
+                                <x-form.input id="latitude" name="address[latitude]" wire:model="latitude"
+                                    label="Latitude" value="" required /> --}}
+                                <x-form.input id="sid" name="sid" label="SID" value="" required />
+                                <x-form.input id="token" name="token" label="TOKEN" value="" required />
+
+                                <x-form.input id="printer_id" name="printer_id" label="Printer Uid " value=""
+                                    required />
+                                <x-form.input id="serial_number" name="serial_number" label="Serial number of printer"
+                                    value="" required />
+                            </div>
                             <button class="btn btn-success" type="submit" style="float: right">
-                                <i class="fa fa-save"></i> {{__('sentence.save')}}
+                                <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>
                         </div>
                     </div>
