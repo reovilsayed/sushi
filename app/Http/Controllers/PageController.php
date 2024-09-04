@@ -352,9 +352,9 @@ class PageController extends Controller
         Session::put('method', $request->input('method'));
         Session::put('restaurant', $request->input('restaurant'));
         Session::put('address', $request->input('address'));
-
+        $restaurant = Restaurant::find($request->input('restaurant'));
         // Optionally, return a JSON response to indicate success
-        return response()->json(['success' => true, ]);
+        return response()->json(['success' => true, 'restaurant'=>$restaurant]);
     }
 
 
