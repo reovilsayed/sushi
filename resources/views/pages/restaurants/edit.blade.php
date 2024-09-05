@@ -1,5 +1,6 @@
 @php
     $api_key = json_decode($restaurant->api_key, true);
+    $printer = json_decode($restaurant->printer, true);
 
 @endphp
 
@@ -68,7 +69,7 @@
                                     value="{{ $api_key['secretKey'] }}" required />
                             </div>
                             <x-form.input id="key_version" name="key_version" label="Key Version"
-                                value="{{ $restaurant->key_version }}" required />
+                                value="{{ $api_key['key_version'] }}" required />
                             {{-- <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button> --}}
@@ -77,16 +78,16 @@
 
                     <div class="card mt-3">
                         <div class="card-body">
-                            <div class="row row-cols-1">
+                            <div class="row row-cols-2">
                                 <x-form.input id="sid" name="sid" label="SID"
-                                    value="{{ $restaurant->sid }}" required />
+                                    value="{{ $printer['sid'] }}"  />
                                 <x-form.input id="token" name="token" label="TOKEN"
-                                    value="{{ $restaurant->token }}" required />
+                                    value="{{ $printer['token'] }}"  />
 
                                 <x-form.input id="printer_id" name="printer_id" label="Printer Uid "
-                                    value="{{ $restaurant->printer_id }}" required />
+                                    value="{{  $printer['printer_id'] }}"  />
                                 <x-form.input id="serial_number" name="serial_number" label="Serial number of printer"
-                                    value="{{ $restaurant->serial_number }}" required />
+                                    value="{{  $printer['serial_number'] }}"  />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
