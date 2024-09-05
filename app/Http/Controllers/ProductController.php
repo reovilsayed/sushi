@@ -18,10 +18,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        Cache::flush();
+       
         $minutes = 5;
         $products = Product::latest()->filter()->paginate(16)->withQueryString();
         $categories = Cache::remember('categories', $minutes, function () {
+            Cache::flush();
             return Category::whereNotNull('parent_id')->get()->pluck('name', 'id')->toArray();
         });
         return view('pages.products.list', compact('products', 'categories'));
@@ -153,12 +154,11 @@ class ProductController extends Controller
     }
     public function storeProduct(Request $request)
     {
-        Cache::flush();
         $validated = $request->validate([
             'name' => 'required|string',
             'composition' => 'nullable|string',
             'allergenes' => 'nullable|string',
-            'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|image',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
@@ -242,7 +242,6 @@ class ProductController extends Controller
             }
             $product->image = $request->file('image')->store('uploads', 'public');
         }
-        Cache::flush();
         $product->save();
 
         

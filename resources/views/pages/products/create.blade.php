@@ -1,5 +1,13 @@
 {{-- @dd($categories) --}}
 <x-layout>
+    @push('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+        <style>
+            .dash_head {
+                display: none !important;
+            }
+        </style>
+    @endpush
     @push('script')
         <script>
             const addRow = () => {
@@ -56,8 +64,8 @@
                             <h6 class="dash_head">{{ __('sentence.productdetails') }}</h6>
 
                             <div class="row row-cols-1">
-                                <x-form.input name="name" wire:model="name" label="Product Name *" value="" autofocus
-                                    required />
+                                <x-form.input name="name" wire:model="name" label="Product Name *" value=""
+                                    autofocus required />
                             </div>
                             <div class="row row-cols-1">
 
@@ -85,10 +93,12 @@
 
 
                             <div class="row row-cols">
-                                <x-form.input name="composition" label="Composition *" value=""
-                                    style="height: 130px" type="textarea" id="test" autofocus required/>
+                                {{-- <x-form.input name="composition" label="Composition *" value=""
+                                    style="height: 130px" type="textarea" id="test" autofocus required/> --}}
+                                <label class="mb-3" for=""> Composition</label>
+                                <textarea name="composition" id="summernote" cols="30" rows="10"></textarea>
                             </div>
-                            <div class="row row-cols-1">
+                            <div class="row row-cols-1 mt-3">
                                 <x-form.input name="allergenes" wire:model="allergenes" label="Allergenes *"
                                     value="" autofocus required />
                             </div>
@@ -116,15 +126,15 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            {{__('sentence.optionname')}}
+                                            {{ __('sentence.optionname') }}
                                         </th>
 
                                         <th class="text-center w-auto">
-                                            {{__('sentence.price')}}
+                                            {{ __('sentence.price') }}
                                         </th>
 
                                         <th class="text-center ">
-                                            {{__('sentence.action')}}
+                                            {{ __('sentence.action') }}
                                         </th>
                                     </tr>
                                 </thead>
@@ -143,13 +153,13 @@
                                 </tfoot>
                             </table>
                         </div>
-                        
+
                     </div>
 
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input type="number" id="sequence" name="sequence"  label="Sequency *"
+                                <x-form.input type="number" id="sequence" name="sequence" label="Sequency *"
                                     value="" required />
                             </div>
                         </div>
@@ -174,5 +184,19 @@
 
         </div>
     </form>
+    @push('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+
+
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    height: 200, // Set the height of the editor
+                    placeholder: 'Write your content here...'
+                });
+            });
+        </script>
+    @endpush
 
 </x-layout>

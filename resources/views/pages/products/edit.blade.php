@@ -1,5 +1,8 @@
 {{-- @dd($product) --}}
 <x-layout>
+    @push('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+    @endpush
     @push('script')
         <script>
             const addRow = () => {
@@ -87,9 +90,11 @@
 
 
                             <div class="row row-cols">
-                                <x-form.input name="composition" label="Composition *"
+                                {{-- <x-form.input name="composition" label="Composition *"
                                     value="{{ $product->composition }}" style="height: 130px" type="textarea"
-                                    id="test" autofocus />
+                                    id="test" autofocus /> --}}
+                                    <label class="mb-3" for=""> Composition</label>
+                                    <textarea name="composition" id="summernote" cols="30" rows="10">{{ $product->composition }}</textarea>
                             </div>
                             <div class="row row-cols-1">
                                 <x-form.input name="allergenes" wire:model="allergenes" label="Allergenes *"
@@ -203,6 +208,19 @@
         @method('delete')
     </form> 
     @endif
-    
+    @push('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+
+
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    height: 200, // Set the height of the editor
+                    placeholder: 'Write your content here...'
+                });
+            });
+        </script>
+    @endpush
 
 </x-layout>

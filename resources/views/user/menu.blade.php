@@ -28,7 +28,7 @@
     <section id="menu" class="menu section bg-transparent">
 
         <!-- Section Title -->
-        <div class=" " style="margin-left: 30px; margin-right: 30px;" data-aos="fade-up">
+        <div class="ms-3 me-3" style="" data-aos="fade-up">
             <div class="row">
                 <div class="section-title col-md-4">
                     <h2>{{ __('sentence.menu') }}</h2>
@@ -76,9 +76,9 @@
 
 
         <a class="btn btn-sm d-block d-md-none" type="button"
-            style="position:fixed;bottom:80px;right:15px;background: #e5d5bf;display: flex; align-items: center; justify-content: center;padding:0 5px;"
+            style="position:fixed;bottom:80px;right:15px;background: #e5d5bf;display: flex; align-items: center; justify-content: center;padding:0 5px; z-index:99999"
             data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            <i class="fs-1 bi bi-list"></i>
+            <i class="fs-1 bi bi-list" style="color: #000"></i>
         </a>
 
         <!-- Offcanvas Menu -->
@@ -153,11 +153,11 @@
                 </div>
 
                 <!-- Main Content Area -->
-                <div class="col-md-9 col-sm-12">
-                    <div class="row">
+                <div class="col-md-9 col-sm-12 ps-o pe-0">
+                    <div class="row ms-0 me-md-5">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
-                                <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
+                                <div class="menu-header text-center pe-4" data-aos="fade-up" data-aos-delay="200">
                                    <h4>{{ $category->name }}</h4>
                                    <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
                                     <a id="{{ $child->name }}" href=""
@@ -165,9 +165,9 @@
                                     <p class="mt-2 fst-italic">{{ $child->description }}</p>
                                 </div>
 
-                                <div class="row">
+                                <div class="row p-0">
                                     @foreach ($child->products as $product)
-                                        <div class="col-md-3 col-sm-12 col-12">
+                                        <div class="col-md-3 col-sm-6 col-6 ps-0 pe-0">
                                                 <x-viewProduct.product :restaurant="$restaurant" :product="$product" />
                                         </div>
                                     @endforeach

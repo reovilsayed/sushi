@@ -70,6 +70,10 @@
                 font-size: 2rem;
             }
 
+            .bottomTitle {
+                font-size: 0.8rem !important;
+            }
+
             @media (min-width: 360px) and (max-width: 740px) {
                 .singlePrice {
                     color: var(--sec-color);
@@ -84,6 +88,10 @@
                 .submitBtn {
                     text-align: center;
                 }
+
+                .bottomTitle {
+                    font-size: 12px !important;
+                }
             }
 
             @media (min-width: 820px) and (max-width: 1180px) {
@@ -94,6 +102,10 @@
                 #product-price {
                     width: 100%;
                 }
+
+                .bottomTitle {
+                    font-size: 12px !important;
+                }
             }
 
             .BackBtn {
@@ -103,7 +115,8 @@
                 padding: 4px 8px !important;
                 border-radius: 0px;
             }
-            .BackBtn:hover{
+
+            .BackBtn:hover {
                 color: var(--primary-color);
                 padding: 4px 8px !important;
                 background-color: var(--accent-color);
@@ -113,12 +126,12 @@
     <br>
     <br>
     <!-- product  Section -->
-    <section id="about" class="about section bg-transparent">
+    <section id="about" class="about section bg-transparent pb-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-4 ms-3">
-                        <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
+                        <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
                             class="btn BackBtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Menu</a>
                     </div>
                     <div class="row justify-content-center">
@@ -132,7 +145,7 @@
                         </div>
 
                         <div class="col-md-7">
-                            <h2 class="mb-3 singlePrice">{{ $product->name }}
+                            <h2 class="mb-3 singlePrice fs-3 mt-3">{{ $product->name }}
                             </h2>
                             <form action="{{ route('cart.store') }}" method="post" id="cart-form">
                                 @csrf
@@ -140,7 +153,7 @@
                                     <h2 class="col-md-2" id="product-price">{{ Settings::price($product->price) }}</h2>
 
                                     @if ($productOption->count() !== 0)
-                                        <div class="col-md-6 ms-2">
+                                        <div class="col-md-6">
                                             <select class="form-select selectpicker  mb-3 text-colour" name="option_id"
                                                 id="option-select" required>
                                                 @foreach ($productOption as $option)
@@ -167,6 +180,7 @@
                             <div class="row mt-5">
                                 <div class="col-md-6">
                                     <p class="text-center txtmob">COMPOSITION</p>
+                                    <hr class="ms-5 me-5" style="opacity: 1.25;">
                                     @if ($product->id == 201 || $product->id == 202)
                                         @php
                                             $maxTotal = $product->id == '202' ? 4 : 3;
@@ -198,17 +212,18 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p>{{ $product->composition }}</p>
+                                        <p class="text-center">{!! $product->composition ?? '' !!}</p>
                                     @endif
                                 </div>
                                 <div class="col-md-6" style="border-left: 1px solid var(--primary-color);">
                                     <p class="text-center txtmob">ALLERGENS</p>
+                                    <hr class="ms-5 me-5" style="opacity: 1.25;">
                                     <p class="text-center txtmob">egg, sesame, wheat</p>
                                 </div>
                             </div>
                             <div class="row mt-5">
                                 <div class="col-12">
-                                    <p class="text-left" style="font-size: 0.8rem;">{{ $product->text }}</p>
+                                    <p class="text-left bottomTitle">{{ $product->text }}</p>
                                 </div>
                             </div>
                         </div>
