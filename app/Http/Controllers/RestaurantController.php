@@ -72,6 +72,13 @@ class RestaurantController extends Controller
         $api_key = [
             'merchantId' => $request->merchantId,
             'secretKey' => $request->secretKey,
+            'key_version' => $request->key_version,
+        ];
+        $printer = [
+            'sid' => $request->sid,
+            'token' => $request->token,
+            'printer_id' => $request->printer_id,
+            'serial_number' => $request->serial_number,
         ];
         
         $restaurant->update([
@@ -83,11 +90,8 @@ class RestaurantController extends Controller
             'number' => $request->number,
             'address' => $request->address,
             'api_key' => json_encode($api_key),
-            'key_version' => $request->key_version,
-            'sid' => $request->sid,
-            'token' => $request->token,
-            'printer_id' => $request->printer_id,
-            'serial_number' => $request->serial_number,
+            'printer' => json_encode($printer),
+
         ]);
         $restaurant->save();
 
