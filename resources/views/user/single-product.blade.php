@@ -95,14 +95,32 @@
                     width: 100%;
                 }
             }
+
+            .BackBtn {
+                color: var(--primary-color);
+                background-color: transparent;
+                border: 1px solid var(--accent-color);
+                padding: 4px 8px !important;
+                border-radius: 0px;
+            }
+            .BackBtn:hover{
+                color: var(--primary-color);
+                padding: 4px 8px !important;
+                background-color: var(--accent-color);
+            }
         </style>
     @endpush
-    <br><br><br>
+    <br>
+    <br>
     <!-- product  Section -->
     <section id="about" class="about section bg-transparent">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="mb-4 ms-3">
+                        <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
+                            class="btn BackBtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Menu</a>
+                    </div>
                     <div class="row justify-content-center">
                         <div class="col-md-5 d-flex" style="justify-content: center;">
                             <div class="" style="width: 250px; height: 250px;">
@@ -216,7 +234,7 @@
         </script>
 
         <script>
-            @if($product->id == 201 || $product->id == 202)
+            @if ($product->id == 201 || $product->id == 202)
                 const maxQuantity = "{{ $maxTotal }}";
             @endif
 
