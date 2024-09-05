@@ -81,10 +81,11 @@
                     text-align: center;
                 }
 
-                .submitBtn{
+                .submitBtn {
                     text-align: center;
                 }
             }
+
             @media (min-width: 820px) and (max-width: 1180px) {
                 .mobil {
                     display: flow !important;
@@ -115,7 +116,7 @@
                         <div class="col-md-7">
                             <h2 class="mb-3 singlePrice">{{ $product->name }}
                             </h2>
-                            <form action="{{ route('cart.store') }}" method="post">
+                            <form action="{{ route('cart.store') }}" method="post" id="cart-form">
                                 @csrf
                                 <div class="d-md-flex mobil">
                                     <h2 class="col-md-2" id="product-price">{{ Settings::price($product->price) }}</h2>
@@ -139,7 +140,8 @@
                                     <input type="hidden" name="quantity" value="1">
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
-                                    <button type="submit" class="sushibtn mt-3"
+                                    <input type="hidden" name="options" value="" id="options">
+                                    <button type="submit" class="sushibtn mt-3" id="add-to-cart-btn"
                                         style="">{{ __('sentence.addtocart') }}</button>
                                 </div>
                             </form>
@@ -147,98 +149,34 @@
                             <div class="row mt-5">
                                 <div class="col-md-6">
                                     <p class="text-center txtmob">COMPOSITION</p>
-
-                                    <p>{{ $product->composition }}</p>
-
-                                    {{-- <div class="row border-bottom-1">
-                                        <div class="col-6 d-flex align-items-center">
-                                            <p style="padding: 0px!important; margin:0px;">Salmon</p>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-center">
-                                                <div class="sidept">
-                                                    <button class="btn pbtn decrease-btn"
-                                                        data-item="freez_saumon">-</button>
-                                                </div>
-                                                <div class="" style="width: 50px">
-                                                    <input type="text" value="0" id="freez_saumon"
-                                                        disabled="">
-                                                </div>
-                                                <div class="sidelast">
-                                                    <button class="btn pbtn increase-btn"
-                                                        data-item="freez_saumon">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row border-bottom-1">
-                                        <div class="col-6 d-flex align-items-center">
-                                            <p style="padding: 0px!important; margin:0px;">Tuna</p>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-center">
-                                                <div class="sidept">
-                                                    <button class="btn pbtn decrease-btn"
-                                                        data-item="freez_thon">-</button>
-                                                </div>
-
-                                                <div class="" style="width: 50px">
-                                                    <input type="text" value="0" id="freez_thon" disabled="">
-                                                </div>
-                                                <div class="sidelast">
-                                                    <button class="btn pbtn increase-btn"
-                                                        data-item="freez_thon">+</button>
+                                    @if ($product->id == 201 || $product->id == 202)
+                                        @php
+                                            $maxTotal = $product->id == '202' ? 4 : 3;
+                                            $flavors = [
+                                                ['id' => 1, 'name' => 'Saumon'],
+                                                ['id' => 2, 'name' => 'Thon'],
+                                                ['id' => 3, 'name' => 'Crevette'],
+                                                ['id' => 4, 'name' => 'Poulet'],
+                                            ];
+                                        @endphp
+                                        <p>Select up to {{ $maxTotal }} flavors</p>
+                                        @foreach ($flavors as $flavor)
+                                            <div class="flavor-item">
+                                                <label for="flavor_{{ $flavor['id'] }}">{{ $flavor['name'] }}</label>
+                                                <div class="quantity-controls">
+                                                    <button type="button" class="decrease-btn"
+                                                        data-flavor="{{ $flavor['id'] }}">-</button>
+                                                    <input type="number" name="flavors[{{ $flavor['id'] }}]"
+                                                        id="flavor_{{ $flavor['id'] }}" value="0" min="0"
+                                                        class="flavor-quantity-input">
+                                                    <button type="button" class="increase-btn"
+                                                        data-flavor="{{ $flavor['id'] }}">+</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row border-bottom-1">
-                                        <div class="col-6 d-flex align-items-center">
-                                            <p style="padding: 0px!important; margin:0px;">Shrimp</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-center">
-                                                <div class="sidept">
-                                                    <button class="btn pbtn decrease-btn"
-                                                        data-item="freez_crevette">-</button>
-                                                </div>
-                                                <div class="" style="width: 50px">
-                                                    <input type="text" value="0" id="freez_crevette"
-                                                        disabled="">
-                                                </div>
-                                                <div class="sidelast">
-                                                    <button class="btn pbtn increase-btn"
-                                                        data-item="freez_crevette">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row border-bottom-1">
-                                        <div class="col-6 d-flex align-items-center">
-                                            <p style="padding: 0px!important; margin:0px;">Chicken</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-center">
-                                                <div class="sidept">
-                                                    <button class="btn pbtn decrease-btn"
-                                                        data-item="freez_poulet">-</button>
-                                                </div>
-                                                <div class="" style="width: 50px">
-                                                    <input type="text" value="0" id="freez_poulet"
-                                                        disabled="">
-                                                </div>
-                                                <div class="sidelast">
-                                                    <button class="btn pbtn increase-btn"
-                                                        data-item="freez_poulet">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                        @endforeach
+                                    @else
+                                        <p>{{ $product->composition }}</p>
+                                    @endif
                                 </div>
                                 <div class="col-md-6" style="border-left: 1px solid var(--primary-color);">
                                     <p class="text-center txtmob">ALLERGENS</p>
@@ -268,6 +206,70 @@
                 } else {
                     // Fallback to the original product price if no option is selected
                     document.getElementById('product-price').textContent = '{{ number_format($product->price, 2) }}€';
+                }
+            });
+        </script>
+
+        <script>
+            const maxQuantity = "{{ $maxTotal }}";
+
+            document.querySelectorAll('.increase-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const flavorId = this.getAttribute('data-flavor');
+                    const inputField = document.getElementById('flavor_' + flavorId);
+                    const currentTotal = getTotalQuantity();
+                    if (currentTotal < maxQuantity) {
+                        inputField.value = parseInt(inputField.value) + 1;
+                    } else {
+                        alert('You cannot select more than ' + maxQuantity + ' items.');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.decrease-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const flavorId = this.getAttribute('data-flavor');
+                    const inputField = document.getElementById('flavor_' + flavorId);
+                    const currentValue = parseInt(inputField.value);
+                    if (currentValue > 0) {
+                        inputField.value = currentValue - 1;
+                    }
+                });
+            });
+
+            function getTotalQuantity() {
+                let total = 0;
+                document.querySelectorAll('.flavor-quantity-input').forEach(input => {
+                    total += parseInt(input.value);
+                });
+                return total;
+            }
+        </script>
+        <script>
+            document.getElementById('add-to-cart-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                var options = {};
+                document.querySelectorAll('[id^="flavor_"]').forEach(function(input) {
+                    var flavorId = input.getAttribute('id').replace('flavor_',
+                    '');
+                    var flavorName = document.querySelector('label[for="flavor_' + flavorId + '"]')
+                    .innerText;
+                    options[flavorName] = input.value;
+                });
+                var totalQuantity = Object.values(options).reduce(function(sum, quantity) {
+                    return sum + parseInt(quantity);
+                }, 0);
+                console.log(totalQuantity);
+                if (totalQuantity === 4 || totalQuantity === 3) {
+                    console.log(options);
+                    var options = Object.entries(options).map(function([flavor, quantity]) {
+                        return flavor + ' ' + quantity;
+                    }).join(', ');
+                    document.getElementById('options').value = options;
+
+                } else {
+                    alert(
+                        'Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product.');
                 }
             });
         </script>
