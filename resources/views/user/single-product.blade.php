@@ -159,19 +159,20 @@
                                                 ['id' => 4, 'name' => 'Poulet'],
                                             ];
                                         @endphp
-                                        <p>Select up to {{ $maxTotal }} flavors</p>
+                                        <p class="text-center text-md-start">Select up to {{ $maxTotal }} flavors</p>
                                         @foreach ($flavors as $flavor)
-                                            <div class="flavor-item">
-                                                <label for="flavor_{{ $flavor['id'] }}">{{ $flavor['name'] }}</label>
-                                                <div class="quantity-controls">
-                                                    <button type="button" class="decrease-btn"
-                                                        data-flavor="{{ $flavor['id'] }}">-</button>
-                                                    <input type="number" name="flavors[{{ $flavor['id'] }}]"
-                                                        id="flavor_{{ $flavor['id'] }}" value="0" min="0"
-                                                        class="flavor-quantity-input">
-                                                    <button type="button" class="increase-btn"
-                                                        data-flavor="{{ $flavor['id'] }}">+</button>
-                                                </div>
+                                            <div class="flavor-item d-flex text-center">
+                                                    <label class="w-50 mb-2"
+                                                        for="flavor_{{ $flavor['id'] }}">{{ $flavor['name'] }}</label>
+                                                    <div class="quantity-controls d-flex w-50 mb-2">
+                                                        <button type="button" class="decrease-btn border-0 bg-transparent text-light ms-4"
+                                                            data-flavor="{{ $flavor['id'] }}">-</button>
+                                                        <input type="number" name="flavors[{{ $flavor['id'] }}]"
+                                                            id="flavor_{{ $flavor['id'] }}" value="0"
+                                                            min="0" class="flavor-quantity-input w-25 border-0 bg-transparent text-light text-center" readonly>
+                                                        <button type="button" class="increase-btn border-0 bg-transparent text-light ps-0"
+                                                            data-flavor="{{ $flavor['id'] }}">+</button>
+                                                    </div>
                                             </div>
                                         @endforeach
                                     @else
@@ -251,9 +252,9 @@
                 var options = {};
                 document.querySelectorAll('[id^="flavor_"]').forEach(function(input) {
                     var flavorId = input.getAttribute('id').replace('flavor_',
-                    '');
+                        '');
                     var flavorName = document.querySelector('label[for="flavor_' + flavorId + '"]')
-                    .innerText;
+                        .innerText;
                     options[flavorName] = input.value;
                 });
                 var totalQuantity = Object.values(options).reduce(function(sum, quantity) {
@@ -270,7 +271,8 @@
 
                 } else {
                     alert(
-                        'Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product.');
+                        'Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product.'
+                        );
                 }
             });
         </script>

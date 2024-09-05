@@ -45,6 +45,7 @@
                                 <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
                                 <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
                             </thead> --}}
+                           
                             <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
                                     @if (isset($item->attributes['product']))
@@ -58,6 +59,7 @@
                                                 <td class="cart-product-image">
                                                     @php
                                                         $product = $item->attributes['product'];
+                                                     
                                                     @endphp
                                                     <a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">
@@ -65,11 +67,14 @@
                                                     </a>
 
                                                 </td>
-
+                                              
                                                 <td class="cart-product-info text-center">
                                                     <h4><a class="fw-lighter fs-4"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
                                                             style="color: #ffffff !important;">{{ $item->name }}</a>
+                                                            @if(isset($item->attributes['options']))
+                                                            <p class="fw-light mt-2" style="font-size: 12px;"> {{ $item->attributes['options']}}</p>
+                                                            @endif
                                                     </h4>
                                                 </td>
                                             @endif

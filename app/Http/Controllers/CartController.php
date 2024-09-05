@@ -14,6 +14,7 @@ class CartController extends Controller
 
 	public function add(Request $request)
 	{
+		// dd($request->all());
 
 		$product = Product::find($request->product_id);
 
@@ -37,7 +38,7 @@ class CartController extends Controller
 
 		$RandomNumber =  rand(9999, 999999);
 
-		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product]);
+		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product,'options'=>$request->options]);
 
 
 

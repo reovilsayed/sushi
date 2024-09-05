@@ -170,7 +170,7 @@ class PageController extends Controller
 
     public function cart()
     {
-
+        // dd(Cart::getContent());
 
         if (Cart::getContent()->count() == 0) {
 
