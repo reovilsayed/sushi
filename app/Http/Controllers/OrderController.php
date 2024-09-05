@@ -136,7 +136,6 @@ class OrderController extends Controller
             'payment_method' => $request->input('payment_method'),
             'delivery_option' => $request->input('delivery_option'),
             'restaurant_id' => session()->get('restaurent_id'),
-            'option' => $request->option,
         ]);
 
         $extra = [];
