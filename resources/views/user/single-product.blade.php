@@ -216,9 +216,9 @@
         </script>
 
         <script>
-            if ($product - > id == 201 || $product - > id == 202) {
+            @if($product->id == 201 || $product->id == 202)
                 const maxQuantity = "{{ $maxTotal }}";
-            }
+            @endif
 
             document.querySelectorAll('.increase-btn').forEach(button => {
                 button.addEventListener('click', function() {
