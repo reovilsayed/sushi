@@ -177,8 +177,10 @@ class ExpedyController extends Controller
             'origin' => $this_host,
             'params' => $data_params,
         ];
+
+        dd($data_request);
         $response = Http::post('https://www.expedy.fr/api/print', $data_request);
-        dd($response);
+        dd($response->body());
         try {
             // Send the HTTP POST request to the main printer
             $response = Http::post('https://www.expedy.fr/api/print', $data_request);
