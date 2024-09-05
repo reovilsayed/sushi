@@ -81,18 +81,12 @@
             <i class="fs-1 bi bi-list"></i>
         </a>
 
-        {{-- <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-            style="background: transparent; border: none">
-            <i class="fs-1 bi bi-list"></i>
-        </button> --}}
-
         <!-- Offcanvas Menu -->
         <!-- Offcanvas Menu -->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Categories</h5>
+                <h5 class="offcanvas-title text-dark" id="offcanvasExampleLabel">Categories</h5>
                 <!-- Close Button -->
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><i
                         class="bi bi-x-lg fs-1"></i></button>
@@ -164,8 +158,10 @@
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center" data-aos="fade-up" data-aos-delay="200">
+                                   <h4>{{ $category->name }}</h4>
+                                   <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
                                     <a id="{{ $child->name }}" href=""
-                                        class="h4">{{ $child->name }}</a>
+                                        class="h4 fs-5">{{ $child->name }}</a>
                                     <p class="mt-2 fst-italic">{{ $child->description }}</p>
                                 </div>
 

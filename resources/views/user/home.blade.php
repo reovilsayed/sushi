@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="carousel-caption d-block text-start" style="top: 25%; left: 8%;">
-                            <h1 class="homeSlide">
+                            <h1 class="homeSlide fw-medium">
                                 {{ $slider->heading }} <span
                                     style="color: var(--accent-color)">{{ $slider->heading_end }}</span>
                             </h1>
