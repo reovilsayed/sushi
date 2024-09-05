@@ -112,7 +112,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-
+       
 
         $request->validate([
             'f_name' => 'required|string|max:255',
@@ -141,11 +141,17 @@ class OrderController extends Controller
 
         $extra = [];
         foreach (Cart::getContent() as $item) {
+            if(isset($item->attributes['options'])){
+                $options=$item->attributes['options'];
+            }else{
+                $options=null;
+            }
 
             if (isset($item->attributes['product'])) {
                 $order->products()->attach($item->attributes['product']->id, [
                     'quantity' => $item->quantity,
                     'price' => $item->price,
+                    'options'=>$options,
                 ]);
             }
 
