@@ -7,6 +7,7 @@ use App\Models\RestaurantZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+
 class RestaurantController extends Controller
 {
     public function viewRestaurants()
@@ -28,7 +29,7 @@ class RestaurantController extends Controller
             'merchantId' => $request->merchantId,
             'secretKey' => $request->secretKey,
         ];
-        
+
         $restaurant = new Restaurant;
 
         $restaurant->name = $request->name;
@@ -44,6 +45,10 @@ class RestaurantController extends Controller
         $restaurant->token = $request->token;
         $restaurant->printer_id = $request->printer_id;
         $restaurant->serial_number = $request->serial_number;
+
+        $restaurant->enable_printer = isset($request->enable_printer);
+        $restaurant->enable_payment = isset($request->enable_payment);
+
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
             if ($restaurant->image && Storage::exists($restaurant->image)) {
@@ -62,7 +67,7 @@ class RestaurantController extends Controller
     }
     public function updateRestaurant(Request $request, Restaurant $restaurant)
     {
-        ;
+
         if ($request->has('image')) {
             $image = $request->file('image')->store('restaurant', 'public');
             Storage::delete($request->image);
@@ -80,7 +85,7 @@ class RestaurantController extends Controller
             'printer_id' => $request->printer_id,
             'serial_number' => $request->serial_number,
         ];
-        
+
         $restaurant->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
@@ -91,6 +96,8 @@ class RestaurantController extends Controller
             'address' => $request->address,
             'api_key' => json_encode($api_key),
             'printer' => json_encode($printer),
+            'enable_printer' => isset($request->enable_printer),
+            'enable_payment' => isset($request->enable_payment),
 
         ]);
         $restaurant->save();

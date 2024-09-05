@@ -64,12 +64,21 @@
                                 <x-form.input id="latitude" name="address[latitude]" value="{{$restaurant->address['latitude']}}" wire:model="latitude"
                                     label="Latitude"  required /> --}}
                                 <x-form.input id="merchantId" name="merchantId" label="Merchant Id"
-                                    value="{{ $api_key['merchantId'] }}" required />
+                                    value="{{ @$api_key['merchantId'] }}" required />
                                 <x-form.input id="secretKey" name="secretKey" label="Secret Key"
-                                    value="{{ $api_key['secretKey'] }}" required />
+                                    value="{{ @$api_key['secretKey'] }}" required />
+
+                                <x-form.input id="key_version" name="key_version" label="Key Version"
+                                    value="{{ @$api_key['key_version'] }}" required />
+
+                                <div class="d-flex align-items-end">
+                                    <x-form.input type="checkbox" id="enable_payment" name="enable_payment"
+                                        label="Enable Payment" :checked="$restaurant->enable_payment"  value="{{ $restaurant->enable_payment }}" value="1"
+                                        required />
+                                </div>
                             </div>
-                            <x-form.input id="key_version" name="key_version" label="Key Version"
-                                value="{{ $api_key['key_version'] }}" required />
+
+
                             {{-- <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button> --}}
@@ -80,14 +89,20 @@
                         <div class="card-body">
                             <div class="row row-cols-2">
                                 <x-form.input id="sid" name="sid" label="SID"
-                                    value="{{ $printer['sid'] }}"  />
+                                    value="{{ @$printer['sid'] }}" />
                                 <x-form.input id="token" name="token" label="TOKEN"
-                                    value="{{ $printer['token'] }}"  />
+                                    value="{{ @$printer['token'] }}" />
 
                                 <x-form.input id="printer_id" name="printer_id" label="Printer Uid "
-                                    value="{{  $printer['printer_id'] }}"  />
+                                    value="{{ @$printer['printer_id'] }}" />
                                 <x-form.input id="serial_number" name="serial_number" label="Serial number of printer"
-                                    value="{{  $printer['serial_number'] }}"  />
+                                    value="{{ @$printer['serial_number'] }}" />
+                                    
+                                <div class="d-flex align-items-end">
+                                    <x-form.input type="checkbox" id="enable_printer" name="enable_printer"
+                                        label="Enable Printer" :checked="$restaurant->enable_printer" value="{{ $restaurant->enable_printer }}"
+                                        value="1" required :checked="$restaurant->enable_printer" />
+                                </div>
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}

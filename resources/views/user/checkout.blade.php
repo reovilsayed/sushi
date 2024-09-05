@@ -370,15 +370,17 @@
                                                                         {{ __('sentence.cashondelivery') }}
                                                                     </label>
                                                                 </div>
-                                                                {{-- <div class="form-check mt-2 mb-3">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="payment_method" id="payment_method2"
-                                                                        checked value="Card">
-                                                                    <label class="form-check-label"
-                                                                        style="font-size: 15px;"
-                                                                        for="payment_method2">Credit Cart
-                                                                    </label>
-                                                                </div> --}}
+                                                                @if ($restaurant->enable_payment)
+                                                                    <div class="form-check mt-2 mb-3">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="payment_method" id="payment_method2"
+                                                                            checked value="Card">
+                                                                        <label class="form-check-label"
+                                                                            style="font-size: 15px;"
+                                                                            for="payment_method2">Credit Cart
+                                                                        </label>
+                                                                    </div>
+                                                                @endif
                                                             </div>
 
                                                         </td>
