@@ -61,10 +61,6 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <div class="text-center restaurantName">
-                            <h4>{{ $restaurant->name }}</h4>
-                        </div>
                     </a>
                 </div>
             @endforeach

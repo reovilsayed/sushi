@@ -2,7 +2,13 @@
     @push('css')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
         <style>
-            
+            @media only screen and (max-width: 600px) {
+                .chefs .member .member-info {
+                    background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(255, 255, 255, 0) 100%);
+                    opacity: 1;
+                    transition: 0.4s;
+                }
+            }
         </style>
     @endpush
 
@@ -31,8 +37,6 @@
             </div>
         </div>
     </section>
-
-
     <section>
         <div class="container ">
             <div class="row">
@@ -89,10 +93,11 @@
                             class="form-control form-control-lg location text-center" placeholder="Enter Location"
                             aria-label="Enter Location" aria-describedby="button-addon2" name="location"
                             value="{{ session()->get('current_location') ?? '' }}">
-                        <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()" id="location-button">
+                        <button class="btn btn-outline-orange" type="button" onclick="getCurrentLocation()"
+                            id="location-button">
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                         </button>
-                        <button class="btn btn-outline-orange" id="checkDZ" >{{ __('sentence.enter') }}</button>
+                        <button class="btn btn-outline-orange" id="checkDZ">{{ __('sentence.enter') }}</button>
 
                     </div>
                     {{-- </form> --}}
