@@ -266,6 +266,7 @@
                         return flavor + ' ' + quantity;
                     }).join(', ');
                     document.getElementById('options').value = options;
+                    document.getElementById('cart-form').submit();
 
                 } else {
                     alert(
