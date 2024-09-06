@@ -185,7 +185,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         }
     });
 });
-Route::post('payment/{restaurant:slug}/callback', function (Restaurant $restaurant, Request $request) {
+Route::get('payment/{restaurant:slug}/callback', function (Restaurant $restaurant, Request $request) {
     // Extract and validate response data
 
     $data = $request->input('Data');
