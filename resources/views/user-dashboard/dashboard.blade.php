@@ -90,7 +90,7 @@
                                                                     <tr class="">
                                                                         <td class="">{{ $order->id }}</td>
                                                                         <td class="">
-                                                                            {{ $order->created_at->format('d M, Y h:i A') }}
+                                                                            {{ $order->time_option}}
                                                                         </td>
                                                                         <td class="">{{ $order->total }}€</td>
                                                                         <td class="">{{ $order->payment_status }}</td>
