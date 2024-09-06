@@ -60,21 +60,30 @@ class Payment
     public function makeRequest($order)
     {
         $this->order = $order;
-        $this->credentials = json_decode($this->order->restaurent->api_key, true);
-        $this->validateCredentials();
-        $this->amount = $this->order->total * 100;
+        $credentials = json_decode($this->order->restaurent->api_key, true);
+        $amount = $order->total * 100;
+        $orderId = $order->id;
+        $merchantId = $credentials['merchantId'];
+        $secretKey = $credentials['secretKey'];
+        $keyVersion = $credentials['key_version'];
+        $normalRetrunUrl = route('payment.callback', $this->order->restaurent);
+        $currencyCode = 978;
 
-        $this->transactionReference = str_pad($order->id * now()->format('ymdhis'), 6, '0', STR_PAD_LEFT);
+        $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
-        $response =   Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
-            'DATA' => $this->body(),
-            'SEAL' => $this->seal(),
-            'interfaceVersion' => $this::INTERFACE_VERSION,
+        $interfaceVersion = "HP_3.2";
+
+        $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
+
+        $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
+
+       $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
+            'DATA' => $data,
+            'SEAL' => $seal,
+            'interfaceVersion' => $interfaceVersion,
         ]);
-
         return $response->body();
     }
-
 
     protected function validateSeal($secretKey, $data, $seal)
     {

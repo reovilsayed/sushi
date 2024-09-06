@@ -20,6 +20,7 @@ use App\Models\Attachment;
 use Cart;
 use Mail;
 use Carbon\Carbon;
+use Darryldecode\Cart\Cart as CartCart;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
@@ -120,6 +121,9 @@ class PageController extends Controller
     }
     public function userCheckout()
     {
+        if(Cart::getTotalQuantity() == 0){
+            return redirect(url('/'));
+        }
         $restaurant = Restaurant::find(session()->get('restaurent_id'));
 
         $restaurantId = $restaurant->id;
