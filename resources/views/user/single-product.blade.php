@@ -178,7 +178,7 @@
                             </form>
 
                             <div class="row mt-5">
-                                <div class="col-md-6 pe-0">
+                                <div class="col-md-6 col-sm-6 col-6 pe-0">
                                     <p class="text-center txtmob">COMPOSITION</p>
                                     <hr class="" style="opacity: 1.25;">
                                     @if ($product->id == 201 || $product->id == 202)
@@ -215,7 +215,7 @@
                                         <p class="text-center border-end pe-2">{!! $product->composition ?? '' !!}</p>
                                     @endif
                                 </div>
-                                <div class="col-md-6 ps-0">
+                                <div class="col-md-6 col-sm-6 col-6 ps-0">
                                     <p class="text-center txtmob">ALLERGENS</p>
                                     <hr class="" style="opacity: 1.25;">
                                     <p class="text-center txtmob">egg, sesame, wheat</p>
