@@ -74,7 +74,7 @@
                                 <div class="d-flex align-items-end">
                                     <x-form.input type="checkbox" id="enable_payment" name="enable_payment"
                                         label="Enable Payment" :checked="$restaurant->enable_payment"  value="{{ $restaurant->enable_payment }}" value="1"
-                                        required />
+                                         />
                                 </div>
                             </div>
 
