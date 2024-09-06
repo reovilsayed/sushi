@@ -62,6 +62,10 @@
                                 <x-form.input name="name" wire:model="name" label="Product Name *"
                                     value="{{ $product->name }}" autofocus required />
                             </div>
+                            {{-- <div class="row row-cols-1">
+                                <x-form.input name="flavors" label="Product flavors *"
+                                    value="{{ $product->flavors }}" autofocus />
+                            </div> --}}
                             <div class="row row-cols-1">
 
                             </div>

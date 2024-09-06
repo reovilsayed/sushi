@@ -163,6 +163,14 @@ class ProductController extends Controller
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
+
+        $flavors = [
+            ['id' => 1, 'name' => 'Saumon'],
+            ['id' => 2, 'name' => 'Thon'],
+            ['id' => 3, 'name' => 'Crevette'],
+            ['id' => 4, 'name' => 'Poulet'],
+        ];
+        
         $product = new Product;
 
         $product->name = $request->name;
@@ -171,6 +179,7 @@ class ProductController extends Controller
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
         $product->sequency = $request->sequence;
+        $product->flavors = json_encode($flavors);
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -184,6 +193,7 @@ class ProductController extends Controller
             $product->image = $request->file('image')->store('uploads', 'public');
         }
         Cache::flush();
+        
         $product->save();
 
         
@@ -226,12 +236,19 @@ class ProductController extends Controller
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
+        $flavors = [
+            ['id' => 1, 'name' => 'Saumon'],
+            ['id' => 2, 'name' => 'Thon'],
+            ['id' => 3, 'name' => 'Crevette'],
+            ['id' => 4, 'name' => 'Poulet'],
+        ];
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
         $product->sequency = $request->sequence;
+        $product->flavors = json_encode($flavors);
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
