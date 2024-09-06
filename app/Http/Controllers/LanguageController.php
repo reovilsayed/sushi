@@ -44,8 +44,7 @@ class LanguageController extends Controller
                 'required',
                 'string',
                 'max:25',
-                'unique:languages,key',
-                'alpha_num'
+                'unique:languages,key'
             ],
             'french' => [
                 'required'
