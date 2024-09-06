@@ -97,7 +97,7 @@
                                                                         <td class="">{{ $order->payment_status }}</td>
                                                                         <td class="text-center">
                                                                             <a href="{{ route('invoice', $order) }}"
-                                                                                class="btn btn-invoice "><th>{{ __('sentence.invoice') }}</th></a>
+                                                                                class="btn btn-invoice ">{{ __('sentence.invoice') }}</a>
                                                                             <!-- Positioned to the right -->
                                                                         </td>
                                                                     </tr>
