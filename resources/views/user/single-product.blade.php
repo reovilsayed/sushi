@@ -178,9 +178,9 @@
                             </form>
 
                             <div class="row mt-5">
-                                <div class="col-md-6">
+                                <div class="col-md-6 pe-0">
                                     <p class="text-center txtmob">COMPOSITION</p>
-                                    <hr class="ms-5 me-5" style="opacity: 1.25;">
+                                    <hr class="" style="opacity: 1.25;">
                                     @if ($product->id == 201 || $product->id == 202)
                                         @php
                                             $maxTotal = $product->id == '202' ? 4 : 3;
@@ -212,12 +212,12 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p class="text-center">{!! $product->composition ?? '' !!}</p>
+                                        <p class="text-center border-end pe-2">{!! $product->composition ?? '' !!}</p>
                                     @endif
                                 </div>
-                                <div class="col-md-6" style="border-left: 1px solid var(--primary-color);">
+                                <div class="col-md-6 ps-0">
                                     <p class="text-center txtmob">ALLERGENS</p>
-                                    <hr class="ms-5 me-5" style="opacity: 1.25;">
+                                    <hr class="" style="opacity: 1.25;">
                                     <p class="text-center txtmob">egg, sesame, wheat</p>
                                 </div>
                             </div>
