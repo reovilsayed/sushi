@@ -13,6 +13,7 @@ class ExpedyController extends Controller
 
     public function sendToPrinter()
     {
+        
         $orderId =121312342;
         $config = [
             'print_on' => true,

@@ -26,6 +26,15 @@ class Restaurant extends Model
             set: fn($value) => json_encode($value),
         );
     }
+
+    public function fullAddress($key = null)
+    {
+        $address = $this->address;
+        if ($key) {
+            return $address[$key];
+        }
+        return $address['address'] . ',' . $address['city'] . ' ' . $address['post_code'];
+    }
     // public function api_key(): Attribute
     // {
     //     return Attribute::make(
@@ -43,6 +52,11 @@ class Restaurant extends Model
     public function getPaymentCreds($key = null)
     {
         $creds = json_decode($this->api_key, true);
+        return  $key ? @$creds[$key] : $creds;
+    }
+    public function getPrinterCreds($key = null)
+    {
+        $creds = json_decode($this->printer, true);
         return  $key ? @$creds[$key] : $creds;
     }
 }

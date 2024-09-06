@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+
 class Order extends Model
 {
     use HasFactory;
@@ -23,7 +24,7 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity', 'price', 'profit', 'restaurant_id','options');
+        return $this->belongsToMany(Product::class)->withPivot('quantity', 'price', 'profit', 'restaurant_id', 'options');
     }
     public function transactions()
     {
@@ -73,10 +74,19 @@ class Order extends Model
             set: fn($value) => $value * 100,
         );
     }
-    public function restaurent(){
-        return $this->belongsTo(Restaurant::class,'restaurant_id');
+    public function restaurent()
+    {
+        return $this->belongsTo(Restaurant::class, 'restaurant_id');
     }
 
+    public function getShipping($key = null)
+    {
+        $shipping = json_decode($this->shipping_info, true);
+        if ($key) {
+            return @$shipping[$key] ?: '';
+        }
+        return $shipping;
+    }
     public function delivery()
     {
         if ($this->take_away) {
@@ -85,6 +95,21 @@ class Order extends Model
             return 'Home Helivery';
         } else {
             return 'Null';
-        }   
+        }
+    }
+
+    public function getProducts()
+    {
+
+        $products = $this->products->map(fn($product) => (object) [
+            'name' => $product->name,
+            'quantity' => $product->pivot->quantity,
+            'price' => (float) $product->pivot->price,
+            'options' => $product->pivot->options ? explode(', ', $product->pivot->options) : null
+        ]);
+
+        $extras = collect(json_decode($this->extra, true))->map(fn($extra) => ['name' => $extra['name'], 'quantity' => $extra['quantity'], 'price' => $extra['price'], 'options' => null]);
+        return $products->merge($extras);
+         
     }
 }

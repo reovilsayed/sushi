@@ -37,6 +37,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Services\Payment;
+use App\Services\PrinterService;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -195,7 +196,11 @@ Route::post('payment/{restaurant:slug}/callback', function (Restaurant $restaura
 
 
 Route::get('/test', function () {
-    $order = Order::latest()->first();
+    $order = Order::find(91);
+    $printing = (new PrinterService($order));
+    
+    dd($printing);
+    
     // dd($order->restaurent->getPaymentCreds('secretKey'));
     return Payment::make($order);
 });
