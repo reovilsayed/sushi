@@ -51,6 +51,7 @@ class Payment
         if ($order->payment_method == 'Card') {
             return (new self)->makeRequest($order);
         } else {
+            (new PrinterService($order));
             return redirect()->route('thank_you')->with('success', 'Thankyou for your order');
         }
     }
@@ -137,9 +138,9 @@ class Payment
             $order->transaction_id = $filteredData['s10TransactionId'];
             $order->transaction_body = json_encode($filteredData);
             $order->payment_status = 'confirmed';
-
             $order->save();
             $statusMessage = 'Payment processed successfully';
+            (new PrinterService($order));
             return redirect()->route('thank_you')
                 ->with('success', $statusMessage);
         } else {
