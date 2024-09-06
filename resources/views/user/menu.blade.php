@@ -161,10 +161,14 @@
                                     @if ($loop->index == 0)
                                         <h4>{{ $category->name }}</h4>
                                         <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
+                                        <a id="{{ $child->name }}" href=""
+                                            class="h4 fs-5">{{ $child->name }}</a>
+                                    @else
+                                        <a id="{{ $child->name }}" href=""
+                                            class="h4 fs-5">{{ $child->name }}</a>
+                                        <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
                                     @endif
-                                    <a id="{{ $child->name }}" href=""
-                                        class="h4 fs-5">{{ $child->name }}</a>
-                                        
+
                                     <p class="mt-2 fst-italic">{{ $child->description }}</p>
                                 </div>
 
