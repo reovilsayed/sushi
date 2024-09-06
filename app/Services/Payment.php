@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Restaurant;
+use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -60,30 +62,21 @@ class Payment
     public function makeRequest($order)
     {
         $this->order = $order;
-        $credentials = json_decode($this->order->restaurent->api_key, true);
-        $amount = $order->total * 100;
-        $orderId = $order->id;
-        $merchantId = $credentials['merchantId'];
-        $secretKey = $credentials['secretKey'];
-        $keyVersion = $credentials['key_version'];
-        $normalRetrunUrl = route('payment.callback', $this->order->restaurent);
-        $currencyCode = 978;
+        $this->credentials = json_decode($this->order->restaurent->api_key, true);
+        $this->validateCredentials();
+        $this->amount = $this->order->total * 100;
 
-        $transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        $this->transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
-        $interfaceVersion = "HP_3.2";
-
-        $data = 'amount=' . $amount . '|s10TransactionReference.s10TransactionId=' . $transactionReference . '|currencyCode=' . $currencyCode . '|merchantId=' . $merchantId . '|normalReturnUrl=' . $normalRetrunUrl . '|orderId=' . $orderId . '|keyVersion=' . $keyVersion;
-
-        $seal = hash('sha256', mb_convert_encoding($data, 'UTF-8') . $secretKey);
-
-       $response = Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
-            'DATA' => $data,
-            'SEAL' => $seal,
-            'interfaceVersion' => $interfaceVersion,
+        $response =   Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
+            'DATA' => $this->body(),
+            'SEAL' => $this->seal(),
+            'interfaceVersion' => $this::INTERFACE_VERSION,
         ]);
+
         return $response->body();
     }
+
 
     protected function validateSeal($secretKey, $data, $seal)
     {
@@ -132,17 +125,18 @@ class Payment
 
         $order = Order::where('id', $orderId)->first();
 
-        // $user = $order->user_id;
-        // Log::info('User:' . $user);
-        // // if (!auth()->check()) {
-        // //     $userInstance = User::find($user);
-        // //     Auth::loginAs($userInstance);
-        // // }
+        $user = $order->customer_id;
+
+        Log::info('User:' . $user);
+        if (!auth()->check()) {
+            $userInstance = User::find($user);
+            Auth::login($userInstance);
+        }
         if ($filteredData['responseCode'] == '00') {
             $order->status = 'PAID';
             $order->transaction_id = $filteredData['s10TransactionId'];
             $order->transaction_body = json_encode($filteredData);
-            $order->payment_status = 'Paid';
+            $order->payment_status = 'confirmed';
 
             $order->save();
             $statusMessage = 'Payment processed successfully';
@@ -151,10 +145,10 @@ class Payment
         } else {
             $order->status = 'UNPAID';
             $order->payment_status = 'failed';
-            $order->response = json_encode($filteredData);
+            $order->transaction_body = json_encode($filteredData);
             $order->save();
             $statusMessage = 'Payment failed. Please try again';
-            return redirect()->route('thank_you')
+            return redirect()->route('thank_you', ['payment_failed' => 'true'])
                 ->withErrors($statusMessage);
         }
     }

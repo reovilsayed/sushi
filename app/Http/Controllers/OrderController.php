@@ -178,11 +178,11 @@ class OrderController extends Controller
                 Mail::to($email)->send(new OrderConfirmationMail($order));
             }
         }
-        session()->forget('current_location');
-        session()->forget('delivery_time');
-        session()->forget('restaurent_id');
-        // Clear the cart and session data
-        Cart::clear();
+        // session()->forget('current_location');
+        // session()->forget('delivery_time');
+        // session()->forget('restaurent_id');
+        // // Clear the cart and session data
+        // Cart::clear();
 
 
         return Payment::make($order);
