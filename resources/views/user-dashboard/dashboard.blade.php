@@ -78,27 +78,26 @@
                                                                 style="background-color: #ba321c !important;">
                                                                 <tr style="border:1px solid #ba321c !important;">
                                                                     <th style="padding-left:20px;">
-                                                                        {{ __('sentence.index') }}</th>
                                                                     <th>{{ __('sentence.order') }}</th>
                                                                     <th>{{ __('sentence.time') }}</th>
-                                                                    <th>{{ __('sentence.paid') }}</th>
-                                                                    <th class="text-center">invoice</th>
+                                                                    <th>{{ __('sentence.total') }}</th>
+                                                                    <th>{{ __('sentence.payment_status') }}</th>
+                                                                    <th>{{ __('sentence.invoice') }}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="order"
                                                                 style="border: 1px solid #ba321c !important;">
                                                                 @foreach ($orders as $key => $order)
                                                                     <tr class="">
-                                                                        <td class="py-3" style="padding-left:20px;">
-                                                                            {{ $key + 1 }}</td>
                                                                         <td class="">{{ $order->id }}</td>
                                                                         <td class="">
                                                                             {{ $order->created_at->format('d M, Y h:i A') }}
                                                                         </td>
                                                                         <td class="">{{ $order->total }}€</td>
+                                                                        <td class="">{{ $order->payment_status }}</td>
                                                                         <td class="text-center">
                                                                             <a href="{{ route('invoice', $order) }}"
-                                                                                class="btn btn-invoice ">Invoice</a>
+                                                                                class="btn btn-invoice "><th>{{ __('sentence.invoice') }}</th></a>
                                                                             <!-- Positioned to the right -->
                                                                         </td>
                                                                     </tr>

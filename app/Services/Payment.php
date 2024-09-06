@@ -142,7 +142,7 @@ class Payment
             $order->status = 'PAID';
             $order->transaction_id = $filteredData['s10TransactionId'];
             $order->transaction_body = json_encode($filteredData);
-            $order->payment_status = 'confirmed';
+            $order->payment_status = 'Paid';
 
             $order->save();
             $statusMessage = 'Payment processed successfully';
