@@ -312,7 +312,7 @@
                                                                             checked value="Card">
                                                                         <label class="form-check-label"
                                                                             style="font-size: 15px;"
-                                                                            for="payment_method2">{{ __('sentence.creditCard') }}
+                                                                            for="payment_method2">{{ __('sentence.creditcard') }}
                                                                         </label>
                                                                     </div>
                                                                 @endif
