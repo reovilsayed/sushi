@@ -13,7 +13,6 @@ class ExpedyController extends Controller
 
     public function sendToPrinter()
     {
-        // Static Expedy configurations for testing
         $orderId =121312342;
         $config = [
             'print_on' => true,
@@ -165,36 +164,17 @@ class ExpedyController extends Controller
 
         $msg .= "Magasin:\n{$config['adr1']}\n{$config['adr2']}\n{$config['zip']} {$config['city']}\n";
         $msg .= "<CUT/>";
-        $data_params = [
-            'printer_uid' => $printer_uid,
-            'printer_msg' => $this->stripAccents(strtoupper($msg)),
-        ];
 
-
-        $data_request = [
-            'sid' => $config['sid'],
-            'token' => $config['token'],
-            'origin' => $this_host,
-            'params' => $data_params,
-        ];
-
-        dd($data_request);
-        $response = Http::post('https://www.expedy.fr/api/print', $data_request);
+        $response = Http::withHeaders([
+            'Authorization' => '67153eb9874d1ff1a0c6fc6c162af0a0e469269a:a36a4370e412c9bb6e6d262f170cd5f9ec86b748',
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->post('https://www.expedy.fr/api/v2/printers/S6RJA82KCTN/print', [
+            'printer_msg' =>  $this->stripAccents(strtoupper($msg)),
+            'origin' => 'Your defined origin tag.. a uri, a name ..'
+        ]);
         dd($response->body());
-        try {
-            // Send the HTTP POST request to the main printer
-            $response = Http::post('https://www.expedy.fr/api/print', $data_request);
 
-            if ($response->successful()) {
-                Log::info("Print request successful for Order ID: {$orderId}");
-            } else {
-                Log::error("Print request failed for Order ID: {$orderId}. Status: {$response->status()}");
-            }
-            return response()->json(['message' => 'Print request sent successfully.'], 200);
-        } catch (\Exception $e) {
-            Log::error("Exception occurred while sending print request for Order ID: {$orderId}. Error: {$e->getMessage()}");
-            return response()->json(['message' => 'Failed to send print request.'], 500);
-        }
     }
 
     // public function sendToPrinter($orderId)
