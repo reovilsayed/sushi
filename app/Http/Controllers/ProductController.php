@@ -162,15 +162,7 @@ class ProductController extends Controller
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
-        ]);
-
-        $flavors = [
-            ['id' => 1, 'name' => 'Saumon'],
-            ['id' => 2, 'name' => 'Thon'],
-            ['id' => 3, 'name' => 'Crevette'],
-            ['id' => 4, 'name' => 'Poulet'],
-        ];
-        
+        ]);  
         $product = new Product;
 
         $product->name = $request->name;
@@ -179,7 +171,6 @@ class ProductController extends Controller
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
         $product->sequency = $request->sequence;
-        $product->flavors = json_encode($flavors);
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;
@@ -237,10 +228,10 @@ class ProductController extends Controller
             'description' => 'nullable',
         ]);
         $flavors = [
-            ['id' => 1, 'name' => 'Saumon'],
-            ['id' => 2, 'name' => 'Thon'],
-            ['id' => 3, 'name' => 'Crevette'],
-            ['id' => 4, 'name' => 'Poulet'],
+            ['id' => 1, 'name' => 'Cerise'],
+            ['id' => 2, 'name' => 'Mangue'],
+            ['id' => 3, 'name' => 'Vanille'],
+            ['id' => 4, 'name' => 'Chocolat'],
         ];
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
