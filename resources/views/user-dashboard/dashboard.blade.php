@@ -77,8 +77,7 @@
                                                             <thead class="order"
                                                                 style="background-color: #ba321c !important;">
                                                                 <tr style="border:1px solid #ba321c !important;">
-                                                                    <th style="padding-left:20px;">
-                                                                    <th>{{ __('sentence.order') }}</th>
+                                                                    <th>{{ __('sentence.order_id') }}</th>
                                                                     <th>{{ __('sentence.time') }}</th>
                                                                     <th>{{ __('sentence.total') }}</th>
                                                                     <th>{{ __('sentence.payment_status') }}</th>
