@@ -196,11 +196,10 @@ Route::post('payment/{restaurant:slug}/callback', function (Restaurant $restaura
 
 
 Route::get('/test', function () {
-    $order = Order::find(91);
-    $printing = (new PrinterService($order));
-    
-    dd($printing);
-    
+    $order = Order::latest()->first();
+    $printing = (new PrinterService($order))->sendToPrinter();
+    return $printing;
+
     // dd($order->restaurent->getPaymentCreds('secretKey'));
     return Payment::make($order);
 });

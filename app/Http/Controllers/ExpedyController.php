@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Settings;
 
 class ExpedyController extends Controller
 {
@@ -13,8 +15,8 @@ class ExpedyController extends Controller
 
     public function sendToPrinter()
     {
-        
-        $orderId =121312342;
+
+        $orderId = 121312342;
         $config = [
             'print_on' => true,
             'printer_size' => 80,
@@ -24,7 +26,7 @@ class ExpedyController extends Controller
             'print_nb' => 1,
             'multistore' => '1:TEST_UID',
             'time_shift' => 0,
-            'logo_url' => 'https://sushi.sohojware.com//storage/images/8lGEsRa06kniNqcLDQgfvBwuLnSycq04icAOsZMu.png',
+            'logo_url' => Storage::url(Settings::setting('site.logo')),
             'title' => 'Test Store',
             'company' => 'Test Company',
             'company_id' => '123456789',
@@ -175,7 +177,6 @@ class ExpedyController extends Controller
             'origin' => 'Your defined origin tag.. a uri, a name ..'
         ]);
         dd($response->body());
-
     }
 
     // public function sendToPrinter($orderId)

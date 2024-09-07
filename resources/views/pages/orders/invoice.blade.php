@@ -1,12 +1,7 @@
 @php
     $extras = json_decode($order->extra, true) ?? [];
     // $restaurant = App\Models\Restaurant::find($order->products()->first()->pivot->restaurant_id);
-    $firstProduct = $order->products()->first();
-    $restaurant = null;
 
-    if ($firstProduct && $firstProduct->pivot && isset($firstProduct->pivot->restaurant_id)) {
-        $restaurant = App\Models\Restaurant::find($firstProduct->pivot->restaurant_id);
-    }
 @endphp
 {{-- @dd($extras) --}}
 <x-layout>
@@ -47,7 +42,7 @@
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Restaurant Name:</h5>
-                                        <p>{{ $restaurant->name ?? '' }}</p>
+                                        <p>{{ $order->restaurent->name ?? '' }}</p>
                                     </div>
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Delivery Time:</h5>
