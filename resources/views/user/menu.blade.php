@@ -21,12 +21,56 @@
                 background-color: var(--accent-color);
                 color: #ffffff;
             }
+
+
+            .category-slider {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 10px 0;
+                background-color: #1e0303c5;
+                position: sticky;
+                top: 59px;
+                z-index: 9999999;
+            }
+
+            .category-slider .slider-wrapper {
+                display: inline-flex;
+            }
+
+            .category-slider .category-link {
+                display: inline-block;
+                padding: 10px 20px;
+                margin-right: 10px;
+                text-align: center;
+                color: var(--default-color);
+                /* border: 1px solid var(--default-color); */
+                /* Optional: Add a border */
+                border-radius: 20px;
+                text-decoration: none;
+            }
+
+            .category-slider .category-link:hover {
+                background-color: var(--default-color);
+                color: #fff;
+            }
         </style>
     @endpush
-    <br><br><br>
+    <br><br>
+    <div class="category-slider d-block d-md-none">
+        <div class="slider-wrapper">
+            @foreach ($categories as $category)
+                @if ($category->childs->count() > 0)
+                    @foreach ($category->childs as $child)
+                        <a href="#{{ $child->name }}" class="category-link">{{ $child->name }}</a>
+                    @endforeach
+                @endif
+            @endforeach
+        </div>
+    </div>
+    
     {{-- <x-user.about /> --}}
     <section id="menu" class="menu section bg-transparent">
-
+        
         <!-- Section Title -->
         <div class="ms-3 me-3" style="" data-aos="fade-up">
             <div class="row">
@@ -75,7 +119,7 @@
         </div><!-- End Section Title -->
 
 
-        <a class="btn btn-sm d-block d-md-none" type="button"
+        {{-- <a class="btn btn-sm d-block d-md-none" type="button"
             style="position:fixed;bottom:80px;right:15px;background: #e5d5bf;display: flex; align-items: center; justify-content: center;padding:0 5px; z-index:99999"
             data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
             <i class="fs-1 bi bi-list" style="color: #000"></i>
@@ -117,7 +161,9 @@
                     </div>
                 @endforeach
             </div>
-        </div>
+        </div> --}}
+
+        <!-- Category Slider Navbar for Mobile -->
 
 
         <div class="container-fluid isotope-layout">
@@ -190,8 +236,7 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: #000">
                 <div class="modal-header">
@@ -273,7 +318,7 @@
                 }
             </script>
 
-            <script>
+            {{-- <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const offcanvasInstance = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasExample'));
 
@@ -291,6 +336,19 @@
                             subcategory.style.display = isVisible ? 'none' : 'block';
                             icon.classList.toggle('bi-plus-lg', isVisible);
                             icon.classList.toggle('bi-dash-lg', !isVisible);
+                        });
+                    });
+                });
+            </script> --}}
+
+            <script>
+                document.querySelectorAll('.category-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
                         });
                     });
                 });

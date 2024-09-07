@@ -146,7 +146,7 @@
                     <div class="col-md-12">
                         <div class="row text-center p-2">
                             @foreach ($extras as $extra)
-                                <div class="col-md-2 col-sm-6 d-flex align-items-center subcart2">
+                                <div class="col-md-2 col-sm-6 col-4 d-md-flex align-items-center subcart2 mt-3">
                                     <x-cart.extra :extra="$extra" :restuarant="$restuarant" :extraBucket="$extraBucket"
                                         :prices="$extraPrice" />
                                 </div>

@@ -42,8 +42,8 @@
                                 <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
                                     class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Back</a>
 
-                                <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a>
+                                {{-- <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
+                                    class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a> --}}
                             </div>
                             <div class=" section-title aos-init aos-animate pb-0" data-aos="fade-up">
                                 <p class="">{{ __('sentence.checkout') }}</p>
@@ -351,6 +351,9 @@
                                                 disabled>{{ __('sentence.order_button') }}
                                             </button>
                                         </div>
+                                        {{-- <div class="">
+                                            <p><strong>Note :</strong> </p>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

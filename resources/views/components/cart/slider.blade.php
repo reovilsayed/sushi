@@ -112,7 +112,7 @@
                                             <div class="">
                                                 <div class="row">
                                                     @foreach ($chunkItems as $product)
-                                                        <div class="col-md-4 text-md-center">
+                                                        <div class="col-md-4 col-4 text-md-center">
                                                             <x-viewProduct.product :restaurant="App\Models\Restaurant::find(
                                                                 session()->get('restaurent_id'),
                                                             )"
