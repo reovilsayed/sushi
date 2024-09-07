@@ -78,10 +78,12 @@
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
                                             <option value="take_away">{{ __('sentence.takeaway') }}</option>
-                                            <option value="home_delivery"
-                                                {{ session()->get('current_location') ? 'selected' : '' }}>
-                                                {{ __('sentence.homedelivery') }}
-                                            </option>
+                                            @if ($restaurant->id != 6)
+                                                <option value="home_delivery"
+                                                    {{ session()->get('current_location') ? 'selected' : '' }}>
+                                                    {{ __('sentence.homedelivery') }}
+                                                </option>
+                                            @endif
 
 
                                         </select>
@@ -371,62 +373,61 @@
             <script src="script.js"></script>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                const deliveryOption = document.getElementById('deliveryOption');
-                const takeAwayForm = document.getElementById('takeAwayForm');
-                const homeDeliveryForm = document.getElementById('homeDeliveryForm');
-                const orderButton = document.getElementById('orderButton');
-                const restaurantId = {{ $restaurant->id }};
+                    const deliveryOption = document.getElementById('deliveryOption');
+                    const takeAwayForm = document.getElementById('takeAwayForm');
+                    const homeDeliveryForm = document.getElementById('homeDeliveryForm');
+                    const orderButton = document.getElementById('orderButton');
+                    const restaurantId = {{ $restaurant->id }};
 
-                // Function to set the disabled state for all inputs within a form
-                const setFormDisabledState = (form, disabled) => {
-                    if (form) {
-                        const inputs = form.querySelectorAll('input, select, textarea');
-                        inputs.forEach(input => input.disabled = disabled);
-                    }
-                };
+                    // Function to set the disabled state for all inputs within a form
+                    const setFormDisabledState = (form, disabled) => {
+                        if (form) {
+                            const inputs = form.querySelectorAll('input, select, textarea');
+                            inputs.forEach(input => input.disabled = disabled);
+                        }
+                    };
 
-                // Function to update form visibility and input state based on the selected option
-                const updateFormVisibility = () => {
-                    const selectedOption = deliveryOption.value;
+                    // Function to update form visibility and input state based on the selected option
+                    const updateFormVisibility = () => {
+                        const selectedOption = deliveryOption.value;
 
-                    if (restaurantId === 6) {
-                        // Hide homeDeliveryForm if restaurant ID is 6
-                        homeDeliveryForm.style.display = 'none';
-                        setFormDisabledState(homeDeliveryForm, true);
-                        takeAwayForm.style.display = 'block';
-                        setFormDisabledState(takeAwayForm, false);
-                        orderButton.disabled = false;
-                    } else {
-                        // Handle other restaurant IDs
-                        if (selectedOption === 'take_away') {
-                            takeAwayForm.style.display = 'block';
+                        if (restaurantId === 6) {
+                            // Hide homeDeliveryForm if restaurant ID is 6
                             homeDeliveryForm.style.display = 'none';
-                            setFormDisabledState(takeAwayForm, false);
                             setFormDisabledState(homeDeliveryForm, true);
-                            orderButton.disabled = false;
-                        } else if (selectedOption === 'home_delivery') {
-                            takeAwayForm.style.display = 'none';
-                            homeDeliveryForm.style.display = 'block';
-                            setFormDisabledState(takeAwayForm, true);
-                            setFormDisabledState(homeDeliveryForm, false);
+                            takeAwayForm.style.display = 'block';
+                            setFormDisabledState(takeAwayForm, false);
                             orderButton.disabled = false;
                         } else {
-                            takeAwayForm.style.display = 'none';
-                            homeDeliveryForm.style.display = 'none';
-                            setFormDisabledState(takeAwayForm, true);
-                            setFormDisabledState(homeDeliveryForm, true);
-                            orderButton.disabled = true;
+                            // Handle other restaurant IDs
+                            if (selectedOption === 'take_away') {
+                                takeAwayForm.style.display = 'block';
+                                homeDeliveryForm.style.display = 'none';
+                                setFormDisabledState(takeAwayForm, false);
+                                setFormDisabledState(homeDeliveryForm, true);
+                                orderButton.disabled = false;
+                            } else if (selectedOption === 'home_delivery') {
+                                takeAwayForm.style.display = 'none';
+                                homeDeliveryForm.style.display = 'block';
+                                setFormDisabledState(takeAwayForm, true);
+                                setFormDisabledState(homeDeliveryForm, false);
+                                orderButton.disabled = false;
+                            } else {
+                                takeAwayForm.style.display = 'none';
+                                homeDeliveryForm.style.display = 'none';
+                                setFormDisabledState(takeAwayForm, true);
+                                setFormDisabledState(homeDeliveryForm, true);
+                                orderButton.disabled = true;
+                            }
                         }
-                    }
-                };
+                    };
 
-                // Event listener to detect changes in the delivery option
-                deliveryOption.addEventListener('change', updateFormVisibility);
+                    // Event listener to detect changes in the delivery option
+                    deliveryOption.addEventListener('change', updateFormVisibility);
 
-                // Initialize the form state on page load
-                updateFormVisibility();
+                    // Initialize the form state on page load
+                    updateFormVisibility();
                 });
-
             </script>
         @endpush
     </x-user>
