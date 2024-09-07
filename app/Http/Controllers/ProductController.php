@@ -162,7 +162,7 @@ class ProductController extends Controller
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
-        ]);
+        ]);  
         $product = new Product;
 
         $product->name = $request->name;
@@ -184,6 +184,7 @@ class ProductController extends Controller
             $product->image = $request->file('image')->store('uploads', 'public');
         }
         Cache::flush();
+        
         $product->save();
 
         
@@ -226,12 +227,19 @@ class ProductController extends Controller
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);
+        // $flavors = [
+        //     ['id' => 1, 'name' => 'Cerise'],
+        //     ['id' => 2, 'name' => 'Mangue'],
+        //     ['id' => 3, 'name' => 'Vanille'],
+        //     ['id' => 4, 'name' => 'Chocolat'],
+        // ];
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
         $product->sequency = $request->sequence;
+        // $product->flavors = json_encode($flavors);
         // $product->status = $request->status;
         // $product->featured = $request->featured;
         $product->category_id = $request->category;

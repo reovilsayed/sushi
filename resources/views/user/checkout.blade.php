@@ -80,7 +80,10 @@
                                             <option value="take_away">{{ __('sentence.takeaway') }}</option>
                                             <option value="home_delivery"
                                                 {{ session()->get('current_location') ? 'selected' : '' }}>
-                                                {{ __('sentence.homedelivery') }}</option>
+                                                {{ __('sentence.homedelivery') }}
+                                            </option>
+
+
                                         </select>
                                     </div>
 
@@ -88,6 +91,7 @@
                                         @if ($restaurant)
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
                                                 <h2 class="text-colour">{{ $restaurant->name }}</h2>
+
                                                 <div class="d-flex gap-3">
                                                     {{-- @foreach ($restaurant->address as $address)
                                                         <p class="fst-italic">{{ $address}}</p>
@@ -135,35 +139,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
-
-                                            {{-- <div class="col-md-6">
-                                                <div class="select-wrapper ">
-                                                    <select id="year" class="select-hidden">
-                                                        <option value="hide">-- Year --</option>
-                                                        <option value="2020">2020</option>
-                                                        <option value="2021">2021</option>
-                                                        <option value="2022">2022</option>
-                                                        <option value="2023">2023</option>
-                                                        <option value="2024">2024</option>
-                                                        <option value="2025">2025</option>
-                                                    </select>
-
-                                                    <div class="select">
-                                                        <div class="select-styled">-- Year --</div>
-                                                        <ul class="select-options">
-                                                            <li rel="hide">-- Year --</li>
-                                                            <li rel="2020">2020</li>
-                                                            <li rel="2021">2021</li>
-                                                            <li rel="2022">2022</li>
-                                                            <li rel="2023">2023</li>
-                                                            <li rel="2024">2024</li>
-                                                            <li rel="2025">2025</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-
                                         </div>
                                     </div>
                                     {{-- @dd('we') --}}
@@ -173,10 +148,6 @@
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
                                                 <h2 class="text-colour">{{ $restaurant->name }}</h2>
                                                 <div class="d-flex gap-3">
-                                                    {{-- @dd($restaurant->zones) --}}
-                                                    {{-- @foreach ($restaurant->zones as $zone)
-                                                        <p class="fst-italic">{{ $zone->pivot->zone_name }}</p>
-                                                    @endforeach --}}
                                                 </div>
                                             </div>
                                         @endif
@@ -215,24 +186,6 @@
                                                     {{ __('Enter') }}
                                                 </button>
 
-                                                {{-- <div class="input-group text-center">
-                                                    <input type="text" id="map_address_input" name="location"
-                                                        value=""
-                                                        class="form-control form-control-lg location text-center"
-                                                        style="color: #ffffff; border-radius: 0px !important; background-color: black; border: 0px; padding-right: 0;"
-                                                        placeholder="Enter Location" aria-label="Enter Location"
-                                                        aria-describedby="button-addon2">
-                                                    <button class="btn bg-black border-0 btn-outline-orange"
-                                                        style="border-left: 0px" type="button"
-                                                        onclick="getCurrentLocation()" id="location-button">
-                                                        <i class="bi bi-geo-alt fs-4"></i>
-                                                    </button>
-                                                    <button id="checkDZ"class="btn btn-outline-orange"
-                                                        style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;">
-                                                        {{ __('Enter') }}
-                                                    </button>
-                                                </div> --}}
-
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
@@ -245,10 +198,6 @@
                                                     placeholder="Your Post Code" required=""
                                                     value={{ auth()->user()->post_code ?? ($locations[4] ?? '') }}>
                                             </div>
-                                            {{-- <div class="col-md-6">
-                                                <input type="text" name="zip" class="form-control"
-                                                    placeholder="Your Zip" required="">
-                                            </div> --}}
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
                                                     class="form-control" placeholder="Your Phone Number" required
@@ -263,8 +212,6 @@
                                             <div class="col-md-6">
                                                 <select name="time_option" class="form-select selectpicker"
                                                     data-container="body" disabled>
-                                                    {{-- <option  style="color: var(--accent-color)">Select a time
-                                                    </option> --}}
                                                     @foreach ($timeSlots as $time)
                                                         <option value="{{ $time }}"
                                                             {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>
@@ -278,20 +225,8 @@
                                             <div class="col-md-12">
                                                 <textarea name="commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height:122px;"></textarea>
                                             </div>
-                                            {{-- <div class="input-group mb-3">
-                                                <input type="text" class="form-control form-control-lg location"
-                                                    placeholder="Enter Location" aria-label="Enter Location"
-                                                    aria-describedby="button-addon2" required
-                                                    style="border: 2px solid var(--accent-color)">
-                                                <button class="btn btn-outline-orange " type="button"
-                                                    id="button-addon2"><i
-                                                        class="bi bi-geo-alt flex-shrink-0"></i></button>
-                                            </div> --}}
                                         </div>
                                     </div>
-
-                                    {{-- </div> --}}
-
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-sm-12">
 
@@ -377,7 +312,7 @@
                                                                             checked value="Card">
                                                                         <label class="form-check-label"
                                                                             style="font-size: 15px;"
-                                                                            for="payment_method2">{{ __('sentence.credit_card') }}
+                                                                            for="payment_method2">{{ __('sentence.onlinecreditcard') }}
                                                                         </label>
                                                                     </div>
                                                                 @endif
@@ -412,14 +347,9 @@
                                             </table>
                                         </div>
                                         <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
-                                            <button type="submit" class="order_btn" id="orderButton" disabled>ORDER
-                                                NOW
+                                            <button type="submit" class="order_btn" id="orderButton" disabled>{{ __('sentence.order_button') }}
                                             </button>
                                         </div>
-                                        {{-- <div class="col-md-12 text-start"
-                                            style="background-color: var(--accent-color); padding: 15px 0px; color:#ffff; border-left: 1px solid var(--accent-color);">
-
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

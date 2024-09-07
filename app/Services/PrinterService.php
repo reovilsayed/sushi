@@ -164,32 +164,7 @@ class PrinterService
 
     public function sendToPrinter()
     {
-        // $orderId = 121312342;
-        // $this->config = [
-        //     'print_on' => true,
-        //     'printer_size' => 80,
-        //     'printer_uid' => 'S6RJA82KCTN',
-        //     'printer_uid_backup' => 'TEST_UID_BACKUP',
-        //     'sms_num' => '1234567890',
-        //     'print_nb' => 1,
-        //     'multistore' => '1:TEST_UID',
-        //     'time_shift' => 0,
-        //     'logo_url' => 'https://sushi.sohojware.com//storage/images/8lGEsRa06kniNqcLDQgfvBwuLnSycq04icAOsZMu.png',
-        //     'title' => 'Test Store',
-        //     'company' => 'Test Company',
-        //     'company_id' => '123456789',
-        //     'adr1' => '123 Test Street',
-        //     'adr2' => 'Suite 100',
-        //     'zip' => '12345',
-        //     'city' => 'Test City',
-        //     'phone' => '0123456789',
-        //     'email' => 'test@example.com',
-        //     'sid' => '67153eb9874d1ff1a0c6fc6c162af0a0e469269a',
-        //     'token' => 'a36a4370e412c9bb6e6d262f170cd5f9ec86b748',
-        //     'short_opts' => 1
-        // ];
-
-        // Check if printing is enabled
+    
         if (!$this->config['print_on']) {
             return response()->json(['message' => 'Printing is disabled.'], 200);
         }

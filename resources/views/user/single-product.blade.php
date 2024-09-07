@@ -143,7 +143,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-md-7">
                             <h2 class="mb-3 singlePrice fs-3 mt-3">{{ $product->name }}
                             </h2>
@@ -176,20 +176,14 @@
                                         style="">{{ __('sentence.addtocart') }}</button>
                                 </div>
                             </form>
-
                             <div class="row mt-5">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-6 pe-0">
                                     <p class="text-center txtmob">COMPOSITION</p>
-                                    <hr class="ms-5 me-5" style="opacity: 1.25;">
-                                    @if ($product->id == 201 || $product->id == 202)
+                                    <hr class="" style="opacity: 1.25;">
+                                    @if ($product->flavor_status == 1)
                                         @php
-                                            $maxTotal = $product->id == '202' ? 4 : 3;
-                                            $flavors = [
-                                                ['id' => 1, 'name' => 'Saumon'],
-                                                ['id' => 2, 'name' => 'Thon'],
-                                                ['id' => 3, 'name' => 'Crevette'],
-                                                ['id' => 4, 'name' => 'Poulet'],
-                                            ];
+                                            $maxTotal = $product->flavor_total;
+                                            $flavors =  json_decode($product->flavors, true);
                                         @endphp
                                         <p class="text-center text-md-start">Select up to {{ $maxTotal }} flavors
                                         </p>
@@ -212,12 +206,12 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p class="text-center">{!! $product->composition ?? '' !!}</p>
+                                        <p class="text-center border-end pe-2">{!! $product->composition ?? '' !!}</p>
                                     @endif
                                 </div>
-                                <div class="col-md-6" style="border-left: 1px solid var(--primary-color);">
+                                <div class="col-md-6 col-sm-6 col-6 ps-0">
                                     <p class="text-center txtmob">ALLERGENS</p>
-                                    <hr class="ms-5 me-5" style="opacity: 1.25;">
+                                    <hr class="" style="opacity: 1.25;">
                                     <p class="text-center txtmob">egg, sesame, wheat</p>
                                 </div>
                             </div>
@@ -248,73 +242,73 @@
             });
         </script>
 
-@if ($product->id == 201 || $product->id == 202)
-        <script>
+        @if ($product->flavor_status == 1)
+            <script>
                 const maxQuantity = "{{ $maxTotal }}";
-            
 
-            document.querySelectorAll('.increase-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const flavorId = this.getAttribute('data-flavor');
-                    const inputField = document.getElementById('flavor_' + flavorId);
-                    const currentTotal = getTotalQuantity();
-                    if (currentTotal < maxQuantity) {
-                        inputField.value = parseInt(inputField.value) + 1;
-                    } else {
-                        alert('You cannot select more than ' + maxQuantity + ' items.');
-                    }
-                });
-            });
 
-            document.querySelectorAll('.decrease-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const flavorId = this.getAttribute('data-flavor');
-                    const inputField = document.getElementById('flavor_' + flavorId);
-                    const currentValue = parseInt(inputField.value);
-                    if (currentValue > 0) {
-                        inputField.value = currentValue - 1;
-                    }
+                document.querySelectorAll('.increase-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const flavorId = this.getAttribute('data-flavor');
+                        const inputField = document.getElementById('flavor_' + flavorId);
+                        const currentTotal = getTotalQuantity();
+                        if (currentTotal < maxQuantity) {
+                            inputField.value = parseInt(inputField.value) + 1;
+                        } else {
+                            alert('You cannot select more than ' + maxQuantity + ' items.');
+                        }
+                    });
                 });
-            });
 
-            function getTotalQuantity() {
-                let total = 0;
-                document.querySelectorAll('.flavor-quantity-input').forEach(input => {
-                    total += parseInt(input.value);
+                document.querySelectorAll('.decrease-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const flavorId = this.getAttribute('data-flavor');
+                        const inputField = document.getElementById('flavor_' + flavorId);
+                        const currentValue = parseInt(inputField.value);
+                        if (currentValue > 0) {
+                            inputField.value = currentValue - 1;
+                        }
+                    });
                 });
-                return total;
-            }
-        </script>
-        <script>
-            document.getElementById('add-to-cart-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                var options = {};
-                document.querySelectorAll('[id^="flavor_"]').forEach(function(input) {
-                    var flavorId = input.getAttribute('id').replace('flavor_',
-                        '');
-                    var flavorName = document.querySelector('label[for="flavor_' + flavorId + '"]')
-                        .innerText;
-                    options[flavorName] = input.value;
-                });
-                var totalQuantity = Object.values(options).reduce(function(sum, quantity) {
-                    return sum + parseInt(quantity);
-                }, 0);
-                console.log(totalQuantity);
-                if (totalQuantity === 4 || totalQuantity === 3) {
-                    console.log(options);
-                    var options = Object.entries(options).map(function([flavor, quantity]) {
-                        return flavor + ' ' + quantity;
-                    }).join(', ');
-                    document.getElementById('options').value = options;
-                    document.getElementById('cart-form').submit();
 
-                } else {
-                    alert(
-                        'Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product.'
-                    );
+                function getTotalQuantity() {
+                    let total = 0;
+                    document.querySelectorAll('.flavor-quantity-input').forEach(input => {
+                        total += parseInt(input.value);
+                    });
+                    return total;
                 }
-            });
-        </script>
+            </script>
+            <script>
+                document.getElementById('add-to-cart-btn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var options = {};
+                    document.querySelectorAll('[id^="flavor_"]').forEach(function(input) {
+                        var flavorId = input.getAttribute('id').replace('flavor_',
+                            '');
+                        var flavorName = document.querySelector('label[for="flavor_' + flavorId + '"]')
+                            .innerText;
+                        options[flavorName] = input.value;
+                    });
+                    var totalQuantity = Object.values(options).reduce(function(sum, quantity) {
+                        return sum + parseInt(quantity);
+                    }, 0);
+                    console.log(totalQuantity);
+                    if (totalQuantity === 4 || totalQuantity === 3) {
+                        console.log(options);
+                        var options = Object.entries(options).map(function([flavor, quantity]) {
+                            return flavor + ' ' + quantity;
+                        }).join(', ');
+                        document.getElementById('options').value = options;
+                        document.getElementById('cart-form').submit();
+
+                    } else {
+                        alert(
+                            'Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product.'
+                        );
+                    }
+                });
+            </script>
         @endif
     @endpush
 </x-user>
