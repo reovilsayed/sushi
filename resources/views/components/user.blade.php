@@ -113,7 +113,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('niko/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/php-email-form/validate.js') }}"></script>
-    <script src="{{ asset('niko/assets/vendor/aos/aos.js') }}"></script>
+    {{-- <script src="{{ asset('niko/assets/vendor/aos/aos.js') }}"></script> --}}
     <script src="{{ asset('niko/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
     {{-- <script src="{{ asset('niko/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script> --}}
     <script src="{{ asset('niko/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
