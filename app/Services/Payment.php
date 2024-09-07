@@ -129,7 +129,7 @@ class Payment
         $user = $order->customer_id;
 
         Log::info('User:' . $user);
-        if (!auth()->check()) {
+        if (!auth()->check() && $user) {
             $userInstance = User::find($user);
             Auth::login($userInstance);
         }
