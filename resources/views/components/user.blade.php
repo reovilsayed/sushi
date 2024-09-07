@@ -59,9 +59,11 @@
             align-items: center !important;
             display: flex !important;
             padding: .75em !important;
-            background: linear-gradient(63deg, rgba(255, 136, 62, 1) 0%, rgba(169, 90, 41, 1) 3%, rgba(133, 71, 32, 1) 5%, rgba(96, 51, 23, 1) 11%, rgba(41, 22, 10, 1) 17%, rgba(0, 0, 0, 1) 23%, rgba(20, 5, 3, 1) 64%, rgba(30, 8, 5, 1) 81%, rgba(50, 14, 8, 1) 85%, rgba(81, 22, 12, 1) 91%, rgba(128, 34, 19, 1) 96%, rgba(186, 50, 28, 1) 100%) !important;
+            background: black !important;
         }
-
+        .fl-icon{
+            display: none !important;
+        }
         .fl-main-container .fl-container.fl-success .fl-icon {
             background-color: #008607 !important;
         }

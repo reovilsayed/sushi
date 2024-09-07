@@ -52,7 +52,7 @@ class Payment
             return (new self)->makeRequest($order);
         } else {
             (new PrinterService($order));
-            return redirect()->route('thank_you')->with('success', 'Thankyou for your order');
+            return redirect()->route('thank_you');
         }
     }
     public static function confirm(Restaurant $restaurant, $data, $seal)
