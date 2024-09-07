@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Settings; 
 
 class PrinterService
 {
@@ -40,7 +42,7 @@ class PrinterService
             'print_nb' => 1,
             'multistore' => '1:TEST_UID',
             'time_shift' => 0,
-            'logo_url' => 'https://sushi.sohojware.com//storage/images/8lGEsRa06kniNqcLDQgfvBwuLnSycq04icAOsZMu.png',
+            'logo_url' => Storage::url(Settings::setting('site.logo')),
             'title' => $this->restaurant->name,
             'company' => $this->restaurant->name,
             'company_id' => $this->restaurant->id,
