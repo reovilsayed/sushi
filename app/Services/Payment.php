@@ -51,7 +51,7 @@ class Payment
         if ($order->payment_method == 'Card') {
             return (new self)->makeRequest($order);
         } else {
-            (new PrinterService($order));
+            (new PrinterService($order))->sendToPrinter();
             return redirect()->route('thank_you')->with('success', 'Thankyou for your order');
         }
     }
@@ -140,7 +140,7 @@ class Payment
             $order->payment_status = 'confirmed';
             $order->save();
             $statusMessage = 'Payment processed successfully';
-            (new PrinterService($order));
+            (new PrinterService($order))->sendToPrinter();
             return redirect()->route('thank_you')
                 ->with('success', $statusMessage);
         } else {

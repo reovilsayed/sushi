@@ -15,6 +15,7 @@ class PrinterService
     protected $config;
     protected $orderBody;
     protected $message = '';
+    public $response;
 
 
     public function __construct(Order $order)
@@ -24,7 +25,6 @@ class PrinterService
         $this->setConfig();
         $this->setOrderBody();
         $this->makeMessage();
-        $this->sendToPrinter();
     }
 
 
@@ -33,8 +33,8 @@ class PrinterService
         $this->config = [
             'print_on' => $this->restaurant->enable_printer ? true : false,
             'printer_size' => 80,
-            'printer_uid' => $this->restaurant->getPrinterCreds('printer_id'),
-            // 'printer_uid' => 'S6RJA82KCTN',
+            // 'printer_uid' => $this->restaurant->getPrinterCreds('printer_id'),
+            'printer_uid' => '4TMPLAFUYKH',
             'printer_uid_backup' => 'TEST_UID_BACKUP',
             'sms_num' => $this->restaurant->number,
             'print_nb' => 1,
@@ -50,10 +50,10 @@ class PrinterService
             'city' => $this->restaurant->fullAddress('city'),
             'phone' => $this->restaurant->number,
             'email' => $this->restaurant->email,
-            'sid' => $this->restaurant->getPrinterCreds('sid'),
-            'token' => $this->restaurant->getPrinterCreds('token'),
-            // 'sid' => '67153eb9874d1ff1a0c6fc6c162af0a0e469269a',
-            // 'token' => 'a36a4370e412c9bb6e6d262f170cd5f9ec86b748',
+            // 'sid' => $this->restaurant->getPrinterCreds('sid'),
+            // 'token' => $this->restaurant->getPrinterCreds('token'),
+            'sid' => '6638e275f8c972bef91bb4e3cd8134af3556c23d',
+            'token' => '79bdb4e5e695e9a6dc0eee251a441f5211e225b9',
             'short_opts' => 1
         ];
     }
@@ -164,12 +164,10 @@ class PrinterService
 
     public function sendToPrinter()
     {
-    
+
         if (!$this->config['print_on']) {
             return response()->json(['message' => 'Printing is disabled.'], 200);
         }
-
-
         $response = Http::withHeaders([
             'Authorization' => $this->config['sid'] . ':' . $this->config['token'],
             'Accept' => 'application/json',
@@ -178,6 +176,7 @@ class PrinterService
             'printer_msg' =>  $this->message,
             'origin' => url('/')
         ]);
-        return $response->body();
+        $this->response = $response->body();
+        return $this->response;
     }
 }
