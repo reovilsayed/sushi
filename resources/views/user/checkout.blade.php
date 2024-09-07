@@ -347,7 +347,8 @@
                                             </table>
                                         </div>
                                         <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
-                                            <button type="submit" class="order_btn" id="orderButton" disabled>{{ __('sentence.order_button') }}
+                                            <button type="submit" class="order_btn" id="orderButton"
+                                                disabled>{{ __('sentence.order_button') }}
                                             </button>
                                         </div>
                                     </div>
@@ -367,30 +368,40 @@
             <script src="script.js"></script>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const deliveryOption = document.getElementById('deliveryOption');
-                    const takeAwayForm = document.getElementById('takeAwayForm');
-                    const homeDeliveryForm = document.getElementById('homeDeliveryForm');
-                    const orderButton = document.getElementById('orderButton');
+                const deliveryOption = document.getElementById('deliveryOption');
+                const takeAwayForm = document.getElementById('takeAwayForm');
+                const homeDeliveryForm = document.getElementById('homeDeliveryForm');
+                const orderButton = document.getElementById('orderButton');
+                const restaurantId = {{ $restaurant->id }};
 
-                    // Function to set the disabled state for all inputs within a form
-                    const setFormDisabledState = (form, disabled) => {
-                        if (form) {
-                            const inputs = form.querySelectorAll('input, select, textarea');
-                            inputs.forEach(input => input.disabled = disabled);
-                        }
-                    };
+                // Function to set the disabled state for all inputs within a form
+                const setFormDisabledState = (form, disabled) => {
+                    if (form) {
+                        const inputs = form.querySelectorAll('input, select, textarea');
+                        inputs.forEach(input => input.disabled = disabled);
+                    }
+                };
 
-                    // Function to update form visibility and input state based on the selected option
-                    const updateFormVisibility = () => {
-                        const selectedOption = deliveryOption.value;
+                // Function to update form visibility and input state based on the selected option
+                const updateFormVisibility = () => {
+                    const selectedOption = deliveryOption.value;
 
+                    if (restaurantId === 6) {
+                        // Hide homeDeliveryForm if restaurant ID is 6
+                        homeDeliveryForm.style.display = 'none';
+                        setFormDisabledState(homeDeliveryForm, true);
+                        takeAwayForm.style.display = 'block';
+                        setFormDisabledState(takeAwayForm, false);
+                        orderButton.disabled = false;
+                    } else {
+                        // Handle other restaurant IDs
                         if (selectedOption === 'take_away') {
                             takeAwayForm.style.display = 'block';
                             homeDeliveryForm.style.display = 'none';
                             setFormDisabledState(takeAwayForm, false);
                             setFormDisabledState(homeDeliveryForm, true);
                             orderButton.disabled = false;
-                        } else if (selectedOption === 'home_delivery' || "{{ session()->has('current_location') }}") {
+                        } else if (selectedOption === 'home_delivery') {
                             takeAwayForm.style.display = 'none';
                             homeDeliveryForm.style.display = 'block';
                             setFormDisabledState(takeAwayForm, true);
@@ -403,50 +414,16 @@
                             setFormDisabledState(homeDeliveryForm, true);
                             orderButton.disabled = true;
                         }
-                    };
+                    }
+                };
 
-                    // Event listener to detect changes in the delivery option
-                    deliveryOption.addEventListener('change', updateFormVisibility);
+                // Event listener to detect changes in the delivery option
+                deliveryOption.addEventListener('change', updateFormVisibility);
 
-                    // Initialize the form state on page load
-                    updateFormVisibility();
+                // Initialize the form state on page load
+                updateFormVisibility();
                 });
-            </script>
 
-
-            <script>
-                $(document).ready(function() {
-                    var $select = $('#year');
-                    var $styledSelect = $('.select-styled');
-                    var $optionsList = $('.select-options');
-
-                    // Initialize the styled select with the first option text
-                    $styledSelect.text($select.find('option:selected').text());
-
-                    // Handle dropdown toggle
-                    $styledSelect.click(function(e) {
-                        e.stopPropagation();
-                        $(this).toggleClass('active');
-                        $optionsList.toggle();
-                    });
-
-                    // Handle option click
-                    $optionsList.on('click', 'li', function(e) {
-                        e.stopPropagation();
-                        var selectedValue = $(this).attr('rel');
-                        $styledSelect.text($(this).text()).removeClass('active');
-                        $select.val(selectedValue);
-                        $optionsList.hide();
-                        $optionsList.find('.is-selected').removeClass('is-selected');
-                        $(this).addClass('is-selected');
-                    });
-
-                    // Hide dropdown when clicking outside
-                    $(document).click(function() {
-                        $styledSelect.removeClass('active');
-                        $optionsList.hide();
-                    });
-                });
             </script>
         @endpush
     </x-user>
