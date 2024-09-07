@@ -27,7 +27,7 @@
     <link href="{{ asset('niko/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     {{-- aos link  --}}
-    {{-- <link rel="stylesheet" href="{{ asset('aos/aos.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('aos/aos.css') }}">
     <!-- Main CSS File -->
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
@@ -113,7 +113,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('niko/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/php-email-form/validate.js') }}"></script>
-    {{-- <script src="{{ asset('niko/assets/vendor/aos/aos.js') }}"></script> --}}
+    <script src="{{ asset('niko/assets/vendor/aos/aos.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
     {{-- <script src="{{ asset('niko/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script> --}}
     <script src="{{ asset('niko/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
