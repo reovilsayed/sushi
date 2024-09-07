@@ -101,7 +101,7 @@
                                 <div class="d-flex align-items-end">
                                     <x-form.input type="checkbox" id="enable_printer" name="enable_printer"
                                         label="Enable Printer" :checked="$restaurant->enable_printer" value="{{ $restaurant->enable_printer }}"
-                                        value="1" required :checked="$restaurant->enable_printer" />
+                                        value="1" :checked="$restaurant->enable_printer" />
                                 </div>
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
