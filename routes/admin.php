@@ -62,6 +62,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('/orders/list', 'index')->name('orders.index');
         Route::post('/orders/pay', 'duepay')->name('orders.due.pay');
+        Route::post('mark-as-pay', 'mark_pay')->name('mark.pay');
         Route::get('/orders/invoice/{order}', 'invoice')->name('orders.invoice');
         Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('orders.mark.delivered');
     });
