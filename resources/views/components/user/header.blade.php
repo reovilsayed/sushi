@@ -1,6 +1,5 @@
-<?php $restaurantNames = App\Models\Restaurant::latest()->get();?>
-@push('css')
-@endpush
+<?php $restaurantNames = App\Models\Restaurant::latest()->get(); ?>
+
 <header id="header" class="header fixed-top">
     <div class="branding d-flex align-items-cente">
 
@@ -15,7 +14,8 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="{{ route('restaurant.home') }}" class="active">{{ __('sentence.home') }}<br></a></li>
+                    <li class="mobilNav"><a href="{{ route('restaurant.home') }}"
+                            class="active">{{ __('sentence.home') }}<br></a></li>
                     <li><a href="{{ asset('pdfs/menu-belfort.pdf') }}" target="_blank">{{ __('sentence.themap') }}</a>
                     </li>
                     <li class="dropdown"><a

@@ -67,10 +67,10 @@
             @endforeach
         </div>
     </div>
-    
+
     {{-- <x-user.about /> --}}
     <section id="menu" class="menu section bg-transparent">
-        
+
         <!-- Section Title -->
         <div class="ms-3 me-3" style="" data-aos="fade-up">
             <div class="row">
@@ -83,8 +83,11 @@
                     <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;"
                         hidden>
                         Current location : (15 to 20 Minutes)</h6>
-                    <button class="text-colour Delivery" data-bs-toggle="modal" data-bs-target="#exampleModal">Choose
-                        Delivery _____</button>
+                    @if ($restaurant->id != 6)
+                        <button class="text-colour Delivery" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Choose
+                            Delivery _____</button>
+                    @endif
                 </div>
 
                 <div class="section-title col-md-3">

@@ -47,9 +47,22 @@
             font-style: normal !important;
             /* color: #e5d5bf !important; */
         }
-        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-weight: 400
         }
+
         .fl-success {
             border-left: .8em solid #008607 !important;
             border-right: none !important;
@@ -61,9 +74,11 @@
             padding: .75em !important;
             background: black !important;
         }
-        .fl-icon{
+
+        .fl-icon {
             display: none !important;
         }
+
         .fl-main-container .fl-container.fl-success .fl-icon {
             background-color: #008607 !important;
         }
@@ -84,6 +99,22 @@
             font-size: .875em;
             margin-top: .25em;
             color: #ffffff !important;
+        }
+
+        @media (min-width: 412px) and (max-width: 914px) {
+            #navmenu ul .mobilNav {
+                margin-top: 62px !important;
+            }
+        }
+        @media (min-width: 375px) and (max-width: 667px) {
+            #navmenu ul .mobilNav {
+                margin-top: 57px !important;
+            }
+        }
+        @media (min-width: 360px) and (max-width: 740px) {
+            #navmenu ul .mobilNav {
+                margin-top: 57px !important;
+            }
         }
     </style>
 
@@ -327,8 +358,11 @@
                                                 _token: '{{ csrf_token() }}' // Ensure you have CSRF token included
                                             },
                                             success: function(response) {
-                                        
-                                                window.location.href = "{{url('/')}}/"+ response.restaurant.slug
+
+                                                window.location.href =
+                                                    "{{ url('/') }}/" +
+                                                    response.restaurant
+                                                    .slug
                                             },
                                             error: function(jqXHR,
                                                 textStatus, errorThrown
