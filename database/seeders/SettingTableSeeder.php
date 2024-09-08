@@ -197,6 +197,15 @@ class SettingTableSeeder extends Seeder
                 'group' => 'Site',
             ]
         );
+        $setting = Setting::firstOrCreate(
+            ['key' => 'pdf.file'],
+            [
+                'display_name' => 'The Map',
+                'value' => 'The Map',
+                'details' => '',
+                'group' => 'Site',
+            ]
+        );
 
         
     }

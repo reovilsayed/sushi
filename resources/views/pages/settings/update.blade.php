@@ -142,6 +142,17 @@
                                                             name="extra_charge">
                                                     </div>
                                                 </div>
+                                               
+                                                <div class="prf_data_row" data-editable>
+                                                    <div class="label">The Map</div>
+                                                    <div class="input">
+                                                        {{-- @dd(Settings::setting('extra.charge')) --}}
+                                                        <input type="text"
+                                                            value="{{ Settings::setting('pdf.file') ? Settings::setting('pdf.file') : 'The Map' }}"
+                                                            placeholder="The Map" class=""
+                                                            name="pdf_file">
+                                                    </div>
+                                                </div>
 
 
                                                 <div class="col-12 d-flex justify-content-between mt-2">

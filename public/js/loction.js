@@ -4,7 +4,7 @@
 
 $(document).ready(function () {
     // Fetch Google Maps API key from the server
-    fetch('/get-google-maps-api-key')
+    fetch('/\)
         .then(response => response.text())
         .then(apiKey => {
             let key = JSON.parse(apiKey);

@@ -7,7 +7,20 @@
         <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
 
         <style>
-            
+            .modal-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                max-width: 417px !important;
+                color: var(--bs-modal-color);
+                pointer-events: auto;
+                background-color: var(--bs-modal-bg);
+                background-clip: padding-box;
+                border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+                border-radius: var(--bs-modal-border-radius);
+                outline: 0;
+            }
         </style>
     @endpush
     <br><br>
@@ -34,14 +47,12 @@
                     <p style="color: var(--default-color)">{{ $restaurant->name }}</p>
                 </div>
                 <div class="section-title col-md-5">
-                    <h2 class="mb-2" style="font-size: 26px;">TAKE AWAY</h2>
+                    <h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.take_away') }}</h2>
                     <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;"
                         hidden>
-                        Current location : (15 to 20 Minutes)</h6>
+                        {{ __('sentence.current_location') }} : (15 to 20 Minutes)</h6>
                     @if ($restaurant->id != 6)
-                        <button class="Delivery" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Choose
-                            Delivery _____</button>
+                        <button class="Delivery" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ __('sentence.choose_delivery') }} _____</button>
                     @endif
                 </div>
 
@@ -49,7 +60,7 @@
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <label for="" class="form-content mb-2">Current delay : (15 to 20 Minutes)</label>
+                        <label for="" class="form-content mb-2">{{ __('sentence.current_delay') }} : (15 to 20 Minutes)</label>
                         <select name="TimeOption"
                             class="form-select selectpicker  bg-transparent text-light delivery-time"
                             data-container="body" onchange="submitTimeForm()">
@@ -198,7 +209,7 @@
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: #000">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-colour" id="exampleModalLabel">Enter your shipping address</h1>
+                    <h1 class="modal-title fs-5 text-colour" id="exampleModalLabel">{{ __('sentence.enter_your_shipping_address') }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

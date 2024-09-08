@@ -25,11 +25,11 @@
         <div class="container section-title aos-init aos-animate pb-2 mt-4" data-aos="fade-up">
             <div class="">
                 <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Menu</a>
+                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> {{ __('sentence.menu') }}</a>
             </div>
 
             {{-- <h2>{{ __('sentence.cart') }}</h2> --}}
-            <p style="color: #ffffff">PANIER</p>
+            <p style="color: #ffffff"></p>
         </div>
         <div class="container">
 
@@ -117,7 +117,7 @@
 
                                                 <a class="cart-product-remove text-center d-block mt-2"
                                                     style="color: #ff883e !important;"
-                                                    href="{{ url('/cart-destroy/' . $item->id) }}">Supprimer
+                                                    href="{{ url('/cart-destroy/' . $item->id) }}">{{ __('sentence.delete') }}
                                                 </a>
                                             </td>
                                         </tr>

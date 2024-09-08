@@ -16,7 +16,7 @@
                 <ul>
                     <li class="mobilNav"><a href="{{ route('restaurant.home') }}"
                             class="active">{{ __('sentence.home') }}<br></a></li>
-                    <li><a href="{{ asset('pdfs/menu-belfort.pdf') }}" target="_blank">{{ __('sentence.themap') }}</a>
+                    <li><a href="{{ Settings::setting('pdf.file') }}" target="_blank">{{ __('sentence.themap') }}</a>
                     </li>
                     <li class="dropdown"><a
                             href="{{ route('user.restaurants') }}"><span>{{ __('sentence.restaurants') }}</span> <i

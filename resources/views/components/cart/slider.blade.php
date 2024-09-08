@@ -81,7 +81,7 @@
     <div class="row">
         <div class="container section-title aos-init aos-animate pb-4" data-aos="fade-up">
             {{-- <h2>{{ __('sentence.menu') }}</h2> --}}
-            <p class="">Laissez-vous tenter par…</p>
+            <p class="">{{ __('sentence.laissez_vous_tenter_par') }}</p>
         </div>
         <div class="col-12">
             <!-- Nav tabs -->
@@ -152,7 +152,7 @@
             <div class="col-lg-5 col-md-8 col-sm-12 order-2 order-lg-1 content p-md-0">
                 <div class="table-responsive">
                     <div class="mb-3">
-                        <p class="mb-0 text-end" style="color:#ff883e;">Management fees: {{ $extra_charge ?? '' }}€</p>
+                        <p class="mb-0 text-end" style="color:#ff883e;">{{ __('sentence.management_fees') }}: {{ $extra_charge ?? '' }}€</p>
                         <p class="mb-0 mt-2 text-end" style="color:#ff883e;">By placing an order, you accept the terms
                             of the T&Cs</p>
                     </div>
@@ -162,7 +162,7 @@
                     <a href="{{ route('restaurant.checkout') }}"
                         class="checkout_btn d-flex justify-content-between align-items-center mx-2" id="checkout-button"
                         title="">
-                        <h4 class="mb-0 fs-5" id="button-text">SUBTOTAL</h4>
+                        <h4 class="mb-0 fs-5" id="button-text">{{ __('sentence.subtotal') }}</h4>
                         <h4 class="mb-0">{{ number_format(Cart::getSubTotal(), 2) }} €
                         </h4>
                     </a>

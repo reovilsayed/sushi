@@ -22,7 +22,7 @@
                         @if ($product->options->count())
                             <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
                                 class=" text-colour add-button btn" style="background:#e5d5bf !important; color:#000 !important; font-size: 10px;">
-                                <i class="bi bi-plus"></i>Possibilities
+                                <i class="bi bi-plus"></i>{{ __('sentence.possibilities') }}
                             </a>
                         @else
                             <form action="{{ route('cart.store') }}" method="post" class="add-button">

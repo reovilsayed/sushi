@@ -30,7 +30,7 @@
                             </h1>
                             <p class="col-8 slidetext">{{ $slider->title }}
                             </p>
-                            <a href="#location" class="btn btn-orange-normal">Location</a>
+                            <a href="#location" class="btn btn-orange-normal">{{ __('sentence.location') }}</a>
                         </div>
                     </div>
                 @endforeach

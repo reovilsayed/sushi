@@ -54,6 +54,8 @@ class SettingController extends Controller
         Setting::where('key', 'order.mail')->update(['value' => $request->input('order_mail')]);
         // Update the site Extra Charge
         Setting::where('key', 'extra.charge')->update(['value' => $request->input('extra_charge')]);
+        // Update the site Extra Charge
+        Setting::where('key', 'pdf.file')->update(['value' => $request->input('pdf_file')]);
 
 
 

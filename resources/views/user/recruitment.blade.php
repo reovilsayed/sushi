@@ -124,7 +124,7 @@
                                 <textarea class="form-control" name="message" rows="6" placeholder="Message"></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="d-xl-block user-logout-button mt-3">Submit</button>
+                        <button type="submit" class="d-xl-block user-logout-button mt-3">{{ __('sentence.submit') }}</button>
                     </form>
                 </div><!-- End Contact Form -->
 
