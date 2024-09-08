@@ -27,8 +27,8 @@
     <div class="card-footer bg-white d-flex justify-content-between align-items-center">
 
         <div>
-            {{-- <a class="btn btn-sm btn-primary me-2" href="{{ route('customers.edit', $customer) }}"><i
-                    class="fa fa-edit"></i></a> --}}
+            <a class="btn btn-sm btn-primary me-2" href="{{ route('customers.edit', $customer) }}"><i
+                    class="fa fa-edit"></i></a>
 
             <x-actions.delete :action="route('customers.destroy', $customer)" />
         </div>

@@ -24,7 +24,7 @@
 
 
             .category-slider {
-                overflow-x: auto;
+                overflow-x: scroll;
                 white-space: nowrap;
                 padding: 10px 0;
                 background-color: #1e0303c5;
@@ -53,6 +53,22 @@
                 background-color: var(--default-color);
                 color: #fff;
             }
+
+            .category-slider::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-slider::-webkit-scrollbar-track {
+                display: none;
+            }
+
+            .category-slider::-webkit-scrollbar-thumb {
+                display: none;
+            }
+
+            .category-slider::-webkit-scrollbar-thumb:hover {
+                display: none;
+            }
         </style>
     @endpush
     <br><br>
@@ -61,7 +77,7 @@
             @foreach ($categories as $category)
                 @if ($category->childs->count() > 0)
                     @foreach ($category->childs as $child)
-                        <a href="#{{ $child->name }}" class="category-link">{{ $child->name }}</a>
+                        <a href="#{{ $child->slug }}" class="category-link">{{ $child->name }}</a>
                     @endforeach
                 @endif
             @endforeach
@@ -189,7 +205,7 @@
                                         <div id="collapseThree{{ $child->parent_id }}"
                                             class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample{{ $child->parent_id }}">
-                                            <a href="#{{ $child->name }}" class="accordion-body"
+                                            <a href="#{{ $child->slug }}" class="accordion-body"
                                                 style="color: var(--default-color);">
                                                 <div>{{ $child->name }}</div>
                                             </a>
@@ -210,10 +226,10 @@
                                     @if ($loop->index == 0)
                                         <h4>{{ $category->name }}</h4>
                                         <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
-                                        <a id="{{ $child->name }}" href=""
+                                        <a id="{{ $child->slug }}" href=""
                                             class="h4 fs-5">{{ $child->name }}</a>
                                     @else
-                                        <a id="{{ $child->name }}" href=""
+                                        <a id="{{ $child->slug }}" href=""
                                             class="h4 fs-5">{{ $child->name }}</a>
                                         <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
                                     @endif
