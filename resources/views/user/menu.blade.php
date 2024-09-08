@@ -7,68 +7,7 @@
         <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
 
         <style>
-            .sushibtn {
-                padding: 6px 4px !important;
-                border: 1px solid var(--accent-color) !important;
-                border-radius: 0px;
-                color: #ffffff;
-            }
-
-            .sushibtn {
-                padding: 6px 4px !important;
-                border: 1px solid var(--accent-color) !important;
-                border-radius: 0px;
-                background-color: var(--accent-color);
-                color: #ffffff;
-            }
-
-
-            .category-slider {
-                overflow-x: scroll;
-                white-space: nowrap;
-                padding: 10px 0;
-                background-color: #1e0303c5;
-                position: sticky;
-                top: 59px;
-                z-index: 9999999;
-            }
-
-            .category-slider .slider-wrapper {
-                display: inline-flex;
-            }
-
-            .category-slider .category-link {
-                display: inline-block;
-                padding: 10px 20px;
-                margin-right: 10px;
-                text-align: center;
-                color: var(--default-color);
-                /* border: 1px solid var(--default-color); */
-                /* Optional: Add a border */
-                border-radius: 20px;
-                text-decoration: none;
-            }
-
-            .category-slider .category-link:hover {
-                background-color: var(--default-color);
-                color: #fff;
-            }
-
-            .category-slider::-webkit-scrollbar {
-                display: none;
-            }
-
-            .category-slider::-webkit-scrollbar-track {
-                display: none;
-            }
-
-            .category-slider::-webkit-scrollbar-thumb {
-                display: none;
-            }
-
-            .category-slider::-webkit-scrollbar-thumb:hover {
-                display: none;
-            }
+            
         </style>
     @endpush
     <br><br>
@@ -100,7 +39,7 @@
                         hidden>
                         Current location : (15 to 20 Minutes)</h6>
                     @if ($restaurant->id != 6)
-                        <button class="text-colour Delivery" data-bs-toggle="modal"
+                        <button class="Delivery" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Choose
                             Delivery _____</button>
                     @endif
@@ -112,7 +51,7 @@
                         @method('PATCH')
                         <label for="" class="form-content mb-2">Current delay : (15 to 20 Minutes)</label>
                         <select name="TimeOption"
-                            class="form-select selectpicker  bg-transparent text-colour delivery-time"
+                            class="form-select selectpicker  bg-transparent text-light delivery-time"
                             data-container="body" onchange="submitTimeForm()">
                             @foreach ($timeSlots as $time)
                                 <option value="{{ $time }}"
