@@ -268,29 +268,13 @@ class OrderController extends Controller
     public function mark_pay(Request $request)
     {
         // dd($request->orders);
-        $amount = $request->amount;
         if ($request->orders == !null) {
-
             foreach ($request->orders as $item) {
                 $order = Order::findOrFail($item);
-                Transaction::create([
-                    'order_id' => $order->id,
-                    'amount' => $order->due,
-                ]);
                 $order->update([
-                    'paid' => $order->paid + $order->due,
-                    'due' => 0,
                     'status' => 'PAID',
+                    'payment_status' => 'PAID',
                 ]);
-            }
-            if ($order->customer_id && $order->customer->email) {
-                $customerEmailTo = $order->customer->email;
-
-                try {
-                    Mail::to($customerEmailTo)->send(new DuePaidMail($order, $amount));
-                } catch (\Exception $e) {
-                    return response()->json(['error' => 'Failed to send email to customer.']);
-                }
             }
             return back()->with('success', 'Mark as paid successfuly complete');
         } else {
@@ -300,7 +284,9 @@ class OrderController extends Controller
     public function mark_delivered(Order $order)
     {
         $order->update([
-            'delivered' => 1
+            'delivered' => 1,
+            'status' => 'PAID',
+            'payment_status' => 'PAID',
         ]);
         return back()->with('success', 'Order marked as delivered successfully');
     }

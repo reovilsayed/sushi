@@ -12,9 +12,9 @@
         <div class="row position-relative">
             <div class="col-md-8 col-10">
                 <h5 class="card-title" style="font-size: 1rem">
-                    {{ $order->customer->name ?? 'Walk-in customer' }}
-                    {{ $order->customer->l_name ?? 'Walk-in customer' }}
+                    {{ $order->customer_id ? $order->customer->l_name . ' ' . $order->customer->l_name : 'Walk-in customer' }}
                     <br>
+                    {{ $order->restaurent->name }}
                 </h5>
                 <span class="text-white">{{ $restaurant->name ?? '' }}</span>
             </div>
@@ -76,11 +76,8 @@
                             href="{{ route('orders.mark.delivered', $order) }}"><i class="fa fa-car"></i><i
                                 class="fas fa-check"></i></a>
                     @endif
-                    @if ($order->due > 0)
-                        <button type="button" class="btn btn-success btn-sm" title="Deposite"
-                            data-order="{{ $order->id }}" data-bs-toggle="modal" data-bs-target="#deposite"><i
-                                class="fas fa-money-bill-wave"></i></button>
-                        <form action="{{ route('orders.mark.pay') }}" method="post" class="d-inline"
+                    @if ($order->payment_status != 'PAID')
+                        <form action="{{ route('mark.pay') }}" method="post" class="d-inline"
                             onsubmit="return confirm('Are you sure you want to mark this order as paid?')">
                             @csrf
                             <input type="hidden" name="orders[]" value="{{ $order->id }}">
@@ -88,6 +85,7 @@
                                 Paid</button>
                         </form>
                     @endif
+
                 </div>
             </div>
         </div>
