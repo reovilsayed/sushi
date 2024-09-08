@@ -43,7 +43,7 @@ class LanguageController extends Controller
             'key' => [
                 'required',
                 'string',
-                'max:25',
+                'max:225',
                 'unique:languages,key'
             ],
             'french' => [
