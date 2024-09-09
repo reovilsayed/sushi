@@ -253,10 +253,11 @@ a:hover {
     }
 
     .pac-container {
-        width: 393px !important;
+        width: fit-content !important;
         position: absolute !important;
         left: 10px !important;
-        top: 650px !important;
+        right: 10px !important;
+        /* top: 650px !important; */
     }
 }
 
