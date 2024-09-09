@@ -26,7 +26,7 @@
         width: 100px;
     }
 
-    .img-fluid {
+    .slideImage {
         max-width: 45% !important;
         height: auto !important;
     }

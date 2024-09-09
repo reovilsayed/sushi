@@ -5,8 +5,8 @@
             <div class="text-center product-hover">
                 <a
                     href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}">
-                    <img class="img-fluid" loading="lazy" src="{{asset('images/new/no-image.jpg')}}"
-                        data-src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
+                    <img class="img-fluid slideImage"
+                        src="{{ $product->image ? $product->image : asset('niko/assets/img/menu/lobster-bisque.jpg') }}">
                 </a>
               
                 <h4 class="" style="">
