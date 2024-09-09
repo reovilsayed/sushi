@@ -21,7 +21,7 @@
 
                         <th scope="col">#</th>
                         <th scope="col">{{ __('sentence.image') }}</th>
-                        <th scope="col">Sequence</th>
+                        <th scope="col">{{ __('sentence.sequency') }}</th>
                         <th scope="col">{{__('sentence.productname')}}</th>
                         <th scope="col">{{ __('sentence.price') }}</th>
                         {{-- <th scope="col">status</th> --}}

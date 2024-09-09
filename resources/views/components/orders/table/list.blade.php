@@ -11,10 +11,10 @@
                     <button type="submit" class="btn btn-sm btn-dark">Mark as Paid</button>
                 </form>
             </th> --}}
-            <th scope="col">Customer</th>
-            <th scope="col">Payment</th>
-            <th scope="col">Status</th>
-            <th>Date & Time</th>
+            <th scope="col">{{ __('sentence.customer') }}</th>
+            <th scope="col">{{ __('sentence.payment') }}</th>
+            <th scope="col">{{ __('sentence.status') }}</th>
+            <th>{{ __('sentence.date_&_time') }}</th>
             <th></th>
         </tr>
     </thead>
