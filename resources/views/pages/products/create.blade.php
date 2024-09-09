@@ -14,10 +14,10 @@
                 const index = $('#priscription-products').children().length
                 const row = `<tr  class="table-row">
                             <td>
-                                <x-form.input name="option[${index}][name]" label="Option Name" value=""  required/>
+                                <x-form.input name="option[${index}][name]" label="{{ __('sentence.option_name') }}" value=""  required/>
                             </td>
                             <td>
-                                <x-form.input name="option[${index}][price]" label="Option price" value=""  required/>
+                                <x-form.input name="option[${index}][price]" label="{{ __('sentence.price') }}" value=""  required/>
                             </td>
                             
 
@@ -64,7 +64,7 @@
                             <h6 class="dash_head">{{ __('sentence.productdetails') }}</h6>
 
                             <div class="row row-cols-1">
-                                <x-form.input name="name" wire:model="name" label="Product Name *" value=""
+                                <x-form.input name="name" wire:model="name" label="{{ __('sentence.product_name ') }}*" value=""
                                     autofocus required />
                             </div>
                             <div class="row row-cols-1">
@@ -72,7 +72,7 @@
                             </div>
 
                             <div class="row row-cols">
-                                <x-form.input name="description" label="Description *" value=""
+                                <x-form.input name="description" label="{{ __('sentence.description') }} *" value=""
                                     style="height: 130px" type="textarea" id="test" autofocus />
                             </div>
 
@@ -95,11 +95,11 @@
                             <div class="row row-cols">
                                 {{-- <x-form.input name="composition" label="Composition *" value=""
                                     style="height: 130px" type="textarea" id="test" autofocus required/> --}}
-                                <label class="mb-3" for=""> Composition</label>
+                                <label class="mb-3" for=""> {{ __('sentence.composition') }}</label>
                                 <textarea name="composition" id="summernote" cols="30" rows="10"></textarea>
                             </div>
                             <div class="row row-cols-1 mt-3">
-                                <x-form.input name="allergenes" wire:model="allergenes" label="Allergenes *"
+                                <x-form.input name="allergenes" wire:model="allergenes" label="{{ __('sentence.allergenes') }} *"
                                     value="" autofocus required />
                             </div>
 
@@ -116,7 +116,7 @@
                         <div class="card-body">
                             <div class="row row-cols-1">
                                 <x-form.input name="image" wire:model="image" value="" type="file"
-                                    label="Drag image to upload" style="padding:50px;" />
+                                    label="{{ __('sentence.product_image_upload') }}" style="padding:50px;" />
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input type="number" id="sequence" name="sequence" label="Sequency *"
+                                <x-form.input type="number" id="sequence" name="sequence" label="{{ __('sentence.sequency') }} *"
                                     value="" required />
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input id="price" name="price" wire:model="price" label="Price *"
+                                <x-form.input id="price" name="price" wire:model="price" label="{{ __('sentence.price') }} *"
                                     value="" required />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">

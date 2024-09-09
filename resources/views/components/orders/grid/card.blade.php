@@ -14,7 +14,7 @@
                 <h5 class="card-title" style="font-size: 1rem">
                     {{ $order->customer_id ? $order->customer->l_name . ' ' . $order->customer->l_name : 'Walk-in customer' }}
                     <br>
-                    {{ $order->restaurent->name }}
+                    {{ $order->restaurent->name ?? ''}}
                 </h5>
                 <span class="text-white">{{ $restaurant->name ?? '' }}</span>
             </div>

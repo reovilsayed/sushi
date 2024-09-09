@@ -28,7 +28,7 @@
                                     src="{{ $restaurant->image ? Storage::url($restaurant->image) : asset('images/new/no-image.jpg') }}"
                                     alt="">
                             </td>
-                            <td>{{ $restaurant->name }}</td>
+                            <td>{{ $restaurant->name ?? '' }}</td>
                             <td>{{ $restaurant->slug }}</td>
                             <td class="">
 
