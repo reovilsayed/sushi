@@ -10,8 +10,8 @@
             <div class="col-lg-8">
                 <button onclick="printDiv('printableArea')" class="btn btn-success me-1 mb-2"><i
                         class="fa fa-print me-2"></i>{{ __('sentence.print') }}</button>
-                <button onclick="printDiv('printableArea')" class="btn btn-success me-1 mb-2"><i
-                        class="fa fa-print me-2"></i> {{ __('sentence.expedy_print') }}</button>
+                <a href="{{route('orders.expedy.print',$order)}}" class="btn btn-success me-1 mb-2"><i
+                        class="fa fa-print me-2"></i> {{ __('sentence.expedy_print') }}</a>
                 <div class="card" id="printableArea">
                     <div class="card-body">
 
