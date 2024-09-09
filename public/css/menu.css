@@ -252,13 +252,12 @@ a:hover {
         outline: 0;
     }
 
-    .pac-container {
+    /* .pac-container {
         width: fit-content !important;
         position: absolute !important;
         left: 10px !important;
         right: 10px !important;
-        /* top: 650px !important; */
-    }
+    } */
 }
 
 /* @media (min-width: 390px) and (max-width: 844px) {
