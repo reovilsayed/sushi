@@ -152,7 +152,7 @@
     <script src="{{ asset('niko/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('niko/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     {{-- logout  --}}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt4M6sXKliR4X6j3l3ubOt8HeXN-CKMMY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}"></script>
     {{-- aos link  --}}
     <link rel="stylesheet" href="{{ asset('aos/aos.js') }}">
     <!-- Main JS File -->
@@ -178,7 +178,7 @@
             userLongitude = position.coords.longitude;
 
             // Call the Google Maps Geocoding API to get the address
-            const apiKey = 'AIzaSyCt4M6sXKliR4X6j3l3ubOt8HeXN-CKMMY';
+            const apiKey = "{{env('GOOGLE_MAPS_API_KEY')}}";
             const geocodeUrl =
                 `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userLatitude},${userLongitude}&key=${apiKey}`;
 
