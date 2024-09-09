@@ -12,6 +12,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Report\Earnings;
 use App\Services\Payment;
+use App\Services\PrinterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -63,7 +64,10 @@ class OrderController extends Controller
         // dd($eranings);
         return response()->json(['data' => $eranings]);
     }
-
+    public function expedy_print(Order $order){
+        (new PrinterService($order))->sendToPrinter();
+        return back()->with('success', 'Request Send to printer');
+    }
     public function getChartDataMonth()
     {
         $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
