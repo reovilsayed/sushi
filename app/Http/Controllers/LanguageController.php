@@ -84,12 +84,18 @@ class LanguageController extends Controller
     public function update(Request $request, Language $language)
     {
         $request->validate([
+            'key' => [
+                'required',
+                'string',
+                'max:225',
+            ],
             'french' => [
                 'required'
             ],
         ]);
 
         $language->update([
+            'key' => $request->key,
             'french' => $request->french,
             'english' => $request->english,
         ]);
