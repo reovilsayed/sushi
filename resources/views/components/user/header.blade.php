@@ -61,7 +61,7 @@
                     </a>
                 @else
                     <a class="" href="{{ route('login') }}" style="margin: 0 20px;">
-                        <img class="cartIcon" src="{{asset('icon/cart.png')}}" alt="">
+                        <img class="cartIcon" src="{{asset('icon/user.png')}}" alt="">
                     </a>
                 @endif
             </div>
