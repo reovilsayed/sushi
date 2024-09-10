@@ -94,7 +94,7 @@
 }
 
 a:hover {
-    color: #ff883e !important;
+    color: var(--nav-hover-color);
     text-decoration: none;
 }
 

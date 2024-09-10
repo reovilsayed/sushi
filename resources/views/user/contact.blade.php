@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <div id="card-list-content1" class="card-list-content hidden">
-                        <p>Horaires d’ouverture</p>
+                        <p>{{ __('sentence.time_schedules') }}</p>
                         <table style="text-align: left; width: 70%;">
                             @foreach ($time_schedules as $time_schedule)
                                 @if ($time_schedule->restaurant_id == 4)
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                     <div id="card-list-content2" class="card-list-content hidden">
-                        <p>Horaires d’ouverture</p>
+                        <p>{{ __('sentence.time_schedules') }}</p>
                         <table style="text-align: left; width: 70%;">
                             @foreach ($time_schedules as $time_schedule)
                                 @if ($time_schedule->restaurant_id == 5)
@@ -217,7 +217,7 @@
                         </div>
                     </div>
                     <div id="card-list-content3" class="card-list-content hidden">
-                        <p>Horaires d’ouverture</p>
+                        <p>{{ __('sentence.time_schedules') }}</p>
                         <table style="text-align: left; width: 70%;">
                             @foreach ($time_schedules as $time_schedule)
                                 @if ($time_schedule->restaurant_id == 6)

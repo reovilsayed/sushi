@@ -3,9 +3,9 @@
         <div class="dsh_row row">
             <div class="left_chart">
                 <div class="dash_head">
-                    <h4>My Earnings</h4>
+                    <h4>{{ __('sentence.my_earnings') }}</h4>
                     <div>
-                        <label><i></i>Revenue</label>
+                        <label><i></i>{{ __('sentence.revenue') }}</label>
 
                     </div>
                 </div>
@@ -25,13 +25,13 @@
                 <div class="vr_grid_box">
                     <div class="vr_item grn">
                         <i><img src="images/wlt.png" alt="" /></i>
-                        <h3>Today's Earnings</h3>
-                        <label>{{ $todayEarning }} Tk.</label>
+                        <h3>{{ __('sentence.todays_earnings') }}</h3>
+                        <label>{{ $todayEarning }} €.</label>
                     </div>
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
-                        <h3>Today's Sale</h3>
-                        <label>{{ $todaysSale }} Tk.</label>
+                        <h3>{{ __('sentence.todays_sale') }}</h3>
+                        <label>{{ $todaysSale }} €.</label>
                     </div>
                     {{-- <div class="vr_item grn">
                         <i><img src="images/wlt.png" alt="" /></i>
@@ -40,8 +40,8 @@
                     </div> --}}
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
-                        <h3>Last 7 days Sale</h3>
-                        <label>{{ $sevensSale }} Tk.</label>
+                        <h3>{{ __('sentence.last_7_days_sale') }}</h3>
+                        <label>{{ $sevensSale }} €.</label>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     <div class="chart-title__heading">
                         <div id="chart1" class="chart chart1">
                         </div>
-                        <h3 class="chart-title">My Sales</h3>
+                        <h3 class="chart-title">{{ __('sentence.my_sales') }}</h3>
                     </div>
                 </div>
             </div>
@@ -65,17 +65,17 @@
                 <div class="vr_grid_box">
                     <div class="vr_item">
                         <i><img src="images/chks.png" alt="" /></i>
-                        <h3>Today Total Orders</h3>
+                        <h3>{{ __('sentence.today_total_orders') }}</h3>
                         <label>{{ $orders }}</label>
                     </div>
                     <div class="vr_item">
                         <i><img src="images/chks.png" alt="" /></i>
-                        <h3>Today Paid Orders</h3>
+                        <h3>{{ __('sentence.today_paid_orders') }}</h3>
                         <label>{{ $paidToday }}</label>
                     </div>
                     <div class="vr_item">
                         <i><img src="images/clos.png" alt="" /></i>
-                        <h3>Today Due Orders</h3>
+                        <h3>{{ __('sentence.today_due_orders') }}</h3>
                         <label>{{ $dueToday }}</label>
                     </div>
                 </div>
@@ -217,18 +217,18 @@
                         },
                         xaxis: {
                             categories: [
-                                "January",
-                                "February",
-                                "March",
-                                "April",
-                                "May",
-                                "June",
-                                "July",
-                                "August",
-                                "September",
-                                "October",
-                                "November",
-                                "December",
+                                "{{ __('sentence.january') }}",
+                                "{{ __('sentence.february') }}",
+                                "{{ __('sentence.march') }}",
+                                "{{ __('sentence.april') }}",
+                                "{{ __('sentence.may') }}",
+                                "{{ __('sentence.june') }}",
+                                "{{ __('sentence.july') }}",
+                                "{{ __('sentence.august') }}",
+                                "{{ __('sentence.september') }}",
+                                "{{ __('sentence.october') }}",
+                                "{{ __('sentence.november') }}",
+                                "{{ __('sentence.december') }}",
                             ],
                             tickAmount: 12,
                             labels: {

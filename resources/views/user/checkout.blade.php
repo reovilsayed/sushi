@@ -40,7 +40,7 @@
                         <div class="container content mb-5 ps-0" data-aos="fade-up">
                             <div class="mb-2">
                                 <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
-                                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Back</a>
+                                    class="btn sushibtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> </a>
 
                                 {{-- <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
                                     class="btn sushibtn p-md-3 goback"> Menu <i class="bi bi-chevron-right"></i></a> --}}
@@ -106,20 +106,20 @@
 
                                             <div class="col-md-6 ">
                                                 <input type="text" class="form-control" name="f_name"
-                                                    placeholder="Your First Name" required
+                                                    placeholder="{{ __('sentence.your_first_name') }}" required
                                                     value={{ auth()->user()->name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <input type="text" name="l_name" class="form-control"
-                                                    placeholder="Your Last Name" required
+                                                    placeholder="{{ __('sentence.your_last_name') }}" required
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <input type="email" name="email" disabled
                                                     class="form-control @error('email') is-invalid @enderror"
-                                                    placeholder="Your Email" required=""
+                                                    placeholder="{{ __('sentence.your_email') }}" required=""
                                                     value="{{ old('email', auth()->user()->email ?? '') }}">
                                                 @error('email')
                                                     <p class="invalid-feedback">
@@ -157,25 +157,25 @@
                                         <div class="row gy-4">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" name="f_name"
-                                                    placeholder="Your First Name" required=""
+                                                    placeholder="{{ __('sentence.your_first_name') }}" required=""
                                                     value={{ auth()->user()->name ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" name="l_name"
-                                                    placeholder="Your Last Name" required=""
+                                                    placeholder="{{ __('sentence.your_last_name') }}" required=""
                                                     value={{ auth()->user()->l_name ?? '' }}>
                                             </div>
 
 
                                             <div class="col-md-12">
                                                 <input type="email" name="email" class="form-control"
-                                                    placeholder="Your Email" required
+                                                    placeholder="{{ __('sentence.your_email') }}" required
                                                     value={{ auth()->user()->email ?? '' }}>
                                             </div>
 
                                             <div class="col-md-12 input-group text-center">
                                                 <input type="text" name="address" id="map_address_input"
-                                                    class="form-control" placeholder="Your Address" required
+                                                    class="form-control" placeholder="{{ __('sentence.your_address') }}" required
                                                     value="{{ auth()->user()->address ?? $address }}">
 
                                                 <button class="btn bg-black border-0 btn-outline-orange"
@@ -191,23 +191,23 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
-                                                    placeholder="Your City" required=""
+                                                    placeholder="{{ __('sentence.your_city') }}" required=""
                                                     value="{{ auth()->user()->city ?? ($locations[0] ?? '') }}">
 
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
-                                                    placeholder="Your Post Code" required=""
+                                                    placeholder="{{ __('sentence.your_post_code') }}" required=""
                                                     value={{ auth()->user()->post_code ?? ($locations[4] ?? '') }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
-                                                    class="form-control" placeholder="Your Phone Number" required
+                                                    class="form-control" placeholder="{{ __('sentence.your_phone_numder') }}" required
                                                     value={{ auth()->user()->phone ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="Your House" value={{ auth()->user()->house ?? '' }}>
+                                                    placeholder="{{ __('sentence.your_house') }}" value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
 
@@ -225,7 +225,7 @@
 
 
                                             <div class="col-md-12">
-                                                <textarea name="commment" class="form-control" placeholder="Your Comment ( Optionl )" style="height:122px;"></textarea>
+                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}" style="height:122px;"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -332,13 +332,13 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
-                                                            Extra Charge</td>
+                                                            {{ __('sentence.extra_charge') }}Extra Charge</td>
                                                         <td class="fs-6 fw-medium text-center">
                                                             {{ $extra_charge }}€
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="fs-5 fw-medium ps-3 pt-2 pb-2">Total</td>
+                                                        <td class="fs-5 fw-medium ps-3 pt-2 pb-2">{{ __('sentence.totle') }}</td>
                                                         <td class="fs-5 fw-medium text-center">
                                                             {{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }}
                                                             €

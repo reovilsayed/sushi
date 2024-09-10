@@ -41,8 +41,8 @@
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-            <h2>Recruitments</h2>
-            <p>Join the CENTRAL SUSHI team!</p>
+            <h2>{{ __('sentence.recruitments') }}</h2>
+            <p>{{ __('sentence.join_the_central_sushi_team') }}</p>
         </div><!-- End Section Title -->
 
 
@@ -57,7 +57,7 @@
                     <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
                         <i class="bi bi-envelope flex-shrink-0"></i>
                         <div>
-                            <h3>{{ __('sentence.email') }} {{ __('sentence.us') }}</h3>
+                            <h3>{{ __('sentence.email') }}</h3>
                             <p>{{ Settings::setting('site.email') }}</p>
                         </div>
                     </div><!-- End Info Item -->
@@ -83,18 +83,18 @@
                             <div class="col-md-6">
                                 <select class="form-select mb-3"
                                     style="border: 1px solid var(--accent-color);" name="terget_position">
-                                    <option selected>Target position </option>
-                                    <option value="Versatile delivery person">Versatile delivery person</option>
-                                    <option value="Multipurpose server">Multipurpose server</option>
-                                    <option value="Kitchen assistant">Kitchen assistant</option>
-                                    <option value="Chef Sushi">Chef Sushi</option>
-                                    <option value="Manager">Manager</option>
+                                    <option selected>{{ __('sentence.target_position') }}</option>
+                                    <option value="Versatile delivery person">{{ __('sentence.versatile_delivery_person') }}  </option>
+                                    <option value="Multipurpose server">{{ __('sentence.multipurpose_server') }} </option>
+                                    <option value="Kitchen assistant">{{ __('sentence.kitchen_assistant') }} </option>
+                                    <option value="Chef Sushi">{{ __('sentence.chef_sushi') }} </option>
+                                    <option value="Manager">{{ __('sentence.manager') }}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-select mb-3"
                                     style="border: 1px solid var(--accent-color);" name="city">
-                                    <option selected>City</option>
+                                    <option selected>{{ __('sentence.city') }}</option>
                                     <option value="dijon">Dijon</option>
                                     <option value="besancon">Besancon</option>
                                     <option value="belfort">Belfort</option>
@@ -103,7 +103,7 @@
 
                             <div class="col-md-12 ">
                                 <div class="custom-file">
-                                    <label for="fileInpute">DÉPOSER VOTRE cv_file :</label>
+                                    <label for="fileInpute">{{ __('sentence.deposer_votre_cv_file') }}</label>
                                     <input type="file" id="fileInput" name="cv_file"
                                         class="form-control bg-transparent mt-2" accept="application/pdf"
                                         placeholder="Your CV">
