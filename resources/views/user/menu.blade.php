@@ -71,14 +71,14 @@
                             @endforeach
                         </select>
                     </form>
-                    @if (!Cart::isEmpty())
+                    {{-- @if (!Cart::isEmpty())
                         <div class="mt-2 text-end">
                             <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
                                 class="btn sushibtn p-md-3 goback">
                                 {{ __('sentence.cart') }} <i class="bi bi-chevron-right"></i>
                             </a>
                         </div>
-                    @endif
+                    @endif --}}
 
 
                 </div>

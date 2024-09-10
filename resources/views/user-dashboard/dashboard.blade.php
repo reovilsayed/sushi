@@ -44,17 +44,17 @@
                                 <div class="col-lg-4">
                                     <div class="ltn__tab-menu-list mb-50">
                                         <div class="nav">
-                                            <a class="active show" data-bs-toggle="tab" href="#liton_tab_1_1">Dashboard
+                                            <a class="active show" data-bs-toggle="tab" href="#liton_tab_1_1">{{ __('sentence.dashboard') }}
                                                 <i class="bi bi-house-fill"></i>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_2">Orders <i class="bi bi-file-earmark-text-fill"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_2">{{ __('sentence.orders') }} <i class="bi bi-file-earmark-text-fill"></i></a>
                                            
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_5">Account Details <i class="bi bi-person-circle"></i></a>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_4">Password Update <i class="bi bi-file-lock2"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_5">{{ __('sentence.account_details') }}<i class="bi bi-person-circle"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_4">{{ __('sentence.password_update') }} <i class="bi bi-file-lock2"></i></a>
                                             <form action="{{ route('logout') }}" method="post" id="logout-form"
                                                 class="php-email-form"
                                                 style="height: 51px; display: flex; margin-left: 20px;">
                                                 @csrf
-                                                <button type="submit" class="logout">Logout <i class="bi bi-box-arrow-left"></i></button>
+                                                <button type="submit" class="logout">{{ __('sentence.logout') }} <i class="bi bi-box-arrow-left"></i></button>
                                             </form>
                                         </div>
                                     </div>
@@ -78,9 +78,9 @@
                                                                 style="background-color: #ba321c !important;">
                                                                 <tr style="border:1px solid #ba321c !important;">
                                                                     <th>{{ __('sentence.order_id') }}</th>
+                                                                    <th>{{ __('sentence.date') }}</th>
                                                                     <th>{{ __('sentence.time') }}</th>
                                                                     <th>{{ __('sentence.total') }}</th>
-                                                                    <th>{{ __('sentence.payment_status') }}</th>
                                                                     <th>{{ __('sentence.invoice') }}</th>
                                                                 </tr>
                                                             </thead>
@@ -89,11 +89,11 @@
                                                                 @foreach ($orders as $key => $order)
                                                                     <tr class="">
                                                                         <td class="">{{ $order->id }}</td>
+                                                                        <td class="">{{ $order->created_at->format('d-M-Y') }}</td>
                                                                         <td class="">
                                                                             {{ $order->time_option}}
                                                                         </td>
                                                                         <td class="">{{ $order->total }}€</td>
-                                                                        <td class="">{{ $order->payment_status }}</td>
                                                                         <td class="text-center">
                                                                             <a href="{{ route('invoice', $order) }}"
                                                                                 class="btn btn-invoice ">{{ __('sentence.invoice') }}</a>
@@ -105,8 +105,7 @@
                                                         </table>
                                                     @else
                                                         <div class="container " data-aos="fade-up" data-aos-delay="100">
-                                                            <h2 class="text-colour text-center fst-italic">Please place
-                                                                order to view Orders</h2>
+                                                            <h2 class="text-colour text-center fst-italic">{{ __('sentence.please_place_order_to_viev_orders') }}</h2>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -158,7 +157,7 @@
 
                                         <div class="tab-pane fade" id="liton_tab_1_5">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>The following addresses will be used on the checkout page by default.
+                                                <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}
                                                 </p>
                                                 <div class="ltn__form-box">
                                                     <form method="POST" action="{{ route('user.update.name') }}"
@@ -169,19 +168,19 @@
                                                             <div class="col-md-6">
                                                                 <input type="text" name="name"
                                                                     class="form-control capitalize-first"
-                                                                    placeholder="Your firsr Name" required
+                                                                    placeholder="{{ __('sentence.your_first_name') }}" required
                                                                     value="{{ ucfirst(auth()->user()->name) }}">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <input type="text" name="last_name"
                                                                     class="form-control capitalize-first"
-                                                                    placeholder="Your last Name" required
+                                                                    placeholder="{{ __('sentence.your_last_name') }}" required
                                                                     value="{{ ucfirst(auth()->user()->l_name) }}">
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <input type="email" class="form-control"
-                                                                    name="email" placeholder="Your Email"
+                                                                    name="email" placeholder="{{ __('sentence.your_email') }}"
                                                                     required="" value="{{ auth()->user()->email }}"
                                                                     disabled>
 
@@ -189,19 +188,19 @@
 
                                                             <div class="col-md-6">
                                                                 <input type="text" name="address"
-                                                                    class="form-control" placeholder="Your Address"
+                                                                    class="form-control" placeholder="{{ __('sentence.your_address') }}"
                                                                     value="{{ ucfirst(auth()->user()->address) }}"
                                                                     required="">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <input type="text" name="city"
-                                                                    class="form-control" placeholder="Your City"
+                                                                    class="form-control" placeholder="{{ __('sentence.your_city') }}"
                                                                     value="{{ ucfirst(auth()->user()->city) }}"
                                                                     required="">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <input type="text" name="post_code"
-                                                                    class="form-control" placeholder="Your Post Code"
+                                                                    class="form-control" placeholder="{{ __('sentence.your_post_code') }}"
                                                                     value="{{ ucfirst(auth()->user()->post_code) }}"
                                                                     required="">
                                                             </div>
@@ -212,12 +211,12 @@
                                                             <div class="col-md-6">
                                                                 <input type="number" id="number_type" name="phone"
                                                                     class="form-control"
-                                                                    placeholder="Your Phone Number"
+                                                                    placeholder="{{ __('sentence.your_phone_number') }}"
                                                                     value="{{ ucfirst(auth()->user()->phone) }}">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <input type="text" name="house"
-                                                                    class="form-control" placeholder="Your House"
+                                                                    class="form-control" placeholder="{{ __('sentence.your_house') }}"
                                                                     value="{{ ucfirst(auth()->user()->house) }}"
                                                                     required="">
                                                             </div>
@@ -247,17 +246,17 @@
                                                             <div class="col-md-12">
                                                                 <input type="password" name="current_password"
                                                                     class="form-control"
-                                                                    placeholder="Current Password" required="">
+                                                                    placeholder="{{ __('sentence.current_password') }}" required="">
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <input type="password" name="password"
-                                                                    class="form-control" placeholder="Password"
+                                                                    class="form-control" placeholder="{{ __('sentence.password') }}"
                                                                     required="">
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <input type="password" name="password_confirmation"
                                                                     class="form-control"
-                                                                    placeholder="Confirm Password" required="">
+                                                                    placeholder="{{ __('sentence.confirm_password') }}" required="">
                                                             </div>
 
                                                             <div class="col-md-12 text-start">

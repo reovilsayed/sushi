@@ -18,15 +18,15 @@
 
                             <div class="col-md-10">
                                 <input type="text" name="name" class="form-control capitalize-first"
-                                    placeholder="Your Name" required value="{{ ucfirst(auth()->user()->name) }}">
+                                    placeholder="{{ __('sentence.your_first_name') }}" required value="{{ ucfirst(auth()->user()->name) }}">
                             </div>
                             <div class="col-md-10">
                                 <input type="text" name="last_name" class="form-control capitalize-first"
-                                    placeholder="Your Name" required value="{{ ucfirst(auth()->user()->l_name) }}">
+                                    placeholder="{{ __('sentence.your_last_name') }}" required value="{{ ucfirst(auth()->user()->l_name) }}">
                             </div>
 
                             <div class="col-md-10">
-                                <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                <input type="email" class="form-control" name="email" placeholder="{{ __('sentence.your_email') }}"
                                     required="" value="{{ auth()->user()->email }}" disabled>
 
                             </div>
@@ -49,15 +49,15 @@
                         <div class="row gy-4">
                             <div class="col-md-12">
                                 <input type="password" name="current_password" class="form-control"
-                                    placeholder="Current Password" required="">
+                                    placeholder="{{ __('sentence.current_password') }}Current Password" required="">
                             </div>
                             <div class="col-md-12">
-                                <input type="password" name="password" class="form-control" placeholder="Password"
+                                <input type="password" name="password" class="form-control" placeholder="{{ __('sentence.password') }}"
                                     required="">
                             </div>
                             <div class="col-md-12">
                                 <input type="password" name="password_confirmation" class="form-control"
-                                    placeholder="Confirm Password" required="">
+                                    placeholder="{{ __('sentence.confirm_password') }}" required="">
                             </div>
 
                             <div class="col-md-12 text-start">

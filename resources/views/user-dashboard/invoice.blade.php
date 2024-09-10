@@ -22,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <button onclick="printDiv('printarea')" class="btn me-1 mb-2 forget-button "><i
-                        class="fa fa-print me-2  "></i> Print</button>
+                        class="fa fa-print me-2  "></i>{{ __('sentence.Print') }} Print</button>
                 <div class="card bg-transparent " id="printarea" style="border: 2px solid var(--accent-color)">
                     <div class="card-body bg-transparent" style="padding: 0px">
                         {{-- @if ($order->notes)
@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-sm-6 ps-4">
                                 <div class="text-muted">
-                                    <h5 class="font-size-16 mb-3">Billed To:</h5>
+                                    <h5 class="font-size-16 mb-3">{{ __('sentence.billed_to') }}</h5>
 
                                     <h5 class="font-size-15 mb-2 text-colour">
                                         {{ $order->customer->name ?? 'Walk in customer' }}
@@ -51,21 +51,21 @@
                             <div class="col-sm-6 pe-4">
                                 <div class="text-muted text-sm-end">
                                     <div>
-                                        <h5 class="font-size-15 mb-1">Invoice No:</h5>
+                                        <h5 class="font-size-15 mb-1">{{ __('sentence.invoice_no') }}</h5>
                                         <p class="text-colour">#{{ $order->id }}</p>
                                     </div>
                                     <div class="mt-4">
                                         {{-- @dd($order->products) --}}
-                                        <h5 class="font-size-15 mb-1">Restaurant Name:</h5>
+                                        <h5 class="font-size-15 mb-1">{{ __('sentence.restaurant _name') }}</h5>
                                         <p class="text-colour">{{ $order->restaurent->name ?? ''}}</p>
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1">Invoice Date:</h5>
+                                        <h5 class="font-size-15 mb-1">{{ __('sentence.invoice_date') }}</h5>
                                         <p class="text-colour">{{ $order->created_at->format('F j, Y, g:i a') }}</p>
 
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1">Delivery Time:</h5>
+                                        <h5 class="font-size-15 mb-1">{{ __('sentence.Delivery_Time') }}:</h5>
                                         <p class="text-colour">{{ $order->time_option }}</p>
                                     </div>
 
@@ -77,18 +77,18 @@
 
 
                         <div class="">
-                            <h5 class="font-size-15 ps-3">Order Summary</h5>
+                            <h5 class="font-size-15 ps-3">{{ __('sentence.order_summary') }}</h5>
 
                             <div class="table-responsive">
                                 <table class="table align-middle table-nowrap table-centered mb-0 bg-transparent">
                                     <thead class="invoice"
                                         style="background-color: #ba321c; border: 1px solid #ba321c;">
                                         <tr>
-                                            <th class="text-center" style="width: 70px; ">No.</th>
-                                            <th class="text-center">Item</th>
-                                            <th class="text-center">Quantity</th>
-                                            <th class="text-center">Price</th>
-                                            <th class="text-center" style="width: 120px;">Total
+                                            <th class="text-center" style="width: 70px; ">{{ __('sentence.no') }}</th>
+                                            <th class="text-center">{{ __('sentence.item') }}</th>
+                                            <th class="text-center">{{ __('sentence.quantity') }}</th>
+                                            <th class="text-center">{{ __('sentence.price') }}</th>
+                                            <th class="text-center" style="width: 120px;">{{ __('sentence.total') }}
                                             </th>
                                         </tr>
                                     </thead>
@@ -139,13 +139,13 @@
                                         @endforeach
                                         <tr>
                                             <th scope="row" colspan="4"
-                                                class="text-end bg-transparent text-light ">Sub Total</th>
+                                                class="text-end bg-transparent text-light ">{{ __('sentence.sub_total') }}</th>
                                             <td class="text-end bg-transparent text-light ">
                                                 {{ Settings::price($order->sub_total) }}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="4"
-                                                class="border-0 text-end bg-transparent text-light ">Total</th>
+                                                class="border-0 text-end bg-transparent text-light ">{{ __('sentence.total') }}</th>
                                             <td class="border-0 text-end bg-transparent text-light ">
                                                 <h4 class="m-0 fw-semibold">{{ Settings::price($order->total) }}</h4>
                                             </td>

@@ -70,12 +70,12 @@
                         <div class="row gy-4">
 
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name"
+                                <input type="text" name="name" class="form-control" placeholder="{{ __('sentence.your_name') }}"
                                     required="">
                             </div>
 
                             <div class="col-md-6 ">
-                                <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                <input type="email" class="form-control" name="email" placeholder="{{ __('sentence.your_email') }}"
                                     required="">
                             </div>
 
