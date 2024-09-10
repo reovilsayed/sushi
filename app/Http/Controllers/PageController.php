@@ -17,6 +17,7 @@ use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Attachment;
+use App\Models\TimeSchedule;
 use Cart;
 use Mail;
 use Carbon\Carbon;
@@ -157,7 +158,8 @@ class PageController extends Controller
     }
     public function contact()
     {
-        return view('user.contact');
+        $time_schedules = TimeSchedule::all();
+        return view('user.contact', compact('time_schedules'));
     }
     public function userLogin()
     {

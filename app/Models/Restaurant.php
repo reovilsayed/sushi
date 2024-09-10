@@ -59,4 +59,9 @@ class Restaurant extends Model
         $creds = json_decode($this->printer, true);
         return  $key ? @$creds[$key] : $creds;
     }
+
+    public function time_sidual(){
+
+        return $this->hasMany(TimeSidual::class);
+    }
 }

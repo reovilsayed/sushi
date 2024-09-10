@@ -47,29 +47,29 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    public function supplier()
-    {
-        return $this->belongsTo(Supplier::class);
-    }
-    public function generic()
-    {
-        return $this->belongsTo(Generic::class);
-    }
+    // public function supplier()
+    // {
+    //     return $this->belongsTo(Supplier::class);
+    // }
+    // public function generic()
+    // {
+    //     return $this->belongsTo(Generic::class);
+    // }
 
 
-    public function batches()
-    {
-        return $this->belongsToMany(Purchase::class, 'purchase_product')->withPivot(
-            'manufacture_date',
-            'batch_name',
-            'expiry_date',
-            'purchased_unit',
-            'purchase_quantity',
-            'remaining_quantity',
-            'supplier_rate',
-            'total'
-        )->withTimestamps()->wherePivot('expiry_date', '>', now());
-    }
+    // public function batches()
+    // {
+    //     return $this->belongsToMany(Purchase::class, 'purchase_product')->withPivot(
+    //         'manufacture_date',
+    //         'batch_name',
+    //         'expiry_date',
+    //         'purchased_unit',
+    //         'purchase_quantity',
+    //         'remaining_quantity',
+    //         'supplier_rate',
+    //         'total'
+    //     )->withTimestamps()->wherePivot('expiry_date', '>', now());
+    // }
 
     public function hasQuantity()
     {

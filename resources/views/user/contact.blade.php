@@ -69,6 +69,7 @@
                 background-color: var(--bs-card-cap-bg);
                 border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
             }
+
             .icon-btn::after {
                 flex-shrink: 0 !important;
                 width: var(--bs-accordion-btn-icon-width) !important;
@@ -151,34 +152,13 @@
                     <div id="card-list-content1" class="card-list-content hidden">
                         <p>Horaires d’ouverture</p>
                         <table style="text-align: left; width: 70%;">
-                            <tr>
-                                <td>Lundi</td>
-                                <td>11:00 AM - 11:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Mardi</td>
-                                <td>11:00 AM - 11:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Mercredi</td>
-                                <td>11:00 AM - 11:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Jeudi</td>
-                                <td>11:00 AM - 11:00 PM</td>
-                            </tr>
-                            <tr>
-                                <td>Vendredi</td>
-                                <td>6:00 pM - 12:00 AM</td>
-                            </tr>
-                            <tr>
-                                <td>Samedi</td>
-                                <td>11:00 AM - 12:00 AM</td>
-                            </tr>
-                            <tr>
-                                <td>Dimanche</td>
-                                <td>11:00 AM - 11:00 PM</td>
-                            </tr>
+                            @foreach ($time_schedules as $time_schedule)
+                                @if ($time_schedule->restaurant_id == 4)
+                                    <tr>
+                                        {!! $time_schedule->time_schedule ?? '' !!}
+                                    </tr>
+                                @endif
+                            @endforeach
                         </table>
                     </div>
                 </div>
@@ -206,34 +186,13 @@
                     <div id="card-list-content2" class="card-list-content hidden">
                         <p>Horaires d’ouverture</p>
                         <table style="text-align: left; width: 70%;">
-                            <tr>
-                                <td>Lundi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Mardi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Mercredi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Jeudi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Vendredi</td>
-                                <td>18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Samedi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Dimanche</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
+                            @foreach ($time_schedules as $time_schedule)
+                                @if ($time_schedule->restaurant_id == 5)
+                                    <tr>
+                                        {!! $time_schedule->time_schedule ?? '' !!}
+                                    </tr>
+                                @endif
+                            @endforeach
                         </table>
                     </div>
                 </div>
@@ -260,34 +219,13 @@
                     <div id="card-list-content3" class="card-list-content hidden">
                         <p>Horaires d’ouverture</p>
                         <table style="text-align: left; width: 70%;">
-                            <tr>
-                                <td>Lundi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Mardi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Mercredi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Jeudi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Vendredi</td>
-                                <td>18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Samedi</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
-                            <tr>
-                                <td>Dimanche</td>
-                                <td>11h00 - 15h00 / 18h00 - 23h00</td>
-                            </tr>
+                            @foreach ($time_schedules as $time_schedule)
+                                @if ($time_schedule->restaurant_id == 6)
+                                    <tr style="color: #ffffff">
+                                        {!! $time_schedule->time_schedule ?? '' !!}
+                                    </tr>
+                                @endif
+                            @endforeach
                         </table>
                     </div>
                 </div>

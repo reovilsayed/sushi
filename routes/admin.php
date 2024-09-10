@@ -12,6 +12,8 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\TimeScheduleController;
+use App\Http\Controllers\TimeSidualController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -99,5 +101,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::post('/slider/update/{slider}', 'sliderUpdate')->name('slider.update');
         Route::delete('/slider/delete/{slider}', 'sliderDelete')->name('delete.slider');
     });
+
+    Route::resource('/time-schedules', TimeScheduleController::class)->names('time_schedules');
 
 });

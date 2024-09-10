@@ -60,6 +60,7 @@
 
         <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
         <x-sidenav.nav name="{{ __('sentence.restaurants') }}" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.time_schedules') }}" :active="request()->is('admin/time_schedules') ? 'menu-active' : ''" :href="route('time_schedules.index')" :icon="[asset('images/time-clock.svg'), asset('images/time-clock.svg')]" />
         <li class="dropdown">
 
             <a href="javascript:void(0)" class="dropdown-btn">

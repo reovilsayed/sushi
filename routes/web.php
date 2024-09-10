@@ -101,6 +101,7 @@ Route::post('/save-location', [PageController::class, 'saveLocation'])->name('sa
 Route::post('/location-store', [PageController::class, 'store'])->name('location.store');
 Route::patch('/time-update', [PageController::class, 'updateTime'])->name('time_update');
 
+
 Route::get('/get-google-maps-api-key', function () {
     return response()->json(config('services.google_maps.api_key'));
 });
