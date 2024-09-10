@@ -14,6 +14,7 @@
                         <th scope="col">{{__('sentence.image')}}</th>
                         <th scope="col">{{__('sentence.name')}}</th>
                         <th scope="col">{{__('sentence.slug')}}</th>
+                        <th scope="col">{{ __('sentence.delivery_option') }}</th>
                         <th scope="col">{{__('sentence.action')}}</th>
                         
                     </tr>
@@ -30,6 +31,7 @@
                             </td>
                             <td>{{ $restaurant->name ?? '' }}</td>
                             <td>{{ $restaurant->slug }}</td>
+                            <td>{{ $restaurant->delivery() }}</td>
                             <td class="">
 
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.restaurant', $restaurant) }}"><i

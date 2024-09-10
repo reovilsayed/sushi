@@ -64,4 +64,15 @@ class Restaurant extends Model
 
         return $this->hasMany(TimeSidual::class);
     }
+
+    public function delivery()
+    {
+        if ($this->delivery_option == 'both') {
+            return 'Both';
+        } elseif ($this->delivery_option == 'take_away') {
+            return 'Take Away';
+        } elseif($this->delivery_option == 'home_delivery') {
+            return 'Home Delivery';
+        }
+    }
 }

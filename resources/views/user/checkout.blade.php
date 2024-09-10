@@ -33,6 +33,7 @@
         <br><br><br>
         <!-- Contact Section -->
         <section id="contact" class="contact section bg-transparent">
+
             <!-- Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row gy-4">
@@ -69,24 +70,34 @@
                                     @endforeach
                                 </div>
                             @endif
+
                             <div class="row">
                                 <div class="col-md-8 mb-3">
                                     <div class="col-md-12">
-                                        <select id="deliveryOption" name="delivery_option"
-                                            class="form-select selectpicker" data-container="body">
+
+                                        <select id="deliveryOption" name="delivery_option" class="form-select selectpicker" data-container="body">
                                             <option selected style="color: var(--accent-color)">
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
-                                            <option value="take_away">{{ __('sentence.takeaway') }}</option>
-                                            @if ($restaurant->id != 6)
-                                                <option value="home_delivery"
-                                                    {{ session()->get('current_location') ? 'selected' : '' }}>
+                                        
+                                            {{-- Show only "Take Away" if take_away is available --}}
+                                            @if ($restaurant->delivery_option == 'take_away')
+                                                <option value="take_away" selected>{{ __('sentence.takeaway') }}</option>
+                                        
+                                            {{-- Show only "Home Delivery" if home_delivery is available --}}
+                                            @elseif ($restaurant->delivery_option == 'home_delivery')
+                                                <option value="home_delivery" selected>{{ __('sentence.homedelivery') }}</option>
+                                        
+                                            {{-- Show both "Take Away" and "Home Delivery" if both are available --}}
+                                            @elseif ($restaurant->delivery_option == 'both')
+                                                <option value="take_away">{{ __('sentence.takeaway') }}</option>
+                                                <option value="home_delivery" {{ session()->get('current_location') ? 'selected' : '' }}>
                                                     {{ __('sentence.homedelivery') }}
                                                 </option>
                                             @endif
-
-
                                         </select>
+                                        
+
                                     </div>
 
                                     <div id="takeAwayForm" class="mt-5">
@@ -95,9 +106,6 @@
                                                 <h2 class="text-colour">{{ $restaurant->name }}</h2>
 
                                                 <div class="d-flex gap-3">
-                                                    {{-- @foreach ($restaurant->address as $address)
-                                                        <p class="fst-italic">{{ $address}}</p>
-                                                    @endforeach --}}
                                                 </div>
                                             </div>
                                         @endif
@@ -131,8 +139,6 @@
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
-                                                    {{-- <option  style="color: var(--accent-color)">Select a time
-                                                    </option> --}}
                                                     @foreach ($timeSlots as $time)
                                                         <option value="{{ $time }}"
                                                             {{ isset($timeSelect[0]) && $time == $timeSelect[0] ? 'selected' : '' }}>
@@ -143,7 +149,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- @dd('we') --}}
                                     <div id="homeDeliveryForm" class="mt-5">
 
                                         @if ($restaurant)
@@ -175,7 +180,8 @@
 
                                             <div class="col-md-12 input-group text-center">
                                                 <input type="text" name="address" id="map_address_input"
-                                                    class="form-control" placeholder="{{ __('sentence.your_address') }}" required
+                                                    class="form-control"
+                                                    placeholder="{{ __('sentence.your_address') }}" required
                                                     value="{{ auth()->user()->address ?? $address }}">
 
                                                 <button class="btn bg-black border-0 btn-outline-orange"
@@ -202,12 +208,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="number" id="number_type" name="phone"
-                                                    class="form-control" placeholder="{{ __('sentence.your_phone_numder') }}" required
+                                                    class="form-control"
+                                                    placeholder="{{ __('sentence.your_phone_numder') }}" required
                                                     value={{ auth()->user()->phone ?? '' }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="house" class="form-control"
-                                                    placeholder="{{ __('sentence.your_house') }}" value={{ auth()->user()->house ?? '' }}>
+                                                    placeholder="{{ __('sentence.your_house') }}"
+                                                    value={{ auth()->user()->house ?? '' }}>
                                             </div>
 
 
@@ -225,7 +233,8 @@
 
 
                                             <div class="col-md-12">
-                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}" style="height:122px;"></textarea>
+                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}"
+                                                    style="height:122px;"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -264,33 +273,6 @@
                                                     @endforeach
                                                 </tbody>
                                                 <tfoot>
-                                                    {{-- <tr style="border: 1px solid var(--accent-color)">
-                                                    <td>
-                                                        <p class="fs-5 fw-medium ps-3 pt-2 pb-2">Shipping</p>
-                                                        <div class="ps-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="flexRadioDefault" id="flexRadioDefault1">
-                                                                <label class="form-check-label"
-                                                                    style="font-size: 15px;" for="flexRadioDefault1">
-                                                                    Home Delivery
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check mt-2 mb-3">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="flexRadioDefault" id="flexRadioDefault2"
-                                                                    checked>
-                                                                <label class="form-check-label"
-                                                                    style="font-size: 15px;" for="flexRadioDefault2">
-                                                                    Pickup From Outlet
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                    </td>
-                                                    <td class="fs-5 fw-medium text-center">0 €</td>
-                                                </tr> --}}
-
                                                     <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td>
                                                             <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
@@ -338,7 +320,8 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="fs-5 fw-medium ps-3 pt-2 pb-2">{{ __('sentence.totle') }}</td>
+                                                        <td class="fs-5 fw-medium ps-3 pt-2 pb-2">
+                                                            {{ __('sentence.totle') }}</td>
                                                         <td class="fs-5 fw-medium text-center">
                                                             {{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }}
                                                             €
@@ -353,17 +336,11 @@
                                                 disabled>{{ __('sentence.order_button') }}
                                             </button>
                                         </div>
-                                        {{-- <div class="">
-                                            <p><strong>Note :</strong> </p>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div><!-- End Contact Form -->
-
-
-
                 </div>
 
             </div>
@@ -377,9 +354,8 @@
                     const takeAwayForm = document.getElementById('takeAwayForm');
                     const homeDeliveryForm = document.getElementById('homeDeliveryForm');
                     const orderButton = document.getElementById('orderButton');
-                    const restaurantId = {{ $restaurant->id }};
 
-                    // Function to set the disabled state for all inputs within a form
+                    // Function to set form inputs' disabled state
                     const setFormDisabledState = (form, disabled) => {
                         if (form) {
                             const inputs = form.querySelectorAll('input, select, textarea');
@@ -387,45 +363,33 @@
                         }
                     };
 
-                    // Function to update form visibility and input state based on the selected option
+                    // Function to update the visibility of forms
                     const updateFormVisibility = () => {
                         const selectedOption = deliveryOption.value;
 
-                        if (restaurantId === 6) {
-                            // Hide homeDeliveryForm if restaurant ID is 6
-                            homeDeliveryForm.style.display = 'none';
-                            setFormDisabledState(homeDeliveryForm, true);
+                        if (selectedOption === 'take_away') {
                             takeAwayForm.style.display = 'block';
+                            homeDeliveryForm.style.display = 'none';
                             setFormDisabledState(takeAwayForm, false);
+                            setFormDisabledState(homeDeliveryForm, true);
+                            orderButton.disabled = false;
+                        } else if (selectedOption === 'home_delivery') {
+                            takeAwayForm.style.display = 'none';
+                            homeDeliveryForm.style.display = 'block';
+                            setFormDisabledState(takeAwayForm, true);
+                            setFormDisabledState(homeDeliveryForm, false);
                             orderButton.disabled = false;
                         } else {
-                            // Handle other restaurant IDs
-                            if (selectedOption === 'take_away') {
-                                takeAwayForm.style.display = 'block';
-                                homeDeliveryForm.style.display = 'none';
-                                setFormDisabledState(takeAwayForm, false);
-                                setFormDisabledState(homeDeliveryForm, true);
-                                orderButton.disabled = false;
-                            } else if (selectedOption === 'home_delivery') {
-                                takeAwayForm.style.display = 'none';
-                                homeDeliveryForm.style.display = 'block';
-                                setFormDisabledState(takeAwayForm, true);
-                                setFormDisabledState(homeDeliveryForm, false);
-                                orderButton.disabled = false;
-                            } else {
-                                takeAwayForm.style.display = 'none';
-                                homeDeliveryForm.style.display = 'none';
-                                setFormDisabledState(takeAwayForm, true);
-                                setFormDisabledState(homeDeliveryForm, true);
-                                orderButton.disabled = true;
-                            }
+                            takeAwayForm.style.display = 'none';
+                            homeDeliveryForm.style.display = 'none';
+                            orderButton.disabled = true;
                         }
                     };
 
-                    // Event listener to detect changes in the delivery option
+                    // Add event listener for changes in the delivery option
                     deliveryOption.addEventListener('change', updateFormVisibility);
 
-                    // Initialize the form state on page load
+                    // Initialize form visibility on page load
                     updateFormVisibility();
                 });
             </script>
