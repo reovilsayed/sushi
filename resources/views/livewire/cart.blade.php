@@ -69,11 +69,11 @@
                                                 </td>
                                                
                                                 <td class="cart-product-info text-center">
-                                                    <h4><a class="fw-lighter fs-4"
+                                                    <h4><a class="fw-lighter fs-4 text-uppercase"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
-                                                            style="color: #ffffff !important;"><span class="fs-6">( {{  $product->category->name }} ) <span class="fs-4">{{ $item->name }}</span></span></a>
+                                                            style="color: #ffffff !important;">{{  $product->category->name }} - {{ $item->name }}</a>
                                                             @if(isset($item->attributes['options']))
-                                                            <p class="fw-light mt-2" style="font-size: 12px;"> {{ $item->attributes['options']}}</p>
+                                                            <p class="fw-light mt-2 fs-6"> {{ $item->attributes['options']}}</p>
                                                             @endif
                                                     </h4>
                                                 </td>
