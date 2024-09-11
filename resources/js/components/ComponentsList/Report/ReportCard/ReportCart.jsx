@@ -56,70 +56,7 @@ export const ReportCard = ({ data }) => {
                                 fontWeight: 600,
                             }}
                         >
-                            {data?.data?.total_amount.toFixed(2)} Tk
-                        </span>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center ">
-                        <span
-                            className="hover_blue"
-                            style={{
-                                width: "40%",
-                                color: "#646464",
-                                fontSize: "13px",
-                            }}
-                        >
-                            Total Revenue
-                        </span>
-                        <span
-                            style={{
-                                textAlign: "center",
-                                width: "20%",
-                            }}
-                        >
-                            <HiArrowLongRight
-                                style={{
-                                    color: "#969191",
-                                }}
-                                size={16}
-                            />
-                        </span>
-                        <span
-                            style={{
-                                width: "40%",
-                                textAlign: "right",
-                                color: "#646464",
-                            }}
-                        >
-                            {data?.data?.total_revenue.toFixed(2)} Tk
-                        </span>
-                    </div>
-                    <div className="d-flex justify-content-between pt-3">
-                        <span
-                            className="hover_blue"
-                            style={{
-                                width: "40%",
-                                color: "#646464",
-                                fontSize: "13px",
-                            }}
-                        >
-                            Total Due{" "}
-                        </span>
-                        <span style={{ textAlign: "center", width: "20%" }}>
-                            <HiArrowLongRight
-                                style={{
-                                    color: "#969191",
-                                }}
-                                size={16}
-                            />
-                        </span>
-                        <span
-                            style={{
-                                width: "40%",
-                                textAlign: "right",
-                                color: "#646464",
-                            }}
-                        >
-                            {data?.data?.due_total.toFixed(2)} Tk
+                            {data?.data?.total_amount.toFixed(2)} €
                         </span>
                     </div>
                 </div>
@@ -166,40 +103,6 @@ export const ReportCard = ({ data }) => {
                             }}
                         >
                             {data?.data?.total_orders}
-                        </span>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <span
-                            className="hover_blue"
-                            style={{
-                                width: "40%",
-                                color: "#646464",
-                                fontSize: "13px",
-                            }}
-                        >
-                            Due Orders
-                        </span>
-                        <span
-                            style={{
-                                width: "20%",
-                                textAlign: "center",
-                            }}
-                        >
-                            <HiArrowLongRight
-                                style={{
-                                    color: "#969191",
-                                }}
-                                size={16}
-                            />
-                        </span>
-                        <span
-                            style={{
-                                width: "40%",
-                                textAlign: "right",
-                                color: "#646464",
-                            }}
-                        >
-                            {data?.data?.due_orders}
                         </span>
                     </div>
                 </div>

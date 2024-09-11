@@ -1,52 +1,5 @@
 <x-layout>
-    <div class="box_model">
-        <div class="dsh_row row">
-            <div class="left_chart">
-                <div class="dash_head">
-                    <h4>{{ __('sentence.my_earnings') }}</h4>
-                    <div>
-                        <label><i></i>{{ __('sentence.revenue') }}</label>
 
-                    </div>
-                </div>
-                <div class="dash_body">
-                    <div id="chart0" class="chart chart0">
-                    </div>
-                </div>
-            </div>
-            <div class="rt_box">
-                <div class="hide_md">
-                    <div class="dash_head">
-                        <div class="select_wrapper dsh_op">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="vr_grid_box">
-                    <div class="vr_item grn">
-                        <i><img src="images/wlt.png" alt="" /></i>
-                        <h3>{{ __('sentence.todays_earnings') }}</h3>
-                        <label>{{ $todayEarning }} €.</label>
-                    </div>
-                    <div class="vr_item grn">
-                        <i><img src="images/chks.png" alt="" /></i>
-                        <h3>{{ __('sentence.todays_sale') }}</h3>
-                        <label>{{ $todaysSale }} €.</label>
-                    </div>
-                    {{-- <div class="vr_item grn">
-                        <i><img src="images/wlt.png" alt="" /></i>
-                        <h3>Last 7 days Earnings</h3>
-                        <label>{{ $sevendaysEarning }} Tk.</label>
-                    </div> --}}
-                    <div class="vr_item grn">
-                        <i><img src="images/chks.png" alt="" /></i>
-                        <h3>{{ __('sentence.last_7_days_sale') }}</h3>
-                        <label>{{ $sevensSale }} €.</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="box_model">
         <div class="dsh_row row">
@@ -61,22 +14,21 @@
                 </div>
             </div>
             <div class="rt_box">
-
                 <div class="vr_grid_box">
-                    <div class="vr_item">
+                    <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>{{ __('sentence.today_total_orders') }}</h3>
-                        <label>{{ $orders }}</label>
+                        <label>{{ $todaysSale }} €.</label>
                     </div>
-                    <div class="vr_item">
+                    <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
-                        <h3>{{ __('sentence.today_paid_orders') }}</h3>
-                        <label>{{ $paidToday }}</label>
+                        <h3>{{ __('sentence.todays_sale') }}</h3>
+                        <label>{{ $orders }} €.</label>
                     </div>
-                    <div class="vr_item">
-                        <i><img src="images/clos.png" alt="" /></i>
-                        <h3>{{ __('sentence.today_due_orders') }}</h3>
-                        <label>{{ $dueToday }}</label>
+                    <div class="vr_item grn">
+                        <i><img src="images/chks.png" alt="" /></i>
+                        <h3>{{ __('sentence.last_7_days_sale') }}</h3>
+                        <label>{{ $sevensSale }} €.</label>
                     </div>
                 </div>
             </div>

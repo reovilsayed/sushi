@@ -239,6 +239,7 @@ class ProductController extends Controller
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
         $product->sequency = $request->sequence;
+        $product->status = $request->status;
         // $product->flavors = json_encode($flavors);
         // $product->status = $request->status;
         // $product->featured = $request->featured;

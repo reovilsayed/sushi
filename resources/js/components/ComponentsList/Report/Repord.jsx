@@ -243,58 +243,6 @@ const Report = () => {
                                         /> }
                                     </div>
                                 </div> */}
-                                <div
-                                    className="p-4 screen_table"
-                                    style={{
-                                        border: "1px solid #eaeaea",
-                                        borderRadius: "10px",
-                                        height: "650px",
-                                        overflowY: "auto",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "center",
-                                            fontWeight: 600,
-                                            marginBottom: "20px",
-                                        }}
-                                    >
-                                        <span
-                                            style={{
-                                                fontSize: "14px",
-                                                fontWeight: 600,
-                                            }}
-                                        >
-                                            Top Due Customers
-                                        </span>
-                                        <span>
-                                            <LiaLongArrowAltDownSolid
-                                                style={{
-                                                    color: "#969191",
-                                                }}
-                                                size={20}
-                                            />
-                                        </span>
-                                    </div>
-                                    <div
-                                        style={{
-                                            // maxHeight: "450px",
-                                            // height: "450px",
-                                            paddingTop: "20px",
-                                            // background: "red",
-                                            // overflowY: "scroll",
-                                        }}
-                                    >
-                                        <TopDueCustomerTable
-                                            dueData={
-                                                data?.data?.top_due_customers
-                                            }
-                                        />
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </>

@@ -132,7 +132,8 @@
                 <div class="col-md-12">
                     <div class="mb-4 ms-3">
                         <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                            class="btn BackBtn p-md-3 goback"> <i class="bi bi-chevron-left"></i>{{ __('sentence.menu') }}</a>
+                            class="btn BackBtn p-md-3 goback"> <i
+                                class="bi bi-chevron-left"></i>{{ __('sentence.menu') }}</a>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-5 d-flex" style="justify-content: center;">
@@ -143,7 +144,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-7">
                             <h2 class="mb-3 singlePrice fs-3 mt-3">{{ $product->name }}
                             </h2>
@@ -172,8 +173,14 @@
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <input type="hidden" name="restaurent_id" value="{{ $restaurant->id }}">
                                     <input type="hidden" name="options" value="" id="options">
-                                    <button type="submit" class="sushibtn mt-3" id="add-to-cart-btn"
-                                        style="">{{ __('sentence.addtocart') }}</button>
+                                    @if ($product->status == 1)
+                                        <button type="submit" class="sushibtn mt-3" id="add-to-cart-btn"
+                                            style="">{{ __('sentence.addtocart') }}</button>
+                                    @else
+                                        <button disabled class="sushibtn mt-3"
+                                            style="">{{ __('sentence.out_of_stock') }}</button>
+                                    @endif
+
                                 </div>
                             </form>
                             <div class="row mt-5">
@@ -183,9 +190,10 @@
                                     @if ($product->flavor_status == 1)
                                         @php
                                             $maxTotal = $product->flavor_total;
-                                            $flavors =  json_decode($product->flavors, true);
+                                            $flavors = json_decode($product->flavors, true);
                                         @endphp
-                                        <p class="text-center text-md-start">{{ __('sentence.select_uo_to') }} {{ $maxTotal }} {{ __('sentence.flavors') }}
+                                        <p class="text-center text-md-start">{{ __('sentence.select_uo_to') }}
+                                            {{ $maxTotal }} {{ __('sentence.flavors') }}
                                         </p>
                                         @foreach ($flavors as $flavor)
                                             <div class="flavor-item d-flex text-center">
@@ -212,7 +220,7 @@
                                 <div class="col-md-6 col-sm-6 col-6 ps-0">
                                     <p class="text-center txtmob">{{ __('sentence.allergens') }}</p>
                                     <hr class="" style="opacity: 1.25;">
-                                    <p class="text-center txtmob">{{ __('sentence.egg_sesame_wheat') }}</p>
+                                    <p class="text-center txtmob">{!! $product->allergenes !!}</p>
                                 </div>
                             </div>
                             <div class="row mt-5">

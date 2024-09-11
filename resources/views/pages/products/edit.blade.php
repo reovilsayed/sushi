@@ -189,6 +189,9 @@
 
                                 <x-form.input id="price" name="price" wire:model="price" label="{{ __('sentence.price') }} *"
                                 value="{{ number_format($product->price, 2) }}"  required />
+
+                                <x-form.input id="status" name="status" wire:model="status" label="{{ __('sentence.status') }} *"
+                                value="{{ ($product->status) }}"  />
                                 
 
                             </div>

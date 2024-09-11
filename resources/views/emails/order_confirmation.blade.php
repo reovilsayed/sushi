@@ -1,4 +1,3 @@
-@
 @extends('layouts.orderMail')
 @section('content')
     @php
@@ -11,7 +10,7 @@
             <tr>
                 <td>
                     <div class="title title-2 text-center">
-                        <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0;">Thank You for Your Purchase!</h2>
+                        <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0;">Merci pour votre commande !</h2>
                         <p style="font-size: 14px;margin: 5px;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
                             {{ $order->restaurent->name ?? '' }}</p>
                     </div>
@@ -25,22 +24,21 @@
             <tr>
                 <td>
                     <div class="title title-2 text-start">
-                        <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0; margin-bottom: 15px;">Customer
-                            Information</h2>
+                        <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0; margin-bottom: 15px;">Informations du client</h2>
                         <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
-                                style="font-size: 14px; font-weight:500;">Name :</span> {{ $customer['f_name'] ?? '' }}
+                                style="font-size: 14px; font-weight:500;">Nom :</span> {{ $customer['f_name'] ?? '' }}
                             {{ $customer['l_name'] ?? '' }}</strong><br>
                         <strong
                             style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
-                                style="font-size: 14px; font-weight:500;">Email :</span>
+                                style="font-size: 14px; font-weight:500;">Adresse mail :</span>
                             {{ $customer['email'] ?? '' }}</strong><br>
                         <strong
                             style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
-                                style="font-size: 14px; font-weight:500;">Phone
+                                style="font-size: 14px; font-weight:500;">Numéro de téléphone
                                 :</span>{{ $customer['phone'] ?? '' }}</strong><br>
                         <strong
                             style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
-                                style="font-size: 14px; font-weight:500;">Address :</span> {{ $customer['city'] ?? '' }}
+                                style="font-size: 14px; font-weight:500;">Adresse de livraison :</span> {{ $customer['city'] ?? '' }}
                             ,{{ $customer['address'] ?? '' }} ,{{ $customer['post_code'] ?? '' }}
                             ,{{ $customer['house'] ?? '' }}</strong><br>
                     </div>
@@ -56,7 +54,7 @@
             <tr>
                 <th
                     style="font-size: 17px;font-weight: 700;padding-bottom: 8px;border-bottom: 1px solid rgba(217, 217, 217, 0.5);text-align: left; margin-top: 18px;">
-                    Purchased Items</th>
+                    Détails de la commande</th>
             </tr>
         </thead>
         <tbody>
@@ -67,9 +65,9 @@
                         width="100%">
                         <thead>
                             <tr>
-                                <th style="text-align: left;">Name</th>
-                                <th style="text-align: center;">Price</th>
-                                <th style="text-align: center;">QTY</th>
+                                <th style="text-align: left;">Nom</th>
+                                <th style="text-align: center;">Prix</th>
+                                <th style="text-align: center;">Quantité</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,30 +104,30 @@
                         <tbody>
                             <tr>
                                 <td style="font-weight: 700; font-size: 17px; padding-bottom: 15px; border-bottom: 1px solid rgba(217, 217, 217, 0.5);"
-                                    colspan="2">Order summary</td>
+                                    colspan="2">Résumé</td>
                             </tr>
 
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    Delivery Option</td>
+                                    Option de livraison</td>
 
                                 @if ($order->delivery_option == 'home_delivery')
                                     <td
                                         style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                        Home Delivery</td>
+                                        Livraison à domicile</td>
                                 @endif
                                 @if ($order->delivery_option == 'take_away')
                                     <td
                                         style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                        Take Away</td>
+                                        À emporter</td>
                                 @endif
                             </tr>
 
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    Delivery Time</td>
+                                    Heure de livraison</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     {{ $order->time_option }}</td>
@@ -138,7 +136,7 @@
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    Subtotal</td>
+                                    Sous-total</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     {{ Settings::price($order->sub_total) }}</td>
@@ -147,7 +145,7 @@
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    Extra Charge</td>
+                                    Frais de gestion</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     {{Settings::price($extra_charge)  }}</td>

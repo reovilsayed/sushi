@@ -237,10 +237,7 @@ class ApiController extends Controller
         $orders = Order::filterByDate()->get();
         $due_orders = Order::filterByDate()->where('due', '>', 0)->get();
         $customers = User::where('role_id', 2)->get();
-        $generics = Generic::get();
         $categories = Category::get();
-        $suppliers = Supplier::get();
-
         $top_customers = User::where('role_id', 2)->with(['orders' => function ($query) {
             $query->filterByDate();
         }])
@@ -259,25 +256,8 @@ class ApiController extends Controller
             })
             ->take(10);
 
-        $topSuppliers = Supplier::with(['products.orders' => function ($query) {
-            $query->filterByDate('orders.created_at');
-        }])
-            ->get()
-            ->sortByDesc(function ($supplier) {
-                return $supplier->products->sum(function ($product) {
-                    return $product->orders->sum('pivot.price');
-                });
-            })
-            ->take(10);
 
-        $topDueCustomers = User::where('role_id', 2)->with(['orders' => function ($query) {
-            $query->where('due', '>', 0)->filterByDate();
-        }])
-            ->get()
-            ->sortByDesc(function ($customer) {
-                return $customer->orders->sum('due');
-            })
-            ->take(10);
+
 
         $mapCustomer = function ($customer) {
             return [
@@ -297,15 +277,7 @@ class ApiController extends Controller
             ];
         };
 
-        $mapSupplier = function ($supplier) {
-            return [
-                'supplier_id' => $supplier->id,
-                'supplier_name' => $supplier->name,
-                'total_amount' => $supplier->products->sum(function ($product) {
-                    return $product->orders->sum('pivot.price');
-                }),
-            ];
-        };
+
 
         return response()->json([
             'total_orders' => $orders->count(),
@@ -314,13 +286,13 @@ class ApiController extends Controller
             'due_total' => $due_orders->sum('due'),
             'total_revenue' => $orders->sum('profit'),
             'total_customers' => $customers->count(),
-            'total_generics' => $generics->count(),
+            'total_generics' => 0,
             'total_categories' => $categories->count(),
-            'total_suppliers' => $suppliers->count(),
+            'total_suppliers' => [],
             'top_customers' => $top_customers->map($mapCustomer)->values(),
             'top_selling_products' => $top_products->map($mapProduct)->values(),
-            'top_suppliers' => $topSuppliers->map($mapSupplier)->values(),
-            'top_due_customers' => $topDueCustomers->map($mapCustomer)->values(),
+            'top_suppliers' => [],
+            'top_due_customers' => [],
         ]);
     }
 }
