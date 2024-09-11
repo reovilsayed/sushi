@@ -56,10 +56,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="liton_tab_1_1">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>From your account dashboard you can view your <span>recent
-                                                        orders</span>, manage your <span>shipping and billing
-                                                        addresses</span>, and <span>edit your password and account
-                                                        details</span>.</p>
+                                                <p>{{ __('sentence.dashboad_short_description') }}</p>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="liton_tab_1_2">
