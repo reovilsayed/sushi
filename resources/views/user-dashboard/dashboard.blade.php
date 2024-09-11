@@ -179,7 +179,7 @@
 
                                         <div class="tab-pane fade" id="liton_tab_1_4">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}.</p>
+                                                {{-- <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}.</p> --}}
                                                 <div class="ltn__form-box">
                                                     <form method="POST" action="{{ route('user.update.password') }}"
                                                         class="php-email-form" data-aos="fade-up"
