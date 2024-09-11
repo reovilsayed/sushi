@@ -56,10 +56,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="liton_tab_1_1">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>From your account dashboard you can view your <span>recent
-                                                        orders</span>, manage your <span>shipping and billing
-                                                        addresses</span>, and <span>edit your password and account
-                                                        details</span>.</p>
+                                                <p>{{ __('sentence.dashboad_short_description') }}</p>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="liton_tab_1_2">
@@ -182,7 +179,7 @@
 
                                         <div class="tab-pane fade" id="liton_tab_1_4">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}.</p>
+                                                {{-- <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}.</p> --}}
                                                 <div class="ltn__form-box">
                                                     <form method="POST" action="{{ route('user.update.password') }}"
                                                         class="php-email-form" data-aos="fade-up"
