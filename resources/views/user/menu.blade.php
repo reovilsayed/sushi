@@ -22,18 +22,68 @@
                 outline: 0;
             }
         </style>
+        <style>
+            .category-slider {
+                scrollbar-width: none;
+                /* For Firefox */
+                -ms-overflow-style: none;
+                /* For Internet Explorer and Edge */
+            }
+
+            .category-slider::-webkit-scrollbar {
+                display: none;
+                /* For Chrome, Safari, and Opera */
+            }
+
+            .list-group {
+                --bs-list-group-color: none;
+                --bs-list-group-bg: none;
+                --bs-list-group-border-color: none;
+                --bs-list-group-border-width: none;
+                --bs-list-group-border-radius: none;
+                --bs-list-group-item-padding-x: none;
+                --bs-list-group-item-padding-y: none;
+                --bs-list-group-action-color: none;
+                --bs-list-group-action-hover-color: none;
+                --bs-list-group-action-hover-bg: none;
+                --bs-list-group-action-active-color: none;
+                --bs-list-group-action-active-bg: none;
+                --bs-list-group-disabled-color: none;
+                --bs-list-group-disabled-bg: none;
+                --bs-list-group-active-color: none;
+                --bs-list-group-active-bg: none;
+                --bs-list-group-active-border-color: none;
+                all: unset;
+            }
+
+            .category-link {
+                border-radius: 0px;
+            }
+
+            .category-link.active {
+                background-color: #ffffff;
+                color: #000;
+            }
+
+            body {
+                position: relative;
+            }
+        </style>
     @endpush
     <br><br>
     <div class="category-slider d-block d-md-none">
-        <div class="slider-wrapper">
+        <ul class="slider-wrapper list-group" id="categoriesScroll" data-bs-spy="scroll" data-bs-target="#categoriesScroll"
+            data-bs-offset="100">
             @foreach ($categories as $category)
                 @if ($category->childs->count() > 0)
                     @foreach ($category->childs as $child)
-                        <a href="#{{ $child->slug }}" class="category-link">{{ $child->name }}</a>
+                        <li class="list-group-item">
+                            <a href="#{{ $child->slug }}" class="category-link">{{ $child->name }}</a>
+                        </li>
                     @endforeach
                 @endif
             @endforeach
-        </div>
+        </ul>
     </div>
 
     {{-- <x-user.about /> --}}
@@ -52,7 +102,8 @@
                         hidden>
                         {{ __('sentence.current_location') }} : (15 to 20 Minutes)</h6>
                     @if ($restaurant->id != 6)
-                        <button class="Delivery" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ __('sentence.choose_delivery') }} _____</button>
+                        <button class="Delivery" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">{{ __('sentence.choose_delivery') }} _____</button>
                     @endif
                 </div>
 
@@ -60,7 +111,8 @@
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <label for="" class="form-content mb-2">{{ __('sentence.current_delay') }} : (15 to 20 Minutes)</label>
+                        <label for="" class="form-content mb-2">{{ __('sentence.current_delay') }} : (15 to 20
+                            Minutes)</label>
                         <select name="TimeOption"
                             class="form-select selectpicker  bg-transparent text-light delivery-time"
                             data-container="body" onchange="submitTimeForm()">
@@ -71,14 +123,6 @@
                             @endforeach
                         </select>
                     </form>
-                    {{-- @if (!Cart::isEmpty())
-                        <div class="mt-2 text-end">
-                            <a href="{{ route('restaurant.cart', ['slug' => $restaurant->slug]) }}" role="button"
-                                class="btn sushibtn p-md-3 goback">
-                                {{ __('sentence.cart') }} <i class="bi bi-chevron-right"></i>
-                            </a>
-                        </div>
-                    @endif --}}
 
 
                 </div>
@@ -88,51 +132,6 @@
         </div><!-- End Section Title -->
 
 
-        {{-- <a class="btn btn-sm d-block d-md-none" type="button"
-            style="position:fixed;bottom:80px;right:15px;background: #e5d5bf;display: flex; align-items: center; justify-content: center;padding:0 5px; z-index:99999"
-            data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            <i class="fs-1 bi bi-list" style="color: #000"></i>
-        </a>
-
-        <!-- Offcanvas Menu -->
-        <!-- Offcanvas Menu -->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title text-dark" id="offcanvasExampleLabel">Categories</h5>
-                <!-- Close Button -->
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><i
-                        class="bi bi-x-lg fs-1"></i></button>
-            </div>
-            <div class="offcanvas-body" style="background-color: #810707 !important;">
-                @foreach ($categories as $category)
-                    <div class="accordion" id="accordionExample{{ $category->id }}">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree{{ $category->id }}" aria-expanded="false"
-                                    aria-controls="collapseThree" style="color: var(--default-color);">
-                                    {{ $category->name }}
-                                </button>
-                            </h2>
-                            @if ($category->childs->count() > 0)
-                                @foreach ($category->childs as $child)
-                                    <div id="collapseThree{{ $child->parent_id }}" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionExample{{ $child->parent_id }}">
-                                        <a href="#{{ $child->name }}" class="accordion-body"
-                                            style="color: var(--default-color);">
-                                            <div>{{ $child->name }}</div>
-                                        </a>
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
-
-        <!-- Category Slider Navbar for Mobile -->
 
 
         <div class="container-fluid isotope-layout">
@@ -168,22 +167,14 @@
                 </div>
 
                 <!-- Main Content Area -->
-                <div class="col-md-9 col-sm-12 ps-o pe-0">
-                    <div class="row ms-0 me-md-5">
+                <div class="col-md-9 col-sm-12 ps-0 pe-0">
+                    <div class="row ms-0 me-md-5 scrollspy-example" data-bs-spy="scroll"
+                        data-bs-target="#categoriesScroll" data-bs-offset="0" tabindex="0">
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center pe-4" data-aos="fade-up" data-aos-delay="200">
-                                    @if ($loop->index == 0)
-                                        <h4>{{ $category->name }}</h4>
-                                        <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
-                                        <a id="{{ $child->slug }}" href=""
-                                            class="h4 fs-5">{{ $child->name }}</a>
-                                    @else
-                                        <a id="{{ $child->slug }}" href=""
-                                            class="h4 fs-5">{{ $child->name }}</a>
-                                        <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
-                                    @endif
-
+                                    <h4 id="{{ $child->slug }}">{{ $child->name }}</h4>
+                                    <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
                                     <p class="mt-2 fst-italic">{{ $child->description }}</p>
                                 </div>
 
@@ -209,7 +200,8 @@
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content " style="background-color: #000">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-colour" id="exampleModalLabel">{{ __('sentence.enter_your_shipping_address') }}</h1>
+                    <h1 class="modal-title fs-5 text-colour" id="exampleModalLabel">
+                        {{ __('sentence.enter_your_shipping_address') }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -217,8 +209,7 @@
                         <input type="text" id="map_address_input" name="location" value=""
                             class="form-control form-control-lg location text-center"
                             style="color: #ffffff; border-radius: 0px !important; background-color: black; border: 0px; padding-right: 0;"
-                            placeholder="Enter Location" aria-label="Enter Location"
-                            aria-describedby="button-addon2">
+                            placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
                         <button class="btn bg-black border-0 btn-outline-orange" style="border-left: 0px"
                             type="button" onclick="getCurrentLocation()" id="location-button">
                             <i class="bi bi-geo-alt fs-4"></i>
@@ -287,28 +278,7 @@
                 }
             </script>
 
-            {{-- <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const offcanvasInstance = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasExample'));
 
-                    document.querySelectorAll('.offcanvas-body a').forEach(item => {
-                        item.addEventListener('click', () => {
-                            document.querySelector('[data-bs-target="#offcanvasExample"]').click();
-                        });
-                    });
-
-                    document.querySelectorAll('.category-button').forEach(button => {
-                        button.addEventListener('click', () => {
-                            const subcategory = button.nextElementSibling;
-                            const icon = button.querySelector('i');
-                            const isVisible = subcategory.style.display === 'block';
-                            subcategory.style.display = isVisible ? 'none' : 'block';
-                            icon.classList.toggle('bi-plus-lg', isVisible);
-                            icon.classList.toggle('bi-dash-lg', !isVisible);
-                        });
-                    });
-                });
-            </script> --}}
 
             <script>
                 document.querySelectorAll('.category-link').forEach(link => {
@@ -319,6 +289,51 @@
                         targetElement.scrollIntoView({
                             behavior: 'smooth'
                         });
+                    });
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+                        target: '#categoriesScroll'
+                    });
+
+                    // Function to scroll the categoriesScroll element to the active link
+                    const scrollToActiveCategory = () => {
+                        const activeLink = document.querySelector('#categoriesScroll .active');
+                        if (activeLink) {
+                            activeLink.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'nearest'
+                            });
+                        }
+                    };
+
+                    // Scroll the categories when the user clicks on a category link
+                    document.querySelectorAll('.category-link').forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href').substring(1);
+                            const targetElement = document.getElementById(targetId);
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+
+                            // Scroll the categories to keep the clicked link in view
+                            scrollToActiveCategory();
+                        });
+                    });
+
+                    // Scroll categories when a section becomes active (handled by scrollSpy)
+                    document.body.addEventListener('activate.bs.scrollspy', function() {
+                        scrollToActiveCategory();
+                    });
+
+                    // Manually trigger scrollSpy refresh on scroll
+                    window.addEventListener('scroll', function() {
+                        scrollSpy.refresh();
                     });
                 });
             </script>
