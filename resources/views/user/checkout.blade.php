@@ -80,15 +80,12 @@
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
                                         
-                                            {{-- Show only "Take Away" if take_away is available --}}
                                             @if ($restaurant->delivery_option == 'take_away')
                                                 <option value="take_away" selected>{{ __('sentence.takeaway') }}</option>
                                         
-                                            {{-- Show only "Home Delivery" if home_delivery is available --}}
                                             @elseif ($restaurant->delivery_option == 'home_delivery')
                                                 <option value="home_delivery" selected>{{ __('sentence.homedelivery') }}</option>
-                                        
-                                            {{-- Show both "Take Away" and "Home Delivery" if both are available --}}
+                                    
                                             @elseif ($restaurant->delivery_option == 'both')
                                                 <option value="take_away">{{ __('sentence.takeaway') }}</option>
                                                 <option value="home_delivery" {{ session()->get('current_location') ? 'selected' : '' }}>
@@ -314,7 +311,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
-                                                            {{ __('sentence.extra_charge') }}Extra Charge</td>
+                                                            {{ __('sentence.extra_charge') }}</td>
                                                         <td class="fs-6 fw-medium text-center">
                                                             {{ $extra_charge }}€
                                                         </td>

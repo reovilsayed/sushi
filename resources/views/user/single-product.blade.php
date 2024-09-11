@@ -132,7 +132,7 @@
                 <div class="col-md-12">
                     <div class="mb-4 ms-3">
                         <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
-                            class="btn BackBtn p-md-3 goback"> <i class="bi bi-chevron-left"></i> Menu</a>
+                            class="btn BackBtn p-md-3 goback"> <i class="bi bi-chevron-left"></i>{{ __('sentence.menu') }}</a>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-5 d-flex" style="justify-content: center;">
@@ -178,14 +178,14 @@
                             </form>
                             <div class="row mt-5">
                                 <div class="col-md-6 col-sm-6 col-6 pe-0">
-                                    <p class="text-center txtmob">COMPOSITION</p>
+                                    <p class="text-center txtmob">{{ __('sentence.composition') }}</p>
                                     <hr class="" style="opacity: 1.25;">
                                     @if ($product->flavor_status == 1)
                                         @php
                                             $maxTotal = $product->flavor_total;
                                             $flavors =  json_decode($product->flavors, true);
                                         @endphp
-                                        <p class="text-center text-md-start">Select up to {{ $maxTotal }} flavors
+                                        <p class="text-center text-md-start">{{ __('sentence.select_uo_to') }} {{ $maxTotal }} {{ __('sentence.flavors') }}
                                         </p>
                                         @foreach ($flavors as $flavor)
                                             <div class="flavor-item d-flex text-center">
@@ -210,9 +210,9 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-6 ps-0">
-                                    <p class="text-center txtmob">ALLERGENS</p>
+                                    <p class="text-center txtmob">{{ __('sentence.allergens') }}</p>
                                     <hr class="" style="opacity: 1.25;">
-                                    <p class="text-center txtmob">egg, sesame, wheat</p>
+                                    <p class="text-center txtmob">{{ __('sentence.egg_sesame_wheat') }}</p>
                                 </div>
                             </div>
                             <div class="row mt-5">

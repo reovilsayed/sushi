@@ -1,13 +1,7 @@
 <x-user>
     @push('css')
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-        <!-- plugins css -->
-        {{-- <link rel="stylesheet" href="{{ asset('css/plugins.css') }}"> --}}
-        <!-- Main Stylesheet -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <!-- Responsive css -->
-        {{-- <link rel="stylesheet" href="{{ asset('css/responsive.css') }}"> --}}
         <style>
             .btn-invoice {
                 padding: 4px 8px;
@@ -26,10 +20,9 @@
     <br><br>
     <section id="about" class="cart_section pb-5 bg-transparent">
         <div class="container section-title aos-init aos-animate mt-4" data-aos="fade-up">
-            <h2 style="color: var(--accent-color); font-weight: 600; font-family: var(--heading-font">Welcome</h2>
-            <p
-                style="color: var(--accent-color); margin: 0; font-size: 36px; font-weight: 600; font-family: var(--heading-font">
-                Our dashboard</p>
+            <h2 style="color: var(--accent-color); font-weight: 600; font-family: var(--heading-font">{{ __('sentence.welcome') }}</h2>
+            <p style="color: var(--accent-color); margin: 0; font-size: 36px; font-weight: 600; font-family: var(--heading-font">
+                {{ __('sentence.our_dashboard') }}</p>
         </div>
     </section>
     <!-- WISHLIST AREA START -->
@@ -45,16 +38,16 @@
                                     <div class="ltn__tab-menu-list mb-50">
                                         <div class="nav">
                                             <a class="active show" data-bs-toggle="tab" href="#liton_tab_1_1">{{ __('sentence.dashboard') }}
-                                                <i class="bi bi-house-fill"></i>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_2">{{ __('sentence.orders') }} <i class="bi bi-file-earmark-text-fill"></i></a>
+                                                <i class="bi bi-house-fill fs-4"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_2">{{ __('sentence.orders') }} <i class="bi bi-file-earmark-text-fill fs-4"></i></a>
                                            
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_5">{{ __('sentence.account_details') }}<i class="bi bi-person-circle"></i></a>
-                                            <a data-bs-toggle="tab" href="#liton_tab_1_4">{{ __('sentence.password_update') }} <i class="bi bi-file-lock2"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_5">{{ __('sentence.account_details') }}<i class="bi bi-person-circle fs-4"></i></a>
+                                            <a data-bs-toggle="tab" href="#liton_tab_1_4">{{ __('sentence.password_update') }} <i class="bi bi-person-fill-lock fs-4"></i></a>
                                             <form action="{{ route('logout') }}" method="post" id="logout-form"
                                                 class="php-email-form"
-                                                style="height: 51px; display: flex; margin-left: 20px;">
+                                                style="height: 51px; display: flex;">
                                                 @csrf
-                                                <button type="submit" class="logout">{{ __('sentence.logout') }} <i class="bi bi-box-arrow-left"></i></button>
+                                                <button type="submit" style="width: 100%; align-items: center;" class="logout d-flex justify-content-between me-3 ms-3"><div class="">{{ __('sentence.logout') }} </div> <div class=""><span><i class="bi bi-box-arrow-left fs-4"></i></span></div></button>
                                             </form>
                                         </div>
                                     </div>
@@ -112,49 +105,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div class="tab-pane fade" id="liton_tab_1_3">
-                                            <div class="ltn__myaccount-tab-content-inner">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Product</th>
-                                                                <th>Date</th>
-                                                                <th>Expire</th>
-                                                                <th>Download</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Carsafe - Car Service PSD Template</td>
-                                                                <td>Nov 22, 2020</td>
-                                                                <td>Yes</td>
-                                                                <td><a href="#"><i
-                                                                            class="far fa-arrow-to-bottom mr-1"></i>
-                                                                        Download File</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Carsafe - Car Service HTML Template</td>
-                                                                <td>Nov 10, 2020</td>
-                                                                <td>Yes</td>
-                                                                <td><a href="#"><i
-                                                                            class="far fa-arrow-to-bottom mr-1"></i>
-                                                                        Download File</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Carsafe - Car Service WordPress Theme</td>
-                                                                <td>Nov 12, 2020</td>
-                                                                <td>Yes</td>
-                                                                <td><a href="#"><i
-                                                                            class="far fa-arrow-to-bottom mr-1"></i>
-                                                                        Download File</a></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-
                                         <div class="tab-pane fade" id="liton_tab_1_5">
                                             <div class="ltn__myaccount-tab-content-inner">
                                                 <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}
@@ -204,10 +154,7 @@
                                                                     value="{{ ucfirst(auth()->user()->post_code) }}"
                                                                     required="">
                                                             </div>
-                                                            {{-- <div class="col-md-6">
-                                                                <input type="text" name="zip" class="form-control"
-                                                                    placeholder="Your Zip" required="">
-                                                            </div> --}}
+
                                                             <div class="col-md-6">
                                                                 <input type="number" id="number_type" name="phone"
                                                                     class="form-control"
@@ -235,8 +182,7 @@
 
                                         <div class="tab-pane fade" id="liton_tab_1_4">
                                             <div class="ltn__myaccount-tab-content-inner">
-                                                <p>The following addresses will be used on the checkout page by default.
-                                                </p>
+                                                <p>{{ __('sentence.the_following_addresses_will_be_used_on_the_checkout_page_by_default') }}.</p>
                                                 <div class="ltn__form-box">
                                                     <form method="POST" action="{{ route('user.update.password') }}"
                                                         class="php-email-form" data-aos="fade-up"
@@ -278,11 +224,4 @@
             </div>
         </div>
     </div>
-
-
-    {{-- @push('css')
-        <script src="{{ asset('js/plugins.js') }}"></script>
-        <script src="{{ asset('js/main.js') }}"></script>
-    @endpush --}}
-    <!-- WISHLIST AREA START -->
 </x-user>

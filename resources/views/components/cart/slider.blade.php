@@ -153,8 +153,7 @@
                 <div class="table-responsive">
                     <div class="mb-3">
                         <p class="mb-0 text-end" style="color:#ff883e;">{{ __('sentence.management_fees') }}: {{ $extra_charge ?? '' }}€</p>
-                        <p class="mb-0 mt-2 text-end" style="color:#ff883e;">By placing an order, you accept the terms
-                            of the T&Cs</p>
+                        <p class="mb-0 mt-2 text-end" style="color:#ff883e;">{{ __('sentence.by_placing_an_order_you_accept_the_terms_of_the_t&cs') }}</p>
                     </div>
                 </div>
 
@@ -174,8 +173,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const buttonText = document.getElementById('button-text');
             document.getElementById('checkout-button').addEventListener('mouseover', () => buttonText.textContent =
-                'PROCEED TO CHECKOUT');
+                "{{ __('sentence.proceed_to_checkout') }}");
             document.getElementById('checkout-button').addEventListener('mouseout', () => buttonText.textContent =
-                'SUBTOTAL');
+                "{{ __('sentence.subtotal') }}");
         });
     </script>
