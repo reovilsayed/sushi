@@ -148,26 +148,32 @@ class RestaurantController extends Controller
         $msg = '';
 
         $msg .= "<C><BOLD>{$restaurant->name}</BOLD></C>\n";
-        $msg .= "{$request->fromDate}-{$request->toDate} \n";
-        $msg .= "Nombre total de commandes: {$data['total']}\n";
-        $msg .= "Montant total de la commande: {$data['total_amount']}\n";
-        $msg .= "Commande totale Commandes à emporter: {$data['takeAwayOrders']}\n";
-        $msg .= "Montant total de la commande à emporter: {$data['takeAwayOrders_amount']}\n";
-        $msg .= "Commande totale Commandes de livraison à domicile: {$data['homeDeliveryOrders']}\n";
-        $msg .= "Montant total de la commande à domicile: {$data['homeDeliveryOrders_amount']}\n";
+        $msg .= "DU: {$request->fromDate} AU: {$request->toDate} \n";
+        $msg .= "Nb total commandes: {$data['total']}\n";
+        $msg .= "Montant total commandes: {$data['total_amount']}\n";
+        $msg .= "Nb a emporter: {$data['takeAwayOrders']}\n";
+        $msg .= "Montant à emporter: {$data['takeAwayOrders_amount']}\n";
+        $msg .= "Nb livraison: {$data['homeDeliveryOrders']}\n";
+        $msg .= "Montant livraison: {$data['homeDeliveryOrders_amount']}\n";
         $msg .= "--------------------------------\n";
 
         // Products
-        $msg .= "Ordres:\n";
+        $msg .= "Commandes:\n";
         foreach ($orders as $order) {
-            $msg .= "{$order->id}  {$order->created_at->format('l j F Y H:i')}  {$order->total}€  {$order->payment_method}\n";
+            $payment_method = $order->payment_method == 'Card' ? 'PEL' : 'RESTO';
+            $msg .= "{$order->id}   {$order->total}€  {$payment_method}\n";
         }
 
+        $msg .= "--------------------------------\n";
+
+
         // Totals
-        $msg .= "Total des commandes Paiement en ligne Ordres: {$data['onlinePaymentOrder']}\n";
-        $msg .= "Montant total du paiement en ligne de la commande: {$data['onlinePaymentOrder_amount']}\n";
-        $msg .= "Commande totale Paiement à la livraison: {$data['codOrder']}\n";
-        $msg .= "Montant total de la commande contre remboursement: {$data['codOrder_amount']}\n";
+        $msg .= "Paiement:\n";
+
+        $msg .= "Nb PEL : {$data['onlinePaymentOrder']}\n";
+        $msg .= "Montant PEL: {$data['onlinePaymentOrder_amount']}\n";
+        $msg .= "Nb RESTO: {$data['codOrder']}\n";
+        $msg .= "Montant RESTO: {$data['codOrder_amount']}\n";
 
 
         $msg .= "<CUT/>";
