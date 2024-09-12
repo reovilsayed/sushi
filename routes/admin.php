@@ -25,6 +25,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::get('/restaurant/create', 'createRestaurant')->name('create.restaurant');
         Route::post('/restaurant/store', 'storeRestaurant')->name('store.restaurant');
         Route::get('/restaurant/edit/{restaurant}', 'editRestaurant')->name('edit.restaurant');
+        Route::post('/restaurant/print/{restaurant}', 'printRestaurantOrder')->name('print.restaurant.order');
         Route::post('/restaurant/updare/{restaurant}', 'updateRestaurant')->name('update.restaurant');
         Route::delete('/restaurant/delete/{restaurant}', 'destroyRestaurant')->name('delete.restaurant');
     });
