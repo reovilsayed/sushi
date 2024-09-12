@@ -8,11 +8,11 @@
     "src": "resources/js/components/assets/no-image.jpg"
   },
   "resources/js/app.js": {
-    "file": "assets/app.1a64f7ff.js",
+    "file": "assets/app.c693b9dd.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
-      "_howler.baae5a68.js"
+      "_howler.07d6bcc6.js"
     ],
     "css": [
       "assets/app.fad28c4c.css"
@@ -22,8 +22,8 @@
       "assets/Click Sound Effect.1f4c03dd.mp3"
     ]
   },
-  "_howler.baae5a68.js": {
-    "file": "assets/howler.baae5a68.js",
+  "_howler.07d6bcc6.js": {
+    "file": "assets/howler.07d6bcc6.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
