@@ -138,7 +138,12 @@ class PrinterService
         $msg .= "Produits:\n";
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
-            $category = $product->category->name;
+            if(isset($product->category)){
+                $category = $product?->category?->name;
+            }else{
+                $category = '';
+            }
+            
             $quantity = $product->quantity;
             $price = number_format($product->price, 2, '.', '') . '€';
             $msg .= "{$quantity} x {$category} - {$productName} - {$price}\n";

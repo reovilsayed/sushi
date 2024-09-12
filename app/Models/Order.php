@@ -106,11 +106,16 @@ class Order extends Model
             'quantity' => $product->pivot->quantity,
             'price' => (float) $product->pivot->price,
             'options' => $product->pivot->options ? explode(', ', $product->pivot->options) : null,
-            'category'=>$product->category
+            'category' => $product->category
         ]);
 
-        $extras = collect(json_decode($this->extra, true))->map(fn($extra) => ['name' => $extra['name'], 'quantity' => $extra['quantity'], 'price' => $extra['price'], 'options' => null]);
+        $extras = collect(json_decode($this->extra, true))
+            ->map(fn($extra) => (object) [
+                'name' => $extra['name'],
+                'quantity' => $extra['quantity'],
+                'price' => $extra['price'],
+                'options' => null
+            ]);
         return $products->merge($extras);
-         
     }
 }
