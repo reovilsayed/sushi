@@ -112,7 +112,7 @@ class PrinterService
         $msg .= "Commande: {$this->orderBody->id}\nDate: {$order_date_created}\n";
 
         // Payment Method
-        $payment_method = $$this->orderBody->payment_method_title == 'Card' ? 'PEL' : 'RESTO';
+        $payment_method = $this->orderBody->payment_method_title == 'Card' ? 'PEL' : 'RESTO';
         $msg .= "Paiement: " . ucfirst($payment_method) . "\n";
 
         // Delivery Method and Time
