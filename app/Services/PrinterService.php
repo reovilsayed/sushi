@@ -112,7 +112,8 @@ class PrinterService
         $msg .= "Commande: {$this->orderBody->id}\nDate: {$order_date_created}\n";
 
         // Payment Method
-        $msg .= "Paiement: " . ucfirst($this->orderBody->payment_method_title) . "\n";
+        $payment_method = $$this->orderBody->payment_method_title == 'Card' ? 'PEL' : 'RESTO';
+        $msg .= "Paiement: " . ucfirst($payment_method) . "\n";
 
         // Delivery Method and Time
         $msg .= "Mode Livraison: " . ($this->orderBody->shipping_method_title ?? 'N/A') . "\n";
@@ -137,9 +138,10 @@ class PrinterService
         $msg .= "Produits:\n";
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
+            $category = $product->category->name;
             $quantity = $product->quantity;
             $price = number_format($product->price, 2, '.', '') . '€';
-            $msg .= "{$quantity} x {$productName} - {$price}\n";
+            $msg .= "{$quantity} x {$category} - {$productName} - {$price}\n";
 
             // Handle suboptions if any
             $suboptions = $product->options ?? [];
@@ -147,7 +149,11 @@ class PrinterService
                 $msg .= "   • {$suboption}\n";
             }
         }
-
+        $extras = json_decode($this->order->extra, true) ?? [];
+        foreach ($extras as $item) {
+            $price = number_format($item['price'], 2, '.', '') . '€';
+            $msg .= "{$item['quantity']} x {$item['name']} - {$price} \n";
+        }
         // Totals
         $msg .= "--------------------------------\n";
         $msg .= "Total: " . number_format($this->orderBody->total, 2, '.', '') . "€\n";
