@@ -24,7 +24,7 @@ class CartController extends Controller
 		if ($request->has('option_id')) {
 			$option = ProductOption::find($request->option_id);
 			$price = $option->option_price;
-			$name = $product->name . '-' . $option->option_name;
+			$name = $product->name;
 			$option_name =$option->option_name;
 		} else {
 			$price = $product->price;
