@@ -154,11 +154,6 @@ class PrinterService
                 $msg .= "   • {$suboption}\n";
             }
         }
-        $extras = json_decode($this->order->extra, true) ?? [];
-        foreach ($extras as $item) {
-            $price = number_format($item['price'], 2, '.', '') . '€';
-            $msg .= "{$item['quantity']} x {$item['name']} - {$price} \n";
-        }
         // Totals
         $msg .= "--------------------------------\n";
         $msg .= "Total: " . number_format($this->orderBody->total, 2, '.', '') . "€\n";

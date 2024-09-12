@@ -25,9 +25,11 @@ class CartController extends Controller
 			$option = ProductOption::find($request->option_id);
 			$price = $option->option_price;
 			$name = $product->name . '-' . $option->option_name;
+			$option_name =$option->option_name;
 		} else {
 			$price = $product->price;
 			$name = $product->name;
+			$option_name ='';
 		}
 		if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
 
@@ -38,7 +40,7 @@ class CartController extends Controller
 
 		$RandomNumber =  rand(9999, 999999);
 
-		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product,'options'=>$request->options]);
+		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product,'options'=>$request->options .''.$option_name]);
 
 
 

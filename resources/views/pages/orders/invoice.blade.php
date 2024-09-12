@@ -82,9 +82,13 @@
                                                 <td>
                                                     <div>
                                                         <h5 class="text-truncate font-size-14 mb-1">
-                                                            {{ $product->name }} {{ $product->strength }}
+                                                            {{ $product->name }}
                                                         </h5>
-                                                        <p class="text-muted mb-0">{{ $product->category->name }}</p>
+                                                        <p class="text-muted mb-0">{{ __('sentence.categoty') }}: {{ $product->category->name }} 
+                                                            @if ( $product->pivot->options )
+                                                            {{ __('sentence.options') }}: {{ $product->pivot->options }}
+                                                            @endif
+                                                        </p>
                                                     </div>
                                                 </td>
                                                 <td>{{ $product->pivot->quantity }}</td>
