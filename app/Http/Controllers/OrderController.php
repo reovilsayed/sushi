@@ -174,9 +174,8 @@ class OrderController extends Controller
             ]);
         }
         $order_mail = Settings::setting('order.mail');
-        $customer = json_decode($order->shipping_info, true);
         DB::commit();
-        $emails = array_filter([$customer['email'], $order->restaurent->email, $order_mail]);
+        $emails = array_filter([$request->email, $order->restaurent->email, $order_mail]);
         foreach ($emails as $email) {
             if (!empty($email)) {
                 Mail::to($email)->send(new OrderConfirmationMail($order));
