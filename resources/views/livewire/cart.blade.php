@@ -37,14 +37,6 @@
                 <div class="col-lg-12 col-sm-12">
                     <div class="table-responsive">
                         <table class="cart_table  table-responsive">
-                            {{-- <thead class="table_head text-dark">
-                                <th class="cart-product-remove" style="padding-left:20px;">{{ __('sentence.remove') }}
-                                </th>
-                                <th class="cart-product-image">{{ __('sentence.image') }}</th>
-                                <th class="cart-product-info text-center">{{ __('sentence.name') }}</th>
-                                <th class="cart-product-quantity text-center">{{ __('sentence.quantity') }}</th>
-                                <th class="cart-product-subtotal text-center">{{ __('sentence.subtotal') }}</th>
-                            </thead> --}}
                            
                             <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
@@ -79,19 +71,6 @@
                                                 </td>
                                             @endif
                                             <td class="cart-product-quantity d-flex justify-content-center mt-3">
-                                                {{-- <div class="text-start d-flex cart_quantity">
-                                                <div class="cart_quantity_item">
-
-                                                    <input type="text" value="{{ $item->quantity }}"
-                                                        name="quantity" class="text-center"
-                                                        style="width: 100% !important; height: 100% !important; background-color: transparent !important;  border: 0 !important;outline: none; color:var(--heading-color);">
-                                                </div>
-                                                <div class="cart_quantity_item1">
-                                                    <button type="submit" class="update_btn"><i
-                                                            class="bi bi-pencil"></i>
-                                                    </button>
-                                                </div>
-                                            </div> --}}
                                                 <form id="update-cart-form-{{ $item->id }}" method="post">
                                                     <div class="cart-product-quantity d-flex justify-content-center">
                                                         <div class="cart-plus-minus" style="border: 0px !important;">
@@ -137,10 +116,6 @@
         <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{ __('sentence.gohome') }}</a>
     @else
         <section id="" class="extra_section pt-1 bg-transparent">
-            {{-- <div class="container section-title aos-init aos-animate mt-5" data-aos="fade-up">
-                <h2 style="color: #ff883e!important;">{{ __('sentence.menu') }}</h2>
-                <p style="color: #ff883e!important;">{{ __('sentence.estratitle') }}</p>
-            </div> --}}
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-md-12">

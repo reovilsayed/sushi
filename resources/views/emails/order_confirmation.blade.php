@@ -12,7 +12,7 @@
                     <div class="title title-2 text-center">
                         <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0;">Merci pour votre commande !</h2>
                         <p style="font-size: 14px;margin: 5px;line-height: 1.5;color: #939393;font-weight: 500;width: 70%;">
-                            {{ $order->restaurent->name ?? '' }}</p>
+                            NOUVELLE COMMANDE {{ $order->restaurent->name ?? '' }}</p>
                     </div>
                 </td>
             </tr>
