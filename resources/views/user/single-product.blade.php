@@ -192,8 +192,8 @@
                                             $maxTotal = $product->flavor_total;
                                             $flavors = json_decode($product->flavors, true);
                                         @endphp
-                                        <p class="text-center text-md-start">{{ __('sentence.select_uo_to') }}
-                                            {{ $maxTotal }} {{ __('sentence.flavors') }}
+                                        <p class="text-center text-md-start">{{ __('sentence.select_your_item') }}
+                                            {{ $maxTotal }} {{ __('sentence.the_flavors') }}
                                         </p>
                                         @foreach ($flavors as $flavor)
                                             <div class="flavor-item d-flex text-center">
@@ -203,7 +203,7 @@
                                                     <button type="button"
                                                         class="decrease-btn border-0 bg-transparent text-light ms-4"
                                                         data-flavor="{{ $flavor['id'] }}">-</button>
-                                                    <input type="number" name="flavors[{{ $flavor['id'] }}]"
+                                                    <input type="text" name="flavors[{{ $flavor['id'] }}]"
                                                         id="flavor_{{ $flavor['id'] }}" value="0" min="0"
                                                         class="flavor-quantity-input w-25 border-0 bg-transparent text-light text-center"
                                                         readonly>
@@ -218,7 +218,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-6 ps-0">
-                                    <p class="text-center txtmob">{{ __('sentence.allergens') }}</p>
+                                    <p class="text-center txtmob">{{ __('sentence.allergenes') }}</p>
                                     <hr class="" style="opacity: 1.25;">
                                     <p class="text-center txtmob">{!! $product->allergenes !!}</p>
                                 </div>
@@ -233,6 +233,7 @@
                 </div>
             </div>
         </div>
+        {{-- //Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product --}}
     </section>
 
     @push('js')
@@ -263,7 +264,7 @@
                         if (currentTotal < maxQuantity) {
                             inputField.value = parseInt(inputField.value) + 1;
                         } else {
-                            alert('You cannot select more than ' + maxQuantity + ' items.');
+                            alert("{{ __('sentence.you_cannot_select_more_than') }}" + maxQuantity + "{{ __('sentence.items') }}");
                         }
                     });
                 });
@@ -312,7 +313,7 @@
 
                     } else {
                         alert(
-                            'Please select a total of 4 items for the 32 pieces product or 3 items for the 24 pieces product.'
+                            "{{ __('sentence.message') }}"
                         );
                     }
                 });
