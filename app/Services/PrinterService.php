@@ -161,8 +161,8 @@ class PrinterService
 
         $msg .= "Magasin:\n{$this->config['adr1']}\n{$this->config['adr2']}\n{$this->config['zip']} {$this->config['city']}\n";
         $msg .= "<CUT/>";
-dd( $msg );
-        $this->message = iconv('UTF-8', 'ASCII//TRANSLIT', strtoupper($msg));
+// dd( $msg );
+        $this->message = $msg;
     }
 
 
