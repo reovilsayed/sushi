@@ -316,7 +316,7 @@ class PageController extends Controller
             'message' => 'required|string',
             'city' => 'required|string',
             'terget_position' => 'required|string',
-            'cv_file' => 'required|file|mimes:pdf', // Validate the file as a PDF with a max size of 2MB
+            'cv_file' => 'required', // Validate the file as a PDF with a max size of 2MB
         ]);
         $pdf = $request->file('cv_file');
         $path = $pdf->storeAs('pdfs', $pdf->getClientOriginalName());
@@ -336,7 +336,7 @@ class PageController extends Controller
         Mail::to('centralsushi@hotmail.com')->send(new RecruitmentMail($data));
 
         // Return back with a success message
-        return back();
+        return back()->with('success','Thank you for contacting us!');
     }
 
     // public function store(Request $request)
