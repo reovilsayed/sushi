@@ -159,13 +159,28 @@ class Payment
         }
     }
 
-    protected function orderPaid($order){
-        $order_mail = Settings::setting('order.mail');
-        $emails = array_filter([json_decode($order->shipping_info)->email, $order->restaurent->email, $order_mail]);
+    // protected function orderPaid($order){
+    //     $order_mail = Settings::setting('order.mail');
+    //     $shippingEmail = optional(json_decode($order->shipping_info, true))->email;
+    //     dd($shippingEmail);
+    //     $emails = array_filter([$shippingEmail, $order->restaurent->email, $order_mail]);
+    //     foreach ($emails as $email) {
+    //         if (!empty($email)) {
+    //             Mail::to($email)->send(new OrderConfirmationMail($order));
+    //         }
+    //     }
+    // } 
+    protected function orderPaid($order)
+    {
+        $order_mail = filter_var(Settings::setting('order.mail'), FILTER_VALIDATE_EMAIL);
+        $shippingEmail = optional(json_decode($order->shipping_info))->email;
+        $emails = array_filter([
+            filter_var($shippingEmail, FILTER_VALIDATE_EMAIL),
+            filter_var($order->restaurent->email, FILTER_VALIDATE_EMAIL),
+            $order_mail
+        ]);
         foreach ($emails as $email) {
-            if (!empty($email)) {
-                Mail::to($email)->send(new OrderConfirmationMail($order));
-            }
+            Mail::to($email)->send(new OrderConfirmationMail($order));
         }
     }
 }

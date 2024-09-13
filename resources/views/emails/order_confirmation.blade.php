@@ -129,7 +129,7 @@
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    mode de paiement</td>
+                                    Mode de paiement</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     {{ $order->payment_method }}</td>
