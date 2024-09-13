@@ -173,14 +173,9 @@ class OrderController extends Controller
                 'extra' => json_encode($extra),
             ]);
         }
-        $order_mail = Settings::setting('order.mail');
+        // $order_mail = Settings::setting('order.mail');
         DB::commit();
-        $emails = array_filter([$request->email, $order->restaurent->email, $order_mail]);
-        foreach ($emails as $email) {
-            if (!empty($email)) {
-                Mail::to($email)->send(new OrderConfirmationMail($order));
-            }
-        }
+        // $emails = array_filter([$request->email, $order->restaurent->email, $order_mail]);
         session()->forget('current_location');
         session()->forget('delivery_time');
         session()->forget('restaurent_id');

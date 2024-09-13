@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\User;
@@ -9,6 +10,8 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Settings;
 
 class Payment
 {
@@ -52,6 +55,7 @@ class Payment
             return (new self)->makeRequest($order);
         } else {
             (new PrinterService($order))->sendToPrinter();
+            (new self)->orderPaid($order);
             return redirect()->route('thank_you');
         }
     }
@@ -141,6 +145,7 @@ class Payment
             $order->save();
             $statusMessage = 'Payment processed successfully';
             (new PrinterService($order))->sendToPrinter();
+            $this->orderPaid($order);
             return redirect()->route('thank_you')
                 ->with('success', $statusMessage);
         } else {
@@ -151,6 +156,16 @@ class Payment
             $statusMessage = 'Payment failed. Please try again';
             return redirect()->route('thank_you', ['payment_failed' => 'true'])
                 ->withErrors($statusMessage);
+        }
+    }
+
+    protected function orderPaid($order){
+        $order_mail = Settings::setting('order.mail');
+        $emails = array_filter([json_decode($order->shipping_info)->email, $order->restaurent->email, $order_mail]);
+        foreach ($emails as $email) {
+            if (!empty($email)) {
+                Mail::to($email)->send(new OrderConfirmationMail($order));
+            }
         }
     }
 }

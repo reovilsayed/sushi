@@ -4,6 +4,8 @@
         $extras = json_decode($order->extra, true) ?? [];
         $customer = json_decode($order->shipping_info, true);
         $extra_charge = Settings::setting('extra.charge');
+        // $status = $order->where('id', $order)->where('status', $order)->firstOrFail();
+
     @endphp
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 0 27px;">
         <tbody>
@@ -94,6 +96,7 @@
                     </table>
                 </td>
             </tr>
+            {{-- @dd($status) --}}
             <tr
                 style="column-count: 1; column-rule-style: dashed; column-rule-color: rgba(82, 82, 108, 0.7); column-gap: 0; column-rule-width: 0;">
 
@@ -123,7 +126,14 @@
                                         À emporter</td>
                                 @endif
                             </tr>
-
+                            <tr>
+                                <td
+                                    style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                    mode de paiement</td>
+                                <td
+                                    style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
+                                    {{ $order->payment_method }}</td>
+                            </tr>
                             <tr>
                                 <td
                                     style="text-align: left; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
