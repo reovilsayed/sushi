@@ -331,7 +331,7 @@ class PageController extends Controller
 
 
         // Send the email with the attached file
-        Mail::to('centralsushi@hotmail.com')->send(new RecruitmentMail($data));
+        Mail::to('recrutement-centralsushi@hotmail.com')->send(new RecruitmentMail($data));
 
         return back()->with('success','Thank you for contacting us!');
     }
