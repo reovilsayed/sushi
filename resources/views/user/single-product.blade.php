@@ -264,7 +264,7 @@
                         if (currentTotal < maxQuantity) {
                             inputField.value = parseInt(inputField.value) + 1;
                         } else {
-                            alert("{{ __('sentence.you_cannot_select_more_than') }}" + maxQuantity + "{{ __('sentence.items') }}");
+                            alert("{{ __('sentence.you_cannot_select_more_than') }} " + maxQuantity + " {{ __('sentence.items') }}");
                         }
                     });
                 });
