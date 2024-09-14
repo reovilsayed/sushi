@@ -264,7 +264,7 @@
                         if (currentTotal < maxQuantity) {
                             inputField.value = parseInt(inputField.value) + 1;
                         } else {
-                            alert("{{ __('sentence.you_cannot_select_more_than') }}" + maxQuantity + "{{ __('sentence.items') }}");
+                            alert("{{ __('sentence.you_cannot_select_more_than') }} " + maxQuantity + " {{ __('sentence.items') }}");
                         }
                     });
                 });
@@ -302,8 +302,8 @@
                     var totalQuantity = Object.values(options).reduce(function(sum, quantity) {
                         return sum + parseInt(quantity);
                     }, 0);
-                    console.log(totalQuantity);
-                    if (totalQuantity === 4 || totalQuantity === 3) {
+
+                    if (totalQuantity == maxQuantity) {
                         console.log(options);
                         var options = Object.entries(options).map(function([flavor, quantity]) {
                             return flavor + ' ' + quantity;

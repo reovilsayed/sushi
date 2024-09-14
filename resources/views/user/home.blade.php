@@ -97,7 +97,7 @@
                             id="location-button">
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                         </button>
-                        <button class="btn btn-outline-orange" id="checkDZ">{{ __('sentence.enter') }}</button>
+                        <button class="btn btn-outline-orange" id="checkDZ">ENTRÉE</button>
 
                     </div>
                     {{-- </form> --}}

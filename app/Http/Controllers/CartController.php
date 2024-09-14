@@ -33,7 +33,7 @@ class CartController extends Controller
 		}
 		if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
 
-			return back()->with('error', 'Please add same resturent');
+			return back()->with('error', 'Veuillez sélectionner un produit du même restaurant');
 		}
 
 		Session::put('restaurent_id', $request->restaurent_id);

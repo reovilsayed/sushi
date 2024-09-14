@@ -288,7 +288,30 @@
 
 
                         var autocomplete = new google.maps.places.Autocomplete(input, options);
+                        autocomplete.addListener('place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    var addressComponents = place.address_components;
 
+                    // Loop through address components and get the city and postal code
+                    var city = '';
+                    var postalCode = '';
+
+                    for (var i = 0; i < addressComponents.length; i++) {
+                        var component = addressComponents[i];
+
+                        if (component.types.includes('locality')) {
+                            city = component.long_name;
+                        }
+
+                        if (component.types.includes('postal_code')) {
+                            postalCode = component.long_name;
+                        }
+                    }
+
+                    // Fill the city and postal code fields
+                    $('input[name="city"]').val(city);
+                    $('input[name="post_code"]').val(postalCode);
+                });
                         // Fetch the current location when the document is ready
                         // Function to geocode an address
                         function geocodeAddress(address, callback) {
@@ -306,7 +329,6 @@
                                 }
                             });
                         }
-                        console.log(geocodeAddress);
 
                         function checkIfPointInAnyZone(point, callback) {
                             var xhr = new XMLHttpRequest();
@@ -360,7 +382,7 @@
                                             success: function(response) {
 
                                                 window.location.href =
-                                                    "{{ url('/') }}/" +
+                                                    "{{ url('/') }}/menu/" +
                                                     response.restaurant
                                                     .slug
                                             },

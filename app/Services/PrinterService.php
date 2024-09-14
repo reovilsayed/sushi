@@ -67,7 +67,7 @@ class PrinterService
             'id' => $this->order->id,
             'created_at' => $this->order->created_at->format('Y-m-d H:i:s'),
             'payment_method_title' => ucwords($this->order->payment_method),
-            'shipping_method_title' => ucwords(str_replace('_', ' ', $this->order->delivery_option)),
+            'shipping_method_title' => $this->order->delivery_option =='take_away' ? 'a emporter in French' : 'livraison a domicile in french',
             'delivery_date' => now()->format('Y-m-d'),
             'delivery_time' =>  $this->order->time_option,
             'shipping' => (object) [
