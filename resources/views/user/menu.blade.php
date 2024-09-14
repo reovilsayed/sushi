@@ -101,9 +101,11 @@
                     <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;"
                         hidden>
                         {{ __('sentence.current_location') }} : (15 to 20 Minutes)</h6>
-                    @if ($restaurant->id != 6)
+                        @dd($restaurant)
+                    @if ($restaurant->delivery_option == 'both' || $restaurant->delivery_option == 'home_delivery')
                         <button class="Delivery" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">{{ __('sentence.choose_delivery') }} _____</button>
+                            <p>{{ session()->get('address') }}</p>
                     @endif
                 </div>
 

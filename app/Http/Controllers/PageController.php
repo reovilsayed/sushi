@@ -296,8 +296,6 @@ class PageController extends Controller
         return back()->with('success', 'Thank you for contacting us!');
     }
 
-    public function showDeliveryOptions() {}
-
     public function invoice(Order $order)
     {
         return view('user-dashboard.invoice', compact('order'));
@@ -331,27 +329,11 @@ class PageController extends Controller
             'cv_file' => $path,
         ];
 
-
-        // Send the email with the attached file
         Mail::to('centralsushi@hotmail.com')->send(new RecruitmentMail($data));
 
-        // Return back with a success message
         return back()->with('success','Thank you for contacting us!');
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'location' => 'required|string',
-    //     ]);
-
-    //     $fullAddress = $request->input('location');
-
-    //     Session::put('current_location', $fullAddress);
-
-    //     // Handle the rest of the form submission
-    //     return redirect()->back()->with('success', 'Location stored successfully!');
-    // }
     public function storeInSession(Request $request)
     {
         // Store the received data in the session
@@ -359,7 +341,6 @@ class PageController extends Controller
         Session::put('restaurant', $request->input('restaurant'));
         Session::put('address', $request->input('address'));
         $restaurant = Restaurant::find($request->input('restaurant'));
-        // Optionally, return a JSON response to indicate success
         return response()->json(['success' => true, 'restaurant'=>$restaurant]);
     }
 
@@ -371,16 +352,10 @@ class PageController extends Controller
         ]);
 
         $selectedTime = $validated['TimeOption'];
-
-        // Check if the session has data
         if (Session::has('delivery_time')) {
-            // Delete previous session data
             Session::forget('delivery_time');
         }
-
-        // Add new session data
         Session::put('delivery_time', [$selectedTime]);
-        // Redirect back with a success message
         return redirect()->back();
     }
 }

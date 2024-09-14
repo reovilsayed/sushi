@@ -97,6 +97,17 @@
                                     <option value="home_delivery"> {{ __('sentence.homedelivery') }}</option>
                                 </select>
                             </div>
+                           
+                            <div class="mb-3">
+                                <label for="" class="form-label">{{ __('sentence.status') }}</label>
+                                <select class="form-select " aria-label="Default select example" required name="status">
+                                    <option selected>{{ __('sentence.select_status') }}
+                                        {{ __('sentence.select_status') }}
+                                    </option>
+                                    <option value="1"> {{ __('sentence.open') }}</option>
+                                    <option value="0">{{ __('sentence.closed') }}</option>
+                                </select>
+                            </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>

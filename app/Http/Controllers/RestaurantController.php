@@ -49,6 +49,7 @@ class RestaurantController extends Controller
         $restaurant->printer_id = $request->printer_id;
         $restaurant->serial_number = $request->serial_number;
         $restaurant->delivery_option = $request->delivery_option;
+        $restaurant->status = $request->status;
 
         $restaurant->enable_printer = isset($request->enable_printer);
         $restaurant->enable_payment = isset($request->enable_payment);
@@ -99,6 +100,7 @@ class RestaurantController extends Controller
             'number' => $request->number,
             'address' => $request->address,
             'delivery_option' => $request->delivery_option,
+            'status' => $request->status,
             'api_key' => json_encode($api_key),
             'printer' => json_encode($printer),
             'enable_printer' => isset($request->enable_printer),
