@@ -310,7 +310,7 @@
 
                     // Fill the city and postal code fields
                     $('input[name="city"]').val(city);
-                    $('input[name="post_sentence.your_phone_numdercode"]').val(postalCode);
+                    $('input[name="post_code"]').val(postalCode);
                 });
                         // Fetch the current location when the document is ready
                         // Function to geocode an address
