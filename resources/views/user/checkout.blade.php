@@ -204,7 +204,7 @@
                                                     value={{ auth()->user()->post_code ?? ($locations[4] ?? '') }}>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="number" id="number_type" name="phone"
+                                                <input type="text" id="number_type" name="phone"
                                                     class="form-control"
                                                     placeholder="{{ __('sentence.your_phone_numder') }}" required
                                                     value={{ auth()->user()->phone ?? '' }}>
