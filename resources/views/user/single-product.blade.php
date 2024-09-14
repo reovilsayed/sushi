@@ -302,8 +302,8 @@
                     var totalQuantity = Object.values(options).reduce(function(sum, quantity) {
                         return sum + parseInt(quantity);
                     }, 0);
-                    console.log(totalQuantity);
-                    if (totalQuantity === 4 || totalQuantity === 3) {
+
+                    if (totalQuantity == maxQuantity) {
                         console.log(options);
                         var options = Object.entries(options).map(function([flavor, quantity]) {
                             return flavor + ' ' + quantity;
