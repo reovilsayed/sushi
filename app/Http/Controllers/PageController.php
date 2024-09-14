@@ -19,10 +19,10 @@ use Illuminate\Support\Str;
 use App\Models\Attachment;
 use App\Models\TimeSchedule;
 use Cart;
-use Mail;
 use Carbon\Carbon;
 use Darryldecode\Cart\Cart as CartCart;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
@@ -329,7 +329,9 @@ class PageController extends Controller
             'cv_file' => $path,
         ];
 
-        Mail::to('centralsushi@hotmail.com')->send(new RecruitmentMail($data));
+
+        // Send the email with the attached file
+        Mail::to('recrutement-centralsushi@hotmail.com')->send(new RecruitmentMail($data));
 
         return back()->with('success',"{{ __('sentence.thank_you_for_contacting_us') }}");
     }
