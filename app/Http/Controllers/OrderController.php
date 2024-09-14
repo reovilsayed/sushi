@@ -180,6 +180,8 @@ class OrderController extends Controller
         session()->forget('delivery_time');
         session()->forget('restaurent_id');
         session()->forget('address');
+        session()->forget('restaurant');
+        session()->forget('method');
         // Clear the cart and session data
         Cart::clear();
 

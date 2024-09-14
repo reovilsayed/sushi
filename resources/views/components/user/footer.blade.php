@@ -43,8 +43,11 @@
                 <h4>{{ __('sentence.restaurants') }}</h4>
                 <ul>
                     @foreach ($restaurants as $restaurant)
-                        <li><a href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
-                        </li>
+                        @if ($restaurant->status == '1')
+                            <li><a
+                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
             </div>

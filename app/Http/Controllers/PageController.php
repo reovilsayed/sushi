@@ -331,7 +331,7 @@ class PageController extends Controller
 
         Mail::to('centralsushi@hotmail.com')->send(new RecruitmentMail($data));
 
-        return back()->with('success','Thank you for contacting us!');
+        return back()->with('success',"{{ __('sentence.thank_you_for_contacting_us') }}");
     }
 
     public function storeInSession(Request $request)

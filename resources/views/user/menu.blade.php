@@ -105,7 +105,7 @@
                     @if ($restaurant->delivery_option == 'both' || $restaurant->delivery_option == 'home_delivery')
                         <button class="Delivery" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">{{ __('sentence.choose_delivery') }} _____</button>
-                            <p>{{ session()->get('address') }}</p>
+                            <p style="font-size:small; color:#ff883e;">{{ session()->get('address') }}</p>
                     @endif
                 </div>
 
@@ -211,7 +211,7 @@
                         <input type="text" id="map_address_input" name="location" value=""
                             class="form-control form-control-lg location text-center"
                             style="color: #ffffff; border-radius: 0px !important; background-color: black; border: 0px; padding-right: 0;"
-                            placeholder="Enter Location" aria-label="Enter Location" aria-describedby="button-addon2">
+                            placeholder="{{ __('sentence.enter_Location') }}" aria-label="{{ __('sentence.enter_Location') }}" aria-describedby="button-addon2">
                         <button class="btn bg-black border-0 btn-outline-orange" style="border-left: 0px"
                             type="button" onclick="getCurrentLocation()" id="location-button">
                             <i class="bi bi-geo-alt fs-4"></i>
