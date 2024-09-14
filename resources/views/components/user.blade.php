@@ -360,7 +360,7 @@
                                             success: function(response) {
 
                                                 window.location.href =
-                                                    "{{ url('/') }}/" +
+                                                    "{{ url('/') }}/menu/" +
                                                     response.restaurant
                                                     .slug
                                             },
