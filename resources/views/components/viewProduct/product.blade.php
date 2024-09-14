@@ -18,7 +18,7 @@
                         </h5>
 
 
-                        @if ($product->options->count())
+                        @if ($product->options->count() || $product->flavor_status == 1)
                             <a href="{{ route('single.restaurant', ['restaurant' => $restaurant->slug, 'product' => $product]) }}"
                                 class=" text-colour add-button btn"
                                 style="background:#e5d5bf !important; color:#000 !important; font-size: 10px;">

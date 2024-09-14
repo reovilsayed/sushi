@@ -118,6 +118,15 @@
                                     <option value="home_delivery" {{ $restaurant->delivery_option == 'home_delivery' ? 'selected' : '' }}> {{ __('sentence.homedelivery') }}</option>
                                 </select>
                             </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">{{ __('sentence.status') }}</label>
+                                <select class="form-select " aria-label="Default select example"
+                                    name="status">
+                                    <option value="1" {{ $restaurant->status == '1' ? 'selected' : '' }}> {{ __('sentence.open') }}</option>
+                                    <option value="0" {{ $restaurant->status == '0' ? 'selected' : '' }}>{{ __('sentence.closed') }}</option>
+                                </select>
+                            </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>

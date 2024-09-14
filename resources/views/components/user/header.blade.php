@@ -1,6 +1,6 @@
 <?php $restaurantNames = App\Models\Restaurant::latest()->get(); ?>
 <style>
-    .cartIcon{
+    .cartIcon {
         width: 30px;
     }
 </style>
@@ -15,7 +15,6 @@
                     alt="" class="img-fluid">
 
             </a>
-
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li class="mobilNav"><a href="{{ route('restaurant.home') }}"
@@ -27,9 +26,11 @@
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             @foreach ($restaurantNames as $restaurant)
-                                <li><a
-                                        href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
-                                </li>
+                                @if ($restaurant->status == '1')
+                                    <li><a
+                                            href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </li>
@@ -53,33 +54,33 @@
             <div class="d-xl-flex d-none">
 
                 <a class="fs-4 " href="{{ route('restaurant.cart') }}">
-                    <img class="cartIcon" src="{{asset('icon/cart.png')}}" alt="">
+                    <img class="cartIcon" src="{{ asset('icon/cart.png') }}" alt="">
                     <span class="fw-bold custom-cart  ">{{ Cart::getTotalQuantity() }}</span></a>
                 @if (auth()->check())
                     <a class="d-xl-block" href="{{ route('user.dashboard') }}">
-                        <img class="cartIcon" src="{{asset('icon/user.png')}}" alt="">
+                        <img class="cartIcon" src="{{ asset('icon/user.png') }}" alt="">
                     </a>
                 @else
                     <a class="" href="{{ route('login') }}" style="margin: 0 20px;">
-                        <img class="cartIcon" src="{{asset('icon/user.png')}}" alt="">
+                        <img class="cartIcon" src="{{ asset('icon/user.png') }}" alt="">
                     </a>
                 @endif
             </div>
             <div class="d-xl-none ">
 
                 <a class="fs-4 " href="{{ route('restaurant.cart') }}">
-                    <img class="cartIcon" src="{{asset('icon/cart.png')}}" alt="">
+                    <img class="cartIcon" src="{{ asset('icon/cart.png') }}" alt="">
                     <span class="fw-bold custom-cart  ">{{ Cart::getTotalQuantity() }}</span>
                 </a>
 
 
                 @if (auth()->check())
                     <a class="d-xl-block" href="{{ route('user.dashboard') }}">
-                        <img class="cartIcon" src="{{asset('icon/user.png')}}" alt="">
+                        <img class="cartIcon" src="{{ asset('icon/user.png') }}" alt="">
                     </a>
                 @else
                     <a class="" href="{{ route('login') }}">
-                        <img class="cartIcon" src="{{asset('icon/user.png')}}" alt="">
+                        <img class="cartIcon" src="{{ asset('icon/user.png') }}" alt="">
                     </a>
                 @endif
 

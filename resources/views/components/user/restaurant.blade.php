@@ -48,7 +48,7 @@
         <div class="row gy-4">
             @foreach ($restaurants as $restaurant)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <a href="{{ route('restaurant.menu', $restaurant->slug) }}">
+                    <a href="{{ $restaurant->status == 1 ? route('restaurant.menu', $restaurant->slug) : 'javascript:void(0)' }}" onclick="{{ $restaurant->status != 0 ? 'window.history.back()' : "alert('The restaurant is closed.!')" }}">
                         <div class="member">
                             <img src="{{ $restaurant->image ? Storage::url($restaurant->image) : asset('niko/image/restaurant.jpg') }}"
                                 class="img-fluid" alt="">

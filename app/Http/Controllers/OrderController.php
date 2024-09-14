@@ -179,6 +179,7 @@ class OrderController extends Controller
         session()->forget('current_location');
         session()->forget('delivery_time');
         session()->forget('restaurent_id');
+        session()->forget('address');
         // Clear the cart and session data
         Cart::clear();
 

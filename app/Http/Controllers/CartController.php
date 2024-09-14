@@ -70,6 +70,8 @@ class CartController extends Controller
 			session()->forget('restaurent_id');
 			session()->forget('address');
 			session()->forget('delivery_time');
+			session()->forget('restaurant');
+			session()->forget('method');
 		} else {
 
 			Cart::remove($id);

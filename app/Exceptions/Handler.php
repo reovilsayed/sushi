@@ -34,13 +34,13 @@ class Handler extends ExceptionHandler
         if ($this->shouldReport($exception)) {
           
 
-            // if (env('APP_ENV') == 'production') {
-            //   return  Mail::send('emails.errors', ['exception' => $exception], function ($message) {
-            //         foreach (['rahmanabdur64870@gmail.com',  'reovilsayed@gmail.com'] as $email) {
-            //             $message->to($email)->subject('Error in  POS');
-            //         }
-            //     });
-            // }
+            if (env('APP_ENV') == 'production') {
+              return  Mail::send('emails.errors', ['exception' => $exception], function ($message) {
+                    foreach (['asalaminsikder787@gmail.com',  'reovilsayed@gmail.com'] as $email) {
+                        $message->to($email)->subject('Error in  Sushi');
+                    }
+                });
+            }
         }
 
         parent::report($exception);
