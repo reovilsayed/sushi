@@ -188,7 +188,7 @@
                                                 </button>
                                                 <button id="checkDZ"class="btn btn-outline-orange"
                                                     style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;">
-                                                    {{ __('Enter') }}
+                                                    ENTRÉE
                                                 </button>
 
                                             </div>
