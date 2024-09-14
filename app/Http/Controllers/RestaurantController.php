@@ -178,14 +178,13 @@ class RestaurantController extends Controller
 
         $msg .= "<CUT/>";
 
-         $message = iconv('UTF-8', 'ASCII//TRANSLIT', strtoupper($msg));
 
         $response = Http::withHeaders([
             'Authorization' => $restaurant->getPrinterCreds('sid') . ':' . $restaurant->getPrinterCreds('token'),
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
         ])->post('https://www.expedy.fr/api/v2/printers/' . $restaurant->getPrinterCreds('printer_id') . '/print', [
-            'printer_msg' =>  $message,
+            'printer_msg' =>  $msg,
             'origin' => url('/')
         ]);
          return back()->withSuccess(['message' => 'Successfully printed']);
