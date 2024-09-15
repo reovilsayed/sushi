@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                             <div class="widget">
-                                                <p>Total Amount: {{ Settings::price($data['total']['sum']) }}</p>
+                                                <p>{{ __('sentence.total_amount') }} {{ Settings::price($data['total']['sum']) }}</p>
                                             </div>
                                         </div>
 

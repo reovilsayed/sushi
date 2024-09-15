@@ -44,26 +44,26 @@
         <div class="row align-items-center">
             <div class="col-md-7 col-7">
                 <p class="card-text">
-                    <strong>Total:</strong> {{ Settings::price($order->total) }} <br>
-                    <strong>Paid:</strong> {{ Settings::price($order->paid) }} <br>
+                    <strong>{{ __('sentence.total') }}:</strong> {{ Settings::price($order->total) }} <br>
+                    <strong>{{ __('sentence.paid') }}:</strong> {{ Settings::price($order->paid) }} <br>
                     @if ($order->discount > 0)
-                        <strong>Discount:</strong> {{ Settings::price($order->discount ?? 0) }} <br>
+                        <strong>{{ __('sentence.discount') }}:</strong> {{ Settings::price($order->discount ?? 0) }} <br>
                     @endif
                     @if ($order->due > 0)
-                        <strong class="text-danger">Due:</strong> {{ Settings::price($order->due ?? 0) }}<br>
+                        <strong class="text-danger">{{ __('sentence.due') }}:</strong> {{ Settings::price($order->due ?? 0) }}<br>
                     @endif
-                    <strong class="text-success fw-bold">Order Id: # {{ $order->id }}</strong>
+                    <strong class="text-success fw-bold">{{ __('sentence.order_id') }}: # {{ $order->id }}</strong>
                 </p>
             </div>
             <div class="col-md-5 col-5">
 
 
                 <p class="card-text">
-                    <strong>Delivery time:</strong><br>
+                    <strong>{{ __('sentence.delivery_time') }}:</strong><br>
                     {{ $order->time_option ?? 'unknown' }}
                 </p>
                 <p class="card-text">
-                    <strong>Date & Time:</strong><br>
+                    <strong>{{ __('sentence.date_&_time') }} :</strong><br>
                     {{ $order->created_at->format('d M, Y h:i A') }}
                 </p>
             </div>
@@ -81,8 +81,7 @@
                             onsubmit="return confirm('Are you sure you want to mark this order as paid?')">
                             @csrf
                             <input type="hidden" name="orders[]" value="{{ $order->id }}">
-                            <button type="submit" class="btn btn-dark btn-sm"><i class="fas fa-check"></i> Mark as
-                                Paid</button>
+                            <button type="submit" class="btn btn-dark btn-sm"><i class="fas fa-check"></i> {{ __('sentence.mark_as_paid') }}</button>
                         </form>
                     @endif
 
