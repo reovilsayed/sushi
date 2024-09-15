@@ -55,7 +55,7 @@ class Payment
             return (new self)->makeRequest($order);
         } else {
             (new PrinterService($order))->sendToPrinter();
-            sleep(1)
+            sleep(1);
             (new PrinterService($order))->sendToPrinter();
             (new self)->orderPaid($order);
             return redirect()->route('thank_you');
