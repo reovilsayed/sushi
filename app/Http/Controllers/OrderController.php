@@ -2,26 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\Settings\Settings as SettingsSettings;
 use App\Mail\DuePaidMail;
-use App\Mail\OrderConfirmationMail;
-use App\Mail\UserCreateMail;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\Transaction;
-use App\Models\User;
 use App\Report\Earnings;
 use App\Services\Payment;
 use App\Services\PrinterService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Cart;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Facades\Http;
 use Settings;
 
 class OrderController extends Controller
@@ -118,7 +109,9 @@ class OrderController extends Controller
     {
 
 
-
+        if(Cart::getTotalQuantity() == 0){
+            return redirect(url('/'));
+        }
         $request->validate([
             'f_name' => 'required|string|max:255',
             'l_name' => 'required|string|max:255',
