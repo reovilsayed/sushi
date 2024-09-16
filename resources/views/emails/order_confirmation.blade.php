@@ -76,7 +76,7 @@
                    
                             @foreach ($order->products as $product)
                                 <tr style="border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    <td style=" padding: 28px 0; text-align:left;">{{ $product->name }} <br> <span>
+                                    <td style=" padding: 28px 0; text-align:left;"><strong>{{ $product->category->name }}</strong> - {{ $product->name }} <br> <span>
                                         ({{ $product->pivot->options ?? '' }})
                                     </span>
                                 </td>
