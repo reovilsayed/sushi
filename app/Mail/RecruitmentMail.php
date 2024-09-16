@@ -24,7 +24,7 @@ class RecruitmentMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Recruitment Mail',
+            subject: 'Nouvelle candidature',
         );
     }
 

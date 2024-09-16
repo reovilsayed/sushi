@@ -84,11 +84,11 @@
                                 <select class="form-select mb-3"
                                     style="border: 1px solid var(--accent-color);" name="terget_position">
                                     <option selected>{{ __('sentence.target_position') }}</option>
-                                    <option value="Versatile delivery person">{{ __('sentence.versatile_delivery_person') }}  </option>
-                                    <option value="Multipurpose server">{{ __('sentence.multipurpose_server') }} </option>
-                                    <option value="Kitchen assistant">{{ __('sentence.kitchen_assistant') }} </option>
-                                    <option value="Chef Sushi">{{ __('sentence.chef_sushi') }} </option>
-                                    <option value="Manager">{{ __('sentence.manager') }}</option>
+                                    <option value="{{ __('sentence.versatile_delivery_person') }}">{{ __('sentence.versatile_delivery_person') }}  </option>
+                                    <option value="{{ __('sentence.multipurpose_server') }}">{{ __('sentence.multipurpose_server') }} </option>
+                                    <option value="{{ __('sentence.kitchen_assistant') }}">{{ __('sentence.kitchen_assistant') }} </option>
+                                    <option value="{{ __('sentence.chef_sushi') }} ">{{ __('sentence.chef_sushi') }} </option>
+                                    <option value="{{ __('sentence.manager') }}">{{ __('sentence.manager') }}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
