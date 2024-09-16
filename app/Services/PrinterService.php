@@ -126,6 +126,7 @@ class PrinterService
             $msg .= "Adresse Livraison:\n";
             $msg .= "{$shipping->first_name} {$shipping->last_name}\n";
             $msg .= "{$shipping->email}\n";
+            $msg .= "{$shipping->phone}\n";
 
             $msg .= "{$shipping->address_1}\n";
             if ($shipping->address_2) {
