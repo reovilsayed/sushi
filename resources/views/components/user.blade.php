@@ -9,8 +9,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('logo/sushiFav.png') }}" rel="icon">
-    <link href="{{ asset('logo/sushiFav.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('logo/favicon.jpg') }}" rel="icon">
+    <link href="{{ asset('logo/favicon.jpg') }}" rel="apple-touch-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
