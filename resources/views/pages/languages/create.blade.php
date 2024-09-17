@@ -34,6 +34,13 @@
                                     data-name="french" name="french" autofocus>
                             </div>
                         </div>
+                        <div class="col-md-5 mb-3 item-content">
+                            <div class="">
+                                <label for="arabic" class="form-label">Dubai</label>
+                                <input type="text" class="form-control" id="arabic" placeholder="Arabic"
+                                    data-name="arabic" name="arabic" autofocus>
+                            </div>
+                        </div>
                         <div class="repeater-remove-btn">
                             <button type="submit" class="btn btn-success" style="height: auto;">{{ __('sentence.save') }}</button>
                         </div>

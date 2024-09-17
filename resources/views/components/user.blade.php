@@ -282,7 +282,7 @@
 
                         var options = {
                             componentRestrictions: {
-                                country: 'fr'
+                                country: 'ae'
                             }
                         };
 

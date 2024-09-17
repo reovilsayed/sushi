@@ -44,6 +44,7 @@
                                         <th scope="col">{{ __('sentence.key') }}</th>
                                         <th scope="col" class="text-center">{{ __('sentence.english') }}</th>
                                         <th scope="col">{{ __('sentence.french') }}</th>
+                                        <th scope="col">{{ __('sentence.dubai') }}</th>
                                         <th scope="col">{{ __('sentence.createdat') }}</th>
                                         <th scope="col">{{ __('sentence.action') }}</th>
                                     </tr>
@@ -55,6 +56,7 @@
                                             <td class="text-center">{{ $language->key }}</td>
                                             <td>{{ $language->english }}</td>
                                             <td>{{ $language->french }}</td>
+                                            <td>{{ $language->arabic }}</td>
                                             <td>{{ $language->created_at }}</td>
                                             <td class="d-flex">
                                                 <a class="btn btn-primary btn-sm me-2" href="{{ route('languages.edit', $language) }}">
@@ -86,6 +88,7 @@
                     'key' => 'key',
                     'english' => 'english',
                     'french' => 'key',
+                    'arabic' => 'Dubai',
                 ]" />
             </div>
             <div class="col-md-8">

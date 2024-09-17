@@ -49,6 +49,9 @@ class LanguageController extends Controller
             'french' => [
                 'required'
             ],
+            'arabic' => [
+                'required'
+            ],
         ]);
         
         // dd($request->all()); 
@@ -56,6 +59,7 @@ class LanguageController extends Controller
             'key' => $request->key,
             'english' => $request->english,
             'french' =>  $request->french,
+            'arabic' =>  $request->arabic,
         ];
         Language::create($data);
 
@@ -92,12 +96,16 @@ class LanguageController extends Controller
             'french' => [
                 'required'
             ],
+            'arabic' => [
+                'required'
+            ],
         ]);
 
         $language->update([
             'key' => $request->key,
             'french' => $request->french,
             'english' => $request->english,
+            'arabic' => $request->arabic,
         ]);
         return back()->with('message', 'Language updated successfully');
     }

@@ -2,6 +2,9 @@
     @push('css')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
         <style>
+            #map_address_input:focus{
+                box-shadow: none !important;
+            }
             @media only screen and (max-width: 600px) {
                 .chefs .member .member-info {
                     background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(255, 255, 255, 0) 100%);
