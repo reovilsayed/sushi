@@ -1,18 +1,11 @@
-@php
-    $firstProduct = $order->products()->first();
-    $restaurant = null;
 
-    if ($firstProduct && $firstProduct->pivot && isset($firstProduct->pivot->restaurant_id)) {
-        $restaurant = App\Models\Restaurant::find($firstProduct->pivot->restaurant_id);
-    }
-@endphp
 
 <div class="card my-3 me-2 custom-fade-in h-100">
     <div class="card-header" style="background-color: #205E61; color: #fff">
         <div class="row position-relative">
             <div class="col-md-8 col-10">
                 <h5 class="card-title" style="font-size: 1rem">
-                    {{ $order->customer_id ? $order->customer->l_name . ' ' . $order->customer->l_name : 'Walk-in customer' }}
+                    {{ $order->getShipping('f_name') }} {{ $order->getShipping('l_name') }}
                     <br>
                     {{ $order->restaurent->name ?? ''}}
                 </h5>

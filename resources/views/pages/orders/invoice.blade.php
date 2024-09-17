@@ -26,12 +26,12 @@
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">{{ __('sentence.bill_to') }}:</h5>
-                                    <h5 class="font-size-15 mb-2">{{ $order->customer->name ?? 'Walk in customer' }}
-                                        {{ $order->customer->l_name ?? '' }}
-                                    </h5>
+                                    <h5 class="font-size-15 mb-2"> {{ $order->getShipping('f_name') }} {{ $order->getShipping('l_name') }}</h5>
                                     {{-- <p class="mb-1">{{ $order->customer->address }}</p> --}}
-                                    <p class="mb-1">{{ $order->customer->email }}</p>
-                                    <p>{{ $order->customer->phone }}</p>
+                                    <p class="mb-1">{{ $order->getShipping('email') }} </p>
+                                    <p>{{ $order->getShipping('phone') }} </p>
+                                    <p>{{ $order->getShipping('address') }} </p>
+                                    <p>{{ $order->getShipping('house') }}  {{ $order->getShipping('post_code') }} {{ $order->getShipping('city') }}</p>
                                 </div>
                             </div>
 
