@@ -122,17 +122,13 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="email" name="email" disabled
-                                                    class="form-control @error('email') is-invalid @enderror"
-                                                    placeholder="{{ __('sentence.your_email') }}" required=""
-                                                    value="{{ old('email', auth()->user()->email ?? '') }}">
-                                                @error('email')
-                                                    <p class="invalid-feedback">
-                                                        <strong>{{ $message }}</strong>
-                                                    </p>
-                                                @enderror
+                                                <input type="text" id="number_type" name="phone"
+                                                    class="form-control"
+                                                    placeholder="{{ __('sentence.your_phone_numder') }}" required
+                                                    value={{ auth()->user()->phone ?? '' }}>
                                             </div>
 
+                                            
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
@@ -144,6 +140,19 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <input type="email" name="email" disabled
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    placeholder="{{ __('sentence.your_email') }}" required=""
+                                                    value="{{ old('email', auth()->user()->email ?? '') }}">
+                                                @error('email')
+                                                    <p class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </p>
+                                                @enderror
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div id="homeDeliveryForm" class="mt-5">
