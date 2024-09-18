@@ -153,6 +153,11 @@
                                                 @enderror
                                             </div>
 
+                                            <div class="col-md-12">
+                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}"
+                                                    style="height:122px;"></textarea>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div id="homeDeliveryForm" class="mt-5">
