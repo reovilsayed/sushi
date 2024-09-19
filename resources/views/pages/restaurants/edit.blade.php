@@ -80,6 +80,8 @@
                                         value="{{ $restaurant->enable_payment }}" value="1" />
                                 </div>
                             </div>
+                            <x-form.input id="vat_number" name="vat_number" label="{{ __('sentence.vat_number') }}"
+                                value="{{ $restaurant->vat_number }}" required />
 
 
                             {{-- <button class="btn btn-success" type="submit" style="float: right">

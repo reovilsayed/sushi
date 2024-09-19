@@ -63,6 +63,9 @@
                             </div>
                             <x-form.input id="key_version" name="key_version" label="{{ __('sentence.key_version') }}"
                                 value="" required />
+                           
+                                <x-form.input id="vat_number" name="vat_number" label="{{ __('sentence.vat_number') }}"
+                                value="" required />
                             {{-- <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button> --}}

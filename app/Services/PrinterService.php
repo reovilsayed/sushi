@@ -52,6 +52,7 @@ class PrinterService
             'city' => $this->restaurant->fullAddress('city'),
             'phone' => $this->restaurant->number,
             'email' => $this->restaurant->email,
+            'vat_number' => $this->restaurant->vat_number,
             'sid' => $this->restaurant->getPrinterCreds('sid'),
             'token' => $this->restaurant->getPrinterCreds('token'),
             // 'sid' => '6638e275f8c972bef91bb4e3cd8134af3556c23d',
@@ -105,6 +106,7 @@ class PrinterService
         $msg .= "{$this->config['adr2']}\n";
         $msg .= "{$this->config['zip']} {$this->config['city']}\n";
         $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}\n";
+        $msg .= "{$this->config['vat_number']}\n";
         $msg .= "--------------------------------\n";
 
         // Order Reference and Date

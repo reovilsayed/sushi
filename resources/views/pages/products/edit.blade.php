@@ -182,6 +182,15 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="row row-cols-1">
+                                <x-form.input id="tax"  name="tax"  label="{{ __('sentence.tax') }} "
+                                    value="{{ $product->tax }}" />
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card mt-4">
                         <div class="card-body">

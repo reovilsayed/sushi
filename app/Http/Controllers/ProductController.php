@@ -160,6 +160,7 @@ class ProductController extends Controller
             'allergenes' => 'nullable|string',
             'image' => 'nullable|image',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'tax' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
         ]);  
@@ -170,6 +171,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
+        $product->tax = $request->tax;
         $product->sequency = $request->sequence;
         // $product->status = $request->status;
         // $product->featured = $request->featured;
@@ -223,6 +225,7 @@ class ProductController extends Controller
             'allergenes' => 'required|string',
             'image' => 'nullable|image',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'tax' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'sequence' => 'required|integer',
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
@@ -238,6 +241,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
         $product->allergenes = $request->allergenes;
         $product->price = $request->price;
+        $product->tax = $request->tax;
         $product->sequency = $request->sequence;
         $product->status = $request->status;
         // $product->flavors = json_encode($flavors);

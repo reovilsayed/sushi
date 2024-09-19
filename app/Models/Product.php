@@ -144,4 +144,12 @@ class Product extends Model
     // }
     // In your Product.php model file
 
+    public function tax(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $value / 100 : null,
+            set: fn($value) => $value * 100,
+        );
+    }
+
 }

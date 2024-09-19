@@ -24,6 +24,7 @@
                         <th scope="col">{{ __('sentence.sequency') }}</th>
                         <th scope="col">{{__('sentence.productname')}}</th>
                         <th scope="col">{{ __('sentence.price') }}</th>
+                        <th scope="col">{{ __('sentence.tax') }}</th>
                         {{-- <th scope="col">status</th> --}}
                         <th>{{ __('sentence.sku') }}</th>
                         <th scope="col">{{ __('sentence.category') }}</th>
@@ -44,6 +45,7 @@
                             <th scope="row">{{ $product->sequency }}</th>
                             <td>{{ $product->name }}</td>
                             <td>{{ Settings::price($product->price) }}</td>
+                            <td>{{ Settings::price($product->tax) }}</td>
                             <td>{{ $product->SKU }}</td>
                             <td>
                                 @if ($product->category)

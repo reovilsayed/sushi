@@ -164,6 +164,15 @@
                             </div>
                         </div>
                     </div>
+                   
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="row row-cols-1">
+                                <x-form.input type="number" id="tax" name="tax" label="{{ __('sentence.tax') }} "
+                                    value="" />
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card mt-4">
                         <div class="card-body">
