@@ -13,8 +13,10 @@
                         <th scope="col">#</th>
                         <th scope="col">{{__('sentence.image')}}</th>
                         <th scope="col">{{__('sentence.name')}}</th>
-                        <th scope="col">{{__('sentence.slug')}}</th>
                         <th scope="col">{{__('sentence.vat_number')}}</th>
+                        <th scope="col">{{__('sentence.business_name')}}</th>
+                        <th scope="col">{{__('sentence.license_number')}}</th>
+                        <th scope="col">{{__('sentence.restaurent_code')}}</th>
                         <th scope="col">{{ __('sentence.delivery_option') }}</th>
                         <th scope="col">{{__('sentence.action')}}</th>
                         
@@ -31,8 +33,10 @@
                                     alt="">
                             </td>
                             <td>{{ $restaurant->name ?? '' }}</td>
-                            <td>{{ $restaurant->slug }}</td>
                             <td>{{ $restaurant->vat_number }}</td>
+                            <td>{{ $restaurant->business_name }}</td>
+                            <td>{{ $restaurant->license_number }}</td>
+                            <td>{{ $restaurant->restaurent_code }}</td>
                             <td>{{ $restaurant->delivery() }}</td>
                             <td class="">
 

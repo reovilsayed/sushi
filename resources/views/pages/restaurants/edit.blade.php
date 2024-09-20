@@ -129,6 +129,32 @@
                                     <option value="0" {{ $restaurant->status == '0' ? 'selected' : '' }}>{{ __('sentence.closed') }}</option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card mt-3 mb-3">
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <x-form.input name="business_name" wire:model="business_name"
+                                value="{{ $restaurant->business_name }}"
+                                label="{{ __('sentence.business_name') }} *" autofocus required />
+                            </div>
+                            <div class="mb-3">
+                                <x-form.input name="license_number" wire:model="license_number"
+                                value="{{ $restaurant->license_number }}"
+                                label="{{ __('sentence.license_number') }} *" autofocus required />
+                            </div>
+                            <div class="mb-3">
+                                <x-form.input name="business_location" wire:model="business_location"
+                                value="{{ $restaurant->business_location }}"
+                                label="{{ __('sentence.business_location') }} *" autofocus required />
+                            </div>
+                            <div class="mb-3">
+                                <x-form.input name="restaurent_code" wire:model="restaurent_code"
+                                value="{{ $restaurant->restaurent_code }}"
+                                label="{{ __('sentence.restaurent_code') }} *" autofocus required />
+                            </div>
+
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>
