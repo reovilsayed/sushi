@@ -95,7 +95,7 @@
 
             // Call the Google Maps Geocoding API to get the address
             // const apiKey = 'AIzaSyCt4M6sXKliR4X6j3l3ubOt8HeXN-CKMMY';
-            const apiKey = 'AIzaSyBthPBitQj--9rIBfHf5sXm8LWwN5gRbFk';
+            const apiKey = "{{env('GOOGLE_MAPS_API_KEY')}}";
             const geocodeUrl =
                 `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userLatitude},${userLongitude}&key=${apiKey}`;
 
