@@ -35,7 +35,7 @@ class PaymentController extends Controller
         return $response->body();
     }
     public function email() {
-        $order = Order::find(66);
+        $order = Order::find(164);
         return new OrderConfirmationMail($order);
     }
 }

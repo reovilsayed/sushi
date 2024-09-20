@@ -52,12 +52,16 @@ class PrinterService
             'city' => $this->restaurant->fullAddress('city'),
             'phone' => $this->restaurant->number,
             'email' => $this->restaurant->email,
-            'vat_number' => $this->restaurant->vat_number,
             'sid' => $this->restaurant->getPrinterCreds('sid'),
             'token' => $this->restaurant->getPrinterCreds('token'),
             // 'sid' => '6638e275f8c972bef91bb4e3cd8134af3556c23d',
             // 'token' => '79bdb4e5e695e9a6dc0eee251a441f5211e225b9',
-            'short_opts' => 1
+            'short_opts' => 1,
+            'vat_number' => $this->restaurant->vat_number,
+            'business_name' => $this->restaurant->business_name,
+            'license_number' => $this->restaurant->license_number,
+            'business_location' => $this->restaurant->business_location,
+            'restaurent_code' => $this->restaurant->restaurent_code,
         ];
     }
 
@@ -68,7 +72,7 @@ class PrinterService
             'id' => $this->order->id,
             'created_at' => $this->order->created_at->format('Y-m-d H:i:s'),
             'payment_method_title' => ucwords($this->order->payment_method),
-            'shipping_method_title' => $this->order->delivery_option =='take_away' ? 'a emporter in French' : 'livraison a domicile in french',
+            'shipping_method_title' => $this->order->delivery_option =='take_away' ? 'a emporter' : 'livraison a domicile',
             'delivery_date' => now()->format('Y-m-d'),
             'delivery_time' =>  $this->order->time_option,
             'shipping' => (object) [
@@ -83,6 +87,7 @@ class PrinterService
             ],
             'products' => (object) $this->order->getProducts()->toArray(),
             'total' => $this->order->total,
+            'comment' => $this->order->comment,
             'vendor_id' => $this->order->restaurant_id
         ];
     }
@@ -93,20 +98,9 @@ class PrinterService
 
         $msg = '';
 
-        // Logo
-        if (!empty($this->config['logo_url'])) {
-            $msg .= '<IMG>' . $this->config['logo_url'] . '</IMG>';
-        }
-
         // Header
         $msg .= "<C><BOLD>{$this->config['title']}</BOLD></C>\n";
-        $msg .= "{$this->config['company']}\n";
-        $msg .= "{$this->config['company_id']}\n";
-        $msg .= "{$this->config['adr1']}\n";
-        $msg .= "{$this->config['adr2']}\n";
-        $msg .= "{$this->config['zip']} {$this->config['city']}\n";
-        $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}\n";
-        $msg .= "{$this->config['vat_number']}\n";
+
         $msg .= "--------------------------------\n";
 
         // Order Reference and Date
@@ -121,7 +115,7 @@ class PrinterService
         $msg .= "Mode Livraison: " . ($this->orderBody->shipping_method_title ?? 'N/A') . "\n";
         $msg .= "Date: " . ($this->orderBody->delivery_date ?? 'N/A') . "\n";
         $msg .= "Heure: " . ($this->orderBody->delivery_time ?? 'N/A') . "\n";
-
+        $msg .= "Commentaires: {$this->orderBody->comment}\n";
         // Shipping Address
         $shipping = $this->orderBody->shipping;
         if ($shipping) {
@@ -162,7 +156,13 @@ class PrinterService
         $msg .= "Total: " . number_format($this->orderBody->total, 2, '.', '') . "€\n";
 
 
-        $msg .= "Magasin:\n{$this->config['adr1']}\n{$this->config['adr2']}\n{$this->config['zip']} {$this->config['city']}\n";
+        $msg .= "<C>{$this->config['business_name']}</C>\n";
+        $msg .= "<C>SIRET: {$this->config['license_number']}</C>\n";
+        $msg .= "<C>{$this->config['business_location']}</C>\n";
+        $msg .= "<C>{$this->config['restaurent_code']}</C>\n";
+        $msg .= "{$this->config['vat_number']}\n";
+        $msg .= "<C>{$this->config['adr1']}</C>\n";
+        $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}\n";
         $msg .= "<CUT/>";
 // dd( $msg );
         $this->message = $msg;

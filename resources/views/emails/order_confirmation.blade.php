@@ -28,21 +28,23 @@
                     <div class="title title-2 text-start">
                         <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0; margin-bottom: 15px;">Informations du client</h2>
                         <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
-                                style="font-size: 14px; font-weight:500;">Nom :</span> {{ $customer['f_name'] ?? '' }}
-                            {{ $customer['l_name'] ?? '' }}</strong><br>
+                                style="font-size: 14px; font-weight:500;">Nom :</span> {{ $order->getShipping('f_name') }}
+                            {{ $order->getShipping('l_name') }}</strong><br>
                         <strong
                             style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
                                 style="font-size: 14px; font-weight:500;">Adresse mail :</span>
-                            {{ $customer['email'] ?? '' }}</strong><br>
+                            {{ $order->getShipping('email') }}</strong><br>
                         <strong
                             style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
                                 style="font-size: 14px; font-weight:500;">Numéro de téléphone
-                                :</span>{{ $customer['phone'] ?? '' }}</strong><br>
+                                :</span>{{ $order->getShipping('phone') }}</strong><br>
                         <strong
                             style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
-                                style="font-size: 14px; font-weight:500;">Adresse de livraison :</span> {{ $customer['city'] ?? '' }}
-                            ,{{ $customer['address'] ?? '' }} ,{{ $customer['post_code'] ?? '' }}
-                            ,{{ $customer['house'] ?? '' }}</strong><br>
+                                style="font-size: 14px; font-weight:500;">Adresse de livraison :</span> {{ $order->getShipping('address') }}
+                            ,{{ $order->getShipping('city') }} ,{{ $order->getShipping('post_code') }}</strong><br>
+                        <strong
+                            style="font-size:14px; line-height:24px; font-weight:normal;color:#333333; margin-left: 30px;"><span
+                                style="font-size: 14px; font-weight:500;">Commentaires :</span> {{ $order->comment }}</strong><br>
                     </div>
                 </td>
             </tr>
@@ -174,6 +176,28 @@
                 </td>
             </tr>
 
+        </tbody>
+    </table>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 0 27px;">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="title title-2 text-start">
+                        <h2 style="font-size: 20px;font-weight: 700;margin: 24px 0 0; margin-bottom: 15px;">{{$order->restaurent->name}}</h2>
+                        <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
+                                style="font-size: 14px; font-weight:500;">{{$order->restaurent->business_name}}</span></strong><br>
+                        <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
+                                style="font-size: 14px; font-weight:500;">{{$order->restaurent->license_number}}</span></strong><br>
+                        <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
+                                style="font-size: 14px; font-weight:500;">{{$order->restaurent->business_location}}</span></strong><br>
+                        <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
+                                style="font-size: 14px; font-weight:500;">{{$order->restaurent->restaurent_code}}</span></strong><br>
+                        <strong style="font-size:14px; font-weight:normal;color:#333333; margin-left: 30px;"><span
+                                style="font-size: 14px; font-weight:500;">{{$order->restaurent->vat_number}}</span></strong><br>
+
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 @endsection
