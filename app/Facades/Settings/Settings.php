@@ -3,6 +3,7 @@
 namespace App\Facades\Settings;
 
 use App\Models\Setting;
+use Cart;
 use Illuminate\Support\Facades\Cache;
 
 
@@ -20,7 +21,25 @@ class Settings
     {
         return 'Є';
     }
+    public function itemTax($item)
+    {
+        // dd($item->model);
+        $qty = $item->quantity;
+        $product = $item->attributes['product'];
+        $taxPerItem = $product->taxAmount();
 
+        $totalItemTax = $taxPerItem * $qty;
+        return number_format($totalItemTax, 2);
+    }
+    public function totalTax()
+    {
+        $cartItems = Cart::getContent();
+        $totalTax = 0;
+        foreach ($cartItems as $item) {
+            $totalTax += $this->itemTax($item);
+        }
+        return number_format($totalTax, 2);
+    }
     public function setting($key, $default = null)
     {
         $settings = Cache::remember('all_settings', 100, function () {
@@ -77,6 +96,5 @@ class Settings
             return $settings->{$param};
         }
         return null;
-
     }
 }

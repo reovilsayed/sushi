@@ -75,25 +75,27 @@
                                 <div class="col-md-8 mb-3">
                                     <div class="col-md-12">
 
-                                        <select id="deliveryOption" name="delivery_option" class="form-select selectpicker" data-container="body">
+                                        <select id="deliveryOption" name="delivery_option"
+                                            class="form-select selectpicker" data-container="body">
                                             <option selected style="color: var(--accent-color)">
                                                 {{ __('sentence.openthismenu') }}
                                             </option>
-                                        
+
                                             @if ($restaurant->delivery_option == 'take_away')
-                                                <option value="take_away" selected>{{ __('sentence.takeaway') }}</option>
-                                        
+                                                <option value="take_away" selected>{{ __('sentence.takeaway') }}
+                                                </option>
                                             @elseif ($restaurant->delivery_option == 'home_delivery')
-                                                <option value="home_delivery" selected>{{ __('sentence.homedelivery') }}</option>
-                                    
+                                                <option value="home_delivery" selected>
+                                                    {{ __('sentence.homedelivery') }}</option>
                                             @elseif ($restaurant->delivery_option == 'both')
                                                 <option value="take_away">{{ __('sentence.takeaway') }}</option>
-                                                <option value="home_delivery" {{ session()->get('current_location') ? 'selected' : '' }}>
+                                                <option value="home_delivery"
+                                                    {{ session()->get('current_location') ? 'selected' : '' }}>
                                                     {{ __('sentence.homedelivery') }}
                                                 </option>
                                             @endif
                                         </select>
-                                        
+
 
                                     </div>
 
@@ -128,7 +130,7 @@
                                                     value={{ auth()->user()->phone ?? '' }}>
                                             </div>
 
-                                            
+
                                             <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
@@ -154,8 +156,7 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}"
-                                                    style="height:122px;"></textarea>
+                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}" style="height:122px;"></textarea>
                                             </div>
 
                                         </div>
@@ -327,7 +328,14 @@
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
                                                             {{ __('sentence.extra_charge') }}</td>
                                                         <td class="fs-6 fw-medium text-center">
-                                                            {{ $extra_charge }}€
+                                                            {{ $extra_charge }} €
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
+                                                            {{ __('sentence.total_tax') }}</td>
+                                                        <td class="fs-6 fw-medium text-center">
+                                                            {{ Settings::totalTax() }} €
                                                         </td>
                                                     </tr>
                                                     <tr>

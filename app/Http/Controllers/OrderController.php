@@ -55,7 +55,8 @@ class OrderController extends Controller
         // dd($eranings);
         return response()->json(['data' => $eranings]);
     }
-    public function expedy_print(Order $order){
+    public function expedy_print(Order $order)
+    {
         (new PrinterService($order))->sendToPrinter();
         return back()->with('success', 'Request Send to printer');
     }
@@ -109,7 +110,7 @@ class OrderController extends Controller
     {
 
 
-        if(Cart::getTotalQuantity() == 0){
+        if (Cart::getTotalQuantity() == 0) {
             return redirect(url('/'));
         }
         $request->validate([
@@ -129,6 +130,7 @@ class OrderController extends Controller
             'shipping_info' => json_encode($shipping),
             'sub_total' => Cart::getSubTotal(),
             'total' => Cart::getTotal() + $extra_charge,
+            'tax' => Settings::totalTax(),
             'comment' => $request->input('commment'),
             'time_option' => $request->time_option,
             'payment_method' => $request->input('payment_method'),

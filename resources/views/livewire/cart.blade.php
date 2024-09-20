@@ -14,7 +14,7 @@
 
             .sushibtn {
                 padding: 4px 3px !important;
-                border: 1px solid var(--accent-color)!important;
+                border: 1px solid var(--accent-color) !important;
                 border-radius: 0px;
                 background-color: var(--accent-color);
                 color: #ffffff;
@@ -37,7 +37,7 @@
                 <div class="col-lg-12 col-sm-12">
                     <div class="table-responsive">
                         <table class="cart_table  table-responsive">
-                           
+
                             <tbody class="table_body">
                                 @forelse (Cart::getContent() as $item)
                                     @if (isset($item->attributes['product']))
@@ -51,7 +51,7 @@
                                                 <td class="cart-product-image">
                                                     @php
                                                         $product = $item->attributes['product'];
-                                                     
+
                                                     @endphp
                                                     <a
                                                         href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}">
@@ -59,17 +59,20 @@
                                                     </a>
 
                                                 </td>
-                                               
+
                                                 <td class="cart-product-info text-center">
                                                     <h4><a class="fw-lighter fs-4 text-uppercase"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
-                                                            style="color: #ffffff !important;">{{  $product->category->name }} - {{ $item->name }}</a>
-                                                            @if(isset($item->attributes['options']))
-                                                            <p class="fw-light mt-2 fs-6"> {{ $item->attributes['options']}}</p>
-                                                            @endif
+                                                            style="color: #ffffff !important;">{{ $product->category->name }}
+                                                            - {{ $item->name }}</a>
+                                                        @if (isset($item->attributes['options']))
+                                                            <p class="fw-light mt-2 fs-6">
+                                                                {{ $item->attributes['options'] }}</p>
+                                                        @endif
                                                     </h4>
                                                 </td>
                                             @endif
+
                                             <td class="cart-product-quantity d-flex justify-content-center mt-3">
                                                 <form id="update-cart-form-{{ $item->id }}" method="post">
                                                     <div class="cart-product-quantity d-flex justify-content-center">
@@ -80,8 +83,9 @@
 
                                                             <input type="text" value="{{ $item->quantity }}"
                                                                 name="quantity" class="cart-plus-minus-box"
-                                                                id="product_quantity_{{ $item->id }}" min="1"
-                                                                placeholder="0" data-price="{{ $item->price }}"
+                                                                id="product_quantity_{{ $item->id }}"
+                                                                min="1" placeholder="0"
+                                                                data-price="{{ $item->price }}"
                                                                 data-name="{{ $item->name }}" readonly>
 
                                                             <button class="inc increase-btn qtybutton"
@@ -90,6 +94,9 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                            </td>
+                                            <td>
+                                                <p>Tax: {{ Settings::itemTax($item) }} Є</p>
                                             </td>
                                             <td class="cart-product-subtotal text-center">
                                                 {{ number_format($item->price * $item->quantity, 2) }} €
@@ -126,7 +133,9 @@
                                         :prices="$extraPrice" />
                                 </div>
                             @endforeach
-                            <p class="text-start mt-4" style="font-size: smaller; color: #ff883e;">WASABI / GINGEMBRE sont toujours inclus avec les rolls. Si vous n'en souhaitez pas, merci de le préciser dans la section << Informations supplémentaires >> de la page suivante</p>
+                            <p class="text-start mt-4" style="font-size: smaller; color: #ff883e;">WASABI / GINGEMBRE
+                                sont toujours inclus avec les rolls. Si vous n'en souhaitez pas, merci de le préciser
+                                dans la section << Informations supplémentaires>> de la page suivante</p>
                         </div>
 
                     </div>

@@ -14,7 +14,7 @@ class Product extends Model
     use HasFilter;
 
     protected $guarded = [];
-    protected $with = ['category','options'];
+    protected $with = ['category', 'options'];
 
     public function imageUrl(): Attribute
     {
@@ -89,7 +89,7 @@ class Product extends Model
         );
     }
 
-    
+
     public function price(): Attribute
     {
         return Attribute::make(
@@ -151,5 +151,13 @@ class Product extends Model
             set: fn($value) => $value * 100,
         );
     }
+    public function taxAmount()
+    {
+        $price = $this->price;
+        $tax = $this->tax / 100;
+        $priceWithTax = $price * (1 + $tax);
+        $taxAmount = $priceWithTax - $price;
 
+        return $taxAmount;
+    }
 }
