@@ -86,9 +86,10 @@ class PrinterService
                 'phone' => $this->order->getShipping('phone'),
             ],
             'products' => (object) $this->order->getProducts()->toArray(),
+            'tax' => $this->order->tax,
             'total' => $this->order->total,
             'comment' => $this->order->comment,
-            'vendor_id' => $this->order->restaurant_id
+            'vendor_id' => $this->order->restaurant_id,
         ];
     }
 
@@ -151,6 +152,7 @@ class PrinterService
                 $msg .= "   • {$suboption}\n";
             }
         }
+        $msg .= "Tax: " . ($this->orderBody->tax ?? 'N/A') . "\n";
         // Totals
         $msg .= "--------------------------------\n";
         $msg .= "Total: " . number_format($this->orderBody->total, 2, '.', '') . "€\n";

@@ -123,6 +123,12 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
+                                                {{ __('sentence.tax') }} :</th>
+                                            <td class="border-0 text-end"> {{ Settings::price($order->tax) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="4" class="border-0 text-end">
                                                 {{ __('sentence.discount') }} :</th>
                                             <td class="border-0 text-end">- {{ Settings::price($order->discount) }}
                                             </td>
