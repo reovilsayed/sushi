@@ -80,8 +80,7 @@
                                         value="{{ $restaurant->enable_payment }}" value="1" />
                                 </div>
                             </div>
-                            <x-form.input id="vat_number" name="vat_number" label="{{ __('sentence.vat_number') }}"
-                                value="{{ $restaurant->vat_number }}" required />
+                            
 
 
                             {{-- <button class="btn btn-success" type="submit" style="float: right">
@@ -105,56 +104,68 @@
                                     label="{{ __('sentence.serial_number_of_printer') }}"
                                     value="{{ @$printer['serial_number'] }}" />
 
+                                <div class="mb-3">
+                                    <label for=""
+                                        class="form-label">{{ __('sentence.delivery_option') }}</label>
+                                    <select class="form-select " aria-label="Default select example"
+                                        name="delivery_option">
+                                        <option value="both"
+                                            {{ $restaurant->delivery_option == 'both' ? 'selected' : '' }}>
+                                            {{ __('sentence.both') }}</option>
+                                        <option value="take_away"
+                                            {{ $restaurant->delivery_option == 'take_away' ? 'selected' : '' }}>
+                                            {{ __('sentence.takeaway') }}</option>
+                                        <option value="home_delivery"
+                                            {{ $restaurant->delivery_option == 'home_delivery' ? 'selected' : '' }}>
+                                            {{ __('sentence.homedelivery') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">{{ __('sentence.status') }}</label>
+                                    <select class="form-select " aria-label="Default select example" name="status">
+                                        <option value="1" {{ $restaurant->status == '1' ? 'selected' : '' }}>
+                                            {{ __('sentence.open') }}</option>
+                                        <option value="0" {{ $restaurant->status == '0' ? 'selected' : '' }}>
+                                            {{ __('sentence.closed') }}</option>
+                                    </select>
+                                </div>
+
                                 <div class="d-flex align-items-end">
                                     <x-form.input type="checkbox" id="enable_printer" name="enable_printer"
                                         label="{{ __('sentence.enable_printer') }} " :checked="$restaurant->enable_printer"
                                         value="{{ $restaurant->enable_printer }}" value="1" :checked="$restaurant->enable_printer" />
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">{{ __('sentence.delivery_option') }}</label>
-                                <select class="form-select " aria-label="Default select example"
-                                    name="delivery_option">
-                                    <option value="both" {{ $restaurant->delivery_option == 'both' ? 'selected' : '' }}> {{ __('sentence.both') }}</option>
-                                    <option value="take_away" {{ $restaurant->delivery_option == 'take_away' ? 'selected' : '' }}>{{ __('sentence.takeaway') }}</option>
-                                    <option value="home_delivery" {{ $restaurant->delivery_option == 'home_delivery' ? 'selected' : '' }}> {{ __('sentence.homedelivery') }}</option>
-                                </select>
-                            </div>
 
-                            <div class="mb-3">
-                                <label for="" class="form-label">{{ __('sentence.status') }}</label>
-                                <select class="form-select " aria-label="Default select example"
-                                    name="status">
-                                    <option value="1" {{ $restaurant->status == '1' ? 'selected' : '' }}> {{ __('sentence.open') }}</option>
-                                    <option value="0" {{ $restaurant->status == '0' ? 'selected' : '' }}>{{ __('sentence.closed') }}</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
-
-                            <div class="mb-3">
-                                <x-form.input name="business_name" wire:model="business_name"
-                                value="{{ $restaurant->business_name }}"
-                                label="{{ __('sentence.business_name') }} *" autofocus required />
+                            <div class="row row-cols-2">
+                                <div class="mb-3">
+                                    <x-form.input name="business_name" wire:model="business_name"
+                                        value="{{ $restaurant->business_name }}"
+                                        label="{{ __('sentence.business_name') }} *" autofocus required />
+                                </div>
+                                <div class="mb-3">
+                                    <x-form.input name="license_number" wire:model="license_number"
+                                        value="{{ $restaurant->license_number }}"
+                                        label="{{ __('sentence.license_number') }} *" autofocus required />
+                                </div>
+                                <div class="mb-3">
+                                    <x-form.input name="business_location" wire:model="business_location"
+                                        value="{{ $restaurant->business_location }}"
+                                        label="{{ __('sentence.business_location') }} *" autofocus required />
+                                </div>
+                                <div class="mb-3">
+                                    <x-form.input name="restaurent_code" wire:model="restaurent_code"
+                                        value="{{ $restaurant->restaurent_code }}"
+                                        label="{{ __('sentence.restaurent_code') }} *" autofocus required />
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <x-form.input name="license_number" wire:model="license_number"
-                                value="{{ $restaurant->license_number }}"
-                                label="{{ __('sentence.license_number') }} *" autofocus required />
-                            </div>
-                            <div class="mb-3">
-                                <x-form.input name="business_location" wire:model="business_location"
-                                value="{{ $restaurant->business_location }}"
-                                label="{{ __('sentence.business_location') }} *" autofocus required />
-                            </div>
-                            <div class="mb-3">
-                                <x-form.input name="restaurent_code" wire:model="restaurent_code"
-                                value="{{ $restaurant->restaurent_code }}"
-                                label="{{ __('sentence.restaurent_code') }} *" autofocus required />
-                            </div>
-
+                            <x-form.input id="vat_number" name="vat_number" label="{{ __('sentence.vat_number') }}"
+                                value="{{ $restaurant->vat_number }}" required />
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>
@@ -170,23 +181,25 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body">
-                      <h5 class="card-title">{{ __('sentence.request_to_print') }}</h5>
-                      <form method="post" action="{{route('print.restaurant.order',$restaurant)}}">
-                        @csrf
-                        <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label for="fromDate" class="form-label">{{ __('sentence.from_date') }}</label>
-                            <input type="date" class="form-control" id="fromDate" name="fromDate" required>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="toDate" class="form-label">{{ __('sentence.to_date') }}</label>
-                            <input type="date" class="form-control" id="toDate"  name="toDate" required>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">{{ __('sentence.send') }}</button>
-                      </form>
+                        <h5 class="card-title">{{ __('sentence.request_to_print') }}</h5>
+                        <form method="post" action="{{ route('print.restaurant.order', $restaurant) }}">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fromDate" class="form-label">{{ __('sentence.from_date') }}</label>
+                                    <input type="date" class="form-control" id="fromDate" name="fromDate"
+                                        required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="toDate" class="form-label">{{ __('sentence.to_date') }}</label>
+                                    <input type="date" class="form-control" id="toDate" name="toDate"
+                                        required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ __('sentence.send') }}</button>
+                        </form>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
