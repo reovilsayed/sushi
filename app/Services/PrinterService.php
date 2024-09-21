@@ -162,9 +162,9 @@ class PrinterService
         $msg .= "<C>SIRET: {$this->config['license_number']}</C>\n";
         $msg .= "<C>{$this->config['business_location']}</C>\n";
         $msg .= "<C>{$this->config['restaurent_code']}</C>\n";
-        $msg .= "{$this->config['vat_number']}\n";
+        $msg .= "<C>{$this->config['vat_number']}</C>\n";
         $msg .= "<C>{$this->config['adr1']}</C>\n";
-        $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}\n";
+        $msg .= "<C>Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>\n";
         $msg .= "<CUT/>";
 // dd( $msg );
         $this->message = $msg;
