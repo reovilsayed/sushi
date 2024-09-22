@@ -23,10 +23,10 @@ class Settings
     }
     public function itemTax($item)
     {
-        // dd($item->model);
+        // dd($item);
         $qty = $item->quantity;
         $product = $item->attributes['product'];
-        $taxPerItem = $product->taxAmount();
+        $taxPerItem = $product->taxAmount($item->price);
 
         $totalItemTax = $taxPerItem * $qty;
         return number_format($totalItemTax, 2);
@@ -34,6 +34,7 @@ class Settings
     public function totalTax()
     {
         $cartItems = Cart::getContent();
+     
         $totalTax = 0;
         foreach ($cartItems as $item) {
             if(isset($item->attributes['product'])){

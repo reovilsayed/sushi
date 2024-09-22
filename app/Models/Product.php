@@ -151,9 +151,9 @@ class Product extends Model
             set: fn($value) => $value * 100,
         );
     }
-    public function taxAmount()
+    public function taxAmount($price)
     {
-        $price = $this->price;
+        // $price = $this->price;
         $tax = $this->tax / 100;
         $priceWithTax = $price * (1 + $tax);
         $taxAmount = $priceWithTax - $price;
