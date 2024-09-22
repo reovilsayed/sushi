@@ -96,7 +96,9 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <p>Tax: {{ Settings::itemTax($item) }} Є</p>
+                                                @if (isset($item->attributes['product']))
+                                                    <p>Tax: {{ Settings::itemTax($item) }} Є</p>
+                                                @endif
                                             </td>
                                             <td class="cart-product-subtotal text-center">
                                                 {{ number_format($item->price * $item->quantity, 2) }} €

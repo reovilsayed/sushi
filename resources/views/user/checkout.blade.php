@@ -335,7 +335,7 @@
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
                                                             {{ __('sentence.total_tax') }}</td>
                                                         <td class="fs-6 fw-medium text-center">
-                                                            {{ Settings::totalTax() }} €
+                                                                {{ Settings::totalTax() }} €
                                                         </td>
                                                     </tr>
                                                     <tr>

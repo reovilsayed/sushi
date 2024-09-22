@@ -36,7 +36,10 @@ class Settings
         $cartItems = Cart::getContent();
         $totalTax = 0;
         foreach ($cartItems as $item) {
-            $totalTax += $this->itemTax($item);
+            if(isset($item->attributes['product'])){
+
+                $totalTax += $this->itemTax($item);
+            }
         }
         return number_format($totalTax, 2);
     }
