@@ -45,7 +45,7 @@
                             <th scope="row">{{ $product->sequency }}</th>
                             <td>{{ $product->name }}</td>
                             <td>{{ Settings::price($product->price) }}</td>
-                            <td>{{ Settings::price($product->tax) }}</td>
+                            <td>{{ number_format($product->tax, 2) }} %</td>
                             <td>{{ $product->SKU }}</td>
                             <td>
                                 @if ($product->category)
