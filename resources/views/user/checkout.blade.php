@@ -279,7 +279,7 @@
                                                                 {{ $product->name }} * {{ $product->quantity }}
                                                             </td>
                                                             <td class="text-center" style="font-size: 13px;">
-                                                                {{ number_format($product->price, 2) }} €
+                                                                {{ number_format($product->price * $product->quantity, 2) }} €
                                                             </td>
                                                         </tr>
                                                     @endforeach
