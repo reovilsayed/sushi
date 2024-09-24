@@ -6,7 +6,8 @@
         $extra_charge = Settings::setting('extra.charge');
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
-
+         // Cart::clear();
+        //dd(Cart::getContent());
     @endphp
 
     <x-user>
@@ -321,7 +322,7 @@
                                                         <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
                                                             {{ __('sentence.subtotal') }}</td>
                                                         <td class="fs-6 fw-medium text-center">
-                                                            {{ number_format(Cart::getSubTotal(), 2) }}€
+                                                            {{ number_format(Cart::getSubTotal() - Settings::totalTax() , 2) }}€
                                                         </td>
                                                     </tr>
                                                     <tr>

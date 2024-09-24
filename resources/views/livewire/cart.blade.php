@@ -97,7 +97,7 @@
                                             </td>
                                             <td>
                                                 @if (isset($item->attributes['product']))
-                                                    <p>Tax: {{ Settings::itemTax($item) }} Є</p>
+                                                    <p>Tax: {{ Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity) }} Є</p>
                                                 @endif
                                             </td>
                                             <td class="cart-product-subtotal text-center">
