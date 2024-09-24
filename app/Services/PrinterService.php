@@ -143,7 +143,7 @@ class PrinterService
             }
             
             $quantity = $product->quantity;
-            $price = number_format($product->price, 2, '.', '') . '€';
+            $price = Settings::price($product->price);
             $msg .= "{$quantity} x {$category} - {$productName} - {$price}\n";
 
             // Handle suboptions if any
@@ -152,19 +152,18 @@ class PrinterService
                 $msg .= "   • {$suboption}\n";
             }
         }
-        $msg .= "Tax: " . ($this->orderBody->tax ?? 'N/A') . "\n";
-        // Totals
         $msg .= "--------------------------------\n";
-        $msg .= "Total: " . number_format($this->orderBody->total, 2, '.', '') . "€\n";
+        $msg .= "TVA incluse: " . (Settings::price($this->orderBody->tax) ?? 'N/A') . "\n";
+        $msg .= "Total TTC: " . Settings::price($this->orderBody->total) . "\n";
 
 
-        $msg .= "<C>{$this->config['business_name']}</C>\n";
-        $msg .= "<C>SIRET: {$this->config['license_number']}</C>\n";
-        $msg .= "<C>{$this->config['business_location']}</C>\n";
-        $msg .= "<C>{$this->config['restaurent_code']}</C>\n";
-        $msg .= "<C>{$this->config['vat_number']}</C>\n";
-        $msg .= "<C>{$this->config['adr1']}</C>\n";
-        $msg .= "<C>Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>\n";
+        $msg .= "<C>{$this->config['business_name']}\n";
+        $msg .= "SIRET: {$this->config['license_number']}\n";
+        $msg .= "{$this->config['business_location']}\n";
+        $msg .= "{$this->config['restaurent_code']}\n";
+        $msg .= "{$this->config['vat_number']}\n";
+        $msg .= "{$this->config['adr1']}\n";
+        $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>";
         $msg .= "<CUT/>";
 // dd( $msg );
         $this->message = $msg;

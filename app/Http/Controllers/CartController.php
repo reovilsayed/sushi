@@ -40,7 +40,7 @@ class CartController extends Controller
 
 		$RandomNumber =  rand(9999, 999999);
 
-		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'product' => $product,'options'=>$request->options .''.$option_name]);
+		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id,'tax'=>$product->tax, 'product' => $product,'options'=>$request->options .''.$option_name]);
 
 
 
@@ -127,7 +127,7 @@ class CartController extends Controller
 			$extra->name,
 			$request->price, // Use the price from the form
 			$request->quantity, // Use the quantity from the form
-			['restaurent' => $request->restaurent_id, 'extra' => $extra]
+			['restaurent' => $request->restaurent_id, 'extra' => $extra,'tax'=>$extra->tax,'sdfsd'=>'sedfsdf']
 		);
 
 		return back();

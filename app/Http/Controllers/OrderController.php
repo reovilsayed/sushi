@@ -151,6 +151,8 @@ class OrderController extends Controller
                     'quantity' => $item->quantity,
                     'price' => $item->price,
                     'options' => $options,
+                    'tax_amount'=> Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity),
+                    'tax_percentage'=>$item->attributes['tax']
                 ]);
             }
 
@@ -160,6 +162,8 @@ class OrderController extends Controller
                     'name' => $item->name,
                     'price' => $item->price,
                     'quantity' => $item->quantity,
+                    'tax_amount'=> Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity),
+                    'tax_percentage'=>$item->attributes['tax']
                 ];
             }
         }

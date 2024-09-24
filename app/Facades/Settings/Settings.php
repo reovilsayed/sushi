@@ -21,13 +21,12 @@ class Settings
     {
         return 'Є';
     }
-    public function itemTax($item)
+    public function itemTax($price,$tax,$quantity=1)
     {
-        // dd($item);
-        $qty = $item->quantity;
-        $product = $item->attributes['product'];
-        $taxPerItem = $product->taxAmount($item->price);
-
+        $tax = $tax / 100;
+        $base_price = $price/(1 + $tax) ;
+        $taxPerItem =  $price - $base_price;
+        $qty = $quantity;
         $totalItemTax = $taxPerItem * $qty;
         return number_format($totalItemTax, 2);
     }
@@ -37,10 +36,7 @@ class Settings
      
         $totalTax = 0;
         foreach ($cartItems as $item) {
-            if(isset($item->attributes['product'])){
-
-                $totalTax += $this->itemTax($item);
-            }
+            $totalTax += $this->itemTax($item->price,$item->attributes['tax'],$item->quantity);
         }
         return number_format($totalTax, 2);
     }

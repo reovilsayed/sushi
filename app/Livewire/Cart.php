@@ -95,7 +95,8 @@ class Cart extends Component
                     'associatedModel' => $data['model'],
                     'attributes' => [
                         'restaurent' => $this->restuarant,
-                        'extra' => $data['model']
+                        'extra' => $data['model'],
+                        'tax' => $data['model']->tax,
                     ]
                 ]);
             }
