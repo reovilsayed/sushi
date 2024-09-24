@@ -153,8 +153,8 @@ class PrinterService
         }
         $tax = Order::latest()->first()->getProducts()->groupBy('tax_percent')->map(fn($order) => [
             'count'=> $order->count(),
-            'subtotal' => $order->sum('price'),
-            'vat' => $order->sum('price')  * ($order->avg('tax_percent') / 100),
+            'subtotal' =>number_format( $order->sum('total'), 2),
+            'vat' => number_format($order->sum('tax'), 2),
         ]);
 
         
@@ -162,15 +162,18 @@ class PrinterService
         $msg .= "------------------------------------------------" . "\n";
         $msg .= "Code       |  HT         |   TVA       |   TTC" . "\n";
         foreach ($tax as $key => $data) {
+            // dd($data['subtotal']);
             $count = $data['count'];
-            $subtotal = $data['subtotal'];
+            $total = $data['subtotal'];
+            
             $tax = number_format($data['vat'], 2);
-            $total = $subtotal + $tax;
-            $msg .= "($count) $key%   |  $subtotal Є    |   $tax Є    |   $total Є" . "\n";
+            $subtotal = $total - $tax;
+            $msg .= "($count) $key%   |   $subtotal Є    |   $tax Є    |   $total Є" . "\n";
         }
 
         $msg .= "------------------------------------------------" . "\n";
         $msg .= "TVA incluse: " . (Settings::price($this->orderBody->tax) ?? 'N/A') . "\n";
+        $msg .= "Frais de gestion: " . (Settings::setting('extra.charge') ?? 'N/A') . "\n";
         $msg .= "Total TTC: " . Settings::price($this->orderBody->total) . "\n";
 
 
@@ -201,6 +204,8 @@ class PrinterService
 
     public function sendToPrinter()
     {
+
+        return $this->message;
 
         if (!$this->config['print_on']) {
             return response()->json(['message' => 'Printing is disabled.'], 200);

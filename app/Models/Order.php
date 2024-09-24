@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Settings;
 
 class Order extends Model
 {
@@ -109,17 +110,21 @@ class Order extends Model
             'price' => (float) $product->pivot->price,
             'options' => $product->pivot->options ? explode(', ', $product->pivot->options) : null,
             'category' => $product->category,
-            'tax_percent'=>(string) $product->tax
+            'tax_percent'=>(string) $product->tax,
+            'total'=> $product->pivot->price *  $product->pivot->quantity,
+            'tax'=>Settings::itemTax($product->pivot->price, $product->tax, $product->pivot->quantity),
             
         ]);
-
+        
         $extras = collect(value: json_decode($this->extra, true))
             ->map(fn($extra) => (object) [
                 'name' => $extra['name'],
                 'quantity' => $extra['quantity'],
                 'price' => $extra['price'],
                 'options' => null,
-                'tax_percent'=>(string) $extra['tax_percentage']
+                'tax_percent'=>(string) $extra['tax_percentage'],
+                'total'=> $extra['price'] *  $extra['quantity'],
+                'tax'=>Settings::itemTax($extra['price'], $extra['tax_percentage'], $extra['quantity']),
             ]);
         return $products->merge($extras);
     }
