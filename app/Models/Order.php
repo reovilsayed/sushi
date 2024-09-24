@@ -101,20 +101,25 @@ class Order extends Model
     public function getProducts()
     {
 
+
+
         $products = $this->products->map(fn($product) => (object) [
             'name' => $product->name,
             'quantity' => $product->pivot->quantity,
             'price' => (float) $product->pivot->price,
             'options' => $product->pivot->options ? explode(', ', $product->pivot->options) : null,
-            'category' => $product->category
+            'category' => $product->category,
+            'tax_percent'=>(string) $product->tax
+            
         ]);
 
-        $extras = collect(json_decode($this->extra, true))
+        $extras = collect(value: json_decode($this->extra, true))
             ->map(fn($extra) => (object) [
                 'name' => $extra['name'],
                 'quantity' => $extra['quantity'],
                 'price' => $extra['price'],
-                'options' => null
+                'options' => null,
+                'tax_percent'=>(string) $extra['tax_percentage']
             ]);
         return $products->merge($extras);
     }

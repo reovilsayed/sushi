@@ -105,10 +105,6 @@ Route::patch('/time-update', [PageController::class, 'updateTime'])->name('time_
 Route::get('/get-google-maps-api-key', function () {
     return response()->json(config('services.google_maps.api_key'));
 });
-Route::get('/test', function () {
-    return view('test');
-});
-
 
 //order routes
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
@@ -196,14 +192,6 @@ Route::post('payment/{restaurant:slug}/callback', function (Restaurant $restaura
 })->name('payment.callback');
 
 
-Route::get('/test', function () {
-    $order = Order::latest()->first();
-    $printing = (new PrinterService($order))->sendToPrinter();
-    return $printing;
-
-    // dd($order->restaurent->getPaymentCreds('secretKey'));
-    return Payment::make($order);
-});
 
 
 

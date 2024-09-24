@@ -6,7 +6,7 @@ use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Settings; 
+use Settings;
 
 class PrinterService
 {
@@ -72,7 +72,7 @@ class PrinterService
             'id' => $this->order->id,
             'created_at' => $this->order->created_at->format('Y-m-d H:i:s'),
             'payment_method_title' => ucwords($this->order->payment_method),
-            'shipping_method_title' => $this->order->delivery_option =='take_away' ? 'a emporter' : 'livraison a domicile',
+            'shipping_method_title' => $this->order->delivery_option == 'take_away' ? 'a emporter' : 'livraison a domicile',
             'delivery_date' => now()->format('Y-m-d'),
             'delivery_time' =>  $this->order->time_option,
             'shipping' => (object) [
@@ -124,24 +124,23 @@ class PrinterService
             $msg .= "{$shipping->first_name} {$shipping->last_name}\n";
             $msg .= "{$shipping->email}\n";
             $msg .= "{$shipping->phone}\n";
-
-            $msg .= "{$shipping->address_1}\n";
+            $msg .= $shipping->address_1 ?? "{$shipping->address_1}\n";
             if ($shipping->address_2) {
                 $msg .= "{$shipping->address_2}\n";
             }
-            $msg .= "{$shipping->postcode} {$shipping->city}\n";
+            $msg .= $shipping->postcode ?? "{$shipping->postcode} {$shipping->city}\n";
         }
 
         // Products
         $msg .= "Produits:\n";
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
-            if(isset($product->category)){
+            if (isset($product->category)) {
                 $category = $product?->category?->name;
-            }else{
+            } else {
                 $category = '';
             }
-            
+
             $quantity = $product->quantity;
             $price = Settings::price($product->price);
             $msg .= "{$quantity} x {$category} - {$productName} - {$price}\n";
@@ -152,20 +151,46 @@ class PrinterService
                 $msg .= "   • {$suboption}\n";
             }
         }
-        $msg .= "--------------------------------\n";
+        $tax = Order::latest()->first()->getProducts()->groupBy('tax_percent')->map(fn($order) => [
+            'count'=> $order->count(),
+            'subtotal' => $order->sum('price'),
+            'vat' => $order->sum('price')  * ($order->avg('tax_percent') / 100),
+        ]);
+
+        
+        $i = 1;
+        $msg .= "------------------------------------------------" . "\n";
+        $msg .= "Code       |  HT         |   TVA       |   TTC" . "\n";
+        foreach ($tax as $key => $data) {
+            $count = $data['count'];
+            $subtotal = $data['subtotal'];
+            $tax = number_format($data['vat'], 2);
+            $total = $subtotal + $tax;
+            $msg .= "($count) $key%   |  $subtotal Є    |   $tax Є    |   $total Є" . "\n";
+        }
+
+        $msg .= "------------------------------------------------" . "\n";
         $msg .= "TVA incluse: " . (Settings::price($this->orderBody->tax) ?? 'N/A') . "\n";
         $msg .= "Total TTC: " . Settings::price($this->orderBody->total) . "\n";
 
 
         $msg .= "<C>{$this->config['business_name']}\n";
         $msg .= "SIRET: {$this->config['license_number']}\n";
-        $msg .= "{$this->config['business_location']}\n";
-        $msg .= "{$this->config['restaurent_code']}\n";
-        $msg .= "{$this->config['vat_number']}\n";
-        $msg .= "{$this->config['adr1']}\n";
+        if ($this->config['business_location']) {
+            $msg .= "{$this->config['business_location']}\n";
+        }
+        if ($this->config['restaurent_code']) {
+            $msg .= "{$this->config['restaurent_code']}\n";
+        }
+        if ($this->config['vat_number']) {
+            $msg .= "{$this->config['vat_number']}\n";
+        }
+        if ($this->config['adr1']) {
+            $msg .= "{$this->config['adr1']}\n";
+        }
         $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>";
         $msg .= "<CUT/>";
-// dd( $msg );
+        // dd( $msg );
         $this->message = $msg;
     }
 

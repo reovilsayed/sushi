@@ -25,11 +25,11 @@ class CartController extends Controller
 			$option = ProductOption::find($request->option_id);
 			$price = $option->option_price;
 			$name = $product->name;
-			$option_name =$option->option_name;
+			$option_name = $option->option_name;
 		} else {
 			$price = $product->price;
 			$name = $product->name;
-			$option_name ='';
+			$option_name = '';
 		}
 		// if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
 
@@ -40,7 +40,7 @@ class CartController extends Controller
 
 		$RandomNumber =  rand(9999, 999999);
 
-		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id,'tax'=>$product->tax, 'product' => $product,'options'=>$request->options .''.$option_name]);
+		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'tax' => $product->tax, 'product' => $product, 'options' => $request->options . '' . $option_name]);
 
 
 
@@ -64,9 +64,10 @@ class CartController extends Controller
 	public function destroy($id)
 	{
 
-		if (Cart::getContent()->count() == 1) {
+		if (Cart::getContent()->filter(fn($cart, $key) => is_numeric($key))->count() == 1) {
 
-			Cart::remove($id);
+
+			Cart::clear();
 			session()->forget('restaurent_id');
 			session()->forget('address');
 			session()->forget('delivery_time');
@@ -127,7 +128,7 @@ class CartController extends Controller
 			$extra->name,
 			$request->price, // Use the price from the form
 			$request->quantity, // Use the quantity from the form
-			['restaurent' => $request->restaurent_id, 'extra' => $extra,'tax'=>$extra->tax,'sdfsd'=>'sedfsdf']
+			['restaurent' => $request->restaurent_id, 'extra' => $extra, 'tax' => $extra->tax, 'sdfsd' => 'sedfsdf']
 		);
 
 		return back();
