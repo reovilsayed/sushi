@@ -1,5 +1,5 @@
     @php
-        $firstItem = Cart::getContent()->first();
+        $firstItem = Cart::getContent()->last();
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
         $locations = explode(',', session()->get('current_location'));
         $address = session()->get('address');
@@ -101,7 +101,7 @@
                                     </div>
 
                                     <div id="takeAwayForm" class="mt-5">
-                                        @if ($restaurant)
+                                        @if ($restaurant->latest())
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
                                                 <h2 class="text-colour">{{ $restaurant->name }}</h2>
 

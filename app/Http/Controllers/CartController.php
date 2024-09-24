@@ -31,10 +31,10 @@ class CartController extends Controller
 			$name = $product->name;
 			$option_name ='';
 		}
-		if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
+		// if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {
 
-			return back()->with('error', 'Veuillez sélectionner un produit du même restaurant');
-		}
+		// 	return back()->with('error', 'Veuillez sélectionner un produit du même restaurant');
+		// }
 
 		Session::put('restaurent_id', $request->restaurent_id);
 
