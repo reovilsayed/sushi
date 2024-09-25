@@ -204,9 +204,6 @@ class PrinterService
 
     public function sendToPrinter()
     {
-
-        return $this->message;
-
         if (!$this->config['print_on']) {
             return response()->json(['message' => 'Printing is disabled.'], 200);
         }
