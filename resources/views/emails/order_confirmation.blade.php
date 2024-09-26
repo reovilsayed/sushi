@@ -87,14 +87,14 @@
                                     </td>
                                     <td style="padding: 28px 0; text-align: center;">{{ $product->pivot->quantity }}</td>
                                     <td style="padding: 28px 0; text-align: center;">
-                                        {{ Settings::price($product->pivot->price) }}</td>
+                                        {{ Settings::price($product->pivot->price * $product->pivot->quantity) }}</td>
                                 </tr>
                             @endforeach
                             @foreach ($extras as $extra)
                                 <tr style="border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
                                     <td style="padding: 28px 0; text-align:lrft;">{{ $extra['name'] ?? '' }}</td>
                                     <td style="text-align: center;">{{ $extra['quantity'] ?? '' }}</td>
-                                    <td style="text-align: center;">{{ Settings::price($extra['price'] ?? '') }}</td>
+                                    <td style="text-align: center;">{{ Settings::price($extra['price'] * $extra['quantity'] ?? '') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
