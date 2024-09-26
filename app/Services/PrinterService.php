@@ -133,7 +133,7 @@ class PrinterService
 
         // Products
         $msg .= "Produits:\n";
-  
+        // dd($this->orderBody->products);
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
             $category = isset($product->category) ? $product->category->name : '';
@@ -200,7 +200,7 @@ class PrinterService
         }
         $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>";
         $msg .= "<CUT/>";
-        //  dd( $msg );
+         dd( $msg );
         $this->message = $msg;
     }
 
