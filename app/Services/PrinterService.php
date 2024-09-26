@@ -133,25 +133,32 @@ class PrinterService
 
         // Products
         $msg .= "Produits:\n";
+  
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
-            if (isset($product->category)) {
-                $category = $product?->category?->name;
-            } else {
-                $category = '';
-            }
-
+            $category = isset($product->category) ? $product->category->name : '';
             $quantity = $product->quantity;
             $price = Settings::price($product->price);
-            $msg .= "{$quantity} x {$category} - {$productName} - {$price}\n";
-
-            // Handle suboptions if any
+            $tax = Settings::price($product->tax);
+            $base_price = Settings::price($product->price - $product->tax);
+        
+            // Adjust spacing for better alignment
+            $msg .= str_pad($quantity, 2) . " | " 
+                 . str_pad($category, 20) . " | " 
+                 . str_pad($productName, 25) . " | " 
+                 . str_pad($base_price, 10) . " | " 
+                 . str_pad($tax, 7) . " | " 
+                 . str_pad($price, 6) . " \n";
+        
+            // Handle suboptions with proper indentation
             $suboptions = $product->options ?? [];
             foreach ($suboptions as $suboption) {
-                $msg .= "   • {$suboption}\n";
+                $msg .= str_pad("", 29) . "• {$suboption}\n";  // Indent suboptions
             }
         }
-        $tax = Order::latest()->first()->getProducts()->groupBy('tax_percent')->map(fn($order) => [
+
+
+        $tax = $this->order->getProducts()->groupBy('tax_percent')->map(fn($order) => [
             'count'=> $order->count(),
             'subtotal' =>number_format( $order->sum('total'), 2),
             'vat' => number_format($order->sum('tax'), 2),
@@ -193,7 +200,7 @@ class PrinterService
         }
         $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>";
         $msg .= "<CUT/>";
-        // dd( $msg );
+        //  dd( $msg );
         $this->message = $msg;
     }
 

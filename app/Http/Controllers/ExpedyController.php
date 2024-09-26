@@ -16,7 +16,7 @@ class ExpedyController extends Controller
 
     public function sendToPrinter()
     {
-        $order = Order::find(162);
+        $order = Order::find(245);
         (new PrinterService($order))->sendToPrinter();
     }
 
