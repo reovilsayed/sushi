@@ -137,18 +137,18 @@ class PrinterService
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
             $category = isset($product->category) ? $product->category->name : '';
-            $quantity = $product->quantity;
-            $price = Settings::price($product->price);
-            $tax = Settings::price($product->tax);
-            $base_price = Settings::price($product->price - $product->tax);
+            $quantity = (int)$product->quantity;
+            $price = Settings::price($product->price * $quantity) ;
+            $tax = Settings::price($product->tax * $quantity);
+            $base_price = Settings::price(($product->price - $product->tax) * $quantity);
         
             // Adjust spacing for better alignment
             $msg .= str_pad($quantity, 2) . " | " 
                  . str_pad($category, 20) . " | " 
                  . str_pad($productName, 25) . " | " 
                  . str_pad($base_price, 10) . " | " 
-                 . str_pad($tax, 7) . " | " 
-                 . str_pad($price, 6) . " \n";
+                 . str_pad($tax , 7) . " | " 
+                 . str_pad($price , 6) . " \n";
         
             // Handle suboptions with proper indentation
             $suboptions = $product->options ?? [];
@@ -200,7 +200,6 @@ class PrinterService
         }
         $msg .= "Tel: {$this->config['phone']} | Email: {$this->config['email']}</C>";
         $msg .= "<CUT/>";
-         dd( $msg );
         $this->message = $msg;
     }
 
