@@ -21,8 +21,6 @@
                 border-radius: var(--bs-modal-border-radius);
                 outline: 0;
             }
-        </style>
-        <style>
             .category-slider {
                 scrollbar-width: none;
                 /* For Firefox */

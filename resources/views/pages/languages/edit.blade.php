@@ -34,6 +34,13 @@
                                     data-name="french" name="french"  value="{{$language->french}}" autofocus>
                             </div>
                         </div>
+                        <div class="col-md-4 item-content">
+                            <div class="">
+                                <label for="arabic" class="form-label">Dubai</label>
+                                <input type="text" class="form-control" id="arabic" placeholder="Arabic"
+                                    data-name="arabic" name="arabic"  value="{{$language->arabic}}" autofocus>
+                            </div>
+                        </div>
                         <div class="repeater-remove-btn" style="margin-top:10px">
                             <button type="submit" class="btn btn-success"
                                 style="height: auto;">{{ __('sentence.submit') }}</button>

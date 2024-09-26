@@ -125,14 +125,6 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="text" id="number_type" name="phone"
-                                                    class="form-control"
-                                                    placeholder="{{ __('sentence.your_phone_numder') }}" required
-                                                    value={{ auth()->user()->phone ?? '' }}>
-                                            </div>
-
-
-                                            <div class="col-md-6">
                                                 <select name="time_option"class="form-select selectpicker"
                                                     data-container="body" disabled>
                                                     @foreach ($timeSlots as $time)
@@ -144,6 +136,14 @@
                                                 </select>
                                             </div>
 
+                                            <div class="col-md-6">
+                                                <input type="text" id="number_type" name="phone"
+                                                    class="form-control"
+                                                    placeholder="{{ __('sentence.your_phone_numder') }}" required
+                                                    value={{ auth()->user()->phone ?? '' }}>
+                                            </div>
+
+                                            
                                             <div class="col-md-12">
                                                 <input type="email" name="email" disabled
                                                     class="form-control @error('email') is-invalid @enderror"
@@ -157,9 +157,9 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}" style="height:122px;"></textarea>
+                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}"
+                                                    style="height:122px;"></textarea>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div id="homeDeliveryForm" class="mt-5">
