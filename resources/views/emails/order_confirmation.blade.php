@@ -72,8 +72,8 @@
                         <thead>
                             <tr>
                                 <th style="text-align: left;">Nom</th>
-                                <th style="text-align: center;">Prix</th>
                                 <th style="text-align: center;">Quantité</th>
+                                <th style="text-align: center;">Prix</th>
                             </tr>
                         </thead>
                         <tbody>

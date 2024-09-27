@@ -129,8 +129,8 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
-                                                {{ __('sentence.discount') }} :</th>
-                                            <td class="border-0 text-end">- {{ Settings::price($order->discount) }}
+                                                FRAIS DE GESTION:  :</th>
+                                            <td class="border-0 text-end"> {{ Settings::price(0.95) }}
                                             </td>
                                         </tr>
                                         <tr>

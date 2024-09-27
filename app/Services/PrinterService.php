@@ -143,17 +143,15 @@ class PrinterService
             $base_price = Settings::price(($product->price - $product->tax) * $quantity);
         
             // Adjust spacing for better alignment
-            $msg .= str_pad($quantity, 2) . " | " 
-                 . str_pad($category, 20) . " | " 
-                 . str_pad($productName, 25) . " | " 
-                 . str_pad($base_price, 10) . " | " 
-                 . str_pad($tax , 7) . " | " 
-                 . str_pad($price , 6) . " \n";
+            $msg .= $quantity . " * " 
+            . $category . " - " 
+            . $productName . "  " 
+            . $price . " \n";
         
             // Handle suboptions with proper indentation
             $suboptions = $product->options ?? [];
             foreach ($suboptions as $suboption) {
-                $msg .= str_pad("", 29) . "• {$suboption}\n";  // Indent suboptions
+                $msg .= "{$suboption}\n";  // Indent suboptions
             }
         }
 
