@@ -135,9 +135,9 @@
                                         :prices="$extraPrice" />
                                 </div>
                             @endforeach
-                            <p class="text-start mt-4" style="font-size: smaller; color: #ff883e;">WASABI / GINGEMBRE
-                                sont toujours inclus avec les rolls. Si vous n'en souhaitez pas, merci de le préciser
-                                dans la section << Informations supplémentaires>> de la page suivante</p>
+                            <p class="text-start mt-4" style="font-size: smaller; color: #ff883e;">WASABI / GINGER
+                                are always included with the rolls. If you do not want one, please specify
+                                in the < Additional information > section of the next page</p>
                         </div>
 
                     </div>

@@ -106,21 +106,21 @@ class PrinterService
 
         // Order Reference and Date
         $order_date_created = $this->orderBody->created_at;
-        $msg .= "Commande: {$this->orderBody->id}\nDate: {$order_date_created}\n";
+        $msg .= "Order: {$this->orderBody->id}\nDate: {$order_date_created}\n";
 
         // Payment Method
         $payment_method = $this->orderBody->payment_method_title == 'Card' ? 'PEL' : 'RESTO';
-        $msg .= "Paiement: " . ucfirst($payment_method) . "\n";
+        $msg .= "Payment: " . ucfirst($payment_method) . "\n";
 
         // Delivery Method and Time
-        $msg .= "Mode Livraison: " . ($this->orderBody->shipping_method_title ?? 'N/A') . "\n";
+        $msg .= "Delivery Mode: " . ($this->orderBody->shipping_method_title ?? 'N/A') . "\n";
         $msg .= "Date: " . ($this->orderBody->delivery_date ?? 'N/A') . "\n";
-        $msg .= "Heure: " . ($this->orderBody->delivery_time ?? 'N/A') . "\n";
-        $msg .= "Commentaires: {$this->orderBody->comment}\n";
+        $msg .= "Hour: " . ($this->orderBody->delivery_time ?? 'N/A') . "\n";
+        $msg .= "Comments: {$this->orderBody->comment}\n";
         // Shipping Address
         $shipping = $this->orderBody->shipping;
         if ($shipping) {
-            $msg .= "Adresse Livraison:\n";
+            $msg .= "Delivery Address:\n";
             $msg .= "{$shipping->first_name} {$shipping->last_name}\n";
             $msg .= "{$shipping->email}\n";
             $msg .= "{$shipping->phone}\n";
@@ -132,7 +132,7 @@ class PrinterService
         }
 
         // Products
-        $msg .= "Produits:\n";
+        $msg .= "Products:\n";
         // dd($this->orderBody->products);
         foreach ($this->orderBody->products as $product) {
             $productName = $product->name;
@@ -178,7 +178,7 @@ class PrinterService
 
         $msg .= "------------------------------------------------" . "\n";
         $msg .= "TVA incluse: " . (Settings::price($this->orderBody->tax) ?? 'N/A') . "\n";
-        $msg .= "Frais de gestion: " . (Settings::setting('extra.charge') ?? 'N/A') . "\n";
+        $msg .= "Management fees: " . (Settings::setting('extra.charge') ?? 'N/A') . "\n";
         $msg .= "Total TTC: " . Settings::price($this->orderBody->total) . "\n";
 
 
