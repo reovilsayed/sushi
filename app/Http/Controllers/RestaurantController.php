@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
+use Settings;
 class RestaurantController extends Controller
 {
     public function viewRestaurants()
@@ -150,11 +150,12 @@ class RestaurantController extends Controller
             'onlinePaymentOrder' => $onlinePaymentOrder->count(),
             'onlinePaymentOrder' => $onlinePaymentOrder->count(),
             'codOrder' => $codOrder->count(),
-            'total_amount' => number_format($orders->sum('total'), 2) . '€',
-            'takeAwayOrders_amount' => number_format($takeAwayOrders->sum('total'), 2). '€',
-            'homeDeliveryOrders_amount' => number_format($homeDeliveryOrders->sum('total'), 2). '€',
-            'onlinePaymentOrder_amount' => number_format($onlinePaymentOrder->sum('total'), 2). '€',
-            'codOrder_amount' => number_format($codOrder->sum('total'), 2). '€',
+            'total_amount' => Settings::price($orders->sum('total')),
+            'total_tax' => Settings::price($orders->sum('tax')),
+            'takeAwayOrders_amount' => Settings::price($takeAwayOrders->sum('total')),
+            'homeDeliveryOrders_amount' => Settings::price($homeDeliveryOrders->sum('total')),
+            'onlinePaymentOrder_amount' => Settings::price($onlinePaymentOrder->sum('total')),
+            'codOrder_amount' => Settings::price($codOrder->sum('total'))
         ];
 
         $msg = '';
@@ -163,6 +164,7 @@ class RestaurantController extends Controller
         $msg .= "DU: {$request->fromDate} AU: {$request->toDate} \n";
         $msg .= "Nb total commandes: {$data['total']}\n";
         $msg .= "Montant total commandes: {$data['total_amount']}\n";
+        $msg .= "Taxe totale: {$data['total_tax']}\n";
         $msg .= "Nb a emporter: {$data['takeAwayOrders']}\n";
         $msg .= "Montant à emporter: {$data['takeAwayOrders_amount']}\n";
         $msg .= "Nb livraison: {$data['homeDeliveryOrders']}\n";
@@ -173,7 +175,9 @@ class RestaurantController extends Controller
         $msg .= "Commandes:\n";
         foreach ($orders as $order) {
             $payment_method = $order->payment_method == 'Card' ? 'PEL' : 'RESTO';
-            $msg .= "{$order->id}   {$order->total}€  {$payment_method}\n";
+            $total = Settings::price($order->total);
+            $tax = Settings::price($order->tax);
+            $msg .= "{$order->id} {$tax}  {$total}  {$payment_method}\n";
         }
 
         $msg .= "--------------------------------\n";
