@@ -22,7 +22,7 @@ class SliderController extends Controller
     {
 
         $request->validate([
-            'heading' => 'required|string|max:255',
+            'heading_ae' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -30,6 +30,10 @@ class SliderController extends Controller
         $slider->title = $request->title;
         $slider->heading = $request->heading;
         $slider->heading_end = $request->heading_end;
+        
+        $slider->title_ae = $request->title_ae;
+        $slider->heading_ae = $request->heading_ae;
+        $slider->heading_end_ae = $request->heading_end_ae;
         if ($request->hasFile('image')) {
             $slider->image = $request->file('image')->store('uploads', 'public');
         }
@@ -47,6 +51,10 @@ class SliderController extends Controller
         $slider->title = $request->title;
         $slider->heading = $request->heading;
         $slider->heading_end = $request->heading_end;
+        
+        $slider->title_ae = $request->title_ae;
+        $slider->heading_ae = $request->heading_ae;
+        $slider->heading_end_ae = $request->heading_end_ae;
         if ($request->hasFile('image')) {
             if ($slider->image && Storage::exists($slider->image)) {
                 Storage::delete($slider->image);

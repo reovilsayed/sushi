@@ -94,7 +94,7 @@ Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart
 Route::post('/extras', [CartController::class, 'extras'])->name('extras');
 Route::get('/invoice/{order}', [PageController::class, 'invoice'])->name('invoice');
 
-Route::post('/store-in-session', [PageController::class, 'storeInSession'])->name('store-in-session');
+Route::post('/store-in-session', [PageController::class, 'storeInSession'])->name('store_in_session');
 
 Route::get('/zones', [ZoneController::class, 'fetchZones']);
 Route::post('/save-location', [PageController::class, 'saveLocation'])->name('save.location');
@@ -109,7 +109,10 @@ Route::get('/get-google-maps-api-key', function () {
 //     return view('test');
 // });
 
-
+Route::get('lang/{locale}', function ($locale) {
+    session(['locale' => $locale]);
+    return redirect()->back();
+});
 //order routes
 Route::post('/order-update', [OrderController::class, 'store'])->name('order_store');
 

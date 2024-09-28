@@ -28,10 +28,12 @@
                         </div>
                         <div class="carousel-caption d-block text-start" style="top: 25%; left: 8%;">
                             <h1 class="homeSlide fw-medium">
-                                {{ $slider->heading }} <span
-                                    style="color: var(--accent-color)">{{ $slider->heading_end }}</span>
+                                {{ session()->get('locale') =='ar' ?  $slider->heading_ae : $slider->heading }}
+                                
+                                <span
+                                    style="color: var(--accent-color)">{{ session()->get('locale') =='ar' ? $slider->heading_end_ae : $slider->heading_end }}</span>
                             </h1>
-                            <p class="col-8 slidetext">{{ $slider->title }}
+                            <p class="col-8 slidetext">{{ session()->get('locale') =='ar' ? $slider->title_ae : $slider->title }}
                             </p>
                             <a href="#location" class="btn btn-orange-normal">{{ __('sentence.location') }}</a>
                         </div>

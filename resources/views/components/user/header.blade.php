@@ -28,7 +28,7 @@
                             @foreach ($restaurantNames as $restaurant)
                                 @if ($restaurant->status == '1')
                                     <li><a
-                                            href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
+                                            href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ session()->get('locale') =='ar' ? $restaurant->name_ae : $restaurant->name}}</a>
                                     </li>
                                 @endif
                             @endforeach
@@ -37,6 +37,20 @@
 
                     <li><a href="{{ route('restaurant.recruitment') }}">{{ __('sentence.recruitment') }}</a></li>
                     <li><a href="{{ route('restaurant.contact') }}">{{ __('sentence.contact') }}</a></li>
+
+                    <li class="dropdown">
+                        <a href="#"><span>{{ __('sentence.language') }}</span> <i
+                                class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li>
+                                <a href="{{ url('lang/en') }}">English</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('lang/ar') }}">Arabic</a>
+                            </li>
+                        </ul>
+                    </li>
+
 
                     <li class="d-xl-none">
                         @if (auth()->check())

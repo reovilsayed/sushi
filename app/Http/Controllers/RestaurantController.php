@@ -59,6 +59,11 @@ class RestaurantController extends Controller
         $restaurant->enable_printer = isset($request->enable_printer);
         $restaurant->enable_payment = isset($request->enable_payment);
 
+
+        $restaurant->name_ae = $request->name_ae;
+        $restaurant->description_ae = $request->description_ae;
+
+
         $restaurant->slug = Str::slug($request->name);
         if ($request->hasFile('image')) {
             if ($restaurant->image && Storage::exists($restaurant->image)) {
@@ -116,6 +121,9 @@ class RestaurantController extends Controller
             'enable_printer' => isset($request->enable_printer),
             'enable_payment' => isset($request->enable_payment),
 
+            'name_ae' => $request->name_ae,
+            'description_ae' => $request->description_ae,
+
         ]);
         $restaurant->save();
 
@@ -151,10 +159,10 @@ class RestaurantController extends Controller
             'onlinePaymentOrder' => $onlinePaymentOrder->count(),
             'codOrder' => $codOrder->count(),
             'total_amount' => number_format($orders->sum('total'), 2) . '€',
-            'takeAwayOrders_amount' => number_format($takeAwayOrders->sum('total'), 2). '€',
-            'homeDeliveryOrders_amount' => number_format($homeDeliveryOrders->sum('total'), 2). '€',
-            'onlinePaymentOrder_amount' => number_format($onlinePaymentOrder->sum('total'), 2). '€',
-            'codOrder_amount' => number_format($codOrder->sum('total'), 2). '€',
+            'takeAwayOrders_amount' => number_format($takeAwayOrders->sum('total'), 2) . '€',
+            'homeDeliveryOrders_amount' => number_format($homeDeliveryOrders->sum('total'), 2) . '€',
+            'onlinePaymentOrder_amount' => number_format($onlinePaymentOrder->sum('total'), 2) . '€',
+            'codOrder_amount' => number_format($codOrder->sum('total'), 2) . '€',
         ];
 
         $msg = '';
@@ -199,6 +207,6 @@ class RestaurantController extends Controller
             'printer_msg' =>  $msg,
             'origin' => url('/')
         ]);
-         return back()->withSuccess(['message' => 'Successfully printed']);
+        return back()->withSuccess(['message' => 'Successfully printed']);
     }
 }

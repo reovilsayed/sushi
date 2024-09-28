@@ -20,7 +20,14 @@
                                     data-name="name" name="name" autofocus>
                             </div>
                         </div>
-                        <div class="col-md-3 item-content">
+                        <div class="col-md-6 item-content">
+                            <div class="mb-3">
+                                <label for="inputName1" class="form-label">{{ __('sentence.name_arabic') }} </label>
+                                <input type="text" class="form-control" id="inputName1" placeholder="Category Name"
+                                    data-name="name" name="name_ae" autofocus required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 item-content">
                             <label class="control-label mb-2">{{ __('sentence.category') }} </label>
                             <select class="form-control select2" name="parent_id">
                                 <option value="">{{ __('sentence.select') }}</option>
@@ -30,16 +37,21 @@
 
                             </select>
                         </div>
-                        <div class="col-md-3 item-content">
+                        <div class="col-md-6 item-content">
                             <div class="">
                                 <label for="sequency" class="form-label">{{ __('sentence.sequency') }}</label>
                                 <input type="number" class="form-control" id="sequency" placeholder="Sequency"
                                     data-name="sequency" name="sequency" autofocus>
                             </div>
                         </div>
-                        <div class="col-md-12 item-content mb-3">
+                        <div class="col-md-12 item-content mb-3 mt-3">
                             <label class="control-label">{{ __('sentence.category_description') }} </label>
                             <x-form.input name="description" value="" style="height: 130px" type="textarea"
+                                id="test" />
+                        </div>
+                        <div class="col-md-12 item-content mb-3">
+                            <label class="control-label">{{ __('sentence.category_description_arabic') }} </label>
+                            <x-form.input name="description_ae" value="" style="height: 130px" type="textarea"
                                 id="test" />
                         </div>
                         <!-- Repeater Remove Btn -->

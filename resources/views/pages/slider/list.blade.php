@@ -17,7 +17,9 @@
                         <th scope="col">{{ __('sentence.image') }}</th>
                         <th scope="col">Heading</th>
                         <th scope="col">Heading End</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">Heading Arabic </th>
+                        <th scope="col">Heading End Arabic </th>
+                        {{-- <th scope="col">Title</th> --}}
                         <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
                     </tr>
                 </thead>
@@ -34,7 +36,9 @@
                             </td>
                             <td>{{ $slider->heading }}</td>
                             <td>{{ $slider->heading_end }}</td>
-                            <td>{{ $slider->title }}</td>
+                            <td>{{ $slider->heading_ae }}</td>
+                            <td>{{ $slider->heading_end_ae }}</td>
+                            {{-- <td>{{ $slider->title }}</td> --}}
                             <td class="text-center">
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.slider', $slider) }}"><i
                                         class="fa fa-edit"></i></a>

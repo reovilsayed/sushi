@@ -34,7 +34,7 @@
                         <li><a href="{{ route('register') }}">{{__('sentence.register')}}</a></li>
                     @endauth --}}
                     @foreach ($pages as $page)
-                        <li><a href="{{ route('pages.view', $page->slug) }}">{{ $page->title }}</a></li>
+                        <li><a href="{{ route('pages.view', $page->slug) }}">{{ session()->get('locale') =='ar' ? $page->title_ae : $page->title }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -45,7 +45,7 @@
                     @foreach ($restaurants as $restaurant)
                         @if ($restaurant->status == '1')
                             <li><a
-                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ $restaurant->name }}</a>
+                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ session()->get('locale') =='ar' ? $restaurant->name_ae : $restaurant->name }}</a>
                             </li>
                         @endif
                     @endforeach

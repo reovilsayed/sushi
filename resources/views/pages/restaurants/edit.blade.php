@@ -13,9 +13,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="dash_head">{{ __('sentence.addrestaurant') }}</h6>
-                            <div class="row row-cols-1  ">
-                                <x-form.input name="name" wire:model="name" label="{{ __('sentence.title') }} *"
-                                    value="{{ $restaurant->name }}" autofocus required />
+                            <div class="row row-cols-2">
+                                <x-form.input name="name" wire:model="name" label="{{ __('sentence.title') }} "
+                                    value="{{ $restaurant->name }}" autofocus />
+                                <x-form.input name="name_ae" wire:model="name_ae"
+                                    label="{{ __('sentence.title_arabic ') }} *" value="{{ $restaurant->name_ae }}"
+                                    autofocus required />
                             </div>
 
                             <div class="row row-cols-1  ">
@@ -25,30 +28,48 @@
                             <div class="row row-cols-1  ">
                                 <x-form.input name="address[address]" wire:model="address"
                                     value="{{ $restaurant->address['address'] }}"
-                                    label="{{ __('sentence.restaurant_address') }} *" autofocus required />
+                                    label="{{ __('sentence.restaurant_address') }}" autofocus required />
+
+                                <x-form.input name="address[address_ae]" wire:model="address_ae"
+                                    value="{{ $restaurant->address['address_ae'] ?? '' }}"
+                                    label="{{ __('sentence.restaurant_address_arabic ') }} *" autofocus />
                             </div>
+
                             <div class="row row-cols-2  ">
                                 <x-form.input name="address[city]" wire:model="city"
                                     label="{ __('sentence.restaurant_city') }}*"
-                                    value="{{ $restaurant->address['city'] }}" autofocus required />
+                                    value="{{ $restaurant->address['city'] }}" autofocus />
                                 <x-form.input name="address[post_code]" wire:model="post_code"
                                     label="{{ __('sentence.restaurant_post_code') }}*"
-                                    value="{{ $restaurant->address['post_code'] }}" autofocus required />
+                                    value="{{ $restaurant->address['post_code'] }}" autofocus />
                             </div>
-                            <div class="row row-cols-2  ">
 
+                            <div class="row row-cols-1">
+                                <x-form.input name="address[city_ae]" wire:model="city_ae"
+                                    label="{ __('sentence.restaurant_city_arabic ') }}*"
+                                    value="{{ $restaurant->address['city_ae'] ?? '' }}" autofocus required />
+                            </div>
+                            <div class="row row-cols-1">
                                 <x-form.input name="number" wire:model="number" value="{{ $restaurant->number }}"
                                     label="{{ __('sentence.restaurant_number') }}*" autofocus required />
-                            </div>
-                            <div class="row row-cols">
-                                <x-form.input name="description" label="{{ __('sentence.description') }} *"
-                                    value="" style="height: 186px" type="textarea" id="test" autofocus
-                                    value="{{ $restaurant->description }}" />
                             </div>
                             <div class="row row-cols-1">
                                 <x-form.input name="image" wire:model="image" value="" type="file"
                                     label="{{ __('sentence.image_upload') }}" style="padding:50px;" />
                             </div>
+
+
+                            <div class="row row-cols">
+                                <x-form.input name="description" label="{{ __('sentence.description') }} *"
+                                    value="" style="height: 186px" type="textarea" id="test" autofocus
+                                    value="{{ $restaurant->description }}" />
+                            </div>
+                            <div class="row row-cols">
+                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic ') }} *"
+                                    value="" style="height: 186px" type="textarea" id="test" autofocus
+                                    value="{{ $restaurant->description_ae }}" />
+                            </div>
+
 
                             <div class="row row-cols-1 tox-editor-container" wire:ignore>
                             </div>
@@ -80,7 +101,7 @@
                                         value="{{ $restaurant->enable_payment }}" value="1" />
                                 </div>
                             </div>
-                            
+
 
 
                             {{-- <button class="btn btn-success" type="submit" style="float: right">

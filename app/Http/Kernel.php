@@ -22,6 +22,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\LanguageMiddleware::class,
     ];
 
     /**
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'api.auth' => \App\Http\Middleware\ApiAuthMiddleware::class,
         'role' => \App\Http\Middleware\CheckYourRoleHasPermission::class,
+        
     ];
 }

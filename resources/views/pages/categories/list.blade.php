@@ -42,10 +42,10 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">{{ __('sentence.featured') }}</th>
-                                        <th scope="col" class="text-center">{{ __('sentence.sequence') }}</th>
                                         <th scope="col">{{ __('sentence.name') }}</th>
+                                        <th scope="col">{{ __('sentence.name_arabic') }}</th>
+                                        <th scope="col" class="text-center">{{ __('sentence.sequence') }}</th>
                                         <th scope="col">{{ __('sentence.parent') }}</th>
-                                        <th scope="col">{{ __('sentence.createdat') }}</th>
                                         <th scope="col">{{ __('sentence.action') }}</th>
                                     </tr>
                                 </thead>
@@ -60,8 +60,9 @@
                                                         onchange="this.form.submit()" {{ $category->featured == 'checked' ? 'checked' : '' }}>
                                                 </form>
                                             </td>
-                                            <td class="text-center">{{ $category->sequency }}</td>
                                             <td>{{ $category->name }}</td>
+                                            <td>{{ $category->name_ae }}</td>
+                                            <td class="text-center">{{ $category->sequency }}</td>
                                             <td>{{ $category->parent?->name }}</td>
                                             <td>{{ $category->created_at }}</td>
                                             <td class="d-flex">

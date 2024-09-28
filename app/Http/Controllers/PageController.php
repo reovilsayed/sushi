@@ -248,8 +248,10 @@ class PageController extends Controller
     {
         $page = new Page;
         $page->title = $request->title;
-        $page->slug = Str::slug($request->title);
+        $page->title_ae = $request->title_ae;
+        $page->slug = Str::slug($request->title_ae);
         $page->body = $request->body;
+        $page->body_ae = $request->body_ae;
         $page->save();
         return redirect(route('admin.pages'))->with('success', 'page added successfully');
     }
@@ -266,8 +268,10 @@ class PageController extends Controller
     {
         $page->update([
             'title' => $request->title,
+            'title_ae' => $request->title_ae,
             'slug' => Str::slug($request->title),
             'body' => $request->body,
+            'body_ae' => $request->body_ae,
         ]);
         $page->save();
         return redirect(route('admin.pages'))->with('success', 'Pages Updated Successfully');

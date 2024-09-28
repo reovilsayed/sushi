@@ -41,10 +41,12 @@ class CategoryController extends Controller
         // dd($request->all()); 
         $data = [
             'name' => $request->name,
+            'name_ae' => $request->name_ae,
             'sequency' => $request->sequency,
-            'slug' => Str::slug($request->name),
+            'slug' => Str::slug($request->name_ae),
             'parent_id' => $request->parent_id,
-            'description' => $request->description
+            'description' => $request->description,
+            'description_ae' => $request->description_ae
         ];
         Cache::flush();
         Category::create($data);
@@ -87,10 +89,12 @@ class CategoryController extends Controller
         Cache::flush();
         $category->update([
             'name' => $request->name,
+            'name_ae' => $request->name_ae,
             'sequency' => $request->sequency,
             'slug' => $slug,
             'parent_id' => $request->parent_id,
-            'description' => $request->description
+            'description' => $request->description,
+            'description_ae' => $request->description_ae
         ]);
         return redirect('/admin/categories')->with('message', 'Category Edit SuccessFull');
     }

@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       
+
         $minutes = 5;
         $products = Product::latest()->filter()->paginate(16)->withQueryString();
         $categories = Cache::remember('categories', $minutes, function () {
@@ -154,16 +154,23 @@ class ProductController extends Controller
     }
     public function storeProduct(Request $request)
     {
+
         $validated = $request->validate([
-            'name' => 'required|string',
+            'name' => 'nullable|string',
             'composition' => 'nullable|string',
             'allergenes' => 'nullable|string',
             'image' => 'nullable|image',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'tax' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'price' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'tax' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
-        ]);  
+
+            //Arabic validate//
+            'name_ae' => 'required|string',
+            'composition_ae' => 'nullable|string',
+            'allergenes_ae' => 'nullable|string',
+            'description_ae' => 'nullable',
+        ]);
         $product = new Product;
 
         $product->name = $request->name;
@@ -173,8 +180,6 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->tax = $request->tax;
         $product->sequency = $request->sequence;
-        // $product->status = $request->status;
-        // $product->featured = $request->featured;
         $product->category_id = $request->category;
         $product->text = $request->description;
         $product->SKU = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
@@ -185,13 +190,23 @@ class ProductController extends Controller
             }
             $product->image = $request->file('image')->store('uploads', 'public');
         }
+
+
+        //Arabic Product Store //
+
+        $product->name_ae = $request->name_ae;
+        $product->slug = Str::slug($request->name_ae);
+        $product->composition_ae = $request->composition_ae;
+        $product->allergenes_ae = $request->allergenes_ae;
+        $product->text_ae = $request->description_ae;
+
         Cache::flush();
-        
+
         $product->save();
 
-        
+
         if ($request->option) {
-           
+
             $request->validate([
                 'option.*.price' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/']
             ]);
@@ -200,12 +215,12 @@ class ProductController extends Controller
                 $product_option = new ProductOption;
                 $product_option->product_id = $product->id;
                 $product_option->option_name = $option['name'];
+                $product_option->option_name_ae = $option['name_ae'];
                 $product_option->option_price = $option['price'];
 
                 $product_option->save();
             }
         }
-
 
         return redirect(route('products.index'))->with('success', 'Product Created Successfully');
     }
@@ -220,22 +235,22 @@ class ProductController extends Controller
         Cache::flush();
         // dd($request);
         $validated = $request->validate([
-            'name' => 'required|string',
-            'composition' => 'required|string',
-            'allergenes' => 'required|string',
+            'name' => 'nullable|string',
+            'composition' => 'nullable|string',
+            'allergenes' => 'nullable|string',
             'image' => 'nullable|image',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'tax' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'sequence' => 'required|integer',
+            'price' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'tax' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category' => 'nullable|exists:categories,id',
             'description' => 'nullable',
+
+            //Arabic validate//
+            'name_ae' => 'required|string',
+            'composition_ae' => 'nullable|string',
+            'allergenes_ae' => 'nullable|string',
+            'description_ae' => 'nullable',
         ]);
-        // $flavors = [
-        //     ['id' => 1, 'name' => 'Cerise'],
-        //     ['id' => 2, 'name' => 'Mangue'],
-        //     ['id' => 3, 'name' => 'Vanille'],
-        //     ['id' => 4, 'name' => 'Chocolat'],
-        // ];
+
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->composition = $request->composition;
@@ -244,9 +259,6 @@ class ProductController extends Controller
         $product->tax = $request->tax;
         $product->sequency = $request->sequence;
         $product->status = $request->status;
-        // $product->flavors = json_encode($flavors);
-        // $product->status = $request->status;
-        // $product->featured = $request->featured;
         $product->category_id = $request->category;
         $product->text = $request->description;
         if ($request->hasFile('image')) {
@@ -255,26 +267,34 @@ class ProductController extends Controller
             }
             $product->image = $request->file('image')->store('uploads', 'public');
         }
+
+        //Arabic Product Store //
+
+        $product->name_ae = $request->name_ae;
+        $product->slug = Str::slug($request->name_ae);
+        $product->composition_ae = $request->composition_ae;
+        $product->allergenes_ae = $request->allergenes_ae;
+        $product->text_ae = $request->description_ae;
         $product->save();
 
-        
+
         if ($request->option) {
-           
+
             $request->validate([
                 'option.*.price' => ['nullable', 'regex:/^\d+(\.\d{1,2})?$/']
             ]);
-           
+
             foreach ($request->option as $option) {
                 ProductOption::updateOrCreate(
                     ['id' => $option['id']], // Search criteria
                     [
                         'product_id' => $product->id, // Fields to update or create
                         'option_name' => $option['name'],
+                        'option_name_ae' => $option['name_ae'],
                         'option_price' => $option['price'],
                     ]
                 );
             }
-
         }
 
         return back()->with('success', 'Product Updated Successfully');
@@ -301,7 +321,8 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Product deleted');
     }
-    public function deleteOption(ProductOption $productOption){
+    public function deleteOption(ProductOption $productOption)
+    {
         $productOption->delete();
         return redirect()->back()->with('success', 'Option deleted');
     }

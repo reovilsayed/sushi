@@ -13,8 +13,14 @@
                             <input type="text" id="disabledTextInput" class="form-control" placeholder="Category Name"
                                 name="name" value="{{ $category->name }}">
                         </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="disabledTextInput" class="form-label">{{ __('sentence.name_arabic') }}</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="Category Name Arabic"
+                                name="name_ae" value="{{ $category->name_ae }}">
+                        </div>
 
-                        <div class="col-md-3 item-content">
+                        <div class="col-md-6 item-content">
                             <label class="control-label md-2">{{ __('sentence.category') }} </label>
                             <select class="form-control select2" name="parent_id">
                                 <option value="">Select</option>
@@ -27,7 +33,7 @@
                             </select>
                         </div>
 
-                        <div class="col-md-3 item-content">
+                        <div class="col-md-6 item-content">
                             <div class="mb-3">
                                 <label for="sequency" class="form-label">{{ __('sentence.sequency') }}</label>
                                 <input type="number" class="form-control" id="sequency" placeholder="Sequency"
@@ -38,6 +44,12 @@
                         <div class="col-md-12 item-content mb-3">
                             <label class="control-label">{{ __('sentence.category_description') }}</label>
                             <x-form.input name="description" value="{{ $category->description }}" style="height: 130px"
+                                type="textarea" id="test" />
+                        </div>
+                       
+                        <div class="col-md-12 item-content mb-3">
+                            <label class="control-label">{{ __('sentence.category_description_arabic') }}</label>
+                            <x-form.input name="description_ae" value="{{ $category->description_ae }}" style="height: 130px"
                                 type="textarea" id="test" />
                         </div>
                         <div class="repeater-remove-btn">

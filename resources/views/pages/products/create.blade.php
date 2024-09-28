@@ -1,7 +1,7 @@
 {{-- @dd($categories) --}}
 <x-layout>
     @push('styles')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
         <style>
             .dash_head {
                 display: none !important;
@@ -15,6 +15,7 @@
                 const row = `<tr  class="table-row">
                             <td>
                                 <x-form.input name="option[${index}][name]" label="{{ __('sentence.option_name') }}" value=""  required/>
+                                <x-form.input name="option[${index}][name_ae]" label="{{ __('sentence.option_name_arabic') }}" value=""  required/>
                             </td>
                             <td>
                                 <x-form.input name="option[${index}][price]" label="{{ __('sentence.price') }}" value=""  required/>
@@ -63,47 +64,60 @@
                         <div class="card-body">
                             <h6 class="dash_head">{{ __('sentence.productdetails') }}</h6>
 
-                            <div class="row row-cols-1">
-                                <x-form.input name="name" wire:model="name" label="{{ __('sentence.product_name ') }}*" value=""
-                                    autofocus required />
-                            </div>
-                            <div class="row row-cols-1">
+                            <div class="row row-cols-2">
+                                <x-form.input name="name" wire:model="name"
+                                    label="{{ __('sentence.product_name ') }}" value="" autofocus />
+                                <x-form.input name="name_ae" wire:model="name_ae"
+                                    label="{{ __('sentence.product_name_arabic ') }}*" value="" autofocus
+                                    required />
 
+                                <div class="mt-3">
+                                    <x-form.input name="allergenes" wire:model="allergenes"
+                                        label="{{ __('sentence.allergenes') }}" value="" autofocus />
+                                </div>
+
+                                <div class="mt-3">
+                                    <x-form.input name="allergenes_ae" wire:model="allergenes_ae"
+                                        label="{{ __('sentence.allergenes_arabic') }} *" value="" autofocus
+                                        required />
+                                </div>
                             </div>
 
                             <div class="row row-cols">
-                                <x-form.input name="description" label="{{ __('sentence.description') }} *" value=""
-                                    style="height: 130px" type="textarea" id="test" autofocus />
+                                <div class="">
+                                    <label for="" class="form-label">{{ __('sentence.category') }}</label>
+                                    <select class="form-select " aria-label="Default select example" name="category" required>
+                                        <option selected>{{ __('sentence.select') }} {{ __('sentence.category') }}
+                                        </option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
                             </div>
+                            <div class="row row-cols mt-3">
+                                <x-form.input name="description" label="{{ __('sentence.description') }}"
+                                    value="" style="height: 130px" type="textarea" id="test" autofocus />
 
-                            <select class="form-select " aria-label="Default select example" name="category">
-                                <option selected>{{ __('sentence.select') }} {{ __('sentence.category') }} </option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-
-                            </select>
-
-
+                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic') }} *"
+                                    value="" style="height: 130px" type="textarea" id="test" autofocus />
+                            </div>
                         </div>
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
                             <h6 class="dash_head">{{ __('sentence.productmade') }} </h6>
 
-
                             <div class="row row-cols">
-                                {{-- <x-form.input name="composition" label="Composition *" value=""
-                                    style="height: 130px" type="textarea" id="test" autofocus required/> --}}
                                 <label class="mb-3" for=""> {{ __('sentence.composition') }}</label>
                                 <textarea name="composition" id="summernote" cols="30" rows="10"></textarea>
                             </div>
-                            <div class="row row-cols-1 mt-3">
-                                <x-form.input name="allergenes" wire:model="allergenes" label="{{ __('sentence.allergenes') }} *"
-                                    value="" autofocus required />
+
+                            <div class="row row-cols mt-3">
+                                <label class="mb-3" for=""> {{ __('sentence.composition_arabic') }}</label>
+                                <textarea name="composition_ae" id="summernote007" cols="30" rows="10"></textarea>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -120,7 +134,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-4 mb-2">
+
+                    <div class="card mt-3 mb-2">
                         <div class="card-body">
                             <table class="table table-bordered ">
                                 <thead>
@@ -156,20 +171,11 @@
 
                     </div>
 
-                    <div class="card mt-4">
+                    <div class="card mt-3">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input type="number" id="sequence" name="sequence" label="{{ __('sentence.sequency') }} *"
-                                    value="" required />
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <div class="row row-cols-1">
-                                <x-form.input type="number" id="tax" name="tax" label="{{ __('sentence.tax') }} "
-                                    value="" />
+                                <x-form.input type="number" id="sequence" name="sequence"
+                                    label="{{ __('sentence.sequency') }} " value="" />
                             </div>
                         </div>
                     </div>
@@ -177,8 +183,17 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input id="price" name="price" wire:model="price" label="{{ __('sentence.price') }} *"
-                                    value="" required />
+                                <x-form.input type="number" id="tax" name="tax"
+                                    label="{{ __('sentence.tax') }} " value="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="row row-cols-1">
+                                <x-form.input id="price" name="price" wire:model="price"
+                                    label="{{ __('sentence.price') }}" value="" />
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
@@ -187,10 +202,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </form>
     @push('script')
@@ -201,7 +212,14 @@
         <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
-                    height: 200, // Set the height of the editor
+                    height: 150, // Set the height of the editor
+                    placeholder: 'Write your content here...'
+                });
+            });
+
+            $(document).ready(function() {
+                $('#summernote007').summernote({
+                    height: 150, // Set the height of the editor
                     placeholder: 'Write your content here...'
                 });
             });

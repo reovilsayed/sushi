@@ -63,8 +63,8 @@
                                                 <td class="cart-product-info text-center">
                                                     <h4><a class="fw-lighter fs-4 text-uppercase"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
-                                                            style="color: #ffffff !important;">{{ $product->category->name }}
-                                                            - {{ $item->name }}</a>
+                                                            style="color: #ffffff !important;">{{ session()->get('locale') =='ar' ? $product->category->name_ae : $product->category->name }}
+                                                            - {{ session()->get('locale') =='ar' ? $item->name_ae : $item->name }}</a>
                                                         @if (isset($item->attributes['options']))
                                                             <p class="fw-light mt-2 fs-6">
                                                                 {{ $item->attributes['options'] }}</p>

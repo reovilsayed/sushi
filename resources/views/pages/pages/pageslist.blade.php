@@ -13,6 +13,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">{{ __('sentence.title') }}</th>
+                        <th scope="col">{{ __('sentence.title_drabic ') }}</th>
                         <th scope="col">{{ __('sentence.slug') }}</th>
                         <th scope="col" class="text-end">{{ __('sentence.action') }}</th>
 
@@ -23,6 +24,7 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$page->title}}</td>
+                            <td>{{$page->title_ae}}</td>
                             <td>{{$page->slug}}</td>
                             <td class="text-end">
                                 <a class="btn btn-sm btn-primary" href="{{ route('edit.page', $page) }}"><i

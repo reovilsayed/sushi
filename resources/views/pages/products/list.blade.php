@@ -18,14 +18,13 @@
             <table class="table">
                 <thead>
                     <tr>
-
                         <th scope="col">#</th>
                         <th scope="col">{{ __('sentence.image') }}</th>
-                        <th scope="col">{{ __('sentence.sequency') }}</th>
                         <th scope="col">{{__('sentence.productname')}}</th>
+                        <th scope="col">{{__('sentence.productname_arabic')}}</th>
+                        <th scope="col">{{ __('sentence.sequency') }}</th>
                         <th scope="col">{{ __('sentence.price') }}</th>
                         <th scope="col">{{ __('sentence.tax') }}</th>
-                        {{-- <th scope="col">status</th> --}}
                         <th>{{ __('sentence.sku') }}</th>
                         <th scope="col">{{ __('sentence.category') }}</th>
                         <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
@@ -42,8 +41,9 @@
                                 <img class="" height="100" width="100" src="{{ $product->image }}"
                                 alt="">
                             </td>
-                            <th scope="row">{{ $product->sequency }}</th>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $product->name_ae }}</td>
+                            <th scope="row">{{ $product->sequency }}</th>
                             <td>{{ Settings::price($product->price) }}</td>
                             <td>{{ number_format($product->tax, 2) }} %</td>
                             <td>{{ $product->SKU }}</td>

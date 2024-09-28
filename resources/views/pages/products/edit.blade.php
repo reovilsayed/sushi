@@ -1,7 +1,7 @@
 {{-- @dd($product) --}}
 <x-layout>
     @push('styles')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
     @endpush
     @push('script')
         <script>
@@ -11,6 +11,7 @@
                 <input type="hidden" name="option[${index}][id]"  value="">
                             <td>
                                 <x-form.input name="option[${index}][name]" label="{{ __('sentence.option_name') }}" value=""  required/>
+                                <x-form.input name="option[${index}][name_ae]" label="{{ __('sentence.option_name_arabic') }}" value=""  required/>
                             </td>
                             <td>
                                 <x-form.input name="option[${index}][price]" label="{{ __('sentence.price') }}" value="" required />
@@ -58,57 +59,67 @@
                         <div class="card-body">
                             <h6 class="dash_head">{{ __('sentence.productdetails') }}</h6>
 
+                            <div class="row row-cols-2">
+                                <x-form.input name="name" wire:model="name"
+                                    label="{{ __('sentence.product_name ') }} *" value="{{ $product->name }}"
+                                    autofocus />
+
+                                <x-form.input name="name_ae" wire:model="name_ae"
+                                    label="{{ __('sentence.product_name_arabic') }} *" value="{{ $product->name_ae }}"
+                                    autofocus required />
+                                <x-form.input name="allergenes" wire:model="allergenes"
+                                    label="{{ __('sentence.allergenes') }}" value="{{ $product->allergenes }}"
+                                    autofocus />
+                                <x-form.input name="allergenes_ae" wire:model="allergenes_ae"
+                                    label="{{ __('sentence.allergenes_arabic') }} *"
+                                    value="{{ $product->allergenes_ae }}" autofocus />
+                            </div>
+
                             <div class="row row-cols-1">
-                                <x-form.input name="name" wire:model="name" label="{{ __('sentence.product_name ') }} *"
-                                    value="{{ $product->name }}" autofocus required />
-                            </div>
-                            {{-- <div class="row row-cols-1">
-                                <x-form.input name="flavors" label="Product flavors *"
-                                    value="{{ $product->flavors }}" autofocus />
-                            </div> --}}
-                            <div class="row row-cols-1">
+
+                                <div class="">
+                                    <label for="" class="form-label">{{ __('sentence.category') }}</label>
+                                    <select class="form-select " aria-label="Default select example" name="category">
+                                        <option selected>{{ __('sentence.select') }} {{ __('sentence.category') }}
+                                        </option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                                                {{ $category->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
 
                             </div>
 
-                            <div class="row row-cols">
-                                <x-form.input name="description" label="{{ __('sentence.description') }} *" value="{{ $product->text }}"
-                                    style="height: 130px" type="textarea" id="test" autofocus />
+                            <div class="row row-cols mt-3">
+                                <x-form.input name="description" label="{{ __('sentence.description') }} *"
+                                    value="{{ $product->text }}" style="height: 130px" type="textarea" id="test"
+                                    autofocus />
+
+                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic') }} *"
+                                    value="{{ $product->text_ae }}" style="height: 130px" type="textarea"
+                                    id="test" autofocus />
                             </div>
-
-                            <select class="form-select " aria-label="Default select example" name="category">
-                                <option selected>{{ __('sentence.select') }} {{ __('sentence.category') }}</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ $category->id == $product->category_id ? 'selected' : '' }}>
-                                        {{ $category->name }}</option>
-                                @endforeach
-
-                            </select>
-
-
                         </div>
                     </div>
+
                     <div class="card mt-4">
                         <div class="card-body">
                             <h6 class="dash_head">{{ __('sentence.productmade') }}</h6>
 
-
                             <div class="row row-cols">
-                                {{-- <x-form.input name="composition" label="Composition *"
-                                    value="{{ $product->composition }}" style="height: 130px" type="textarea"
-                                    id="test" autofocus /> --}}
-                                    <label class="mb-3" for=""> {{ __('sentence.composition') }}</label>
-                                    <textarea name="composition" id="summernote" cols="30" rows="10">{{ $product->composition }}</textarea>
+                                <label class="mb-3" for=""> {{ __('sentence.composition') }}</label>
+                                <textarea name="composition" id="summernote" cols="30" rows="10">{{ $product->composition }}</textarea>
                             </div>
-                            <div class="row row-cols-1">
-                                <x-form.input name="allergenes" wire:model="allergenes" label="{{ __('sentence.allergenes') }} *"
-                                    value="{{ $product->allergenes }}" autofocus />
+
+                            <div class="row row-cols mt-3">
+                                <label class="mb-3" for=""> {{ __('sentence.composition_arabic') }}</label>
+                                <textarea name="composition_ae" id="summernote007" cols="30" rows="10">{{ $product->composition_ae }}</textarea>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
 
                 <div class="col-md-4">
@@ -116,7 +127,12 @@
                         <div class="card-body">
                             <div class="row row-cols-1">
                                 <x-form.input name="image" wire:model="image" value="{{ $product->image }}"
-                                    type="file" label="{{ __('sentence.product_image_upload') }}" style="padding:50px;" />
+                                    type="file" label="{{ __('sentence.product_image_upload') }}"
+                                    style="padding:50px;" />
+
+                                <div class="">
+                                    <img src="{{ $product->image }}" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,15 +142,15 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            {{__('sentence.optionname')}}
+                                            {{ __('sentence.optionname') }}
                                         </th>
 
                                         <th class="text-center w-auto">
-                                            {{__('sentence.price')}}
+                                            {{ __('sentence.price') }}
                                         </th>
 
                                         <th class="text-center ">
-                                            {{__('sentence.action')}}
+                                            {{ __('sentence.action') }}
                                         </th>
                                     </tr>
                                 </thead>
@@ -146,17 +162,21 @@
                                             <td style="width:300px">
                                                 <input type="text" name="option[{{ $loop->iteration }}][name]"
                                                     value="{{ $option->option_name }}">
+
+                                                <input type="text" name="option[{{ $loop->iteration }}][name_ae]"
+                                                    value="{{ $option->option_name_ae }}">
                                             </td>
                                             <td style="width:300px">
                                                 <input type="text" name="option[{{ $loop->iteration }}][price]"
                                                     value="{{ $option->option_price }}">
                                             </td>
                                             <td class="text-center">
-                                                
-                                                <button class="btn btn-sm btn-danger h-auto" form="deleteOption" onclick="return confirm('Are you sure')"><i class="fa fa-trash"></i></button>
+
+                                                <button class="btn btn-sm btn-danger h-auto" form="deleteOption"
+                                                    onclick="return confirm('Are you sure')"><i
+                                                        class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
-                                        
                                     @endforeach
 
                                 </tbody>
@@ -177,16 +197,17 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input id="sequence"  name="sequence"  label="{{ __('sentence.sequency') }}  *"
-                                    value="{{ $product->sequency }}" required />
+                                <x-form.input id="sequence" name="sequence"
+                                    label="{{ __('sentence.sequency') }}  *" value="{{ $product->sequency }}"
+                                    required />
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card mt-4">
                         <div class="card-body">
                             <div class="row row-cols-1">
-                                <x-form.input id="tax"  name="tax"  label="{{ __('sentence.tax') }} "
+                                <x-form.input id="tax" name="tax" label="{{ __('sentence.tax') }} "
                                     value="{{ $product->tax }}" />
                             </div>
                         </div>
@@ -196,12 +217,13 @@
                         <div class="card-body">
                             <div class="row row-cols-1">
 
-                                <x-form.input id="price" name="price" wire:model="price" label="{{ __('sentence.price') }} *"
-                                value="{{ number_format($product->price, 2) }}"  required />
+                                <x-form.input id="price" name="price" wire:model="price"
+                                    label="{{ __('sentence.price') }} *"
+                                    value="{{ number_format($product->price, 2) }}" required />
 
-                                <x-form.input id="status" name="status" wire:model="status" label="{{ __('sentence.status') }} *"
-                                value="{{ ($product->status) }}"  />
-                                
+                                <x-form.input id="status" name="status" wire:model="status"
+                                    label="{{ __('sentence.status') }} *" value="{{ $product->status }}" />
+
 
                             </div>
                             <button class="btn btn-success" type="submit" style="float: right">
@@ -218,11 +240,11 @@
 
             </div>
     </form>
-    @if(count($product_options) > 0 )
-    <form action="{{route('delete.option', $option)}}" method="post" class="d-inline" id="deleteOption">
-        @csrf
-        @method('delete')
-    </form> 
+    @if (count($product_options) > 0)
+        <form action="{{ route('delete.option', $option) }}" method="post" class="d-inline" id="deleteOption">
+            @csrf
+            @method('delete')
+        </form>
     @endif
     @push('script')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -232,6 +254,13 @@
         <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
+                    height: 200, // Set the height of the editor
+                    placeholder: 'Write your content here...'
+                });
+            });
+
+            $(document).ready(function() {
+                $('#summernote007').summernote({
                     height: 200, // Set the height of the editor
                     placeholder: 'Write your content here...'
                 });
