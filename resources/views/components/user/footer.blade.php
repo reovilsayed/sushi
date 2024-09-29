@@ -2,7 +2,14 @@
     $restaurants = App\Models\Restaurant::all();
     $pages = App\Models\Page::select('title', 'slug')->get();
 @endphp
-<footer id="footer" class="footer bg-transparent">
+@if (session()->get('locale') == 'ar')
+    <style>
+        .footer_rtl {
+            direction: rtl;
+        }
+    </style>
+@endif
+<footer id="footer" class="footer bg-transparent footer_rtl">
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
@@ -34,7 +41,9 @@
                         <li><a href="{{ route('register') }}">{{__('sentence.register')}}</a></li>
                     @endauth --}}
                     @foreach ($pages as $page)
-                        <li><a href="{{ route('pages.view', $page->slug) }}">{{ session()->get('locale') =='ar' ? $page->title_ae : $page->title }}</a></li>
+                        <li><a
+                                href="{{ route('pages.view', $page->slug) }}">{{ session()->get('locale') == 'ar' ? $page->title_ae : $page->title }}</a>
+                        </li>
                     @endforeach
                 </ul>
             </div>
@@ -45,7 +54,7 @@
                     @foreach ($restaurants as $restaurant)
                         @if ($restaurant->status == '1')
                             <li><a
-                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ session()->get('locale') =='ar' ? $restaurant->name_ae : $restaurant->name }}</a>
+                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</a>
                             </li>
                         @endif
                     @endforeach

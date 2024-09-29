@@ -54,9 +54,11 @@
                 --bs-list-group-active-border-color: none;
                 all: unset;
             }
+
             .category-link {
                 border-radius: 0px;
             }
+
             .category-link.active {
                 background-color: #ffffff;
                 color: #000;
@@ -65,6 +67,7 @@
             body {
                 position: relative;
             }
+
             .accordion-button::after {
                 flex-shrink: 0;
                 width: 1.6rem;
@@ -72,11 +75,12 @@
                 height: 1.6rem;
                 margin-left: auto;
                 content: "";
-                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 17C12.2833 17 12.521 16.904 12.713 16.712C12.9043 16.5207 13 16.2833 13 16V13H16.025C16.3083 13 16.5417 12.904 16.725 12.712C16.9083 12.5207 17 12.2833 17 12C17 11.7167 16.904 11.479 16.712 11.287C16.5207 11.0957 16.2833 11 16 11H13V7.975C13 7.69167 12.9043 7.45833 12.713 7.275C12.521 7.09167 12.2833 7 12 7C11.7167 7 11.4793 7.09567 11.288 7.287C11.096 7.479 11 7.71667 11 8V11H7.975C7.69167 11 7.45833 11.0957 7.275 11.287C7.09167 11.479 7 11.7167 7 12C7 12.2833 7.09567 12.5207 7.287 12.712C7.479 12.904 7.71667 13 8 13H11V16.025C11 16.3083 11.096 16.5417 11.288 16.725C11.4793 16.9083 11.7167 17 12 17ZM12 22C10.6167 22 9.31667 21.7373 8.1 21.212C6.88333 20.6873 5.825 19.975 4.925 19.075C4.025 18.175 3.31267 17.1167 2.788 15.9C2.26267 14.6833 2 13.3833 2 12C2 10.6167 2.26267 9.31667 2.788 8.1C3.31267 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.31233 8.1 2.787C9.31667 2.26233 10.6167 2 12 2C13.3833 2 14.6833 2.26233 15.9 2.787C17.1167 3.31233 18.175 4.025 19.075 4.925C19.975 5.825 20.6873 6.88333 21.212 8.1C21.7373 9.31667 22 10.6167 22 12C22 13.3833 21.7373 14.6833 21.212 15.9C20.6873 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6873 15.9 21.212C14.6833 21.7373 13.3833 22 12 22Z' fill='%23FFFFFF'/%3E%3C/svg%3E");
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 17C12.2833 17 12.521 16.904 12.713 16.712C12.9043 16.5207 13 16.2833 13 16V13H16.025C16.3083 13 16.5417 12.904 16.725 12.712C16.9083 12.5207 17 12.2833 17 12C17 11.7167 16.904 11.479 16.712 11.287C16.5207 11.0957 16.2833 11 16 11H13V7.975C13 7.69167 12.9043 7.45833 12.713 7.275C12.521 7.09167 12.2833 7 12 7C11.7167 7 11.4793 7.09567 11.288 7.287C11.096 7.479 11 7.71667 11 8V11H7.975C7.69167 11 7.45833 11.0957 7.275 11.287C7.09167 11.479 7 11.7167 7 12C7 12.2833 7.09567 12.5207 7.287 12.712C7.479 12.904 7.71667 13 8 13H11V16.025C11 16.3083 11.096 16.5417 11.288 16.725C11.4793 16.9083 11.7167 17 12 17ZM12 22C10.6167 22 9.31667 21.7373 8.1 21.212C6.88333 20.6873 5.825 19.975 4.925 19.075C4.025 18.175 3.31267 17.1167 2.788 15.9C2.26267 14.6833 2 13.3833 2 12C2 10.6167 2.26267 9.31667 2.788 8.1C3.31267 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.31233 8.1 2.787C9.31667 2.26233 10.6167 2 12 2C13.3833 2 14.6833 2.26233 15.9 2.787C17.1167 3.31233 18.175 4.025 19.075 4.925C19.975 5.825 20.6873 6.88333 21.212 8.1C21.7373 9.31667 22 10.6167 22 12C22 13.3833 21.7373 14.6833 21.212 15.9C20.6873 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6873 15.9 21.212C14.6833 21.7373 13.3833 22 12 22Z' fill='%23FFFFFF'/%3E%3C/svg%3E");
                 background-repeat: no-repeat;
                 background-size: 1.7rem;
                 transition: transform .2s ease-in-out;
             }
+
             .accordion-button:not(.collapsed)::after {
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM184 232l144 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z' fill='crimson'/%3E%3C/svg%3E");
                 background-repeat: no-repeat;
@@ -95,7 +99,8 @@
                 @if ($category->childs->count() > 0)
                     @foreach ($category->childs as $child)
                         <li class="list-group-item">
-                            <a href="#{{ $child->slug }}" class="category-link">{{ session()->get('locale') =='ar' ? $child->name_ae : $child->name }}</a>
+                            <a href="#{{ $child->slug }}"
+                                class="category-link">{{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}</a>
                         </li>
                     @endforeach
                 @endif
@@ -107,11 +112,12 @@
     <section id="menu" class="menu section bg-transparent">
 
         <!-- Section Title -->
-        <div class="ms-3 me-3" style="" data-aos="fade-up">
+        <div class="ms-3 me-3 menu_header_rtl" style="" data-aos="fade-up">
             <div class="row">
                 <div class="section-title col-md-4">
                     <h2>{{ __('sentence.menu') }}</h2>
-                    <p style="color: var(--default-color)">{{ session()->get('locale') =='ar' ? $restaurant->name_ae : $restaurant->name }}</p>
+                    <p style="color: var(--default-color)">
+                        {{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</p>
                 </div>
                 <div class="section-title col-md-5">
                     <h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.take_away') }}</h2>
@@ -153,7 +159,7 @@
 
 
 
-        <div class="container-fluid isotope-layout">
+        <div class="container-fluid isotope-layout menu_product_rtl">
             <div class="row">
                 <!-- Sidebar for larger screens -->
                 <div class="col-md-3 col-sm-12 d-none d-md-block"
@@ -162,11 +168,13 @@
                         <div class="accordion" id="accordionExample{{ $category->id }}">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree{{ $category->id }}" aria-expanded="false"
-                                        aria-controls="collapseThree" style="color: var(--default-color);">
-                                        {{ session()->get('locale') =='ar' ? $category->name_ae : $category->name }}
+                                    <button class="accordion-button collapsed menu_product_category" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
+                                        aria-expanded="false" aria-controls="collapseThree"
+                                        style="color: var(--default-color); @if (session()->get('locale') == 'ar') justify-content: space-between; @endif">
+                                        {{ session()->get('locale') == 'ar' ? $category->name_ae : $category->name }}
                                     </button>
+
                                 </h2>
                                 @if ($category->childs->count() > 0)
                                     @foreach ($category->childs as $child)
@@ -175,7 +183,9 @@
                                             data-bs-parent="#accordionExample{{ $child->parent_id }}">
                                             <a href="#{{ $child->slug }}" class="accordion-body"
                                                 style="color: var(--default-color);">
-                                                <div>{{ session()->get('locale') =='ar' ? $child->name_ae : $child->name }}</div>
+                                                <div>
+                                                    {{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}
+                                                </div>
                                             </a>
                                         </div>
                                     @endforeach
@@ -192,9 +202,12 @@
                         @foreach ($categories as $category)
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center pe-4" data-aos="fade-up" data-aos-delay="200">
-                                    <h4 id="{{ $child->slug }}">{{ session()->get('locale') =='ar' ? $child->name_ae : $child->name }}</h4>
+                                    <h4 id="{{ $child->slug }}">
+                                        {{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}</h4>
                                     <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
-                                    <p class="mt-2 fst-italic">{{ session()->get('locale') =='ar' ? $child->description_ae : $child->description }}</p>
+                                    <p class="mt-2 fst-italic">
+                                        {{ session()->get('locale') == 'ar' ? $child->description_ae : $child->description }}
+                                    </p>
                                 </div>
 
                                 <div class="row p-0">
@@ -267,7 +280,7 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
                                         aria-expanded="false" aria-controls="collapseThree"
                                         style="color: var(--default-color);">
-                                        {{ session()->get('locale') =='ar' ? $category->name_ae : $category->name }}
+                                        {{ session()->get('locale') == 'ar' ? $category->name_ae : $category->name }}
                                     </button>
                                 </h2>
                                 @if ($category->childs->count() > 0)
@@ -277,7 +290,9 @@
                                             data-bs-parent="#accordionExample{{ $child->parent_id }}">
                                             <a href="#{{ $child->name }}" class="accordion-body"
                                                 style="color: var(--default-color);">
-                                                <div>{{ session()->get('locale') =='ar' ? $child->name_ae : $child->name }}</div>
+                                                <div>
+                                                    {{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}
+                                                </div>
                                             </a>
                                         </div>
                                     @endforeach
