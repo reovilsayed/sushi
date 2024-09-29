@@ -58,7 +58,7 @@
                                 <div class="member-info">
                                     <div class="member-info-content">
                                         <h4>{{ session()->get('locale') =='ar' ? $restaurant->name_ae : $restaurant->name }}</h4>
-                                        <span>{{ session()->get('locale') =='ar' ? $restaurant?->address['address_ae'] : $restaurant?->address['address'] ?? '' }}</span>
+                                        <span>{{ session()->get('locale') =='ar' ? $restaurant->address['address_ae'] : $restaurant->address['address'] ?? '' }}</span>
                                     </div>
                                     <div class="member-info-content mt-2">
                                     </div>
