@@ -107,7 +107,7 @@ class LanguageController extends Controller
             'english' => $request->english,
             'arabic' => $request->arabic,
         ]);
-        return back()->with('message', 'Language updated successfully');
+        return redirect()->route('languages.index')->with('message', 'Language updated successfully');
     }
 
     /**
