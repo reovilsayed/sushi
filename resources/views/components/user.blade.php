@@ -21,12 +21,8 @@
 
 
     <!-- Vendor CSS Files -->
-    @if (session()->get('locale') == 'ar')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
-            integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
-    @else
+    
         <link href="{{ asset('niko/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    @endif
 
     <link href="{{ asset('niko/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('niko/assets/vendor/aos/aos.css') }}" rel="stylesheet"> --}}
