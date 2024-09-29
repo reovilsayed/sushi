@@ -35,13 +35,14 @@
                             </h1>
                             <p class="col-8 slidetext">{{ session()->get('locale') =='ar' ? $slider->title_ae : $slider->title }}</p>
 
-                            <a href="#location" class="btn btn-orange-normal" id="slideBtn">{{ __('sentence.location') }}</a>
+                            <a href="#location" class="btn btn-orange-normal" id="slideBtn" dir="{{ session()->get('locale') == 'ar' ? 'rtl' : 'ltr' }}">{{ __('sentence.location') }}</a>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
+
     <section>
         <div class="container ">
             <div class="row">
@@ -104,7 +105,7 @@
                             id="location-button">
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                         </button>
-                        <button class="btn btn-outline-orange" id="checkDZ">ENTRÉE</button>
+                        <button class="btn btn-outline-orange" id="checkDZ">{{ __('sentence.enter_location_btn') }}</button>
 
                     </div>
                     {{-- </form> --}}
