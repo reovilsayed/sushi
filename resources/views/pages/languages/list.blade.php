@@ -42,9 +42,9 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">{{ __('sentence.key') }}</th>
-                                        <th scope="col" class="text-center">{{ __('sentence.english') }}</th>
-                                        <th scope="col">{{ __('sentence.french') }}</th>
-                                        <th scope="col">{{ __('sentence.dubai') }}</th>
+                                        <th scope="col" class="text-start">{{ __('sentence.english') }}</th>
+                                        {{-- <th scope="col">{{ __('sentence.french') }}</th> --}}
+                                        <th scope="col" class="text-start">{{ __('sentence.dubai') }}</th>
                                         <th scope="col">{{ __('sentence.createdat') }}</th>
                                         <th scope="col">{{ __('sentence.action') }}</th>
                                     </tr>
@@ -53,9 +53,9 @@
                                     @foreach ($languages as $key => $language)
                                         <tr>
                                             
-                                            <td class="text-center">{{ $language->key }}</td>
-                                            <td>{{ $language->english }}</td>
-                                            <td>{{ $language->french }}</td>
+                                            <td class="text-start">{{ $language->key }}</td>
+                                            <td class="text-start">{{ $language->english }}</td>
+                                            {{-- <td>{{ $language->french }}</td> --}}
                                             <td>{{ $language->arabic }}</td>
                                             <td>{{ $language->created_at }}</td>
                                             <td class="d-flex">

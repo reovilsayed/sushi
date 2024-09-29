@@ -64,7 +64,7 @@
                                             <td>{{ $category->name_ae }}</td>
                                             <td class="text-center">{{ $category->sequency }}</td>
                                             <td>{{ $category->parent?->name }}</td>
-                                            <td>{{ $category->created_at }}</td>
+                                            {{-- <td>{{ $category->created_at }}</td> --}}
                                             <td class="d-flex">
                                                 <a class="btn btn-primary btn-sm me-2" href="{{ route('categories.edit', $category) }}">
                                                     <i class="fa fa-edit"></i>
