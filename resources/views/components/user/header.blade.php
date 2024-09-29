@@ -1,4 +1,4 @@
-<?php $restaurantNames = App\Models\Restaurant::latest()->get(); ?>
+<?php $restaurantNames = App\Models\Restaurant::all(); ?>
 <style>
     .cartIcon {
         width: 30px;

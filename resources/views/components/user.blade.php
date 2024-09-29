@@ -34,6 +34,8 @@
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('css/ltr_rtr.css') }}">
+
     @stack('css')
     <!-- =======================================================
   * Template Name: Restaurantly

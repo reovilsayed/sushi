@@ -33,9 +33,9 @@
                                 <span
                                     style="color: var(--accent-color)">{{ session()->get('locale') =='ar' ? $slider->heading_end_ae : $slider->heading_end }}</span>
                             </h1>
-                            <p class="col-8 slidetext">{{ session()->get('locale') =='ar' ? $slider->title_ae : $slider->title }}
-                            </p>
-                            <a href="#location" class="btn btn-orange-normal">{{ __('sentence.location') }}</a>
+                            <p class="col-8 slidetext">{{ session()->get('locale') =='ar' ? $slider->title_ae : $slider->title }}</p>
+
+                            <a href="#location" class="btn btn-orange-normal" id="slideBtn">{{ __('sentence.location') }}</a>
                         </div>
                     </div>
                 @endforeach
@@ -82,9 +82,11 @@
     <section id="location" class="menu section bg-transparent">
 
         <!-- Section Title -->
-        <div class="container section-title text-center " data-aos="fade-up">
-            <h2>{{ __('sentence.location') }}</h2>
-            <p style="color: #E5D5BF">{{ __('sentence.locationtitle') }}</p>
+        <div class="loction_rtr container section-title text-center " data-aos="fade-up">
+            <h2 id="loction_rtr_h2" dir="{{ session()->get('locale') == 'ar' ? 'rtl' : 'ltr' }}">{{ __('sentence.location') }}</h2>
+            <p style="color: #E5D5BF;" dir="{{ session()->get('locale') == 'ar' ? 'rtl' : 'ltr' }}">
+                {{ __('sentence.locationtitle') }}
+            </p>
         </div><!-- End Section Title -->
 
 

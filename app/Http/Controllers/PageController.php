@@ -29,11 +29,11 @@ class PageController extends Controller
 {
     public function userIndex()
     {
-        $restaurants = Restaurant::latest()->take(6)->get();
+        $restaurants = Restaurant::all();
 
-        $zones = Zone::with('restaurants')->get();
+        // $zones = Zone::with('restaurants')->get();
         $sliders = Slider::all();
-        return view('user.home', compact('restaurants', 'zones', 'sliders'));
+        return view('user.home', compact('restaurants', 'sliders'));
     }
 
     private function getTimeRanges($restaurantId, $dayOfWeek)
@@ -91,6 +91,7 @@ class PageController extends Controller
                 ->orderBy('sequency', 'asc')
                 ->with('childs', 'products')
                 ->get();
+                
             $subCategories = Category::whereNotNull('parent_id')->get();
 
             return compact('restaurant', 'categories', 'subCategories');

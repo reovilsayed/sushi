@@ -1,0 +1,20 @@
+#header{
+    direction: rtl;
+}
+.Mainslide{
+    direction: rtl;
+}
+.homeSlide{
+    direction: rtl;
+    text-align: right;
+}
+.slidetext{
+    text-align: right;
+}
+#slideBtn{
+    position: absolute;
+    right: 0px;
+}
+#loction_rtr_h2{
+    direction: rtl !important;
+}

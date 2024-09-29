@@ -40,14 +40,22 @@ class Settings
         }
         return number_format($totalTax, 2);
     }
+    // public function setting($key, $default = null)
+    // {
+    //     $settings = Cache::remember('all_settings', 100, function () {
+    //         return Setting::pluck('value', 'key')->toArray();
+    //     });
+    //     return $settings[$key] ?? null;
+    // }
     public function setting($key, $default = null)
     {
         $settings = Cache::remember('all_settings', 100, function () {
             return Setting::pluck('value', 'key')->toArray();
         });
-        return $settings[$key] ?? null;
+    
+        return $settings[$key] ?? $default;
     }
-
+    
 
     // public function site_title()
     // {

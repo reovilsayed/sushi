@@ -1,5 +1,5 @@
 @php
-    $restaurants = App\Models\Restaurant::latest()->take(9)->get();
+    $restaurants = App\Models\Restaurant::all();
     $pages = App\Models\Page::select('title', 'slug')->get();
 @endphp
 <footer id="footer" class="footer bg-transparent">
