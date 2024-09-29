@@ -104,7 +104,7 @@
                                     <div id="takeAwayForm" class="mt-5">
                                         @if ($restaurant->latest())
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
-                                                <h2 class="text-colour">{{ $restaurant->name }}</h2>
+                                                <h2 class="text-colour">{{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</h2>
 
                                                 <div class="d-flex gap-3">
                                                 </div>
@@ -166,7 +166,7 @@
 
                                         @if ($restaurant)
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
-                                                <h2 class="text-colour">{{ $restaurant->name }}</h2>
+                                                <h2 class="text-colour">{{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</h2>
                                                 <div class="d-flex gap-3">
                                                 </div>
                                             </div>
