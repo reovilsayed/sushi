@@ -128,6 +128,7 @@
     <!-- product  Section -->
     <section id="about" class="about section bg-transparent pb-4">
         <div class="container">
+            {{-- @dd() --}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-4 ms-3">
@@ -146,7 +147,7 @@
                         </div>
 
                         <div class="col-md-7">
-                            <h2 class="mb-3 singlePrice fs-3 mt-3">{{ session()->get('locale') =='ar' ? $product->name_ae : $produc->name }}
+                            <h2 class="mb-3 singlePrice fs-3 mt-3">{{ session()->get('locale') =='ar' ? $product->name_ae : $product->name }}
                             </h2>
                             <form action="{{ route('cart.store') }}" method="post" id="cart-form">
                                 @csrf
