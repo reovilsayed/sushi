@@ -40,7 +40,7 @@
     <section id="contact" class="contact section bg-transparent">
 
         <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
+        <div id="contact_rtl" class="container section-title" data-aos="fade-up">
             <h2>{{ __('sentence.recruitments') }}</h2>
             <p>{{ __('sentence.join_the_central_sushi_team') }}</p>
         </div><!-- End Section Title -->
@@ -56,7 +56,7 @@
 
                     <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
                         <i class="bi bi-envelope flex-shrink-0"></i>
-                        <div>
+                        <div class="contact_mail_icon">
                             <h3>{{ __('sentence.email') }}</h3>
                             <p>{{ Settings::setting('site.email') }}</p>
                         </div>
