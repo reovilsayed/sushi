@@ -26,7 +26,7 @@
         </div>
     </section>
     <!-- WISHLIST AREA START -->
-    <div class="liton__wishlist-area pb-70">
+    <div id="liton__wishlist" class="liton__wishlist-area pb-70">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

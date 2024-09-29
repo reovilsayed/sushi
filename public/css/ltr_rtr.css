@@ -29,3 +29,15 @@
 .contact_mail_icon{
     margin-right: 20px;
 }
+#about{
+    direction: rtl;
+}
+#liton__wishlist{
+    direction: rtl;
+}
+
+
+
+#footer{
+    direction: rtl;
+}
