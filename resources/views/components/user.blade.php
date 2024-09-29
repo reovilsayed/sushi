@@ -21,8 +21,8 @@
 
 
     <!-- Vendor CSS Files -->
-    
-        <link href="{{ asset('niko/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('niko/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('niko/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('niko/assets/vendor/aos/aos.css') }}" rel="stylesheet"> --}}
@@ -33,8 +33,9 @@
     <!-- Main CSS File -->
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('css/ltr_rtr.css') }}">
+    @if (session()->get('locale') == 'ar')
+        <link rel="stylesheet" href="{{ asset('css/ltr_rtr.css') }}">
+    @endif
 
     @stack('css')
     <!-- =======================================================
@@ -550,7 +551,7 @@
                                 }, function() {
                                     alert(
                                         'Geolocation failed. Please enable location services.'
-                                        );
+                                    );
                                 });
                             } else {
                                 alert('Geolocation is not supported by this browser.');
