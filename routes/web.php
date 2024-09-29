@@ -110,7 +110,7 @@ Route::get('/get-google-maps-api-key', function () {
 // });
 
 Route::get('lang/{locale}', function ($locale) {
-    session(['locale' => $locale]);
+    session()->put('locale',$locale);
     return redirect()->back();
 });
 //order routes
