@@ -77,104 +77,110 @@
         box-shadow: none !important;
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="container section-title aos-init aos-animate pb-4" data-aos="fade-up">
-            {{-- <h2>{{ __('sentence.menu') }}</h2> --}}
-            <p class="">{{ __('sentence.laissez_vous_tenter_par') }}</p>
-        </div>
-        <div class="col-12">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                @foreach ($relatedProducts as $groupIndex => $groupProducts)
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="tab-{{ $groupIndex }}"
-                            data-bs-toggle="tab" data-bs-target="#panel-{{ $groupIndex }}" type="button"
-                            role="tab" aria-controls="panel-{{ $groupIndex }}"
-                            aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                            {{ $groupProducts['category_name'] }}
-                        </button>
-                    </li>
-                @endforeach
-            </ul>
+<section id="product_Slider" class="bg-transparent">
+    <div class="container">
+        <div class="row">
+            <div class="container section-title aos-init aos-animate pb-4" data-aos="fade-up">
+                {{-- <h2>{{ __('sentence.menu') }}</h2> --}}
+                <p class="">{{ __('sentence.laissez_vous_tenter_par') }}</p>
+            </div>
+            <div class="col-12">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs pe-0" id="myTab" role="tablist">
+                    @foreach ($relatedProducts as $groupIndex => $groupProducts)
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="tab-{{ $groupIndex }}"
+                                data-bs-toggle="tab" data-bs-target="#panel-{{ $groupIndex }}" type="button"
+                                role="tab" aria-controls="panel-{{ $groupIndex }}"
+                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                {{ session()->get('locale') == 'ar' ? $groupProducts['category_name_ae'] ?? '' : $groupProducts['category_name'] ?? '' }}
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content" id="myTabContent">
-                @foreach ($relatedProducts as $groupIndex => $groupProducts)
-                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="panel-{{ $groupIndex }}"
-                        role="tabpanel" aria-labelledby="tab-{{ $groupIndex }}">
-                        <div class="row accmp">
+                <!-- Tab panes -->
+                <div class="tab-content" id="myTabContent">
+                    @foreach ($relatedProducts as $groupIndex => $groupProducts)
+                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
+                            id="panel-{{ $groupIndex }}" role="tabpanel" aria-labelledby="tab-{{ $groupIndex }}">
+                            <div class="row accmp">
 
-                            <div id="carousel-{{ $groupIndex }}" class="carousel slide mt-2" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    @foreach ($groupProducts['products']->chunk(3) as $chunkIndex => $chunkItems)
-                                        <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                                            <div class="">
-                                                <div class="row">
-                                                    @foreach ($chunkItems as $product)
-                                                        <div class="col-md-4 col-4 text-md-center">
-                                                            <x-viewProduct.product :restaurant="App\Models\Restaurant::find(
-                                                                session()->get('restaurent_id'),
-                                                            )"
-                                                                :product="$product" />
-                                                        </div>
-                                                    @endforeach
+                                <div id="carousel-{{ $groupIndex }}" class="carousel slide mt-2"
+                                    data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @foreach ($groupProducts['products']->chunk(3) as $chunkIndex => $chunkItems)
+                                            <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                                                <div class="">
+                                                    <div class="row">
+                                                        @foreach ($chunkItems as $product)
+                                                            <div class="col-md-4 col-4 text-md-center">
+                                                                <x-viewProduct.product :restaurant="App\Models\Restaurant::find(
+                                                                    session()->get('restaurent_id'),
+                                                                )"
+                                                                    :product="$product" />
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carousel-{{ $groupIndex }}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carousel-{{ $groupIndex }}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carousel-{{ $groupIndex }}" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carousel-{{ $groupIndex }}" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
 
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+
+        </div>
+        @php
+            $extra_charge = Settings::setting('extra.charge');
+        @endphp
+        <div class="container-fluid">
+            <div class="d-md-flex justify-content-md-end justify-content-center">
+                <div class="col-lg-5 col-md-8 col-sm-12 order-2 order-lg-1 content p-md-0">
+                    <div class="table-responsive">
+                        <div class="mb-3">
+                            <p class="mb-0 text-end" style="color:#ff883e;">{{ __('sentence.management_fees') }}:
+                                {{ $extra_charge ?? '' }}€</p>
+                            <p class="mb-0 mt-2 text-end" style="color:#ff883e;">
+                                {{ __('sentence.by_placing_an_order_you_accept_the_terms_of_the_t&cs') }}</p>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
 
-
-    </div>
-    @php
-        $extra_charge = Settings::setting('extra.charge');
-    @endphp
-    <div class="container-fluid">
-        <div class="d-md-flex justify-content-md-end justify-content-center">
-            <div class="col-lg-5 col-md-8 col-sm-12 order-2 order-lg-1 content p-md-0">
-                <div class="table-responsive">
-                    <div class="mb-3">
-                        <p class="mb-0 text-end" style="color:#ff883e;">{{ __('sentence.management_fees') }}: {{ $extra_charge ?? '' }}€</p>
-                        <p class="mb-0 mt-2 text-end" style="color:#ff883e;">{{ __('sentence.by_placing_an_order_you_accept_the_terms_of_the_t&cs') }}</p>
+                    <div class="btn-wrapper text-center my-3">
+                        <a href="{{ route('restaurant.checkout') }}"
+                            class="checkout_btn d-flex justify-content-between align-items-center mx-2"
+                            id="checkout-button" title="">
+                            <h4 class="mb-0 fs-5" id="button-text">{{ __('sentence.subtotal') }}</h4>
+                            <h4 class="mb-0">{{ number_format(Cart::getSubTotal(), 2) }} €
+                            </h4>
+                        </a>
                     </div>
                 </div>
-
-                <div class="btn-wrapper text-center my-3">
-                    <a href="{{ route('restaurant.checkout') }}"
-                        class="checkout_btn d-flex justify-content-between align-items-center mx-2" id="checkout-button"
-                        title="">
-                        <h4 class="mb-0 fs-5" id="button-text">{{ __('sentence.subtotal') }}</h4>
-                        <h4 class="mb-0">{{ number_format(Cart::getSubTotal(), 2) }} €
-                        </h4>
-                    </a>
-                </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttonText = document.getElementById('button-text');
+                document.getElementById('checkout-button').addEventListener('mouseover', () => buttonText.textContent =
+                    "{{ __('sentence.proceed_to_checkout') }}");
+                document.getElementById('checkout-button').addEventListener('mouseout', () => buttonText.textContent =
+                    "{{ __('sentence.subtotal') }}");
+            });
+        </script>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttonText = document.getElementById('button-text');
-            document.getElementById('checkout-button').addEventListener('mouseover', () => buttonText.textContent =
-                "{{ __('sentence.proceed_to_checkout') }}");
-            document.getElementById('checkout-button').addEventListener('mouseout', () => buttonText.textContent =
-                "{{ __('sentence.subtotal') }}");
-        });
-    </script>
+</section>

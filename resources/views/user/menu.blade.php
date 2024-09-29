@@ -165,7 +165,7 @@
                 <div class="col-md-3 col-sm-12 d-none d-md-block"
                     style="position: sticky; top: 150px; height: 100vh; overflow-y: auto;">
                     @foreach ($categories as $category)
-                        <div class="accordion" id="accordionExample{{ $category->id }}">
+                        <div class="accordion" id="{{ $category->id }}">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed menu_product_category" type="button"
@@ -180,7 +180,7 @@
                                     @foreach ($category->childs as $child)
                                         <div id="collapseThree{{ $child->parent_id }}"
                                             class="accordion-collapse collapse"
-                                            data-bs-parent="#accordionExample{{ $child->parent_id }}">
+                                            data-bs-parent="#{{ $child->parent_id }}">
                                             <a href="#{{ $child->slug }}" class="accordion-body"
                                                 style="color: var(--default-color);">
                                                 <div>

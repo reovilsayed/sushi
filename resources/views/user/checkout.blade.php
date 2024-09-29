@@ -6,8 +6,9 @@
         $extra_charge = Settings::setting('extra.charge');
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
-         // Cart::clear();
+        // Cart::clear();
         //dd(Cart::getContent());
+
     @endphp
 
     <x-user>
@@ -143,7 +144,7 @@
                                                     value={{ auth()->user()->phone ?? '' }}>
                                             </div>
 
-                                            
+
                                             <div class="col-md-12">
                                                 <input type="email" name="email" disabled
                                                     class="form-control @error('email') is-invalid @enderror"
@@ -157,8 +158,7 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}"
-                                                    style="height:122px;"></textarea>
+                                                <textarea name="commment" class="form-control" placeholder="{{ __('sentence.your_comment') }}" style="height:122px;"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -192,20 +192,36 @@
                                             </div>
 
                                             <div class="col-md-12 input-group text-center">
-                                                <input type="text" name="address" id="map_address_input"
-                                                    class="form-control"
-                                                    placeholder="{{ __('sentence.your_address') }}" required
-                                                    value="{{ auth()->user()->address ?? $address }}">
+                                                @if (session()->get('locale') == 'ar')
+                                                    <button id="checkDZ"class="btn btn-outline-orange"
+                                                        style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;  @if(session()->get('locale') == 'ar') border-radius: 0px @endif">
+                                                        ENTRÉE
+                                                    </button>
+                                                    <button class="btn bg-black border-0 btn-outline-orange"
+                                                        style="border-left: 0px" type="button"
+                                                        onclick="getCurrentLocation()" id="location-button">
+                                                        <i class="bi bi-geo-alt fs-4"></i>
+                                                    </button>
+                                                    <input type="text" name="address" id="map_address_input"
+                                                        class="form-control"
+                                                        placeholder="{{ __('sentence.your_address') }}" required
+                                                        value="{{ auth()->user()->address ?? $address }}">
+                                                @else
+                                                    <input type="text" name="address" id="map_address_input"
+                                                        class="form-control"
+                                                        placeholder="{{ __('sentence.your_address') }}" required
+                                                        value="{{ auth()->user()->address ?? $address }}">
 
-                                                <button class="btn bg-black border-0 btn-outline-orange"
-                                                    style="border-left: 0px" type="button"
-                                                    onclick="getCurrentLocation()" id="location-button">
-                                                    <i class="bi bi-geo-alt fs-4"></i>
-                                                </button>
-                                                <button id="checkDZ"class="btn btn-outline-orange"
-                                                    style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;">
-                                                    ENTRÉE
-                                                </button>
+                                                    <button class="btn bg-black border-0 btn-outline-orange"
+                                                        style="border-left: 0px" type="button"
+                                                        onclick="getCurrentLocation()" id="location-button">
+                                                        <i class="bi bi-geo-alt fs-4"></i>
+                                                    </button>
+                                                    <button id="checkDZ"class="btn btn-outline-orange"
+                                                        style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;">
+                                                        ENTRÉE
+                                                    </button>
+                                                @endif
 
                                             </div>
                                             <div class="col-md-12">
@@ -263,12 +279,21 @@
                                             <table class="table-responsive" style="width: 100%;">
                                                 <thead class="">
                                                     <tr>
-                                                        <td class="fs-4 fw-medium ps-3 pe-0">
-                                                            {{ __('sentence.products') }}
+                                                        <td class="fs-4 fw-medium ps-3 pe-0"
+                                                            style=" @if (session()->get('locale') == 'ar') padding-left: 0px !important; @endif">
+                                                            <div
+                                                                class=" @if (session()->get('locale') == 'ar') pe-3 @endif">
+                                                                {{ __('sentence.products') }}
+                                                            </div>
                                                             <hr>
                                                         </td>
-                                                        <td class="fs-4 fw-medium text-center pe-3 ps-0">
-                                                            {{ __('sentence.price') }}
+                                                        <td class="fs-4 fw-medium text-center pe-3 ps-0"
+                                                            style="@if (session()->get('locale') == 'ar') padding-right: 0px !important; @endif">
+                                                            <div
+                                                                class=" @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+
+                                                                {{ __('sentence.price') }}
+                                                            </div>
                                                             <hr>
                                                         </td>
                                                     </tr>
@@ -276,73 +301,131 @@
                                                 <tbody class="">
                                                     @foreach (Cart::getContent() as $product)
                                                         <tr style="height: 38px;">
-                                                            <td class="ps-3" style="font-size: 13px;">
+                                                            <td class="ps-3  @if (session()->get('locale') == 'ar') pe-3 @endif"
+                                                                style="font-size: 13px;">
                                                                 {{ $product->name }} * {{ $product->quantity }}
                                                             </td>
                                                             <td class="text-center" style="font-size: 13px;">
-                                                                {{ number_format($product->price * $product->quantity, 2) }} €
+                                                                {{ number_format($product->price * $product->quantity, 2) }}
+                                                                €
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                                 <tfoot>
                                                     <tr style="border-top: 1px solid var(--accent-color)">
-                                                        <td>
-                                                            <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
-                                                                {{ __('sentence.paymentmethod') }}
-                                                            </p>
-                                                            <div class="ps-3">
-                                                                <div class="form-check mb-2">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="payment_method" id="payment_method1"
-                                                                        value="Cash on delivery">
-                                                                    <label class="form-check-label"
-                                                                        style="font-size: 15px;"
-                                                                        for="payment_method1">
-                                                                        {{ __('sentence.cashondelivery') }}
-                                                                    </label>
-                                                                </div>
-                                                                @if ($restaurant->enable_payment)
-                                                                    <div class="form-check mt-2 mb-3">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="payment_method" id="payment_method2"
-                                                                            checked value="Card">
+                                                        @if (session()->get('locale') == 'ar')
+                                                            <td>
+                                                                <p
+                                                                    class="fs-5 fw-medium ps-3 pt-2 pb-2 @if (session()->get('locale') == 'ar') me-3 @endif">
+                                                                    {{ __('sentence.paymentmethod') }}
+                                                                </p>
+                                                                <div
+                                                                    class="@if (session()->get('locale') == 'ar') me-3 @endif">
+                                                                    <div class="form-check mb-2">
                                                                         <label class="form-check-label"
                                                                             style="font-size: 15px;"
-                                                                            for="payment_method2">{{ __('sentence.onlinecreditcard') }}
+                                                                            for="payment_method1">
+                                                                            {{ __('sentence.cashondelivery') }}
                                                                         </label>
                                                                     </div>
-                                                                @endif
-                                                            </div>
+                                                                    @if ($restaurant->enable_payment)
+                                                                        <div class="form-check mt-2 mb-3">
+                                                                            <label class="form-check-label"
+                                                                                style="font-size: 15px;"
+                                                                                for="payment_method2">{{ __('sentence.onlinecreditcard') }}
+                                                                            </label>
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
 
-                                                        </td>
-                                                        <td></td>
+                                                            </td>
+                                                            <td>
+                                                                <div
+                                                                    class="mt-5 @if (session()->get('locale') == 'ar') ms-3 @endif">
+                                                                    <div class="form-check mb-3">
+
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="payment_method" id="payment_method1"
+                                                                            value="Cash on delivery">
+                                                                    </div>
+                                                                    @if ($restaurant->enable_payment)
+                                                                        <div class="form-check mt-2 mb-3">
+                                                                            <input class="form-check-input"
+                                                                                type="radio" name="payment_method"
+                                                                                id="payment_method2" checked
+                                                                                value="Card">
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        @else
+                                                            <td>
+                                                                <p class="fs-5 fw-medium ps-3 pt-2 pb-2">
+                                                                    {{ __('sentence.paymentmethod') }}
+                                                                </p>
+                                                                <div class="ps-3">
+                                                                    <div class="form-check mb-2">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="payment_method" id="payment_method1"
+                                                                            value="Cash on delivery">
+                                                                        <label class="form-check-label"
+                                                                            style="font-size: 15px;"
+                                                                            for="payment_method1">
+                                                                            {{ __('sentence.cashondelivery') }}
+                                                                        </label>
+                                                                    </div>
+                                                                    @if ($restaurant->enable_payment)
+                                                                        <div class="form-check mt-2 mb-3">
+                                                                            <input class="form-check-input"
+                                                                                type="radio" name="payment_method"
+                                                                                id="payment_method2" checked
+                                                                                value="Card">
+                                                                            <label class="form-check-label"
+                                                                                style="font-size: 15px;"
+                                                                                for="payment_method2">{{ __('sentence.onlinecreditcard') }}
+                                                                            </label>
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+
+                                                            </td>
+                                                            <td></td>
+                                                        @endif
                                                     </tr>
                                                     <tr style="border-top: 1px solid var(--accent-color)">
-                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
+                                                        <td
+                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2 @if (session()->get('locale') == 'ar') pe-3 @endif">
                                                             {{ __('sentence.subtotal') }}</td>
-                                                        <td class="fs-6 fw-medium text-center">
-                                                            {{ number_format(Cart::getSubTotal() - Settings::totalTax() , 2) }}€
+                                                        <td
+                                                            class="fs-6 fw-medium @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                            {{ number_format(Cart::getSubTotal() - Settings::totalTax(), 2) }}€
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
+                                                        <td
+                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2  @if (session()->get('locale') == 'ar') pe-3 @endif">
                                                             {{ __('sentence.extra_charge') }}</td>
-                                                        <td class="fs-6 fw-medium text-center">
+                                                        <td
+                                                            class="fs-6 fw-medium  @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
                                                             {{ $extra_charge }} €
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="fs-6 fw-medium ps-3 pt-2 pb-2">
+                                                        <td
+                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2  @if (session()->get('locale') == 'ar') pe-3 @endif">
                                                             {{ __('sentence.total_tax') }}</td>
-                                                        <td class="fs-6 fw-medium text-center">
-                                                                {{ Settings::totalTax() }} €
+                                                        <td
+                                                            class="fs-6 fw-medium  @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                            {{ Settings::totalTax() }} €
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="fs-5 fw-medium ps-3 pt-2 pb-2">
+                                                        <td
+                                                            class="fs-5 fw-medium ps-3 pt-2 pb-2  @if (session()->get('locale') == 'ar') pe-3 @endif">
                                                             {{ __('sentence.totle') }}</td>
-                                                        <td class="fs-5 fw-medium text-center">
+                                                        <td
+                                                            class="fs-5 fw-medium  @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
                                                             {{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }}
                                                             €
                                                         </td>
@@ -351,7 +434,8 @@
                                                 </tfoot>
                                             </table>
                                         </div>
-                                        <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3">
+                                        <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3"
+                                            style=" @if (session()->get('locale') == 'ar') padding-right: 0px !important; @endif">
                                             <button type="submit" class="order_btn" id="orderButton"
                                                 disabled>{{ __('sentence.order_button') }}
                                             </button>

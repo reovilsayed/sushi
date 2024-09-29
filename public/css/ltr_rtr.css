@@ -48,6 +48,13 @@
     transition: transform .2s ease-in-out;
 }
 
+#product_Slider{
+    direction: rtl;
+}
+#extraProduct{
+    direction: rtl;
+}
+
 
 #contact {
     direction: rtl;

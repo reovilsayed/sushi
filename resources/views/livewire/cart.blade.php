@@ -59,12 +59,13 @@
                                                     </a>
 
                                                 </td>
-
                                                 <td class="cart-product-info text-center">
                                                     <h4><a class="fw-lighter fs-4 text-uppercase"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
-                                                            style="color: #ffffff !important;">{{ session()->get('locale') =='ar' ? $product->category->name_ae : $product->category->name }}
-                                                            - {{ session()->get('locale') =='ar' ? $item->name_ae : $item->name }}</a>
+                                                            style="color: #ffffff !important;">{{ session()->get('locale') == 'ar' ? $product->category->name_ae : $product->category->name }}
+                                                            -
+                                                            {{ session()->get('locale') == 'ar' ? $product->name_ae : $item->name }}</a>
+                                                        {{-- @dd(session()->get('locale') =='ar' ? $product->category->name : $product->category->name_ae) --}}
                                                         @if (isset($item->attributes['options']))
                                                             <p class="fw-light mt-2 fs-6">
                                                                 {{ $item->attributes['options'] }}</p>
@@ -97,7 +98,9 @@
                                             </td>
                                             <td>
                                                 @if (isset($item->attributes['product']))
-                                                    <p>Tax: {{ Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity) }} Є</p>
+                                                    <p>Tax:
+                                                        {{ Settings::itemTax($item->price, $item->attributes['tax'], $item->quantity) }}
+                                                        Є</p>
                                                 @endif
                                             </td>
                                             <td class="cart-product-subtotal text-center">
@@ -124,7 +127,7 @@
     @if (Cart::isEmpty())
         <a href="{{ route('restaurant.home') }}" class="checkout_btn">{{ __('sentence.gohome') }}</a>
     @else
-        <section id="" class="extra_section pt-1 bg-transparent">
+        <section id="extraProduct" class="extra_section pt-1 bg-transparent">
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-md-12">
@@ -135,11 +138,19 @@
                                         :prices="$extraPrice" />
                                 </div>
                             @endforeach
-                            <p class="text-start mt-4" style="font-size: smaller; color: #ff883e;">WASABI / GINGER
-                                are always included with the rolls. If you do not want one, please specify
-                                in the < Additional information > section of the next page</p>
-                        </div>
+                            @if (session()->get('locale') == 'ar')
+                                <p class="text-end mt-4" style="font-size: smaller; color: #ff883e;">
+                                    يتم تضمين الواسابي / الزنجبيل دائمًا مع اللفائف. إذا كنت لا تريد ذلك، فيرجى التحديد
+                                    في قسم <معلومات إضافية> بالصفحة التالية
+                                </p>
+                            @else
+                                <p class="mt-4 text-start" style="font-size: smaller; color: #ff883e;">
+                                    WASABI / GINGER are always included with the rolls. If you do not want one, please
+                                    specify in the &lt;Additional information&gt; section of the next page.
+                                </p>
+                            @endif
 
+                        </div>
                     </div>
                 </div>
 

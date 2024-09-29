@@ -187,12 +187,15 @@ class PageController extends Controller
             $relatedProductsQuery = Product::whereHas('category', function ($q) {
                 return $q->where('featured', 'checked');
             })->get();
+            // dd( $relatedProductsQuery);
             $relatedProducts = $relatedProductsQuery->sortBy('count')->reverse()->groupBy('category_id')->map(function ($product) {
 
                 $categoryName = $product->first()->category->name;
+                $categoryName_ae = $product->first()->category->name_ae;
 
                 return [
                     'category_name' => $categoryName,
+                    'category_name_ae' => $categoryName_ae,
                     'products' => $product,
                 ];
             });

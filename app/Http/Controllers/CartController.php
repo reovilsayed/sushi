@@ -29,6 +29,7 @@ class CartController extends Controller
 		} else {
 			$price = $product->price;
 			$name = $product->name;
+			$name = $product->name_ae;
 			$option_name = '';
 		}
 		// if (session()->has('restaurent_id') && session('restaurent_id') !== $request->restaurent_id) {

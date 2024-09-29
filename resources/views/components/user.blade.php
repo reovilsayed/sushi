@@ -33,11 +33,12 @@
     <!-- Main CSS File -->
     <link href="{{ asset('niko/assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('niko/custom.css') }}" rel="stylesheet">
+
+    @stack('css')
+
     @if (session()->get('locale') == 'ar')
         <link rel="stylesheet" href="{{ asset('css/ltr_rtr.css') }}">
     @endif
-
-    @stack('css')
     <!-- =======================================================
   * Template Name: Restaurantly
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
