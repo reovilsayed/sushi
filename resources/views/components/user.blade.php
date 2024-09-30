@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{App::getLocale()}}">
 
 <head>
     <meta charset="utf-8">
@@ -36,7 +36,7 @@
 
     @stack('css')
 
-    @if (session()->get('locale') == 'ar')
+    @if (App::getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('css/ltr_rtr.css') }}">
     @endif
     <!-- =======================================================
