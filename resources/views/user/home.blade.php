@@ -28,14 +28,14 @@
                         </div>
                         <div class="carousel-caption d-block text-start" style="top: 25%; left: 8%;">
                             <h1 class="homeSlide fw-medium">
-                                {{ session()->get('locale') =='ar' ?  $slider->heading_ae : $slider->heading }}
+                                {{ App::getLocale() =='ar' ?  $slider->heading_ae : $slider->heading }}
                                 
                                 <span
-                                    style="color: var(--accent-color)">{{ session()->get('locale') =='ar' ? $slider->heading_end_ae : $slider->heading_end }}</span>
+                                    style="color: var(--accent-color)">{{ App::getLocale() =='ar' ? $slider->heading_end_ae : $slider->heading_end }}</span>
                             </h1>
-                            <p class="col-8 slidetext">{{ session()->get('locale') =='ar' ? $slider->title_ae : $slider->title }}</p>
+                            <p class="col-8 slidetext">{{ App::getLocale() =='ar' ? $slider->title_ae : $slider->title }}</p>
 
-                            <a href="#location" class="btn btn-orange-normal" id="slideBtn" dir="{{ session()->get('locale') == 'ar' ? 'rtl' : 'ltr' }}">{{ __('sentence.location') }}</a>
+                            <a href="#location" class="btn btn-orange-normal" id="slideBtn" dir="{{ App::getLocale() == 'ar' ? 'rtl' : 'ltr' }}">{{ __('sentence.location') }}</a>
                         </div>
                     </div>
                 @endforeach
@@ -84,8 +84,8 @@
 
         <!-- Section Title -->
         <div class="loction_rtr container section-title text-center " data-aos="fade-up">
-            <h2 id="loction_rtr_h2" dir="{{ session()->get('locale') == 'ar' ? 'rtl' : 'ltr' }}">{{ __('sentence.location') }}</h2>
-            <p style="color: #E5D5BF;" dir="{{ session()->get('locale') == 'ar' ? 'rtl' : 'ltr' }}">
+            <h2 id="loction_rtr_h2" dir="{{ App::getLocale() == 'ar' ? 'rtl' : 'ltr' }}">{{ __('sentence.location') }}</h2>
+            <p style="color: #E5D5BF;" dir="{{ App::getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
                 {{ __('sentence.locationtitle') }}
             </p>
         </div><!-- End Section Title -->

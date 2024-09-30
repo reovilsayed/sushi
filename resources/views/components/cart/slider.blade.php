@@ -93,7 +93,7 @@
                                 data-bs-toggle="tab" data-bs-target="#panel-{{ $groupIndex }}" type="button"
                                 role="tab" aria-controls="panel-{{ $groupIndex }}"
                                 aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                {{ session()->get('locale') == 'ar' ? $groupProducts['category_name_ae'] ?? '' : $groupProducts['category_name'] ?? '' }}
+                                {{ App::getLocale() == 'ar' ? $groupProducts['category_name_ae'] ?? '' : $groupProducts['category_name'] ?? '' }}
                             </button>
                         </li>
                     @endforeach

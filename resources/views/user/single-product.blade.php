@@ -147,7 +147,7 @@
                         </div>
 
                         <div class="col-md-7">
-                            <h2 class="mb-3 singlePrice fs-3 mt-3">{{ session()->get('locale') =='ar' ? $product->name_ae : $product->name }}
+                            <h2 class="mb-3 singlePrice fs-3 mt-3">{{ App::getLocale() =='ar' ? $product->name_ae : $product->name }}
                             </h2>
                             <form action="{{ route('cart.store') }}" method="post" id="cart-form">
                                 @csrf
@@ -161,7 +161,7 @@
                                                 @foreach ($productOption as $option)
                                                     <option value="{{ $option->id }}"
                                                         data-price="{{ $option->option_price }}">
-                                                        {{ session()->get('locale') =='ar' ? $option->option_name_ae : $option->option_name }}
+                                                        {{ App::getLocale() =='ar' ? $option->option_name_ae : $option->option_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -215,18 +215,18 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p class="text-center border-end pe-2">{!! session()->get('locale') =='ar' ? $product->composition_ae : $product->composition ?? '' !!}</p>
+                                        <p class="text-center border-end pe-2">{!! App::getLocale() =='ar' ? $product->composition_ae : $product->composition ?? '' !!}</p>
                                     @endif
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-6 ps-0">
                                     <p class="text-center txtmob">{{ __('sentence.allergenes') }}</p>
                                     <hr class="" style="opacity: 1.25;">
-                                    <p class="text-center txtmob">{!! session()->get('locale') =='ar' ? $product->allergenes_ae : $product->allergenes !!}</p>
+                                    <p class="text-center txtmob">{!! App::getLocale() =='ar' ? $product->allergenes_ae : $product->allergenes !!}</p>
                                 </div>
                             </div>
                             <div class="row mt-5">
                                 <div class="col-12">
-                                    <p class="text-left bottomTitle">{{ session()->get('locale') =='ar' ? $product->text_ae : $product->text }}</p>
+                                    <p class="text-left bottomTitle">{{ App::getLocale() =='ar' ? $product->text_ae : $product->text }}</p>
                                 </div>
                             </div>
                         </div>

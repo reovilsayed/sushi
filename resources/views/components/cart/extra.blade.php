@@ -1,4 +1,4 @@
-<h5 class="ft-16 p-2 seccolr text-uppercase">{{ session()->get('locale') == 'ar' ? $extra->name_ae : $extra->name }}</h5>
+<h5 class="ft-16 p-2 seccolr text-uppercase">{{ App::getLocale() == 'ar' ? $extra->name_ae : $extra->name }}</h5>
 
     <div class="cart-product-quantity d-flex justify-content-center">
         <div class="cart-plus-minus" style="border: 0px !important;">
