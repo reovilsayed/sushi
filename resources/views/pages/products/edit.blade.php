@@ -61,7 +61,7 @@
 
                             <div class="row row-cols-2">
                                 <x-form.input name="name" wire:model="name"
-                                    label="{{ __('sentence.product_name ') }} *" value="{{ $product->name }}"
+                                    label="{{ __('sentence.product_name') }} *" value="{{ $product->name }}"
                                     autofocus />
 
                                 <x-form.input name="name_ae" wire:model="name_ae"

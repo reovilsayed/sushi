@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 item-content mb-3 mt-3">
-                            <label class="control-label">{{ __('sentence.category_description') }} </label>
+                            <label class="control-label">{{ __('sentence.category_description') }}</label>
                             <x-form.input name="description" value="" style="height: 130px" type="textarea"
                                 id="test" />
                         </div>
