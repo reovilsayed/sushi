@@ -62,10 +62,10 @@
                                                 <td class="cart-product-info text-center">
                                                     <h4><a class="fw-lighter fs-4 text-uppercase"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
-                                                            style="color: #ffffff !important;">{{ session()->get('locale') == 'ar' ? $product->category->name_ae : $product->category->name }}
+                                                            style="color: #ffffff !important;">{{ App::getLocale() == 'ar' ? $product->category->name_ae : $product->category->name }}
                                                             -
-                                                            {{ session()->get('locale') == 'ar' ? $product->name_ae : $item->name }}</a>
-                                                        {{-- @dd(session()->get('locale') =='ar' ? $product->category->name : $product->category->name_ae) --}}
+                                                            {{ App::getLocale() == 'ar' ? $product->name_ae : $item->name }}</a>
+                                                        {{-- @dd(App::getLocale() =='ar' ? $product->category->name : $product->category->name_ae) --}}
                                                         @if (isset($item->attributes['options']))
                                                             <p class="fw-light mt-2 fs-6">
                                                                 {{ $item->attributes['options'] }}</p>
@@ -138,7 +138,7 @@
                                         :prices="$extraPrice" />
                                 </div>
                             @endforeach
-                            @if (session()->get('locale') == 'ar')
+                            @if (App::getLocale() == 'ar')
                                 <p class="text-end mt-4" style="font-size: smaller; color: #ff883e;">
                                     يتم تضمين الواسابي / الزنجبيل دائمًا مع اللفائف. إذا كنت لا تريد ذلك، فيرجى التحديد
                                     في قسم <معلومات إضافية> بالصفحة التالية

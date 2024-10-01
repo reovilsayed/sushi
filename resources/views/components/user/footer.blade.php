@@ -2,7 +2,7 @@
     $restaurants = App\Models\Restaurant::all();
     $pages = App\Models\Page::select('title', 'slug')->get();
 @endphp
-@if (session()->get('locale') == 'ar')
+@if (App::getLocale() == 'ar')
     <style>
         .footer_rtl {
             direction: rtl;
@@ -42,7 +42,7 @@
                     @endauth --}}
                     @foreach ($pages as $page)
                         <li><a
-                                href="{{ route('pages.view', $page->slug) }}">{{ session()->get('locale') == 'ar' ? $page->title_ae : $page->title }}</a>
+                                href="{{ route('pages.view', $page->slug) }}">{{ App::getLocale() == 'ar' ? $page->title_ae : $page->title }}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -54,7 +54,7 @@
                     @foreach ($restaurants as $restaurant)
                         @if ($restaurant->status == '1')
                             <li><a
-                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</a>
+                                    href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ App::getLocale() == 'ar' ? $restaurant->name_ae : $restaurant->name }}</a>
                             </li>
                         @endif
                     @endforeach

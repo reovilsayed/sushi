@@ -104,7 +104,7 @@
                                     <div id="takeAwayForm" class="mt-5">
                                         @if ($restaurant->latest())
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
-                                                <h2 class="text-colour">{{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</h2>
+                                                <h2 class="text-colour">{{ App::getLocale() == 'ar' ? $restaurant->name_ae : $restaurant->name }}</h2>
 
                                                 <div class="d-flex gap-3">
                                                 </div>
@@ -166,7 +166,7 @@
 
                                         @if ($restaurant)
                                             <div class="content mb-3 mt-5" data-aos="fade-up">
-                                                <h2 class="text-colour">{{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</h2>
+                                                <h2 class="text-colour">{{ App::getLocale() == 'ar' ? $restaurant->name_ae : $restaurant->name }}</h2>
                                                 <div class="d-flex gap-3">
                                                 </div>
                                             </div>
@@ -192,9 +192,9 @@
                                             </div>
 
                                             <div class="col-md-12 input-group text-center">
-                                                @if (session()->get('locale') == 'ar')
+                                                @if (App::getLocale() == 'ar')
                                                     <button id="checkDZ"class="btn btn-outline-orange"
-                                                        style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;  @if(session()->get('locale') == 'ar') border-radius: 0px @endif">
+                                                        style="background-color: var(--accent-color) !important; border-color: var(--accent-color) !important; color: #ffffff !important;  @if(App::getLocale() == 'ar') border-radius: 0px @endif">
                                                         ENTRÉE
                                                     </button>
                                                     <button class="btn bg-black border-0 btn-outline-orange"
@@ -280,17 +280,17 @@
                                                 <thead class="">
                                                     <tr>
                                                         <td class="fs-4 fw-medium ps-3 pe-0"
-                                                            style=" @if (session()->get('locale') == 'ar') padding-left: 0px !important; @endif">
+                                                            style=" @if (App::getLocale() == 'ar') padding-left: 0px !important; @endif">
                                                             <div
-                                                                class=" @if (session()->get('locale') == 'ar') pe-3 @endif">
+                                                                class=" @if (App::getLocale() == 'ar') pe-3 @endif">
                                                                 {{ __('sentence.products') }}
                                                             </div>
                                                             <hr>
                                                         </td>
                                                         <td class="fs-4 fw-medium text-center pe-3 ps-0"
-                                                            style="@if (session()->get('locale') == 'ar') padding-right: 0px !important; @endif">
+                                                            style="@if (App::getLocale() == 'ar') padding-right: 0px !important; @endif">
                                                             <div
-                                                                class=" @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                                class=" @if (App::getLocale() == 'ar') text-start ps-3 @endif">
 
                                                                 {{ __('sentence.price') }}
                                                             </div>
@@ -301,7 +301,7 @@
                                                 <tbody class="">
                                                     @foreach (Cart::getContent() as $product)
                                                         <tr style="height: 38px;">
-                                                            <td class="ps-3  @if (session()->get('locale') == 'ar') pe-3 @endif"
+                                                            <td class="ps-3  @if (App::getLocale() == 'ar') pe-3 @endif"
                                                                 style="font-size: 13px;">
                                                                 {{ $product->name }} * {{ $product->quantity }}
                                                             </td>
@@ -314,14 +314,14 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr style="border-top: 1px solid var(--accent-color)">
-                                                        @if (session()->get('locale') == 'ar')
+                                                        @if (App::getLocale() == 'ar')
                                                             <td>
                                                                 <p
-                                                                    class="fs-5 fw-medium ps-3 pt-2 pb-2 @if (session()->get('locale') == 'ar') me-3 @endif">
+                                                                    class="fs-5 fw-medium ps-3 pt-2 pb-2 @if (App::getLocale() == 'ar') me-3 @endif">
                                                                     {{ __('sentence.paymentmethod') }}
                                                                 </p>
                                                                 <div
-                                                                    class="@if (session()->get('locale') == 'ar') me-3 @endif">
+                                                                    class="@if (App::getLocale() == 'ar') me-3 @endif">
                                                                     <div class="form-check mb-2">
                                                                         <label class="form-check-label"
                                                                             style="font-size: 15px;"
@@ -342,7 +342,7 @@
                                                             </td>
                                                             <td>
                                                                 <div
-                                                                    class="mt-5 @if (session()->get('locale') == 'ar') ms-3 @endif">
+                                                                    class="mt-5 @if (App::getLocale() == 'ar') ms-3 @endif">
                                                                     <div class="form-check mb-3">
 
                                                                         <input class="form-check-input" type="radio"
@@ -395,37 +395,37 @@
                                                     </tr>
                                                     <tr style="border-top: 1px solid var(--accent-color)">
                                                         <td
-                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2 @if (session()->get('locale') == 'ar') pe-3 @endif">
+                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2 @if (App::getLocale() == 'ar') pe-3 @endif">
                                                             {{ __('sentence.subtotal') }}</td>
                                                         <td
-                                                            class="fs-6 fw-medium @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                            class="fs-6 fw-medium @if (App::getLocale() == 'ar') text-start ps-3 @endif">
                                                             {{ number_format(Cart::getSubTotal() - Settings::totalTax(), 2) }}€
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td
-                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2  @if (session()->get('locale') == 'ar') pe-3 @endif">
+                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2  @if (App::getLocale() == 'ar') pe-3 @endif">
                                                             {{ __('sentence.extra_charge') }}</td>
                                                         <td
-                                                            class="fs-6 fw-medium  @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                            class="fs-6 fw-medium  @if (App::getLocale() == 'ar') text-start ps-3 @endif">
                                                             {{ $extra_charge }} €
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td
-                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2  @if (session()->get('locale') == 'ar') pe-3 @endif">
+                                                            class="fs-6 fw-medium ps-3 pt-2 pb-2  @if (App::getLocale() == 'ar') pe-3 @endif">
                                                             {{ __('sentence.total_tax') }}</td>
                                                         <td
-                                                            class="fs-6 fw-medium  @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                            class="fs-6 fw-medium  @if (App::getLocale() == 'ar') text-start ps-3 @endif">
                                                             {{ Settings::totalTax() }} €
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td
-                                                            class="fs-5 fw-medium ps-3 pt-2 pb-2  @if (session()->get('locale') == 'ar') pe-3 @endif">
+                                                            class="fs-5 fw-medium ps-3 pt-2 pb-2  @if (App::getLocale() == 'ar') pe-3 @endif">
                                                             {{ __('sentence.totle') }}</td>
                                                         <td
-                                                            class="fs-5 fw-medium  @if (session()->get('locale') == 'ar') text-start ps-3 @endif">
+                                                            class="fs-5 fw-medium  @if (App::getLocale() == 'ar') text-start ps-3 @endif">
                                                             {{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }}
                                                             €
                                                         </td>
@@ -435,7 +435,7 @@
                                             </table>
                                         </div>
                                         <div class="btn-wrapper text-center pt-0 pb-0 pe-md-3"
-                                            style=" @if (session()->get('locale') == 'ar') padding-right: 0px !important; @endif">
+                                            style=" @if (App::getLocale() == 'ar') padding-right: 0px !important; @endif">
                                             <button type="submit" class="order_btn" id="orderButton"
                                                 disabled>{{ __('sentence.order_button') }}
                                             </button>

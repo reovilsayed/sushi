@@ -100,7 +100,7 @@
                     @foreach ($category->childs as $child)
                         <li class="list-group-item">
                             <a href="#{{ $child->slug }}"
-                                class="category-link">{{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}</a>
+                                class="category-link">{{ App::getLocale() == 'ar' ? $child->name_ae : $child->name }}</a>
                         </li>
                     @endforeach
                 @endif
@@ -117,7 +117,7 @@
                 <div class="section-title col-md-4">
                     <h2>{{ __('sentence.menu') }}</h2>
                     <p style="color: var(--default-color)">
-                        {{ session()->get('locale') == 'ar' ? $restaurant->name_ae : $restaurant->name }}</p>
+                        {{ App::getLocale() == 'ar' ? $restaurant->name_ae : $restaurant->name }}</p>
                 </div>
                 <div class="section-title col-md-5">
                     <h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.take_away') }}</h2>
@@ -171,8 +171,8 @@
                                     <button class="accordion-button collapsed menu_product_category" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
                                         aria-expanded="false" aria-controls="collapseThree"
-                                        style="color: var(--default-color); @if (session()->get('locale') == 'ar') justify-content: space-between; @endif">
-                                        {{ session()->get('locale') == 'ar' ? $category->name_ae : $category->name }}
+                                        style="color: var(--default-color); @if (App::getLocale() == 'ar') justify-content: space-between; @endif">
+                                        {{ App::getLocale() == 'ar' ? $category->name_ae : $category->name }}
                                     </button>
 
                                 </h2>
@@ -184,7 +184,7 @@
                                             <a href="#{{ $child->slug }}" class="accordion-body"
                                                 style="color: var(--default-color);">
                                                 <div>
-                                                    {{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}
+                                                    {{ App::getLocale() == 'ar' ? $child->name_ae : $child->name }}
                                                 </div>
                                             </a>
                                         </div>
@@ -203,10 +203,10 @@
                             @foreach ($category->childs as $child)
                                 <div class="menu-header text-center pe-4" data-aos="fade-up" data-aos-delay="200">
                                     <h4 id="{{ $child->slug }}">
-                                        {{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}</h4>
+                                        {{ App::getLocale() == 'ar' ? $child->name_ae : $child->name }}</h4>
                                     <hr class="ms-3" style="opacity: 1.25; margin-right: 39px;">
                                     <p class="mt-2 fst-italic">
-                                        {{ session()->get('locale') == 'ar' ? $child->description_ae : $child->description }}
+                                        {{ App::getLocale() == 'ar' ? $child->description_ae : $child->description }}
                                     </p>
                                 </div>
 
@@ -280,7 +280,7 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree{{ $category->id }}"
                                         aria-expanded="false" aria-controls="collapseThree"
                                         style="color: var(--default-color);">
-                                        {{ session()->get('locale') == 'ar' ? $category->name_ae : $category->name }}
+                                        {{ App::getLocale() == 'ar' ? $category->name_ae : $category->name }}
                                     </button>
                                 </h2>
                                 @if ($category->childs->count() > 0)
@@ -291,7 +291,7 @@
                                             <a href="#{{ $child->name }}" class="accordion-body"
                                                 style="color: var(--default-color);">
                                                 <div>
-                                                    {{ session()->get('locale') == 'ar' ? $child->name_ae : $child->name }}
+                                                    {{ App::getLocale() == 'ar' ? $child->name_ae : $child->name }}
                                                 </div>
                                             </a>
                                         </div>

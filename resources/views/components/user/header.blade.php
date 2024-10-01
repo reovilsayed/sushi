@@ -28,7 +28,7 @@
                             @foreach ($restaurantNames as $restaurant)
                                 @if ($restaurant->status == '1')
                                     <li><a
-                                            href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ session()->get('locale') =='ar' ? $restaurant->name_ae : $restaurant->name}}</a>
+                                            href="{{ route('restaurant.menu', $restaurant->slug) }}">{{ App::getLocale() =='ar' ? $restaurant->name_ae : $restaurant->name}}</a>
                                     </li>
                                 @endif
                             @endforeach
