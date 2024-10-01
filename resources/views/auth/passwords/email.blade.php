@@ -55,8 +55,8 @@
             <a href="{{ route('dashboard') }}" class="main_img">
                 <img src="{{ Settings::setting('site.logo') ? Storage::url(Settings::setting('site.logo')) : asset('images/logo.png') }}" alt="" width="200">
             </a>
-            <div class="login_pages_contents_hdngg" style="@if(session()->get('locale') =='ar') direction: rtl; text-align: right; @endif">
-                <h5 class="text-start text-colour" style=" color: var(--accent-color); @if(session()->get('locale') =='ar') direction: rtl; text-align: right !important; @endif">{{ __('sentence.forgot_password') }}</h5>
+            <div class="login_pages_contents_hdngg" style="@if(App::getLocale() =='ar') direction: rtl; text-align: right; @endif">
+                <h5 class="text-start text-colour" style=" color: var(--accent-color); @if(App::getLocale() =='ar') direction: rtl; text-align: right !important; @endif">{{ __('sentence.forgot_password') }}</h5>
                 <p>{{ __('sentence.short_description') }}</p>
             </div>
             <form method="POST" action="{{ route('password.email') }}">
@@ -65,9 +65,9 @@
                     <div class="row login_pages_contents_inr_form_row">
                         <div class="col-lg-12 login_pages_contents_inr_form_col">
                             <div class="input_form_holderr bg-transparent border-colour">
-                                <h6 style="@if(session()->get('locale') =='ar')text-align: right !important; @endif">{{ __('sentence.email_address') }}</h6>
+                                <h6 style="@if(App::getLocale() =='ar')text-align: right !important; @endif">{{ __('sentence.email_address') }}</h6>
                                 <input id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" style="@if(session()->get('locale') =='ar') direction: rtl;@endif" name="email"
+                                class="form-control @error('email') is-invalid @enderror" style="@if(App::getLocale() =='ar') direction: rtl;@endif" name="email"
                                 value="{{ old('email') }}" required autocomplete="email" autofocus >                         
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

@@ -58,9 +58,9 @@
                     alt="" width="200">
             </a>
             <div class="login_pages_contents_hdngg"
-                style="@if (session()->get('locale') == 'ar') direction: rtl; text-align: right; @endif">
+                style="@if (App::getLocale() =='ar') direction: rtl; text-align: right; @endif">
                 <h5 class="text-start text-colour"
-                    style=" color: var(--accent-color); @if (session()->get('locale') == 'ar') direction: rtl; text-align: right !important; @endif">
+                    style=" color: var(--accent-color); @if (App::getLocale() =='ar') direction: rtl; text-align: right !important; @endif">
                     {{ __('sentence.confirm_password') }}</h5>
                 <p>{{ __('sentence.please_confirm_your_password_before_continuing') }}</p>
             </div>
@@ -70,11 +70,11 @@
                     <div class="row login_pages_contents_inr_form_row">
                         <div class="col-lg-12 login_pages_contents_inr_form_col">
                             <div class="input_form_holderr bg-transparent border-colour">
-                                <h6 style="@if (session()->get('locale') == 'ar') text-align: right !important; @endif">
+                                <h6 style="@if (App::getLocale() =='ar') text-align: right !important; @endif">
                                     {{ __('sentence.password') }}</h6>
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror"
-                                    style="@if (session()->get('locale') == 'ar') direction: rtl; @endif" name="password"
+                                    style="@if (App::getLocale() =='ar') direction: rtl; @endif" name="password"
                                     required autocomplete="current-password" autofocus>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

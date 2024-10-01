@@ -146,8 +146,8 @@
                 <div id="card-list1" class="card-list opbg mb-5 card_hidden">
                     @foreach ($restaurants as $item)
                         <div class="card-header">
-                            <h3>{{ session()->get('locale') =='ar' ? $item->name_ae : $item->name }}</h3>
-                            <p class="mb-3">{{ session()->get('locale') =='ar' ? $item->address['address_ae'] : $item->address['address'] }}<br>{{ $item->address['post_code'] }} {{ session()->get('locale') =='ar' ? $item->address['city_ae'] : $item->address['city'] }}</p>
+                            <h3>{{ App::getLocale() =='ar' ? $item->name_ae : $item->name }}</h3>
+                            <p class="mb-3">{{ App::getLocale() =='ar' ? $item->address['address_ae'] : $item->address['address'] }}<br>{{ $item->address['post_code'] }} {{ App::getLocale() =='ar' ? $item->address['city_ae'] : $item->address['city'] }}</p>
                             <h4 class="mb-3" style="color: #ba321c!important;">03 80 23 22 00</h4>
                             <div class="icons-list">
                                 <span id="icon-btn1"
