@@ -24,7 +24,7 @@
                                     label="{{ __('sentence.restaurant_address') }} *" autofocus required />
 
                                 <x-form.input name="address[address_ae]" wire:model="address_ae"
-                                    label="{{ __('sentence.restaurant_address_arabic ') }} *" autofocus required />
+                                    label="{{ __('sentence.restaurant_address_arabic') }} *" autofocus required />
                             </div>
                             <div class="row row-cols-2  ">
                                 <x-form.input name="address[city]" wire:model="city"
