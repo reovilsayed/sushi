@@ -37,7 +37,7 @@
 
                             <div class="row row-cols-2  ">
                                 <x-form.input name="address[city]" wire:model="city"
-                                    label="{ __('sentence.restaurant_city') }}*"
+                                    label="{{ __('sentence.restaurant_city') }}*"
                                     value="{{ $restaurant->address['city'] }}" autofocus />
                                 <x-form.input name="address[post_code]" wire:model="post_code"
                                     label="{{ __('sentence.restaurant_post_code') }}*"
@@ -46,7 +46,7 @@
 
                             <div class="row row-cols-1">
                                 <x-form.input name="address[city_ae]" wire:model="city_ae"
-                                    label="{ __('sentence.restaurant_city_arabic') }}*"
+                                    label="{{ __('sentence.restaurant_city_arabic') }}*"
                                     value="{{ $restaurant->address['city_ae'] ?? '' }}" autofocus required />
                             </div>
                             <div class="row row-cols-1">
