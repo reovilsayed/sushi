@@ -26,6 +26,15 @@
                     <label class="mb-3" for=""> {{ __('sentence.time_schedule') }}</label>
                     <textarea name="time_schedule" id="summernote" cols="30" rows="10"></textarea>
                 </div>
+                
+                <div class="col-md-12 mt-2">
+                    <label class="mb-3" for=""> {{ __('sentence.time_schedule') }}</label>
+                    <textarea name="time_schedule" id="summernote" cols="30" rows="10"></textarea>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <label class="mb-3" for=""> {{ __('sentence.time_schedule_arabic') }}</label>
+                    <textarea name="time_schedule_ae" id="summernote007" cols="30" rows="10"></textarea>
+                </div>
                 <div class="col-md-12 mt-3">
                     <button class="btn btn-success" type="submit">
                         <i class="fa fa-save"></i> {{ __('sentence.save') }}
@@ -42,6 +51,13 @@
         <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
+                    height: 200, // Set the height of the editor
+                    placeholder: 'Write your content here...'
+                });
+            });
+            
+            $(document).ready(function() {
+                $('#summernote007').summernote({
                     height: 200, // Set the height of the editor
                     placeholder: 'Write your content here...'
                 });

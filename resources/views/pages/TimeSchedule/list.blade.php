@@ -14,6 +14,7 @@
                         <th scope="col">#</th>
                         <th scope="col">{{ __('sentence.restaurant_name') }}</th>
                         <th scope="col">{{ __('sentence.time_schedule') }}</th>
+                        <th scope="col">{{ __('sentence.time_schedule_arabic') }}</th>
                         <th scope="col">{{ __('sentence.action') }}</th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>{{ $time_schedule->restaurant ? $time_schedule->restaurant->name : '' }}</td>
                             <td>{!! $time_schedule->time_schedule !!}</td>
+                            <td>{!! $time_schedule->time_schedule_ae !!}</td>
                             <td class="">
 
                                 <a class="btn btn-sm btn-primary"

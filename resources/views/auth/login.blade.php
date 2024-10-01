@@ -6,10 +6,10 @@
         <!-- Section Title -->
         <!-- Section Title -->
         <div class="container content mb-5  text-center" data-aos="fade-up">
-            <h2 class="text-colour">{{__('sentence.loginwithus')}}</h2>
+            <h2 class="text-colour">{{ __('sentence.loginwithus') }}</h2>
             <div class="d-flex gap-3 justify-content-center">
-                <p class="fst-italic"> {{__('sentence.donthaveaaccount')}} </p>
-                <a href="{{ route('register') }}">{{__('sentence.register')}} </a>
+                <p class="fst-italic"> {{ __('sentence.donthaveaaccount') }} </p>
+                <a href="{{ route('register') }}">{{ __('sentence.register') }} </a>
             </div>
 
         </div><!-- End Section Title -->
@@ -24,15 +24,26 @@
                         @csrf
                         <div class="row gy-4">
                             <div class="col-md-12">
-                                <input type="email" class="form-control" name="email" placeholder="{{__('sentence.youremail')}} "
-                                    required="">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" placeholder="{{ __('sentence.youremail') }} " required="">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-md-12">
-                                <input type="password" name="password" class="form-control" placeholder="{{__('sentence.password')}} "
-                                    required="">
+                                <input type="password" name="password"
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    placeholder="{{ __('sentence.password') }} " required="">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-md-12 text-center">
-                                <button type="submit">{{__('sentence.login')}} </button>
+                                <button type="submit">{{ __('sentence.login') }} </button>
                             </div>
                         </div>
                     </form>
@@ -43,8 +54,8 @@
         <div class="mt-4" data-aos="fade-up" data-aos-delay="100">
 
             <div class="d-flex gap-3 justify-content-center">
-                <p class="fst-italic">{{__('sentence.forgetpassword')}} </p>
-                <a href="{{ route('password.request') }}">{{__('sentence.clickhere')}} </a>
+                <p class="fst-italic">{{ __('sentence.forgetpassword') }} </p>
+                <a href="{{ route('password.request') }}">{{ __('sentence.clickhere') }} </a>
             </div>
         </div>
     </section><!-- /Contact Section -->

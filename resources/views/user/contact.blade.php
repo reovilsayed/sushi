@@ -162,7 +162,7 @@
                         <table style="text-align: left; width: 70%;">
                             @foreach ($time_schedules as $time_schedule)
                                 <tr>
-                                    {!! $time_schedule->time_schedule ?? '' !!}
+                                    {!! App::getLocale() =='ar' ? $time_schedule->time_schedule_ae : $time_schedule->time_schedule !!}
                                 </tr>
                             @endforeach
                         </table>

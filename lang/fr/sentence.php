@@ -1,16 +1,16 @@
 <?php
 
-use App\Models\Language;
-use Illuminate\Support\Facades\Cache;
+// use App\Models\Language;
+// use Illuminate\Support\Facades\Cache;
 
-$langs =  Cache::remember('lang', 900, function () {
-    return   Language::all();
-});
+// $langs =  Cache::remember('lang', 900, function () {
+//     return   Language::all();
+// });
 
-$output = array();
+// $output = array();
 
-foreach ($langs as $lang) {
-    $output[$lang->key] = $lang->french;
-}
+// foreach ($langs as $lang) {
+//     $output[$lang->key] = $lang->french;
+// }
 
-return $output;
+// return $output;

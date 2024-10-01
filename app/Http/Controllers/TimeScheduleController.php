@@ -36,6 +36,7 @@ class TimeScheduleController extends Controller
         TimeSchedule::create([
             'restaurant_id' => $request->input('restaurant'),
             'time_schedule' => $request->input('time_schedule'),
+            'time_schedule_ae' => $request->input('time_schedule_ae'),
         ]);
 
         return redirect()->back()->with('success', 'Time schedule saved successfully.');
@@ -72,6 +73,7 @@ class TimeScheduleController extends Controller
         $time_schedule->update([
             'restaurant_id' => $request->input('restaurant'),
             'time_schedule' => $request->input('time_schedule'),
+            'time_schedule_ae' => $request->input('time_schedule_ae'),
         ]);
 
         return redirect('admin/time-schedules')->with('success', 'Time schedule updated successfully!');
