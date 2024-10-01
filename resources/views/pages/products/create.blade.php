@@ -68,7 +68,7 @@
                                 <x-form.input name="name" wire:model="name"
                                     label="{{ __('sentence.product_name') }}" value="" autofocus />
                                 <x-form.input name="name_ae" wire:model="name_ae"
-                                    label="{{ __('sentence.product_name_arabic') }}*" value="" autofocus
+                                    label="{{ __('sentence.arabic_product_name') }}*" value="" autofocus
                                     required />
 
                                 <div class="mt-3">
