@@ -6,7 +6,7 @@
                 <div class="d-flex justify-content-between mt-1 mb-3">
                     <div style="float"class="mt-2">
                         <a href="{{ route('slider.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
-                            Add New Slider</a>
+                            {{ __('sentence.add_slider') }}</a>
                     </div>
                 </div>
             <table class="table">
@@ -15,10 +15,10 @@
 
                         <th scope="col">#</th>
                         <th scope="col">{{ __('sentence.image') }}</th>
-                        <th scope="col">Heading</th>
-                        <th scope="col">Heading End</th>
-                        <th scope="col">Heading Arabic </th>
-                        <th scope="col">Heading End Arabic </th>
+                        <th scope="col">{{ __('sentence.slider_heading') }}</th>
+                        <th scope="col">{{ __('sentence.slider_end_heading') }}</th>
+                        <th scope="col">{{ __('sentence.slider_heading_arabic') }}</th>
+                        <th scope="col">{{ __('sentence.slider_heading_end_aradic') }}</th>
                         {{-- <th scope="col">Title</th> --}}
                         <th scope="col" class="text-center">{{ __('sentence.action') }}</th>
                     </tr>

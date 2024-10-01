@@ -11,21 +11,21 @@
                             <h6 class="dash_head">Slider Image</h6>
 
                             <div class="row row-cols-2">
-                                <x-form.input name="heading" label="Heading *" value="{{ $slider->heading }}" />
-                                <x-form.input name="heading_end" label="Heading End*"
+                                <x-form.input name="heading" label="{{ __('sentence.slider_heading') }} *" value="{{ $slider->heading }}" />
+                                <x-form.input name="heading_end" label="{{ __('sentence.slider_end_heading') }}*"
                                     value="{{ $slider->heading_end }}" />
-                                <x-form.input name="heading_ae" label="Heading Arabic *"
+                                <x-form.input name="heading_ae" label="{{ __('sentence.slider_heading_arabic') }} *"
                                     value="{{ $slider->heading_ae }}" required />
-                                <x-form.input name="heading_end_ae" label="Heading End Arabic *"
+                                <x-form.input name="heading_end_ae" label="{{ __('sentence.slider_heading_end_aradic') }} *"
                                     value="{{ $slider->heading_end_ae }}" />
 
-                                <x-form.input name="title" label="Title" value="{{ $slider->title }}" />
-                                <x-form.input name="title_ae" label="Title Arabic *" value="{{ $slider->title_ae }}" required />
+                                <x-form.input name="title" label="{{ __('sentence.slider_title') }}" value="{{ $slider->title }}" />
+                                <x-form.input name="title_ae" label="{{ __('sentence.slider_title_arabic') }} *" value="{{ $slider->title_ae }}" required />
                             </div>
                             
                             <div class="row row-cols-1">
                                 <x-form.input name="image" value="{{ $slider->image }}" type="file"
-                                    label="Drag image to upload For background" style="padding:50px;" />
+                                    label="{{ __('sentence.slider_image_uplode') }}" style="padding:50px;" />
                             </div>
                             <img class="mb-3" height="300" width="300" src="{{ Storage::url($slider->image) }}"
                                 alt="">
