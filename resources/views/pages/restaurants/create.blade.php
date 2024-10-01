@@ -12,7 +12,7 @@
                                     autofocus />
 
                                 <x-form.input name="name_ae" wire:model="name_ae"
-                                    label="{{ __('sentence.title_arabic ') }} *" autofocus required />
+                                    label="{{ __('sentence.title_arabic') }} *" autofocus required />
                             </div>
 
                             <div class="row row-cols-1  ">
@@ -52,12 +52,8 @@
                                     value="" style="height: 186px" type="textarea" id="test" autofocus />
                             </div>
                             <div class="row row-cols">
-                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic ') }} *"
+                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic') }} *"
                                     value="" style="height: 186px" type="textarea" id="test" autofocus />
-                            </div>
-
-
-                            <div class="row row-cols-1 tox-editor-container" wire:ignore>
                             </div>
                         </div>
                     </div>

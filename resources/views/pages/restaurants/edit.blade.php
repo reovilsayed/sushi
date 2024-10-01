@@ -17,7 +17,7 @@
                                 <x-form.input name="name" wire:model="name" label="{{ __('sentence.title') }} "
                                     value="{{ $restaurant->name }}" autofocus />
                                 <x-form.input name="name_ae" wire:model="name_ae"
-                                    label="{{ __('sentence.title_arabic ') }} *" value="{{ $restaurant->name_ae }}"
+                                    label="{{ __('sentence.title_arabic') }} *" value="{{ $restaurant->name_ae }}"
                                     autofocus required />
                             </div>
 
@@ -32,7 +32,7 @@
 
                                 <x-form.input name="address[address_ae]" wire:model="address_ae"
                                     value="{{ $restaurant->address['address_ae'] ?? '' }}"
-                                    label="{{ __('sentence.restaurant_address_arabic ') }} *" autofocus />
+                                    label="{{ __('sentence.restaurant_address_arabic') }} *" autofocus />
                             </div>
 
                             <div class="row row-cols-2  ">
@@ -46,7 +46,7 @@
 
                             <div class="row row-cols-1">
                                 <x-form.input name="address[city_ae]" wire:model="city_ae"
-                                    label="{ __('sentence.restaurant_city_arabic ') }}*"
+                                    label="{ __('sentence.restaurant_city_arabic') }}*"
                                     value="{{ $restaurant->address['city_ae'] ?? '' }}" autofocus required />
                             </div>
                             <div class="row row-cols-1">
@@ -65,13 +65,9 @@
                                     value="{{ $restaurant->description }}" />
                             </div>
                             <div class="row row-cols">
-                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic ') }} *"
+                                <x-form.input name="description_ae" label="{{ __('sentence.description_arabic') }} *"
                                     value="" style="height: 186px" type="textarea" id="test" autofocus
                                     value="{{ $restaurant->description_ae }}" />
-                            </div>
-
-
-                            <div class="row row-cols-1 tox-editor-container" wire:ignore>
                             </div>
                         </div>
                     </div>
