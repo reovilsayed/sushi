@@ -134,30 +134,36 @@
             }
         </style>
     @endpush
+
+    @php
+        $restaurants = App\Models\Restaurant::all();
+    @endphp
     <br> <br> <br>
     <!-- Contact Section -->
     <section id="contact" class="contact section bg-transparent">
         <div class="row pmclr">
             <div class="col-md-6">
                 <div id="card-list1" class="card-list opbg mb-5 card_hidden">
-                    <div class="card-header">
-                        <h3>Central Sushi Dijon</h3>
-                        <p class="mb-3">25 Place Darcy <br>21000 DIJON</p>
-                        <h4 class="mb-3" style="color: #ba321c!important;">03 80 23 22 00</h4>
-                        <div class="icons-list">
-                            <span id="icon-btn1" class="icon-btn"
-                                onclick="toggleCard('card-list-content1', 'icon-btn1')">+</span>
+                    @foreach ($restaurants as $item)
+                        <div class="card-header">
+                            <h3>{{ session()->get('locale') =='ar' ? $item->name_ae : $item->name }}</h3>
+                            <p class="mb-3">{{ session()->get('locale') =='ar' ? $item->address['address_ae'] : $item->address['address'] }}<br>{{ $item->address['post_code'] }} {{ session()->get('locale') =='ar' ? $item->address['city_ae'] : $item->address['city'] }}</p>
+                            <h4 class="mb-3" style="color: #ba321c!important;">03 80 23 22 00</h4>
+                            <div class="icons-list">
+                                <span id="icon-btn1"
+                                    style="@if (session()->get('locale') == 'ar') left: 0; @else  right: 0; @endif"
+                                    class="icon-btn" onclick="toggleCard('card-list-content1', 'icon-btn1')">+</span>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
+
                     <div id="card-list-content1" class="card-list-content hidden">
                         <p>{{ __('sentence.time_schedules') }}</p>
                         <table style="text-align: left; width: 70%;">
                             @foreach ($time_schedules as $time_schedule)
-                                @if ($time_schedule->restaurant_id == 4)
-                                    <tr>
-                                        {!! $time_schedule->time_schedule ?? '' !!}
-                                    </tr>
-                                @endif
+                                <tr>
+                                    {!! $time_schedule->time_schedule ?? '' !!}
+                                </tr>
                             @endforeach
                         </table>
                     </div>
@@ -171,7 +177,7 @@
             </div>
         </div>
 
-        <div class="row pmclr">
+        {{-- <div class="row pmclr">
             <div class="col-md-6">
                 <div id="card-list2" class="card-list opbg mb-5 card_hidden">
                     <div class="card-header">
@@ -236,7 +242,7 @@
                     width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-        </div>
+        </div> --}}
 
     </section><!-- /Contact Section -->
 
