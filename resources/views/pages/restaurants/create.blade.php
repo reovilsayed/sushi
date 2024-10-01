@@ -35,7 +35,7 @@
                             </div>
                             <div class="row row-cols-1">
                                 <x-form.input name="address[city_ae]" wire:model="city_ae"
-                                    label="{{ __('sentence.restaurant_city_arabic ') }}*" autofocus required />
+                                    label="{{ __('sentence.restaurant_city_arabic') }}*" autofocus required />
                             </div>
                             <div class="row row-cols-1">
 
