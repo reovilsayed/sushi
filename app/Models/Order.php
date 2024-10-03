@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasLog;
 use App\Traits\HasFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Settings;
 class Order extends Model
 {
     use HasFactory;
-    use HasFilter;
+    use HasFilter, HasLog;
 
     protected $guarded = [];
     protected $casts = [
@@ -101,9 +102,6 @@ class Order extends Model
 
     public function getProducts()
     {
-
-
-
         $products = $this->products->map(fn($product) => (object) [
             'name' => $product->name,
             'quantity' => $product->pivot->quantity,
