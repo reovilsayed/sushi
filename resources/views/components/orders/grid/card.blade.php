@@ -38,14 +38,14 @@
             <div class="col-md-7 col-7">
                 <p class="card-text">
                     <strong>{{ __('sentence.total') }}:</strong> {{ Settings::price($order->total) }} <br>
-                    <strong>{{ __('sentence.paid') }}:</strong> {{ Settings::price($order->paid) }} <br>
                     @if ($order->discount > 0)
                         <strong>{{ __('sentence.discount') }}:</strong> {{ Settings::price($order->discount ?? 0) }} <br>
                     @endif
                     @if ($order->due > 0)
                         <strong class="text-danger">{{ __('sentence.due') }}:</strong> {{ Settings::price($order->due ?? 0) }}<br>
                     @endif
-                    <strong class="text-success fw-bold">{{ __('sentence.order_id') }}: # {{ $order->id }}</strong>
+                    <strong class="text-success fw-bold">{{ __('sentence.order_id') }}: # {{ $order->id }}</strong> <br>
+                    <strong class="text-primary fw-bold">{{ $order->delivery_option == 'take_away' ? 'a emporter' : 'livraison a domicile', }}</strong>
                 </p>
             </div>
             <div class="col-md-5 col-5">
