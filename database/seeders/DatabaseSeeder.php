@@ -41,6 +41,14 @@ class DatabaseSeeder extends Seeder
                 'display_name' => 'User',
             ])->save();
         }
+
+        $role = Role::firstOrNew(['name' => 'restaurant']);
+
+        if (!$role->exists) {
+            $role->fill([
+                'display_name' => 'Restaurant',
+            ])->save();
+        }
         
         $this->call(SettingTableSeeder::class);
     }

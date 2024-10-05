@@ -56,7 +56,8 @@
                                         </div>
                                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                             <div class="widget">
-                                                <p>{{ __('sentence.total_amount') }} {{ Settings::price($data['total']['sum']) }}</p>
+                                                <p>{{ __('sentence.total_amount') }}
+                                                    {{ Settings::price($data['total']['sum']) }}</p>
                                             </div>
                                         </div>
 
@@ -105,8 +106,8 @@
 
         </div>
     </div>
-    <x-filter :url="route('orders.index')">
-        <h6 class="mb-4">{{__('sentence.search')}}</h6>
+    <x-filter :url="auth()->user()->role_id == 3 ? route('resto_orders.index') : route('orders.index')">
+        <h6 class="mb-4">{{ __('sentence.search') }}</h6>
         <div class="row g-1">
             <div class="col-md-4">
                 <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="[
@@ -121,7 +122,7 @@
             </div>
         </div>
         <hr>
-        <h6 class="mb-4">{{__('sentence.filter')}}</h6>
+        <h6 class="mb-4">{{ __('sentence.filter') }}</h6>
         <div class="row row-cols-2 g-1">
 
             {{-- <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
@@ -132,7 +133,7 @@
                 :show_empty_options="true" /> --}}
 
             <select class="form-select " aria-label="Default select example" name="restaurant">
-                <option selected value="">{{__('sentence.selectrestaurant')}}</option>
+                <option selected value="">{{ __('sentence.selectrestaurant') }}</option>
                 @foreach ($restaurants as $restaurant)
                     <option value="{{ $restaurant->id }}"
                         {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}

@@ -131,9 +131,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-4 ms-3">
-                        <a href="{{ route('restaurant.menu', ['slug' => $restaurant->slug]) }}" role="button"
+                        <button onclick="history.back()"
                             class="btn BackBtn p-md-3 goback"> <i
-                                class="bi bi-chevron-left"></i>{{ __('sentence.menu') }}</a>
+                                class="bi bi-chevron-left"></i>{{ __('sentence.menu') }}</button>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-5 d-flex" style="justify-content: center;">

@@ -40,6 +40,9 @@ class RegisterController extends Controller
             case 2:
                 return RouteServiceProvider::USER;
                 break;
+            case 3:
+                return RouteServiceProvider::RESTAURANT;
+                break;
             default:
                 return RouteServiceProvider::HOME;
                 break;

@@ -19,6 +19,29 @@
                 background-color: var(--accent-color);
                 color: #ffffff;
             }
+            .cart-plus-minus{
+                display: flex;
+            }
+            @media (min-width: 360px) and (max-width: 740px) {
+                .cart-plus-minus {
+                    border: 0px !important;
+                    width: 100% !important;
+                    display: flex;
+                }
+                .btnWidth{
+                    width: 33%;
+                }
+            }
+            @media (min-width: 768px) and (max-width: 1024px) {
+                .cart-plus-minus {
+                    border: 0px !important;
+                    width: 70% !important;
+                    display: flex;
+                }
+                .btnWidth{
+                    width: 33%;
+                }
+            }
         </style>
     @endpush
     <section id="about" class="cart_section pb-5 bg-transparent">
@@ -77,27 +100,35 @@
                                                 <form id="update-cart-form-{{ $item->id }}" method="post">
                                                     <div class="cart-product-quantity d-flex justify-content-center">
                                                         <div class="cart-plus-minus" style="border: 0px !important;">
-                                                            <button class="dec decrease-btn qtybutton"
-                                                                style="border: 0px !important;"
-                                                                onclick="event.preventDefault(); updateQuantity('{{ $item->id }}', -1);">-</button>
+                                                            <div class="btnWidth">
+                                                                <button class="dec decrease-btn qtybutton"
+                                                                    style="border: 0px !important;"
+                                                                    onclick="event.preventDefault(); updateQuantity('{{ $item->id }}', -1);">-</button>
+                                                            </div>
 
-                                                            <input type="text" value="{{ $item->quantity }}"
-                                                                name="quantity" class="cart-plus-minus-box"
-                                                                id="product_quantity_{{ $item->id }}"
-                                                                min="1" placeholder="0"
-                                                                data-price="{{ $item->price }}"
-                                                                data-name="{{ $item->name }}" readonly>
+                                                            <div class="btnWidth">
+                                                                <input type="text" value="{{ $item->quantity }}"
+                                                                    name="quantity" class="cart-plus-minus-box"
+                                                                    id="product_quantity_{{ $item->id }}"
+                                                                    min="1" placeholder="0"
+                                                                    data-price="{{ $item->price }}"
+                                                                    data-name="{{ $item->name }}" readonly>
+                                                            </div>
 
-                                                            <button class="inc increase-btn qtybutton"
-                                                                style="border: 0px !important;"
-                                                                onclick="event.preventDefault(); updateQuantity('{{ $item->id }}', 1);">+</button>
+                                                            <div class="btnWidth">
+                                                                <button class="inc increase-btn qtybutton"
+                                                                    style="border: 0px !important;"
+                                                                    onclick="event.preventDefault(); updateQuantity('{{ $item->id }}', 1);">+</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </td>
                                             <td>
                                                 @if (isset($item->attributes['product']))
-                                                    <p>Tax: {{ Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity) }} Є</p>
+                                                    <p>Tax:
+                                                        {{ Settings::itemTax($item->price, $item->attributes['tax'], $item->quantity) }}
+                                                        Є</p>
                                                 @endif
                                             </td>
                                             <td class="cart-product-subtotal text-center">

@@ -107,7 +107,7 @@
                         <form action="{{ route('products.index') }}" method="GET"
                             class="app-search d-none d-lg-block p-0">
                             <div class="position-relative d-flex">
-                                <input type="text" class="form-control"  placeholder="{{__(('sentence.search'))}}..."
+                                <input type="text" class="form-control" placeholder="{{ __('sentence.search') }}..."
                                     value="{{ is_string(request('search')) ? request('search') : '' }}">
                                 <span class="bx bx-search-alt"></span>
                                 @if (request()->has('search') && is_string(request('search')))
@@ -141,12 +141,15 @@
             <div class="fluid_container">
                 <div class="dashboard_body_inner">
                     <div class="navigation" id="navigation">
+
                         <x-sidenav.navlist />
+
                     </div>
 
                     <div class="dashboard_content">
                         <div class="dashboard_content_inner" style="margin-bottom: 50px">
                             {{ $slot }}
+                            @dd()
 
 
                         </div>

@@ -73,12 +73,35 @@ class Payment
         $this->validateCredentials();
         $this->amount = $this->order->total * 100;
 
+        $meta = [
+            'id' => $order->id,
+            'DATA' => $this->body(),
+            'SEAL' => $this->seal(),
+            'interfaceVersion' => $this::INTERFACE_VERSION,
+        ];
+
         $this->transactionReference = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $response =   Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
             'DATA' => $this->body(),
             'SEAL' => $this->seal(),
             'interfaceVersion' => $this::INTERFACE_VERSION,
+        ]);
+        
+        $paymentLog =[
+            'DATA' => $this->body(),
+            'SEAL' => $this->seal(),
+            'interfaceVersion' => $this::INTERFACE_VERSION,
+        ];
+
+        $order->logs()->create([
+            'user_id' => auth()->id(),
+            'action' => 'Payment created',
+            
+            'meta' => json_encode([
+                'meta' => $meta,
+                'paymentLog' => $paymentLog,
+            ]),
         ]);
 
         return $response->body();
@@ -163,7 +186,8 @@ class Payment
         }
     }
 
-    protected function orderPaid($order){
+    protected function orderPaid($order)
+    {
         $order_mail = Settings::setting('order.mail');
         $emails = array_filter([json_decode($order->shipping_info)->email, $order->restaurent->email, $order_mail]);
         foreach ($emails as $email) {
@@ -171,5 +195,5 @@ class Payment
                 Mail::to($email)->send(new OrderConfirmationMail($order));
             }
         }
-    } 
+    }
 }
