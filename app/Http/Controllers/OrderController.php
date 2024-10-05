@@ -22,12 +22,23 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::latest()->filter()->paginate(20)->withQueryString();
-        $allOrderCount = Order::filter()->get();
-        $paidOrderCount = Order::filter()->where('status', 'PAID')->get();
-        $unpaidOrderCount = Order::filter()->where('status', 'UNPAID')->get();
-        $dueOrderCount = Order::filter()->where('status', 'DUE')->get();
+        $user = auth()->user();
+        $query = Order::latest()->filter();
+
+        if ($user->role_id == 3) {
+            $query->where('restaurant_id', $user->restaurant_id);
+        }
+
+        $allOrderCount = $query->get();
+        
+        $orders = $query->paginate(20)->withQueryString();
+
+        $paidOrderCount = $query->where('status', 'PAID')->get();
+        $unpaidOrderCount = $query->where('status', 'UNPAID')->get();
+        $dueOrderCount = $query->where('status', 'DUE')->get();
+
         $restaurants = Restaurant::all();
+
         $data = [
             'total' => [
                 'count' => $allOrderCount->count(),
@@ -49,6 +60,7 @@ class OrderController extends Controller
 
         return view('pages.orders.list', compact('orders', 'data', 'restaurants'));
     }
+
     public function getChartData()
     {
         $eranings = Earnings::range(now()->subDays(15), now()->startOfDay())->graph();
@@ -151,8 +163,8 @@ class OrderController extends Controller
                     'quantity' => $item->quantity,
                     'price' => $item->price,
                     'options' => $options,
-                    'tax_amount'=> Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity),
-                    'tax_percentage'=>$item->attributes['tax']
+                    'tax_amount' => Settings::itemTax($item->price, $item->attributes['tax'], $item->quantity),
+                    'tax_percentage' => $item->attributes['tax']
                 ]);
             }
 
@@ -162,8 +174,8 @@ class OrderController extends Controller
                     'name' => $item->name,
                     'price' => $item->price,
                     'quantity' => $item->quantity,
-                    'tax_amount'=> Settings::itemTax($item->price,$item->attributes['tax'],$item->quantity),
-                    'tax_percentage'=>$item->attributes['tax']
+                    'tax_amount' => Settings::itemTax($item->price, $item->attributes['tax'], $item->quantity),
+                    'tax_percentage' => $item->attributes['tax']
                 ];
             }
         }

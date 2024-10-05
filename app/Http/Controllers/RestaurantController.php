@@ -6,11 +6,14 @@ use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\RestaurantZone;
 use Carbon\Carbon;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Settings;
+
 class RestaurantController extends Controller
 {
     public function viewRestaurants()
@@ -135,14 +138,16 @@ class RestaurantController extends Controller
         $fromDate = Carbon::createFromFormat('Y-m-d', $request->input('fromDate'))->startOfDay();
         $toDate = Carbon::createFromFormat('Y-m-d', $request->input('toDate'))->endOfDay();
 
-        $orders = Order::whereBetween('created_at', [$fromDate, $toDate])->where('restaurant_id', $restaurant->id)->get();
-        if ($orders->isEmpty()) {
+        $orders = Order::whereBetween('created_at', [$fromDate, $toDate])->where('restaurant_id', $restaurant->id);
+        if (!(clone $orders)->count()) {
             return back()->withErrors(['message' => 'Aucune commande trouvée pour la plage de dates sélectionnée.']);
         }
-        $takeAwayOrders = $orders->where('delivery_option', 'take_away');
-        $homeDeliveryOrders = $orders->where('delivery_option', 'home_delivery');
-        $onlinePaymentOrder = $orders->where('payment_method', 'Card');
-        $codOrder = $orders->whereNotIn('payment_method', ['Card']);
+        
+        $takeAwayOrders = (clone $orders)->where('delivery_option', 'take_away');
+        $homeDeliveryOrders = (clone $orders)->where('delivery_option', 'home_delivery');
+        $onlinePaymentOrder = (clone $orders)->where('payment_method', 'Card');
+        $codOrder = (clone $orders)->whereNotIn('payment_method', ['Card']);
+        
         $data = [
             'total' => $orders->count(),
             'takeAwayOrders' => $takeAwayOrders->count(),
@@ -150,13 +155,14 @@ class RestaurantController extends Controller
             'onlinePaymentOrder' => $onlinePaymentOrder->count(),
             'onlinePaymentOrder' => $onlinePaymentOrder->count(),
             'codOrder' => $codOrder->count(),
-            'total_amount' => Settings::price($orders->sum('total')),
-            'total_tax' => Settings::price($orders->sum('tax')),
-            'takeAwayOrders_amount' => Settings::price($takeAwayOrders->sum('total')),
-            'homeDeliveryOrders_amount' => Settings::price($homeDeliveryOrders->sum('total')),
-            'onlinePaymentOrder_amount' => Settings::price($onlinePaymentOrder->sum('total')),
-            'codOrder_amount' => Settings::price($codOrder->sum('total'))
+            'total_amount' => Settings::price($orders->sum(column: 'total') / 100),
+            'total_tax' => Settings::price($orders->sum('tax') ),
+            'takeAwayOrders_amount' => Settings::price($takeAwayOrders->sum('total') / 100),
+            'homeDeliveryOrders_amount' => Settings::price($homeDeliveryOrders->sum('total') / 100),
+            'onlinePaymentOrder_amount' => Settings::price($onlinePaymentOrder->sum('total') / 100),
+            'codOrder_amount' => Settings::price($codOrder->sum('total') / 100)
         ];
+
 
         $msg = '';
 
@@ -173,14 +179,36 @@ class RestaurantController extends Controller
 
         // Products
         $msg .= "Commandes:\n";
-        foreach ($orders as $order) {
-            $payment_method = $order->payment_method == 'Card' ? 'PEL' : 'RESTO';
-            $total = Settings::price($order->total);
-            $tax = Settings::price($order->tax);
-            $msg .= "{$order->id} {$tax}  {$total}  {$payment_method}\n";
+
+
+        $msg .= "-----------------------------------------" . "\n";
+        $msg .= "#  | Code |   HT   | TVA  | EXT |  TTC |  " . "\n";
+        $msg .= "-----------------------------------------" . "\n";
+
+        // $dataOrders = (clone $orders)->sum('total');
+            
+        $taxarr = (clone $orders)->get()->groupBy(function($order) { return $order->getProducts()->first()->tax_percent ?? 5;
+        })->map(function($order) {
+            return [
+                'count' => $order->count(),
+                'subtotal' => $order->sum(fn($o) => $o->sub_total) - $order->sum('tax'),
+                'vat' => $order->sum('tax'),
+                'extra_charge' => $order->count() * 0.95, 
+                'total' => $order->sum('total')
+            ];
+        });
+        
+        foreach ($taxarr as $key => $dataTwo) {
+            $percentage = $key;
+            $tax = $dataTwo['vat'];
+            $subtotal = $dataTwo['subtotal'];
+            $extra_charge = $dataTwo['extra_charge'];
+            $total = $dataTwo['total'];
+
+            $msg .= "{$dataTwo['count']} | $percentage % | {$tax} | {$subtotal} | $extra_charge | $total |\n";
         }
 
-        $msg .= "--------------------------------\n";
+        $msg .= "----------------------------------------------\n";
 
 
         // Totals
@@ -193,8 +221,6 @@ class RestaurantController extends Controller
 
 
         $msg .= "<CUT/>";
-
-
         $response = Http::withHeaders([
             'Authorization' => $restaurant->getPrinterCreds('sid') . ':' . $restaurant->getPrinterCreds('token'),
             'Accept' => 'application/json',
@@ -203,6 +229,7 @@ class RestaurantController extends Controller
             'printer_msg' =>  $msg,
             'origin' => url('/')
         ]);
-         return back()->withSuccess(['message' => 'Successfully printed']);
+
+        return back()->withSuccess(['message' => 'Successfully printed']);
     }
 }

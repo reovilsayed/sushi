@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Restaurant;
 use App\Models\Role;
 use App\Models\Transaction;
 use App\Models\User;
@@ -97,7 +98,8 @@ class CustomerController extends Controller
     public function edit(User $customer)
     {
         $roles = Role::all();
-        return view('pages.customers.edit', compact('customer','roles'));
+        $restaurants  = Restaurant::all();
+        return view('pages.customers.edit', compact('customer','roles', 'restaurants'));
     }
 
     /**
@@ -117,6 +119,7 @@ class CustomerController extends Controller
             'role_id' =>$request->role_id,
             'email' => $request->email,
             'phone' => $request->phone,
+            'restaurant_id' => $request->restaurant_id,
         ]);
 
         if ($request->password) {

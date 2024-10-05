@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-    
+
     Route::controller(RestaurantController::class)->group(function () {
         Route::get('/restaurant', 'viewRestaurants')->name('admin.restaurants');
         Route::get('/restaurant/create', 'createRestaurant')->name('create.restaurant');
@@ -43,7 +43,6 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
         Route::post('/product/update/{product}', 'updateProduct')->name('update.product');
         Route::delete('/product/delete/{product}', 'deleteProduct')->name('delete.product');
         Route::delete('/option/delete/{productOption}', 'deleteOption')->name('delete.option');
-
     });
 
     Route::controller(SettingController::class)->group(function () {
@@ -85,13 +84,13 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
             10,
             11,
         ];
-        
+
         $currentMonth = (int) date('n', strtotime('now'));
 
         $months = array_merge(array_slice($months, $currentMonth), array_slice($months, 0, $currentMonth));
 
-        dd($months);
-       
+        // dd($months);
+
     });
 
     Route::controller(SliderController::class)->group(function () {
@@ -104,5 +103,20 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     });
 
     Route::resource('/time-schedules', TimeScheduleController::class)->names('time_schedules');
+});
 
+
+
+Route::middleware(['auth', 'role:3'])->prefix('resto/admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('resto_dashboard');
+
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/orders/list', 'index')->name('resto_orders.index');
+        Route::post('/orders/pay', 'duepay')->name('resto_orders.due.pay');
+        Route::get('/orders/expedy/print/{order}', 'expedy_print')->name('resto_orders.expedy.print');
+        Route::post('mark-as-pay', 'mark_pay')->name('resto_mark.pay');
+        Route::get('/orders/invoice/{order}', 'invoice')->name('resto_orders.invoice');
+        Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('resto_orders.mark.delivered');
+    });
 });

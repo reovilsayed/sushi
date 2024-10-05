@@ -149,7 +149,6 @@
                     <div class="dashboard_content">
                         <div class="dashboard_content_inner" style="margin-bottom: 50px">
                             {{ $slot }}
-                            @dd()
 
 
                         </div>

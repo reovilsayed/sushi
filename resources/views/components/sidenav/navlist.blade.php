@@ -58,51 +58,64 @@
     <ul class="nav_list">
 
 
-        <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
-        <x-sidenav.nav name="{{ __('sentence.restaurants') }}" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')" :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
-        <x-sidenav.nav name="{{ __('sentence.time_schedules') }}" :active="request()->is('admin/time_schedules') ? 'menu-active' : ''" :href="route('time_schedules.index')" :icon="[asset('images/time-clock.svg'), asset('images/time-clock.svg')]" />
-        <li class="dropdown">
+        @if (auth()->user()->role_id == 3)
+            <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('resto/admin') ? 'menu-active' : ''" :href="route('resto_dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('resto/admin/orders/list') ? 'menu-active' : ''" :href="route('resto_orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
+        @else
+            <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.restaurants') }}" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')"
+                :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.time_schedules') }}" :active="request()->is('admin/time_schedules') ? 'menu-active' : ''" :href="route('time_schedules.index')"
+                :icon="[asset('images/time-clock.svg'), asset('images/time-clock.svg')]" />
+            <li class="dropdown">
 
-            <a href="javascript:void(0)" class="dropdown-btn">
-                <i class="mb-2 icon1">
-                    <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="">
-                    <img src="{{ asset('images/fmcg-products-icon-white.svg') }}" alt="">
-                </i>
-                <span class="">{{ __('sentence.products') }} <i class="fa fa-caret-down text-dark ms-2 " id="updownicon"></i></span>
+                <a href="javascript:void(0)" class="dropdown-btn">
+                    <i class="mb-2 icon1">
+                        <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="">
+                        <img src="{{ asset('images/fmcg-products-icon-white.svg') }}" alt="">
+                    </i>
+                    <span class="">{{ __('sentence.products') }} <i class="fa fa-caret-down text-dark ms-2 "
+                            id="updownicon"></i></span>
 
-            </a>
-            <ul class="dropdown-container border-rounded mt-2"
-                style="@if (request()->route()->getName() == 'suppliers.index' || request()->route()->getName() == 'categories.index') display:block @elseif(request()->route()->getName() == 'products.index' ||
-                        request()->route()->getName() == 'generics.index' ||
-                        request()->route()->getName() == 'units.index') display:block  @else display:none @endif">
+                </a>
+                <ul class="dropdown-container border-rounded mt-2"
+                    style="@if (request()->route()->getName() == 'suppliers.index' || request()->route()->getName() == 'categories.index') display:block @elseif(request()->route()->getName() == 'products.index' ||
+                            request()->route()->getName() == 'generics.index' ||
+                            request()->route()->getName() == 'units.index') display:block  @else display:none @endif">
 
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'products.index' ? 'drop-item-active' : '' }}">
+                    <li
+                        class="dropdown-item {{ request()->route()->getName() == 'products.index' ? 'drop-item-active' : '' }}">
 
-                    <a href="{{ route('products.index') }}" class="mb-1" style="padding-left: 0px;">
-                        <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="" style="width: 16px">
-                        {{ __('sentence.products') }}
-                    </a>
-                </li>
+                        <a href="{{ route('products.index') }}" class="mb-1" style="padding-left: 0px;">
+                            <img src="{{ asset('images/fmcg-products-icon.svg') }}" alt="" style="width: 16px">
+                            {{ __('sentence.products') }}
+                        </a>
+                    </li>
 
 
-                <li
-                    class="dropdown-item {{ request()->route()->getName() == 'categories.index' ? 'drop-item-active' : '' }}">
-                    <a href="{{ route('categories.index') }}" class="mb-1" style="padding-left: 0px;">
-                        <img src="{{ asset('images/category-icon.svg') }}" alt="" style="width: 16px">
-                        {{ __('sentence.category') }}
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <x-sidenav.nav name="{{ __('sentence.customer') }}" :active="request()->is('admin/customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
+                    <li
+                        class="dropdown-item {{ request()->route()->getName() == 'categories.index' ? 'drop-item-active' : '' }}">
+                        <a href="{{ route('categories.index') }}" class="mb-1" style="padding-left: 0px;">
+                            <img src="{{ asset('images/category-icon.svg') }}" alt="" style="width: 16px">
+                            {{ __('sentence.category') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <x-sidenav.nav name="{{ __('sentence.customer') }}" :active="request()->is('admin/customers') ? 'menu-active' : ''" :href="route('customers.index')"
+                :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
 
-        <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('admin/orders/list') ? 'menu-active' : ''" :href="route('orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
-        <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('admin/reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
-        <x-sidenav.nav name="{{ __('sentence.settings') }}" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
-        <x-sidenav.nav name="{{ __('sentence.pages') }}" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
-        <x-sidenav.nav name="Slide" :active="request()->is('admin/slider') ? 'menu-active' : ''" :href="route('slider.list')" :icon="[asset('images/slider-dark.svg'), asset('images/slider-white.svg')]" />
-        
+            <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('admin/orders/list') ? 'menu-active' : ''" :href="route('orders.index')"
+                :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('admin/reports') ? 'menu-active' : ''" :href="route('reports.index')"
+                :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.settings') }}" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')"
+                :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.pages') }}" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')"
+                :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
+            <x-sidenav.nav name="Slide" :active="request()->is('admin/slider') ? 'menu-active' : ''" :href="route('slider.list')" :icon="[asset('images/slider-dark.svg'), asset('images/slider-white.svg')]" />
+        @endif
+
 
 
         <li>

@@ -31,7 +31,7 @@
         {{ $order->created_at->format('h:i A') }}
     </td>
     <td>
-        <a class="btn btn-primary" href="{{ route('orders.invoice', $order) }}">Invoice</a>
+        <a class="btn btn-primary" href="{{ auth()->user()->role_id == 3 ? route('resto_orders.invoice', $order) : route('orders.invoice', $order) }}">Invoice</a>
         {{-- @if ($order->due > 0)
             <button type="button" class="btn btn-success" data-order="{{ $order->id }}" data-bs-toggle="modal"
                 data-bs-target="#deposite">Deposite</button>

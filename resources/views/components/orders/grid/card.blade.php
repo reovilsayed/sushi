@@ -62,15 +62,15 @@
             </div>
             <div class="col-md-12 text-ceter mt-2">
                 <div class="btn-group gap-2" role="group">
-                    <a class="btn btn-primary btn-sm" title="Invoice" href="{{ route('orders.invoice', $order) }}"><i
+                    <a class="btn btn-primary btn-sm" title="Invoice" href="{{ auth()->user()->role_id == 3 ? route('resto_orders.invoice', $order) : route('orders.invoice', $order) }}"><i
                             class="fa fa-eye"></i></a>
                     @if ($order->delivered == 0)
                         <a class="btn btn-primary btn-sm" title="Mark as delivered"
-                            href="{{ route('orders.mark.delivered', $order) }}"><i class="fa fa-car"></i><i
+                            href="{{ auth()->user()->role_id == 3 ? route('resto_orders.mark.delivered', $order) : route('orders.mark.delivered', $order) }}"><i class="fa fa-car"></i><i
                                 class="fas fa-check"></i></a>
                     @endif
                     @if ($order->payment_status != 'PAID')
-                        <form action="{{ route('mark.pay') }}" method="post" class="d-inline"
+                        <form action="{{ auth()->user()->role_id == 3 ? route('resto_mark.pay') : route('mark.pay') }}" method="post" class="d-inline"
                             onsubmit="return confirm('Are you sure you want to mark this order as paid?')">
                             @csrf
                             <input type="hidden" name="orders[]" value="{{ $order->id }}">

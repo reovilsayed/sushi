@@ -99,31 +99,34 @@ class Order extends Model
             return 'Null';
         }
     }
-
     public function getProducts()
     {
+
+        
         $products = $this->products->map(fn($product) => (object) [
             'name' => $product->name,
             'quantity' => $product->pivot->quantity,
             'price' => (float) $product->pivot->price,
             'options' => $product->pivot->options ? explode(', ', $product->pivot->options) : null,
             'category' => $product->category,
-            'tax_percent'=>(string) $product->tax,
-            'total'=> $product->pivot->price *  $product->pivot->quantity,
-            'tax'=>Settings::itemTax($product->pivot->price, $product->tax, $product->pivot->quantity),
-            
+            'tax_percent' => (string) @$product->tax ?? 10,
+            'total' => $product->pivot->price *  $product->pivot->quantity,
+            'tax' => Settings::itemTax($product->pivot->price, $product->tax, $product->pivot->quantity),
+
         ]);
-        
+
         $extras = collect(value: json_decode($this->extra, true))
             ->map(fn($extra) => (object) [
                 'name' => $extra['name'],
                 'quantity' => $extra['quantity'],
                 'price' => $extra['price'],
                 'options' => null,
-                'tax_percent'=>(string) $extra['tax_percentage'],
-                'total'=> $extra['price'] *  $extra['quantity'],
-                'tax'=>Settings::itemTax($extra['price'], $extra['tax_percentage'], $extra['quantity']),
+                'tax_percent' => (string) $extra['tax_percentage'] ?? 10,
+                'total' => $extra['price'] *  $extra['quantity'],
+                'tax' => Settings::itemTax($extra['price'], $extra['tax_percentage'], $extra['quantity']),
             ]);
+            if($products->count() == 0) return $extras;
+            if($extras->count() == 0) return $products;
         return $products->merge($extras);
     }
 }

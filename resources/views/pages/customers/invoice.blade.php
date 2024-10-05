@@ -91,7 +91,7 @@
 
                                                 <td>
                                                     <a target="_blank"
-                                                        href="{{ route('orders.invoice', ['order' => $order->id]) }}"
+                                                        href="{{ auth()->user()->role_id == 3 ? route('resto_orders.invoice', ['order' => $order->id]) : route('orders.invoice', ['order' => $order->id]) }}"
                                                         class="btn btn-info"> <i class="fa fa-eye"></i> </a>
                                                     @if ($order->due > 0)
                                                         <button type="button" class="btn btn-success" title="Deposite"
@@ -214,7 +214,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('orders.due.pay') }}" method="post">
+                    <form action="{{ auth()->user()->role_id == 3 ? route('resto_orders.due.pay') : route('orders.due.pay') }}" method="post">
                         @csrf
                         <div class="modal-body">
                             <x-form.input name="amount" label="Amount *" value="" autofocus required

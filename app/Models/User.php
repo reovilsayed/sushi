@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
 }
