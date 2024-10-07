@@ -65,7 +65,7 @@ class OrderController extends Controller
     {
         $eranings = Earnings::range(now()->subDays(15), now()->startOfDay())->graph();
         // dd($eranings);
-        return response()->json(['data' => $eranings]);
+        return response()->json(data: ['data' => $eranings]);
     }
     public function expedy_print(Order $order)
     {

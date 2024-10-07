@@ -121,7 +121,13 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::post('/customer/Dashaboard', [CustomerController::class, 'customerInfoDelete'])->name('customer.infoDelete');
 });
 
-Route::middleware(['auth', 'role:1'])->group(function () {
+
+
+Route::middleware(['auth', 'role:1,3'])->group(function () {
+    Route::get('/get-chart-data', [OrderController::class, 'getChartData']);
+    Route::get('/get-chart-data-month', [OrderController::class, 'getChartDataMonth']);
+});
+    Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::group(
         [
@@ -158,8 +164,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::post('change-password', [SettingController::class, 'changePassword'])->name('settings.change-password');
 
-    Route::get('/get-chart-data', [OrderController::class, 'getChartData']);
-    Route::get('/get-chart-data-month', [OrderController::class, 'getChartDataMonth']);
+    
+    
     Route::post('/customer/store', [POSController::class, 'customerStore'])->name('customer.store');
     Route::get('purchase/invoice/{purchase}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
 
