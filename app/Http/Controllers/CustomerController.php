@@ -41,7 +41,8 @@ class CustomerController extends Controller
     public function create()
     {
         $customers = new User();
-        return view('pages.customers.create', compact('customers'));
+        $restaurants  = Restaurant::all();
+        return view('pages.customers.create', compact('customers', 'restaurants'));
     }
 
     /**
@@ -49,25 +50,28 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $request->validate([
             'name' => ['required', 'string'],
-            'phone' => ['nullable', 'string', 'digits:11', 'unique:users,phone'],
+            // 'phone' => ['nullable', 'string', 'digits:11', 'unique:users,phone'],
             'email' => ['nullable', 'email'],
-            'address' => ['nullable', 'string'],
+            // 'address' => ['nullable', 'string'],
             'gender' => ['nullable', 'string'],
-            'discount' => ['required', 'string'],
+            // 'discount' => ['required', 'string'],
         ]);
+        
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
-            'gender' => $request->gender,
+            // 'gender' => $request->gender,
             'role_id' => 2,
-            'discount' => $request->discount ?? 0,
+            // 'discount' => $request->discount ?? 0,
+            'restaurant_id' => $request->restaurant_id,
         ]);
+        // dd($request->password);
         if ($request->password) {
             $user->update([
                 'password' => bcrypt($request->password),
@@ -86,7 +90,7 @@ class CustomerController extends Controller
         } else {
             $orders = $customer->orders;
         }
-        dd($customer);
+        // dd($customer);
         $transactions = Transaction::where('user_id', $customer->id)->latest()->get();
         // dd($customer);
         return view('pages.customers.invoice', compact('customer', 'orders', 'transactions'));

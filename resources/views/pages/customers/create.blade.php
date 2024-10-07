@@ -16,20 +16,45 @@
                                 <h6 class="dash_head">{{ __('sentence.customerdetails') }}</h6>
 
                                 <div class="row row-cols-2">
-                                    <x-form.input name="name" label="Name *"  required />
-                                    <x-form.input name="phone" label="Phone *"   />
-                                    <x-form.input name="email" label="Email"   />
-                                    <x-form.input name="address" label="Address *"  />
-                                    <x-form.input name="gender" value="{{ old('gender') }}" type="select"
-                                        label="Gender"  :options="['male' => 'Male', 'female' => 'Female']" />
-                                    <x-form.input name="password" label="Password" type="password" />
-                                </div>
+                                    <x-form.input name="name" label="Name *" required />
+                                    <x-form.input name="phone" label="Phone *" />
 
+                                    <x-form.input name="email" label="Email" />
+
+                                    <x-form.input name="password" label="Password" type="password" />
+                                    {{-- <x-form.input name="gender" value="{{ old('gender') }}" type="select"
+                                        label="Gender" :options="['male' => 'Male', 'female' => 'Female']" /> --}}
+                                    <x-form.input name="address" label="Address *" />
+
+                                    <div class="">
+                                        <label class="control-label">{{ __('sentence.restaurant') }}</label>
+                                        <select class="form-control select2 mt-2" name="restaurant_id">
+                                            <option value="">Select</option>
+                                            @foreach ($restaurants as $restaurant)
+                                                <option value="{{ $restaurant->id }}">
+                                                    {{ $restaurant->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                </div>
+                                {{-- <div class="row row-cols-1">
+                                    <x-form.input name="address" label="Address *" />
+                                </div> --}}
+
+                                {{-- <div class="card-footer"> --}}
+                                <div class="">
+                                    <button class="btn btn-success" type="submit" style="float: right">
+                                        <i class="fa fa-save"></i> {{ __('sentence.save') }}
+                                    </button>
+                                </div>
+                                {{-- </div> --}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="card mt-4">
                             <div class="card-body">
                                 <div class="row row-cols">
@@ -50,7 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
         </form>
     </div>

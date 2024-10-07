@@ -21,6 +21,11 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::latest()->get();
         return view('pages.restaurants.all-restaurant', compact('restaurants'));
     }
+    public function printRestaurants()
+    {
+        $restaurant = Restaurant::where('id',auth()->user()->restaurant_id)->first();
+        return view('pages.restaurant_print.print', compact('restaurant'));
+    }
     public function createRestaurant()
     {
         $areas = RestaurantZone::all();
@@ -138,7 +143,14 @@ class RestaurantController extends Controller
         $fromDate = Carbon::createFromFormat('Y-m-d', $request->input('fromDate'))->startOfDay();
         $toDate = Carbon::createFromFormat('Y-m-d', $request->input('toDate'))->endOfDay();
 
-        $orders = Order::whereBetween('created_at', [$fromDate, $toDate])->where('restaurant_id', $restaurant->id);
+        if (auth()->user()->role_id == 3) {
+            $orders = Order::whereBetween('created_at', [$fromDate, $toDate])->Where('restaurant_id', auth()->user()->restaurant_id);
+        } else {
+            $orders = Order::whereBetween('created_at', [$fromDate, $toDate])->where('restaurant_id', $restaurant->id);
+        }
+        
+
+        // dd($orders);
         if (!(clone $orders)->count()) {
             return back()->withErrors(['message' => 'Aucune commande trouvée pour la plage de dates sélectionnée.']);
         }
@@ -219,7 +231,7 @@ class RestaurantController extends Controller
         $msg .= "Nb RESTO: {$data['codOrder']}\n";
         $msg .= "Montant RESTO: {$data['codOrder_amount']}\n";
 
-
+        dd($msg);
         $msg .= "<CUT/>";
         $response = Http::withHeaders([
             'Authorization' => $restaurant->getPrinterCreds('sid') . ':' . $restaurant->getPrinterCreds('token'),
