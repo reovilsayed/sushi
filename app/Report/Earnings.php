@@ -67,10 +67,10 @@ class Earnings
     public function totalEarning()
     {
         // dd($this->to);
-        return Order::whereBetween('created_at', [$this->from, $this->to])->sum('profit')/100;
+        return Order::whereBetween('created_at', [$this->from, $this->to])->when(auth()->user()->role_id == 3, fn($query) => $query->where('restaurant_id', auth()->user()->restaurant_id))->sum('profit') / 100;
     }
     public function totalSale()
     {
-        return Order::whereBetween('created_at', [$this->from, $this->to])->sum('total')/100;
+        return Order::whereBetween('created_at', [$this->from, $this->to])->when(auth()->user()->role_id == 3, fn($query) => $query->where('restaurant_id', auth()->user()->restaurant_id))->sum('total') / 100;
     }
 }

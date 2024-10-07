@@ -64,7 +64,7 @@ class OrderController extends Controller
     public function getChartData()
     {
         $eranings = Earnings::range(now()->subDays(15), now()->startOfDay())->graph();
-        // dd($eranings);
+        
         return response()->json(data: ['data' => $eranings]);
     }
     public function expedy_print(Order $order)
