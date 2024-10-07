@@ -121,31 +121,35 @@
                 <x-form.input type="text" name="search[query]" :value="@request()->search['query']" label="Search" />
             </div>
         </div>
-        <hr>
-        <h6 class="mb-4">{{ __('sentence.filter') }}</h6>
-        <div class="row row-cols-2 g-1">
+        @if (auth()->user()->role_id == 1)
+            <hr>
+            <h6 class="mb-4">{{ __('sentence.filter') }}</h6>
+            <div class="row row-cols-2 g-1">
 
-            {{-- <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
+                {{-- <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
                 :options="['Cash' => 'Cash', 'Bkash' => 'Bkash', 'Nagad' => 'Nagad', 'Card' => 'Card']" :show_empty_options="true" />
 
            
             <x-form.input type="select" name="filter[order_from]" label="Order From" :value="@request()->filter['order_from']" :options="['pos' => 'Pos', 'app' => 'App']"
                 :show_empty_options="true" /> --}}
 
-            <select class="form-select " aria-label="Default select example" name="restaurant">
-                <option selected value="">{{ __('sentence.selectrestaurant') }}</option>
-                @foreach ($restaurants as $restaurant)
-                    <option value="{{ $restaurant->id }}"
-                        {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}
-                    </option>
-                @endforeach
 
-            </select>
+                <select class="form-select " aria-label="Default select example" name="restaurant">
+                    <option selected value="">{{ __('sentence.selectrestaurant') }}</option>
+                    @foreach ($restaurants as $restaurant)
+                        <option value="{{ $restaurant->id }}"
+                            {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}
+                        </option>
+                    @endforeach
 
-            <x-form.input type="date" name="date[created_at][from]" label="From" :value="@request()->date['created_at']['from']" />
-            <x-form.input type="date" name="date[created_at][to]" label="To" :value="@request()->date['created_at']['to']" />
-        </div>
-        <hr>
+                </select>
+
+
+                <x-form.input type="date" name="date[created_at][from]" label="From" :value="@request()->date['created_at']['from']" />
+                <x-form.input type="date" name="date[created_at][to]" label="To" :value="@request()->date['created_at']['to']" />
+            </div>
+            <hr>
+        @endif
         <h6 class="mb-4">Order By</h6>
 
         <div class="row row-cols-2">

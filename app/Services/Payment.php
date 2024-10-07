@@ -79,7 +79,7 @@ class Payment
         $order->logs()->create([
             'user_id' => auth()->id(),
             'action' => 'Payment created',
-            'meta' => json_encode($this->body()),
+            'meta' => $this->body(),
         ]);
         $response =   Http::asForm()->post('https://sherlocks-payment-webinit.secure.lcl.fr/paymentInit', [
             'DATA' => $this->body(),
@@ -87,13 +87,6 @@ class Payment
             'interfaceVersion' => $this::INTERFACE_VERSION,
         ]);
   
-        $order->logs()->create([
-            'user_id' => auth()->id(),
-            'action' => 'Payment response',
-            
-            'meta' => json_encode($response->json()),
-        ]);
-
         return $response->body();
     }
 
