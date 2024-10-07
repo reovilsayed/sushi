@@ -79,7 +79,7 @@ class PrinterService
                 'first_name' => $this->order->getShipping('f_name'),
                 'last_name' => $this->order->getShipping('l_name'),
                 'email' => $this->order->getShipping('email'),
-                'address_1' => $this->order->delivery_option != 'take_away' ? $this->order->getShipping('house') . ',' . $this->order->getShipping('city') . ' ' . $this->order->getShipping('post_code') : '',
+                'address_1' => $this->order->delivery_option != 'take_away' ? $this->order->getShipping('house') : '',
                 'address_2' => $this->order->getShipping('address'),
                 'postcode' => $this->order->getShipping('post_code'),
                 'city' => $this->order->getShipping('city'),
