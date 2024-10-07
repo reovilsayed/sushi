@@ -33,6 +33,9 @@ class Earnings
     {
         $query = Order::whereBetween('created_at', [$this->from, $this->to]);
 
+        if (auth()->user()->role_id == 3) {
+            $query->where('restaurant_id', auth()->user()->restaurant_id);
+        }
         switch ($interval) {
             case 'Day':
                 $query->selectRaw('DATE_FORMAT(created_at,"%d %M") as date, SUM(profit)/100 as total_profit,SUM(total)/100 as sales')
