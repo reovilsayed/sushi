@@ -24,7 +24,6 @@
                                     <x-form.input name="password" label="Password" type="password" />
                                     {{-- <x-form.input name="gender" value="{{ old('gender') }}" type="select"
                                         label="Gender" :options="['male' => 'Male', 'female' => 'Female']" /> --}}
-                                    <x-form.input name="address" label="Address *" />
 
                                     <div class="">
                                         <label class="control-label">{{ __('sentence.restaurant') }}</label>
@@ -38,10 +37,22 @@
                                         </select>
                                     </div>
 
+                                    <div class="">
+                                        <label class="control-label">{{ __('sentence.role') }}</label>
+                                        <select class="form-control select2 mt-2" name="role_id">
+                                            <option value="">Select</option>
+                                            @foreach ($roles as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
                                 </div>
-                                {{-- <div class="row row-cols-1">
+                                <div class="row row-cols-1 mt-2">
                                     <x-form.input name="address" label="Address *" />
-                                </div> --}}
+                                </div>
 
                                 {{-- <div class="card-footer"> --}}
                                 <div class="">

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -41,8 +42,9 @@ class CustomerController extends Controller
     public function create()
     {
         $customers = new User();
+        $roles = Role::all();
         $restaurants  = Restaurant::all();
-        return view('pages.customers.create', compact('customers', 'restaurants'));
+        return view('pages.customers.create', compact('customers', 'restaurants', 'roles'));
     }
 
     /**
@@ -59,7 +61,6 @@ class CustomerController extends Controller
             'gender' => ['nullable', 'string'],
             // 'discount' => ['required', 'string'],
         ]);
-        
 
         $user = User::create([
             'name' => $request->name,
@@ -67,16 +68,17 @@ class CustomerController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             // 'gender' => $request->gender,
-            'role_id' => 2,
+            'role_id' =>$request->role_id ?? 2,
             // 'discount' => $request->discount ?? 0,
+            'password' => $request->password ? Hash::make($request->password) : Hash::make('password'),
             'restaurant_id' => $request->restaurant_id,
         ]);
         // dd($request->password);
-        if ($request->password) {
-            $user->update([
-                'password' => bcrypt($request->password),
-            ]);
-        }
+        // if ($request->password) {
+        //     $user->update([
+        //         'password' => bcrypt($request->password),
+        //     ]);
+        // }
         return redirect()->route('customers.index')->with('success', 'Customers Added Success!');
     }
 
