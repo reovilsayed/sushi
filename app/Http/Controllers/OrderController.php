@@ -12,11 +12,19 @@ use App\Services\PrinterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\Services\DistanceService;
 use Cart;
 use Settings;
 
 class OrderController extends Controller
 {
+
+    protected $distanceService;
+
+    public function __construct(DistanceService $distanceService)
+    {
+        $this->distanceService = $distanceService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +38,7 @@ class OrderController extends Controller
         }
 
         $allOrderCount = $query->get();
-        
+
         $orders = $query->paginate(20)->withQueryString();
 
         $paidOrderCount = $query->where('status', 'PAID')->get();
@@ -64,7 +72,7 @@ class OrderController extends Controller
     public function getChartData()
     {
         $eranings = Earnings::range(now()->subDays(15), now()->startOfDay())->graph();
-        
+
         return response()->json(data: ['data' => $eranings]);
     }
     public function expedy_print(Order $order)
@@ -120,6 +128,41 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->delivery_option === 'home_delivery') {
+
+            $longitude = session()->get('longitude');
+            $latitude = session()->get('latitude');
+
+            if (!$longitude || !$latitude) {
+                return back()->withErrors(['error' => 'Location data is missing.']);
+            }
+
+            $restaurantId = session()->get('restaurent_id');
+
+            if (!$restaurantId) {
+                return back()->withErrors(['error' => 'Restaurant not selected.']);
+            }
+
+            $restaurant = Restaurant::find($restaurantId);
+            if (!$restaurant) {
+                return back()->withErrors(['error' => 'Restaurant not found.']);
+            }
+
+            $latitudeTo = $restaurant->latitude;
+            $longitudeTo = $restaurant->longitude;
+
+            $distance = $this->distanceService->haversineGreatCircleDistance(
+                $latitude,
+                $longitude,
+                $latitudeTo,
+                $longitudeTo
+            );
+
+            $allowed_distance = 6;
+            if ($distance > $allowed_distance) {
+                return back()->withErrors(['error' => 'Unfortunately, we are unable to deliver to your location as it exceeds our delivery range. Our delivery service is currently limited to a radius of ' . $allowed_distance . ' kilometers from the restaurant. Please check your address and try again or choose a different restaurant closer to your location.']);
+            }
+        }
 
 
         if (Cart::getTotalQuantity() == 0) {
@@ -130,13 +173,13 @@ class OrderController extends Controller
             'l_name' => 'required|string|max:255',
         ]);
 
-        // Start a database transaction
+
         DB::beginTransaction();
-        // try {
+
 
         $shipping = $request->only(['f_name', 'l_name', 'email', 'address', 'city', 'post_code', 'house', 'phone']);
         $extra_charge = Settings::setting('extra.charge');
-        // Create the order
+
         $order = Order::create([
             'customer_id' => auth()->check() ? auth()->id() : null,
             'shipping_info' => json_encode($shipping),
@@ -184,16 +227,10 @@ class OrderController extends Controller
                 'extra' => json_encode($extra),
             ]);
         }
-        // $order_mail = Settings::setting('order.mail');
+
         DB::commit();
-        // $emails = array_filter([$request->email, $order->restaurent->email, $order_mail]);
-        session()->forget('current_location');
-        session()->forget('delivery_time');
-        session()->forget('restaurent_id');
-        session()->forget('address');
-        session()->forget('restaurant');
-        session()->forget('method');
-        // Clear the cart and session data
+
+        session()->forget(['current_location', 'delivery_time', 'restaurent_id', 'address', 'restaurant', 'method', 'longitude', 'latitude']);
         Cart::clear();
 
 

@@ -111,7 +111,8 @@
         <div class="row g-1">
             <div class="col-md-4">
                 <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Field" :options="[
-                    'customer.name' => 'Name',
+                    'customer.name' => 'First name',
+                    'customer.l_name' => 'Last name',
                     'customer.email' => 'Email',
                     'customer.phone' => 'Phone',
                     // 'restaurant.name' => 'Restaurant Name',

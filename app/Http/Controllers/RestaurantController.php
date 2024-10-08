@@ -63,6 +63,9 @@ class RestaurantController extends Controller
         $restaurant->license_number = $request->license_number;
         $restaurant->business_location = $request->business_location;
         $restaurant->restaurent_code = $request->restaurent_code;
+        
+        $restaurant->latitude = $request->latitude;
+        $restaurant->longitude = $request->longitude;
 
         $restaurant->enable_printer = isset($request->enable_printer);
         $restaurant->enable_payment = isset($request->enable_payment);
@@ -119,11 +122,12 @@ class RestaurantController extends Controller
             'business_location' => $request->business_location,
             'license_number' => $request->license_number,
             'business_name' => $request->business_name,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'api_key' => json_encode($api_key),
             'printer' => json_encode($printer),
             'enable_printer' => isset($request->enable_printer),
             'enable_payment' => isset($request->enable_payment),
-
         ]);
         $restaurant->save();
 
@@ -194,7 +198,7 @@ class RestaurantController extends Controller
 
 
         $msg .= "-----------------------------------------" . "\n";
-        $msg .= "#  | Code |   HT   | TVA  | EXT |  TTC |  " . "\n";
+        $msg .= "#  | CODE |  FDG  |   HT   |   TVA   |   TTC   |  " . "\n";
         $msg .= "-----------------------------------------" . "\n";
 
         // $dataOrders = (clone $orders)->sum('total');
@@ -212,12 +216,12 @@ class RestaurantController extends Controller
         
         foreach ($taxarr as $key => $dataTwo) {
             $percentage = $key;
-            $tax = $dataTwo['vat'];
-            $subtotal = $dataTwo['subtotal'];
-            $extra_charge = $dataTwo['extra_charge'];
-            $total = $dataTwo['total'];
+            $tax = Settings::price($dataTwo['vat']);
+            $subtotal = Settings::price($dataTwo['subtotal']);
+            $extra_charge = Settings::price($dataTwo['extra_charge']);
+            $total = Settings::price($dataTwo['total']);
 
-            $msg .= "{$dataTwo['count']} | $percentage % | {$tax} | {$subtotal} | $extra_charge | $total |\n";
+            $msg .= "{$dataTwo['count']}|$percentage % |$extra_charge |$tax |$subtotal | $total |\n";
         }
 
         $msg .= "----------------------------------------------\n";

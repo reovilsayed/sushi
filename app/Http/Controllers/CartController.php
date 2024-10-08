@@ -37,7 +37,7 @@ class CartController extends Controller
 		// }
 
 		Session::put('restaurent_id', $request->restaurent_id);
-
+		
 		$RandomNumber =  rand(9999, 999999);
 
 		Cart::add($product->id . $RandomNumber, $name, $price, $request->quantity, ['restaurent' => $request->restaurent_id, 'tax' => $product->tax, 'product' => $product, 'options' => $request->options . '' . $option_name]);
@@ -68,11 +68,9 @@ class CartController extends Controller
 
 
 			Cart::clear();
-			session()->forget('restaurent_id');
-			session()->forget('address');
-			session()->forget('delivery_time');
-			session()->forget('restaurant');
-			session()->forget('method');
+
+			session()->forget(['current_location', 'delivery_time', 'restaurent_id', 'address', 'restaurant', 'method', 'longitude', 'latitude']);
+
 		} else {
 
 			Cart::remove($id);

@@ -70,10 +70,10 @@ class PrinterService
 
         $this->orderBody = (object) [
             'id' => $this->order->id,
-            'created_at' => $this->order->created_at->format('Y-m-d H:i:s'),
+            'created_at' => $this->order->created_at->format('d-m-Y H:i:s'),
             'payment_method_title' => ucwords($this->order->payment_method),
             'shipping_method_title' => $this->order->delivery_option == 'take_away' ? 'a emporter' : 'livraison a domicile',
-            'delivery_date' => now()->format('Y-m-d'),
+            'delivery_date' => now()->format('d-m-Y'),
             'delivery_time' =>  $this->order->time_option,
             'shipping' => (object) [
                 'first_name' => $this->order->getShipping('f_name'),
@@ -126,9 +126,9 @@ class PrinterService
             $msg .= "{$shipping->phone}\n";
             $msg .= $shipping->address_1 ?? "{$shipping->address_1}\n";
             if ($shipping->address_2) {
-                $msg .= "{$shipping->address_2}\n";
+                $msg .= "{ $shipping->address_2}\n";
             }
-            $msg .= $shipping->postcode ?? "{$shipping->postcode} {$shipping->city}\n";
+            $msg .= $shipping->postcode ?? "{ $shipping->postcode} { $shipping->city}\n";
         }
 
         // Products
@@ -178,8 +178,8 @@ class PrinterService
 
         $msg .= "------------------------------------------------" . "\n";
         $msg .= "TVA incluse: " . (Settings::price($this->orderBody->tax) ?? 'N/A') . "\n";
-        $msg .= "Frais de gestion: " . (Settings::setting('extra.charge') ?? 'N/A') . "\n";
-        $msg .= "Total TTC: " . Settings::price($this->orderBody->total) . "\n";
+        $msg .= "Frais de gestion: " . (Settings::setting('extra.charge') ?? 'N/A'). " Є" . "\n";
+        $msg .= "<BOLD>Total TTC: </BOLD>"."<BOLD>".Settings::price($this->orderBody->total)."</BOLD>" . "\n";
 
 
         $msg .= "<C>{$this->config['business_name']}\n";

@@ -19,27 +19,75 @@
                 background-color: var(--accent-color);
                 color: #ffffff;
             }
-            .cart-plus-minus{
+
+            .cart-plus-minus {
                 display: flex;
             }
+
+            .cart-product-remove-mobil {
+                display: none !important;
+            }
+
             @media (min-width: 360px) and (max-width: 740px) {
                 .cart-plus-minus {
                     border: 0px !important;
                     width: 100% !important;
                     display: flex;
                 }
-                .btnWidth{
+
+                .btnWidth {
                     width: 33%;
                 }
+
+                .cart-product-info h4 a {
+                    font-size: 12px !important;
+
+                }
+
+                .cart-product-remove {
+                    display: none !important;
+                }
+
+                .quantityMobil {
+                    width: 55px;
+                }
+
+                .cart-product-subtotal {
+                    width: 76px !important;
+                }
+
+                .cart-plus-minus-box {
+                    width: 100% !important;
+                }
+
+                .taxMobil {
+                    width: 50px;
+                }
+                .cart-product-remove-mobil {
+                display: block !important;
             }
+            }
+
             @media (min-width: 768px) and (max-width: 1024px) {
                 .cart-plus-minus {
                     border: 0px !important;
                     width: 70% !important;
                     display: flex;
                 }
-                .btnWidth{
+
+                .btnWidth {
                     width: 33%;
+                }
+            }
+
+            @media (min-width: 540px) and (max-width: 720px) {
+                .cart-product-remove-mobil {
+                    display: block !important;
+                }
+            }
+            @media (min-width: 412px) and (max-width: 914px) {
+                .cart-product-remove-mobil {
+                    display: block !important;
                 }
             }
         </style>
@@ -84,7 +132,7 @@
                                                 </td>
 
                                                 <td class="cart-product-info text-center">
-                                                    <h4><a class="fw-lighter fs-4 text-uppercase"
+                                                    <h4><a class="fw-lighter fs-4 text-uppercase mobilFontSize"
                                                             href="{{ route('single.restaurant', ['restaurant' => $restuarant->slug, 'product' => $item->attributes['product']->id]) }}"
                                                             style="color: #ffffff !important;">{{ $product->category->name }}
                                                             - {{ $item->name }}</a>
@@ -96,7 +144,8 @@
                                                 </td>
                                             @endif
 
-                                            <td class="cart-product-quantity d-flex justify-content-center mt-3">
+                                            <td
+                                                class="cart-product-quantity quantityMobil d-flex justify-content-center mt-3">
                                                 <form id="update-cart-form-{{ $item->id }}" method="post">
                                                     <div class="cart-product-quantity d-flex justify-content-center">
                                                         <div class="cart-plus-minus" style="border: 0px !important;">
@@ -108,7 +157,8 @@
 
                                                             <div class="btnWidth">
                                                                 <input type="text" value="{{ $item->quantity }}"
-                                                                    name="quantity" class="cart-plus-minus-box"
+                                                                    name="quantity"
+                                                                    class="cart-plus-minus-box quantityMobil2"
                                                                     id="product_quantity_{{ $item->id }}"
                                                                     min="1" placeholder="0"
                                                                     data-price="{{ $item->price }}"
@@ -124,11 +174,11 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td>
+                                            <td class="text-center taxMobil">
                                                 @if (isset($item->attributes['product']))
-                                                    <p>Tax:
-                                                        {{ Settings::itemTax($item->price, $item->attributes['tax'], $item->quantity) }}
-                                                        Є</p>
+                                                    Tax:
+                                                    <span>{{ Settings::itemTax($item->price, $item->attributes['tax'], $item->quantity) }}
+                                                        Є</span>
                                                 @endif
                                             </td>
                                             <td class="cart-product-subtotal text-center">
@@ -137,6 +187,11 @@
                                                 <a class="cart-product-remove text-center d-block mt-2"
                                                     style="color: #ff883e !important;"
                                                     href="{{ url('/cart-destroy/' . $item->id) }}">{{ __('sentence.delete') }}
+                                                </a>
+                                                <a class="cart-product-remove-mobil text-center d-block mt-2"
+                                                    style="color: #ff883e !important;"
+                                                    href="{{ url('/cart-destroy/' . $item->id) }}"><i
+                                                        class="bi bi-trash"></i>
                                                 </a>
                                             </td>
                                         </tr>

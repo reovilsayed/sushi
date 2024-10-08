@@ -29,6 +29,15 @@
                     background-color: var(--accent-color);
                     color: #ffffff;
                 }
+                @media (min-width: 360px) and (max-width: 740px) {
+                    .cartTOTAL{
+                        width: 100px;
+                    }
+                    .order_btn {
+                        width: 381px !important;
+                        padding-left: 0px !important;
+                    }
+                }
             </style>
         @endpush
         <br><br><br>
@@ -342,7 +351,7 @@
                                                     <tr>
                                                         <td class="fs-5 fw-medium ps-3 pt-2 pb-2">
                                                             {{ __('sentence.totle') }}</td>
-                                                        <td class="fs-5 fw-medium text-center">
+                                                        <td class="fs-5 fw-medium text-center cartTOTAL">
                                                             {{ number_format(Cart::getSubTotal() + (float) ($extra_charge ?? 0), 2) }}
                                                             €
                                                         </td>

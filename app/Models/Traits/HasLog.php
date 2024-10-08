@@ -47,11 +47,8 @@ trait HasLog
     protected function getLoggableAttributes(string $action = 'all')
     {
         $attributes = $this->getAttributes(); 
-        // dd($attributes['restaurant_id'], $attributes['shipping_info']);
-
         return [
-            'restaurant_id' => $attributes['restaurant_id'],
-            'transaction_body' => $attributes['transaction_body'] ?? null,
+            'restaurant_id' => $attributes['restaurant_id'] ?? null,
         ];
     }
 }

@@ -26,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
     {
         URL::forceScheme('https');
         Order::observe(OrderObserver::class);
-        User::observe(UserObserver::class);
     }
 }

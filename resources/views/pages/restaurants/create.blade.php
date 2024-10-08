@@ -143,6 +143,25 @@
                                 </div>
                             </div>
 
+                            {{-- <button class="btn btn-success" type="submit" style="float: right">
+                                <i class="fa fa-save"></i> {{ __('sentence.save') }}
+                            </button> --}}
+                        </div>
+                    </div>
+                    <div class="card mt-3 mb-3">
+                        <div class="card-body">
+
+                            <div class="row row-cols-2">
+                                <div class="mb-3">
+                                    <x-form.input name="latitude" wire:model="latitude" value=""
+                                        label="Latitude" autofocus />
+                                </div>
+                                <div class="mb-3">
+                                    <x-form.input name="longitude" wire:model="longitude" value=""
+                                        label="Longitude" autofocus />
+                                </div>
+                            </div>
+
                             <button class="btn btn-success" type="submit" style="float: right">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>
