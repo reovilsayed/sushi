@@ -339,6 +339,8 @@ class PageController extends Controller
     public function storeInSession(Request $request)
     {
         // Store the received data in the session
+        Session::put('longitude', $request->input('longitude'));
+        Session::put('latitude', $request->input('latitude'));
         Session::put('method', $request->input('method'));
         Session::put('restaurant', $request->input('restaurant'));
         Session::put('address', $request->input('address'));

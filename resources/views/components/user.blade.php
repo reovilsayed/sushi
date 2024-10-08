@@ -258,41 +258,27 @@
 
 
     <script>
-        // Function to initialize the map for map-nos div
-
-
         $(document).ready(function() {
-            // Fetch Google Maps API key from the server
             fetch('/get-google-maps-api-key')
                 .then(response => response.text())
                 .then(apiKey => {
                     let key = JSON.parse(apiKey);
-
-                    // Load Google Maps API with the retrieved API key
                     const script = document.createElement('script');
                     script.src =
                         `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=geometry,places&callback=initMapNOS`;
                     script.async = true;
                     script.defer = true;
                     script.onload = function() {
-                        // Now that the Google Maps API is loaded, you can use it
-
-                        // Autocomplete functionality
                         var input = document.getElementById('map_address_input');
-
                         var options = {
                             componentRestrictions: {
                                 country: 'fr'
                             }
                         };
-
-
                         var autocomplete = new google.maps.places.Autocomplete(input, options);
                         autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
                     var addressComponents = place.address_components;
-
-                    // Loop through address components and get the city and postal code
                     var city = '';
                     var postalCode = '';
 
@@ -307,13 +293,9 @@
                             postalCode = component.long_name;
                         }
                     }
-
-                    // Fill the city and postal code fields
                     $('input[name="city"]').val(city);
                     $('input[name="post_code"]').val(postalCode);
                 });
-                        // Fetch the current location when the document is ready
-                        // Function to geocode an address
                         function geocodeAddress(address, callback) {
                             var geocoder = new google.maps.Geocoder();
                             geocoder.geocode({
@@ -355,15 +337,13 @@
                             };
                             xhr.send();
                         }
-
-                        // Your other code here
                         $('#checkDZ').click(function() {
                             var address = $('#map_address_input').val();
 
                             geocodeAddress(address, function(location) {
                                 var lat = location.lat;
                                 var lng = location.lng;
-
+                                console.log(lat,lng);
                                 var point = new google.maps.LatLng(lat, lng);
 
                                 checkIfPointInAnyZone(point, function(zone) {
@@ -374,6 +354,8 @@
                                             method: 'POST',
                                             data: {
                                                 'method': 'delivery',
+                                                'longitude': lng,
+                                                'latitude': lat,
                                                 'restaurant': zone
                                                     .restaurant_id,
                                                 'address': address,
@@ -405,7 +387,6 @@
                         });
                     };
 
-                    // Append the script to the document head
                     document.head.appendChild(script);
                 });
         });
