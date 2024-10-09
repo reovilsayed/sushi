@@ -215,7 +215,7 @@ class ApiController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'phone' => ['required', 'string', 'digits:11', Rule::unique('users')->ignore(auth()->id())],
-            'email' => ['nullable', 'string','email'],
+            'email' => ['nullable', 'string', 'email'],
             'address' => ['required', 'string'],
         ]);
         $data = $request->only('name', 'email', 'phone', 'address', 'discount');
@@ -234,16 +234,28 @@ class ApiController extends Controller
     }
     public function reports(Request $request)
     {
-        $orders = Order::filterByDate()->get();
-        $due_orders = Order::filterByDate()->where('due', '>', 0)->get();
-        $customers = User::where('role_id', 2)->get();
+        $orders = Order::when(auth()->user()->role_id == 3, function ($query) {
+            $query->where('restaurant_id', auth()->user()->restaurant_id);
+        })->filterByDate()->get();
+        $due_orders = Order::when(auth()->user()->role_id == 3, function ($query) {
+            $query->where('restaurant_id', auth()->user()->restaurant_id);
+        })->filterByDate()->where('due', '>', 0)->get();
+        $customers = User::where('role_id', 2)->with(['orders' => function ($query) {
+            $query->when(auth()->user()->role_id == 3, function ($query) {
+                $query->where('restaurant_id', auth()->user()->restaurant_id);
+            });
+        }])->get();
         $categories = Category::get();
         $top_customers = User::where('role_id', 2)->with(['orders' => function ($query) {
-            $query->filterByDate();
+            $query->when(auth()->user()->role_id == 3, function ($query) {
+                $query->where('restaurant_id', auth()->user()->restaurant_id);
+            })->filterByDate();
         }])
             ->get()
             ->sortByDesc(function ($customer) {
-                return $customer->orders->sum('total');
+                return $customer->orders->when(auth()->user()->role_id == 3, function ($query) {
+                    $query->where('restaurant_id', auth()->user()->restaurant_id);
+                })->sum('total');
             })
             ->take(10);
 

@@ -10,6 +10,10 @@ const router = createBrowserRouter([
         path: "reports",
         element: <Report />,
     },
+    {
+        path: "resto/admin/reports",
+        element: <Report />,
+    },
 ]);
 
 const Reports = () => {
