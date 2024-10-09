@@ -1,6 +1,7 @@
 <?php
 
 use App\Facades\Settings\SettingsFacade;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -127,7 +128,7 @@ Route::middleware(['auth', 'role:1,3'])->group(function () {
     Route::get('/get-chart-data', [OrderController::class, 'getChartData']);
     Route::get('/get-chart-data-month', [OrderController::class, 'getChartDataMonth']);
 });
-    Route::middleware(['auth', 'role:1'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::group(
         [
@@ -164,8 +165,8 @@ Route::middleware(['auth', 'role:1,3'])->group(function () {
 
     Route::post('change-password', [SettingController::class, 'changePassword'])->name('settings.change-password');
 
-    
-    
+
+
     Route::post('/customer/store', [POSController::class, 'customerStore'])->name('customer.store');
     Route::get('purchase/invoice/{purchase}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
 
@@ -205,7 +206,7 @@ Route::post('payment/{restaurant:slug}/callback', function (Restaurant $restaura
 Route::get('/test', function () {
     $order = Order::latest()->first();
     $printing = (new PrinterService($order))->sendToPrinter();
-dd($printing);
+    dd($printing);
     // dd($order->restaurent->getPaymentCreds('secretKey'));
     // return Payment::make($order);
 });
@@ -226,3 +227,5 @@ require('user.php');
 Route::get('test-payment', [PaymentController::class, 'index']);
 Route::get('test-email', [PaymentController::class, 'email']);
 Route::get('test-printer', [ExpedyController::class, 'sendToPrinter']);
+
+Route::post('api/reports', action: [ApiController::class, 'reports'])->middleware(['auth','role:1,3']);

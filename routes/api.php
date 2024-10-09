@@ -35,13 +35,13 @@ Route::middleware(['api.auth'])->group(function () {
     Route::post('create-order', [ApiController::class, 'orderCreate']);
     Route::post('create-customer', [ApiController::class, 'customerCreate']);
     Route::get('prescription', [ApiController::class, 'prescription']);
-   
+
+
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'api_login']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('reports', action: [ApiController::class, 'reports']);
     Route::get('customer', [CustomerApiController::class, 'customer']);
     Route::post('update-profile', [CustomerApiController::class, 'update_profile']);
     Route::get('order-single/{order}', [CustomerApiController::class, 'orderSingle']);
