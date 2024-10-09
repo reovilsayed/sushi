@@ -122,4 +122,7 @@ Route::middleware(['auth', 'role:3'])->prefix('resto/admin')->group(function () 
         Route::get('/orders/invoice/{order}', 'invoice')->name('resto_orders.invoice');
         Route::get('/orders/mark-as-delivered/{order}', 'mark_delivered')->name('resto_orders.mark.delivered');
     });
+
+    
+    Route::get('reports', [ReportsController::class, 'index'])->name('resto_reports.index');
 });

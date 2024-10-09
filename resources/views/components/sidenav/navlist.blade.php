@@ -62,8 +62,11 @@
             <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('resto/admin') ? 'menu-active' : ''" :href="route('resto_dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
             <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('resto/admin/orders/list') ? 'menu-active' : ''" :href="route('resto_orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
             <x-sidenav.nav name="{{ __('sentence.Print') }}" :active="request()->is('resto/admin/restaurant') ? 'menu-active' : ''" :href="route('resto_admin.restaurants')" :icon="[asset('images/printer-svgrepo-com.svg'), asset('images/printer-svgrepo-com.svg')]" />
+
+            <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('resto/admin/reports') ? 'menu-active' : ''" :href="route('resto_reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
         @else
-            <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
+            <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('admin') ? 'menu-active' : ''" :href="route('dashboard')"
+                :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
             <x-sidenav.nav name="{{ __('sentence.restaurants') }}" :active="request()->is('admin/restaurant') ? 'menu-active' : ''" :href="route('admin.restaurants')"
                 :icon="[asset('images/restaurant-dark.svg'), asset('images/restaurant-white.svg')]" />
             <x-sidenav.nav name="{{ __('sentence.time_schedules') }}" :active="request()->is('admin/time_schedules') ? 'menu-active' : ''" :href="route('time_schedules.index')"
