@@ -235,7 +235,7 @@ class RestaurantController extends Controller
         $msg .= "Nb RESTO: {$data['codOrder']}\n";
         $msg .= "Montant RESTO: {$data['codOrder_amount']}\n";
 
-        dd($msg);
+        // dd($msg);
         $msg .= "<CUT/>";
         $response = Http::withHeaders([
             'Authorization' => $restaurant->getPrinterCreds('sid') . ':' . $restaurant->getPrinterCreds('token'),
