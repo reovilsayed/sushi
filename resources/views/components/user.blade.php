@@ -277,25 +277,55 @@
                         };
                         var autocomplete = new google.maps.places.Autocomplete(input, options);
                         autocomplete.addListener('place_changed', function () {
-                    var place = autocomplete.getPlace();
-                    var addressComponents = place.address_components;
-                    var city = '';
-                    var postalCode = '';
+                                var place = autocomplete.getPlace();
+                                var addressComponents = place.address_components;
+                                var city = '';
+                                var postalCode = '';
+                                var latitude = '';
+                                var longitude = '';
 
-                    for (var i = 0; i < addressComponents.length; i++) {
-                        var component = addressComponents[i];
+                                for (var i = 0; i < addressComponents.length; i++) {
+                                    var component = addressComponents[i];
 
-                        if (component.types.includes('locality')) {
-                            city = component.long_name;
-                        }
+                                    if (component.types.includes('locality')) {
+                                        city = component.long_name;
+                                    }
 
-                        if (component.types.includes('postal_code')) {
-                            postalCode = component.long_name;
-                        }
-                    }
-                    $('input[name="city"]').val(city);
-                    $('input[name="post_code"]').val(postalCode);
-                });
+                                    if (component.types.includes('postal_code')) {
+                                        postalCode = component.long_name;
+                                    }
+                                }
+
+                                // Get latitude and longitude from place.geometry.location
+                                if (place.geometry && place.geometry.location) {
+                                    latitude = place.geometry.location.lat();
+                                    longitude = place.geometry.location.lng();
+                                }
+
+                                // Set the city, postal code, latitude, and longitude values to the inputs
+                                $('input[name="city"]').val(city);
+                                $('input[name="post_code"]').val(postalCode);
+                                $.ajax({
+                                            url: '/store-in-session',
+                                            method: 'POST',
+                                            data: {
+                                                'longitude': longitude,
+                                                'latitude': latitude,
+                                                _token: '{{ csrf_token() }}' // Ensure you have CSRF token included
+                                            },
+                                            success: function(response) {
+                                                console.log(response);
+                                                },
+                                            error: function(jqXHR,
+                                                textStatus, errorThrown
+                                            ) {
+                                                alert(
+                                                    'An error occurred. Please try again.'
+                                                );
+                                            }
+                                        });
+                        });
+
                         function geocodeAddress(address, callback) {
                             var geocoder = new google.maps.Geocoder();
                             geocoder.geocode({

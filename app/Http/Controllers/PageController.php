@@ -339,11 +339,26 @@ class PageController extends Controller
     public function storeInSession(Request $request)
     {
         // Store the received data in the session
-        Session::put('longitude', $request->input('longitude'));
-        Session::put('latitude', $request->input('latitude'));
-        Session::put('method', $request->input('method'));
-        Session::put('restaurant', $request->input('restaurant'));
-        Session::put('address', $request->input('address'));
+        if ($request->has('longitude')) {
+            Session::put('longitude', $request->input('longitude'));
+        }
+        
+        if ($request->has('latitude')) {
+            Session::put('latitude', $request->input('latitude'));
+        }
+        
+        if ($request->has('method')) {
+            Session::put('method', $request->input('method'));
+        }
+        
+        if ($request->has('restaurant')) {
+            Session::put('restaurant', $request->input('restaurant'));
+        }
+        
+        if ($request->has('address')) {
+            Session::put('address', $request->input('address'));
+        }
+        
         $restaurant = Restaurant::find($request->input('restaurant'));
         return response()->json(['success' => true, 'restaurant'=>$restaurant]);
     }
