@@ -179,7 +179,7 @@ class PrinterService
         $msg .= "------------------------------------------------" . "\n";
         $msg .= "TVA incluse: " . (Settings::price($this->orderBody->tax) ?? 'N/A') . "\n";
         $msg .= "Frais de gestion: " . (Settings::setting('extra.charge') ?? 'N/A'). " Є" . "\n";
-        $msg .= "<BOLD>Total TTC: </BOLD>"."<BOLD>".Settings::price($this->orderBody->total)."</BOLD>" . "\n";
+        $msg .= "Total TTC:". Settings::price($this->orderBody->total) . "\n";
 
 
         $msg .= "<C>{$this->config['business_name']}\n";

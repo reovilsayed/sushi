@@ -128,41 +128,41 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->delivery_option === 'home_delivery') {
+        // if ($request->delivery_option === 'home_delivery') {
 
-            $longitude = session()->get('longitude');
-            $latitude = session()->get('latitude');
+        //     $longitude = session()->get('longitude');
+        //     $latitude = session()->get('latitude');
 
-            if (!$longitude || !$latitude) {
-                return back()->withErrors(['error' => 'Location data is missing.']);
-            }
+        //     if (!$longitude || !$latitude) {
+        //         return back()->withErrors(['error' => 'Location data is missing.']);
+        //     }
 
-            $restaurantId = session()->get('restaurent_id');
+        //     $restaurantId = session()->get('restaurent_id');
 
-            if (!$restaurantId) {
-                return back()->withErrors(['error' => 'Restaurant not selected.']);
-            }
+        //     if (!$restaurantId) {
+        //         return back()->withErrors(['error' => 'Restaurant not selected.']);
+        //     }
 
-            $restaurant = Restaurant::find($restaurantId);
-            if (!$restaurant) {
-                return back()->withErrors(['error' => 'Restaurant not found.']);
-            }
+        //     $restaurant = Restaurant::find($restaurantId);
+        //     if (!$restaurant) {
+        //         return back()->withErrors(['error' => 'Restaurant not found.']);
+        //     }
 
-            $latitudeTo = $restaurant->latitude;
-            $longitudeTo = $restaurant->longitude;
+        //     $latitudeTo = $restaurant->latitude;
+        //     $longitudeTo = $restaurant->longitude;
 
-            $distance = $this->distanceService->haversineGreatCircleDistance(
-                $latitude,
-                $longitude,
-                $latitudeTo,
-                $longitudeTo
-            );
+        //     $distance = $this->distanceService->haversineGreatCircleDistance(
+        //         $latitude,
+        //         $longitude,
+        //         $latitudeTo,
+        //         $longitudeTo
+        //     );
 
-            $allowed_distance = 6;
-            if ($distance > $allowed_distance) {
-                return back()->withErrors(['error' => 'Unfortunately, we are unable to deliver to your location as it exceeds our delivery range. Our delivery service is currently limited to a radius of ' . $allowed_distance . ' kilometers from the restaurant. Please check your address and try again or choose a different restaurant closer to your location.']);
-            }
-        }
+        //     $allowed_distance = 6;
+        //     if ($distance > $allowed_distance) {
+        //         return back()->withErrors(['error' => 'Unfortunately, we are unable to deliver to your location as it exceeds our delivery range. Our delivery service is currently limited to a radius of ' . $allowed_distance . ' kilometers from the restaurant. Please check your address and try again or choose a different restaurant closer to your location.']);
+        //     }
+        // }
 
 
         if (Cart::getTotalQuantity() == 0) {
