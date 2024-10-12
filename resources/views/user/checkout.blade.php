@@ -311,6 +311,9 @@
                                                                         {{ __('sentence.cashondelivery') }}
                                                                     </label>
                                                                 </div>
+                                                                <div class="">
+                                                                    <p style="font-size: smaller; color: var(--accent-color); margin-bottom: .5rem !important;">Aucun paiement CB ne sera accepté à la livraison</p>
+                                                                </div>
                                                                 @if ($restaurant->enable_payment)
                                                                     <div class="form-check mt-2 mb-3">
                                                                         <input class="form-check-input" type="radio"
