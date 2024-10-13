@@ -137,7 +137,7 @@
                                     Mode de paiement</td>
                                 <td
                                     style="text-align: right; font-size: 15px; font-weight: 400; padding: 15px 0; border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                    {{ $order->payment_method == 'Card' ? 'CB en ligne' : 'Paiement comptant au restaurant' }}
+                                    {{ $order->payment_method == 'Card' ? 'CB en ligne' : 'Espèces / Tickets restaurant' }}
                                 </td>
                             </tr>
                             <tr>

@@ -41,7 +41,7 @@ class PageController extends Controller
 
         $timeRanges = [
             4 => [
-                Carbon::FRIDAY => [['start' => '18:00', 'end' => '24:00']], // Friday: 6:00 PM - 12:00 AM
+                Carbon::FRIDAY => [['start' => '15:00', 'end' => '18:00']], // Friday:  3:00 PM - 6:00 PM
                 'default' => [['start' => '11:00', 'end' => '23:00']], // Saturday to Thursday: 11:00 AM - 11:00 PM
             ],
             5 => [
