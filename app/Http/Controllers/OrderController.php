@@ -82,22 +82,26 @@ class OrderController extends Controller
     }
     public function getChartDataMonth()
     {
-        $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
+        $earnings = collect(Earnings::range(now()->subMonths(12), to: now())->graph('Month'))->groupBy('month')->map(fn($earning) => $earning->first());
+
+
+ 
+
 
         if (count($earnings) > 0) {
             $months = [
-                9,
-                10,
-                11,
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
+                'October' => 9,
+                'November' => 10,
+                'December' => 11,
+                'January' => 0,
+                'February' => 1,
+                'March' => 2,
+                'April' => 3,
+                'May' => 4,
+                'June' => 5,
+                'July' => 6,
+                'August' => 7,
+                'September' => 8,
             ];
             $currentMonth = date('n');
 
@@ -108,13 +112,18 @@ class OrderController extends Controller
                 'profit' => [],
             ];
 
+
             foreach ($months as $month) {
-                $data['sales'][] = $earnings[$month]['sales'] ?? 0;
-                $data['profit'][] = $earnings[$month]['total_profit'] ?? 0;
+
+                $data['sales'][$month] = $earnings[array_search($month,$months)]['sales'] ?? 0;
+                $data['profit'][$month] = $earnings[array_search($month,$months)]['total_profit'] ?? 0;
             }
         } else {
             $data = ['sales' => [], 'profit' => []];
         }
+         ksort($data['sales']);
+         ksort($data['profit']);
+        
 
         return response()->json(['data' => $data]);
     }
@@ -169,7 +178,7 @@ class OrderController extends Controller
                         return back()->withErrors(['error' => 'Minimum order of 50€ is required for delivery beyond 6 km.']);
                     }
                 }
-                
+
                 $allowed_distance = 6;
                 if ($distance > $allowed_distance) {
                     return back()->withErrors(['error' => 'Unfortunately, we are unable to deliver to your location as it exceeds our delivery range. Our delivery service is currently limited to a radius of ' . $allowed_distance . ' kilometers from the restaurant. Please check your address and try again or choose a different restaurant closer to your location.']);

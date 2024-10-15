@@ -37,170 +37,124 @@
     @push('script')
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
+            function createChart(elementId, type, series, categories, options = {}) {
+                const defaultOptions = {
+                    chart: {
+                        type: type,
+                        height: 225,
+                        redrawOnParentResize: true,
+                        redrawOnWindowResize: true,
+                        toolbar: {
+                            show: false
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    xaxis: {
+                        categories: categories,
+                        labels: {
+                            show: true,
+                            rotate: 0,
+                            style: {
+                                colors: "#000000",
+                                fontSize: "12px",
+                                fontFamily: "Cabin, sans-serif",
+                                fontWeight: 600,
+                            },
+                        },
+                    },
+                    yaxis: {
+                        labels: {
+                            show: true,
+                            style: {
+                                colors: "#000000",
+                                fontSize: "12px",
+                                fontFamily: "Cabin, sans-serif",
+                                fontWeight: 600,
+                            },
+                        },
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return val.toFixed(2) + " €";
+                            },
+                        },
+                    },
+                    fill: {
+                        opacity: 1,
+                        gradient: {
+                            shade: "light",
+                            type: "vertical",
+                            shadeIntensity: 0.5,
+                            opacityFrom: 0.7,
+                            opacityTo: 0.2,
+                        },
+                    },
+                    responsive: [{
+                        breakpoint: 1600,
+                        options: {},
+                    }],
+                };
+
+                new ApexCharts(document.getElementById(elementId), {
+                    ...defaultOptions,
+                    series: series,
+                    ...options
+                }).render();
+            }
+
+            // Fetch and render the area chart for revenue
             $.ajax({
                 url: "/get-chart-data",
                 type: "GET",
                 success: function(response) {
-                    let revenue = response.data.map((item) => item.total_profit);
-                    let dates = response.data.map((item) => item.date);
-                    new ApexCharts(document.getElementById("chart0"), {
-                        series: [{
-                            name: "Revenue",
-                            data: revenue,
-                        }, ],
-                        chart: {
-                            type: "area",
-                            height: 225,
-                            redrawOnParentResize: true,
-                            redrawOnWindowResize: true,
-                            toolbar: {
-                                show: false,
-                            },
-                        },
-                        dataLabels: {
-                            enabled: false,
-                        },
-                        stroke: {
-                            curve: "smooth",
-                            width: 3,
-                            fill: "#00E396",
-                        },
-                        xaxis: {
-                            type: "category",
-                            categories: dates,
-                            labels: {
-                                show: true,
-                                rotate: 0,
-                                style: {
-                                    colors: "#000000",
-                                    fontSize: "12px",
-                                    fontFamily: "Cabin, sans-serif",
-                                    fontWeight: 600,
-                                },
-                            },
-                        },
-                        yaxis: {
-                            tickAmount: 5,
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: "#000000",
-                                    fontSize: "12px",
-                                    fontFamily: "Cabin, sans-serif",
-                                    fontWeight: 600,
-                                },
-                            },
-                        },
-                        tooltip: {
-                            x: {
-                                format: "MMMM",
-                            },
-                            y: {
-                                formatter: function(val) {
-                                    return val.toFixed(2) + " Tk";
-                                },
-                            },
-                        },
-                        fill: {
-                            opacity: 1,
-                            colors: ["#00E396", "#fff"],
-                            gradient: {
-                                shade: "light",
-                                type: "vertical",
-                                shadeIntensity: 0.5,
-                                gradientToColors: undefined,
-                                inverseColors: true,
-                                opacityFrom: 0.7,
-                                opacityTo: 0.2,
-                            },
-                        },
-                        responsive: [{
-                            breakpoint: 1600,
-                            options: {},
-                        }, ],
-                    }).render();
+                    const revenue = response.data.map(item => item.total_profit);
+                    const dates = response.data.map(item => item.date);
+                    createChart('chart0', 'area', [{
+                        name: "Revenue",
+                        data: revenue,
+                    }], dates);
                 },
                 error: function(error) {
                     console.log(error);
                 },
             });
 
+            // Fetch and render the bar chart for sales and earnings
             $.ajax({
-                
                 url: "/get-chart-data-month",
                 type: "GET",
                 success: function(response) {
-                    
-                    new ApexCharts(document.getElementById("chart1"), {
-                        series: [{
-                                name: "Sale",
-                                data: response.data.sales,
-                            },
-                            {
-                                name: "Earning",
-                                data: response.data.profit,
-                            }
-                        ],
-                        chart: {
-                            type: "bar",
-                            height: 400,
-                            redrawOnParentResize: true,
-                            redrawOnWindowResize: true,
-                            toolbar: {
-                                show: true,
-                            },
+                    createChart('chart1', 'bar', [{
+                            name: "Sale",
+                            data: response.data.sales
                         },
+                        {
+                            name: "Earning",
+                            data: response.data.profit
+                        },
+                    ], [
+                        "{{ __('sentence.january') }}",
+                        "{{ __('sentence.february') }}",
+                        "{{ __('sentence.march') }}",
+                        "{{ __('sentence.april') }}",
+                        "{{ __('sentence.may') }}",
+                        "{{ __('sentence.june') }}",
+                        "{{ __('sentence.july') }}",
+                        "{{ __('sentence.august') }}",
+                        "{{ __('sentence.september') }}",
+                        "{{ __('sentence.october') }}",
+                        "{{ __('sentence.november') }}",
+                        "{{ __('sentence.december') }}",
+                    ], {
                         plotOptions: {
                             bar: {
                                 horizontal: false,
                                 columnWidth: "55%",
                                 endingShape: "rounded",
                                 borderRadius: 12,
-                            },
-                        },
-                        dataLabels: {
-                            enabled: false,
-                        },
-                        stroke: {
-                            show: false,
-                        },
-                        grid: {
-                            show: false,
-                        },
-                        xaxis: {
-                            categories: [
-                                "{{ __('sentence.january') }}",
-                                "{{ __('sentence.february') }}",
-                                "{{ __('sentence.march') }}",
-                                "{{ __('sentence.april') }}",
-                                "{{ __('sentence.may') }}",
-                                "{{ __('sentence.june') }}",
-                                "{{ __('sentence.july') }}",
-                                "{{ __('sentence.august') }}",
-                                "{{ __('sentence.september') }}",
-                                "{{ __('sentence.october') }}",
-                                "{{ __('sentence.november') }}",
-                                "{{ __('sentence.december') }}",
-                            ],
-                            tickAmount: 12,
-                            labels: {
-                                show: true,
-                                rotate: 0,
-                                trim: true,
-                                style: {
-                                    colors: "#000000",
-                                    fontSize: "12px",
-                                    fontFamily: "Cabin, sans-serif",
-                                    fontWeight: 600,
-                                },
-                            },
-                            axisBorder: {
-                                show: false,
-                                color: "#456456",
-                                height: 1,
-                                width: "100%",
-                                offsetX: 0,
-                                offsetY: 0,
                             },
                         },
                         yaxis: {
@@ -214,30 +168,9 @@
                                     fontWeight: 600,
                                 },
                             },
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: "#000000",
-                                    fontSize: "12px",
-                                    fontFamily: "Cabin, sans-serif",
-                                    fontWeight: 600,
-                                },
-                            },
                         },
                         fill: {
-                            opacity: 1,
                             colors: ["#008FFB", "#90C1E7", "#D1E3F1"],
-                        },
-                        stroke: {
-                            width: 3,
-                            colors: ["#008FFB", "#90C1E7", "#D1E3F1"],
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function(val) {
-                                    return val + " Tk.";
-                                },
-                            },
                         },
                         legend: {
                             fontSize: "14px",
@@ -252,32 +185,10 @@
                             },
                             itemMargin: {
                                 horizontal: 30,
-                                vertical: 0,
+                                vertical: 0
                             },
                         },
-
-                        responsive: [{
-                            breakpoint: 1600,
-                            options: {
-                                chart: {
-                                    height: 200,
-                                },
-                                yaxis: {
-                                    title: {
-                                        style: {
-                                            fontSize: '16px',
-                                        },
-                                    },
-                                },
-                                legend: {
-                                    fontSize: '12px',
-                                    itemMargin: {
-                                        horizontal: 15,
-                                    },
-                                },
-                            },
-                        }]
-                    }).render();
+                    });
                 },
                 error: function(error) {
                     console.log(error);
@@ -285,4 +196,5 @@
             });
         </script>
     @endpush
+
 </x-layout>
