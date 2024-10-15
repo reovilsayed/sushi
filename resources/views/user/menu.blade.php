@@ -100,7 +100,7 @@
                     <h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.take_away') }}</h2>
                     <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;"
                         hidden>
-                        {{ __('sentence.current_location') }} : (15 to 20 Minutes)</h6>
+                        {{ __('sentence.current_location') }} : (15 to 60 Minutes)</h6>
 
                     @if ($restaurant->delivery_option == 'both' || $restaurant->delivery_option == 'home_delivery')
                         <button class="Delivery" data-bs-toggle="modal"

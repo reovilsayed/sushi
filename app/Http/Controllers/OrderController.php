@@ -139,22 +139,37 @@ class OrderController extends Controller
                 if (!$restaurantId) {
                     return back()->withErrors(['error' => 'Restaurant not selected.']);
                 }
-    
+
                 $restaurant = Restaurant::find($restaurantId);
                 if (!$restaurant) {
                     return back()->withErrors(['error' => 'Restaurant not found.']);
                 }
-    
+
                 $latitudeTo = $restaurant->latitude;
                 $longitudeTo = $restaurant->longitude;
-    
+
                 $distance = $this->distanceService->haversineGreatCircleDistance(
                     $latitude,
                     $longitude,
                     $latitudeTo,
                     $longitudeTo
                 );
-    
+
+
+                if ($distance <= 2) {
+                    if (Cart::getTotal() < 15) {
+                        return back()->withErrors(['error' => 'Minimum order of 15€ is required for delivery beyond 2 km.']);
+                    }
+                } elseif ($distance <= 4) {
+                    if (Cart::getTotal() < 30) {
+                        return back()->withErrors(['error' => 'Minimum order of 30€ is required for delivery beyond 4 km.']);
+                    }
+                } elseif ($distance <= 6) {
+                    if (Cart::getTotal() < 50) {
+                        return back()->withErrors(['error' => 'Minimum order of 50€ is required for delivery beyond 6 km.']);
+                    }
+                }
+                
                 $allowed_distance = 6;
                 if ($distance > $allowed_distance) {
                     return back()->withErrors(['error' => 'Unfortunately, we are unable to deliver to your location as it exceeds our delivery range. Our delivery service is currently limited to a radius of ' . $allowed_distance . ' kilometers from the restaurant. Please check your address and try again or choose a different restaurant closer to your location.']);
