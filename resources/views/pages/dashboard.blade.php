@@ -128,11 +128,11 @@
                 type: "GET",
                 success: function(response) {
                     createChart('chart1', 'bar', [{
-                            name: "Sale",
+                            name: "{{ __('sentence.sale') }}",
                             data: response.data.sales
                         },
                         {
-                            name: "Earning",
+                            name: "{{ __('sentence.earning') }}",
                             data: response.data.profit
                         },
                     ], [
