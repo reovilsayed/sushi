@@ -97,15 +97,15 @@
                     <p style="color: var(--default-color)">{{ $restaurant->name }}</p>
                 </div>
                 <div class="section-title col-md-5">
-                    <h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.take_away') }}</h2>
-                    <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;"
+                    {{-- <h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.take_away') }}</h2> --}}
+                    {{-- <h6 style="color: color-mix(in srgb, var(--default-color), transparent 30%); margin-bottom: 0px ;"
                         hidden>
-                        {{ __('sentence.current_location') }} : (40 to 60 Minutes)</h6>
+                        {{ __('sentence.current_location') }} : (40 to 60 Minutes)</h6> --}}
 
                     @if ($restaurant->delivery_option == 'both' || $restaurant->delivery_option == 'home_delivery')
                         <button class="Delivery" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">{{ __('sentence.choose_delivery') }} _____</button>
-                            <p style="font-size:small; color:#ff883e;">{{ session()->get('address') }}</p>
+                            data-bs-target="#exampleModal"><h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.choose_delivery') }}</h2></button>
+                            <p style="font-size:18px; color:#ff883e;">{{ session()->get('address') }}</p>
                     @endif
                 </div>
 
@@ -113,7 +113,7 @@
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <label for="" class="form-content mb-2">{{ __('sentence.current_delay') }} : (15 to 20
+                        <label for="" class="form-content mb-2">{{ __('sentence.current_delay') }} : (40  to 60
                             Minutes)</label>
                         <select name="TimeOption"
                             class="form-select selectpicker  bg-transparent text-light delivery-time"

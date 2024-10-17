@@ -54,14 +54,14 @@
 
                                             </div>
                                         </div>
-                                        @if (auth()->user()->role_id == 1)
+                                        {{-- @if (auth()->user()->role_id == 1)
                                             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                                 <div class="widget">
                                                     <p>{{ __('sentence.total_amount') }}
                                                         {{ Settings::price($data['total']['sum']) }}</p>
                                                 </div>
                                             </div>
-                                        @endif
+                                        @endif --}}
 
 
                                     </div>
@@ -109,10 +109,10 @@
         </div>
     </div>
     <x-filter :url="auth()->user()->role_id == 3 ? route('resto_orders.index') : route('orders.index')">
-        <h6 class="mb-4">{{ __('sentence.search') }}</h6>
+        <h6 class="mb-4">Rechercher</h6>
         <div class="row g-1">
             <div class="col-md-4">
-                <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="{{ __('sentence.field') }}" :options="[
+                <x-form.input type="select" name="search[column]" :value="@request()->search['column']" label="Champ" :options="[
                     'customer.name' => 'First name',
                     'customer.l_name' => 'Last name',
                     'customer.email' => 'Email',
@@ -121,12 +121,12 @@
                 ]" />
             </div>
             <div class="col-md-8">
-                <x-form.input type="text" name="search[query]" :value="@request()->search['query']" label="{{ __('sentence.search') }}" />
+                <x-form.input type="text" name="search[query]" :value="@request()->search['query']" label="Rechercher" />
             </div>
         </div>
         @if (auth()->user()->role_id == 1)
             <hr>
-            <h6 class="mb-4">{{ __('sentence.filter') }}</h6>
+            <h6 class="mb-4">Filter</h6>
             <div class="row row-cols-2 g-1">
 
                 {{-- <x-form.input type="select" name="filter[payment_method]" label="Payment Method" :value="@request()->filter['payment_method']"
@@ -138,7 +138,7 @@
 
 
                 <select class="form-select " aria-label="Default select example" name="restaurant">
-                    <option selected value="">{{ __('sentence.selectrestaurant') }}</option>
+                    <option selected value="">Sélectionner un Restaurant</option>
                     @foreach ($restaurants as $restaurant)
                         <option value="{{ $restaurant->id }}"
                             {{ request()->restaurant == $restaurant->id ? 'selected' : '' }}>{{ $restaurant->name }}
@@ -148,27 +148,27 @@
                 </select>
 
 
-                <x-form.input type="date" name="date[created_at][from]" label="{{ __('sentence.from') }}" :value="@request()->date['created_at']['from']" />
-                <x-form.input type="date" name="date[created_at][to]" label="{{ __('sentence.to') }}" :value="@request()->date['created_at']['to']" />
+                <x-form.input type="date" name="date[created_at][from]" label="Depuis" :value="@request()->date['created_at']['from']" />
+                <x-form.input type="date" name="date[created_at][to]" label="À" :value="@request()->date['created_at']['to']" />
             </div>
             <hr>
         @endif
-        <h6 class="mb-4">Order By</h6>
+        <h6 class="mb-4">Commander par</h6>
 
         <div class="row row-cols-2">
 
-            <x-form.input type="select" name="order[created_at]" label="{{ __('sentence.created_at') }}Created At" :value="@request()->order['created_at']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+            <x-form.input type="select" name="order[created_at]" label="Créé à" :value="@request()->order['created_at']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
-            <x-form.input type="select" name="order[discount]" label="{{ __('sentence.discount') }}" :value="@request()->order['discount']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+            <x-form.input type="select" name="order[discount]" label="Rabais" :value="@request()->order['discount']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
-            <x-form.input type="select" name="order[paid]" label="{{ __('sentence.paid') }}" :value="@request()->order['paid']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+            <x-form.input type="select" name="order[paid]" label="Payé" :value="@request()->order['paid']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
-            <x-form.input type="select" name="order[due]" label="{{ __('sentence.due') }}" :value="@request()->order['due']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+            <x-form.input type="select" name="order[due]" label="Exigible" :value="@request()->order['due']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
 
-            <x-form.input type="select" name="order[sub_total]" label="{{ __('sentence.sub_total') }}" :value="@request()->order['sub_total']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+            <x-form.input type="select" name="order[sub_total]" label="Total" :value="@request()->order['sub_total']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
-            <x-form.input type="select" name="order[total]" label="{{ __('sentence.total') }}" :value="@request()->order['total']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
+            <x-form.input type="select" name="order[total]" label="Totale" :value="@request()->order['total']" :options="['asc' => 'Ascending', 'desc' => 'Descending']"
                 :show_empty_options="true" />
 
         </div>

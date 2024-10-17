@@ -11,7 +11,7 @@
     </button>
     <div class="offcanvas offcanvas-end" id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasFilterLabel">Search & Filter</h5>
+            <h5 class="offcanvas-title" id="offcanvasFilterLabel">Rechercher et Filtrer</h5>
             <button type="button" class="h-auto btn-outline-dark btn-sm text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"> <i class="fa fa-times"></i></button>
         </div>

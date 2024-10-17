@@ -32,7 +32,7 @@ export const ReportCard = ({ data }) => {
                                 fontWeight: 600,
                             }}
                         >
-                            Total Amount
+                            Montant total
                         </span>
                         <span
                             style={{
@@ -84,7 +84,7 @@ export const ReportCard = ({ data }) => {
                             }}
                         >
                             {" "}
-                            Total Orders
+                            Total des commandes
                         </span>
                         <span style={{ width: "20%", textAlign: "center" }}>
                             <HiArrowLongRight
@@ -121,7 +121,7 @@ export const ReportCard = ({ data }) => {
                         style={{ paddingBottom: "50px" }}
                     >
                         <span style={{ fontSize: "14px", fontWeight: 600 }}>
-                            Entity Summary
+                        Résumé de l'entité
                         </span>
                         <span>
                             <LiaLongArrowAltDownSolid
@@ -141,7 +141,7 @@ export const ReportCard = ({ data }) => {
                                 fontSize: "13px",
                             }}
                         >
-                            Total Customers
+                            Clients totaux
                         </span>
                         <span
                             style={{
@@ -210,7 +210,7 @@ export const ReportCard = ({ data }) => {
                                 fontSize: "13px",
                             }}
                         >
-                            Total Categories
+                            Total des catégories
                         </span>
                         <span
                             style={{

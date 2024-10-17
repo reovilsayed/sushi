@@ -128,21 +128,21 @@
                 type: "GET",
                 success: function(response) {
                     createChart('chart1', 'bar', [{
-                            name: "{{ __('sentence.sale') }}",
+                            name: "Vente",
                             data: response.data.sales
                         },
                         {
-                            name: "{{ __('sentence.earning') }}",
+                            name: "Revenus",
                             data: response.data.profit
                         },
                     ], [
                         "{{ __('sentence.january') }}",
                         "{{ __('sentence.february') }}",
                         "{{ __('sentence.march') }}",
-                        "{{ __('sentence.april') }}",
+                        "avril",
                         "{{ __('sentence.may') }}",
                         "{{ __('sentence.june') }}",
-                        "{{ __('sentence.july') }}",
+                        "juillet",
                         "{{ __('sentence.august') }}",
                         "{{ __('sentence.september') }}",
                         "{{ __('sentence.october') }}",
