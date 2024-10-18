@@ -59,8 +59,8 @@
 
 
         @if (auth()->user()->role_id == 3)
-            <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('resto/admin') ? 'menu-active' : ''" :href="route('resto_dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
-            <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('resto/admin/orders/list') ? 'menu-active' : ''" :href="route('resto_orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
+            {{-- <x-sidenav.nav name="{{ __('sentence.dashboard') }}" :active="request()->is('resto/admin') ? 'menu-active' : ''" :href="route('resto_dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" /> --}}
+            <x-sidenav.nav name="{{ __('sentence.order') }}" :active="request()->is('resto/admin') ? 'menu-active' : ''" :href="route('resto_orders.index')" :icon="[asset('images/orders-icon.svg'), asset('images/orders-icon-white.svg')]" />
             <x-sidenav.nav name="{{ __('sentence.Print') }}" :active="request()->is('resto/admin/restaurant') ? 'menu-active' : ''" :href="route('resto_admin.restaurants')" :icon="[asset('images/printer-svgrepo-com.svg'), asset('images/printer-svgrepo-com.svg')]" />
 
             <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('resto/admin/reports') ? 'menu-active' : ''" :href="route('resto_reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />

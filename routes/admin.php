@@ -108,14 +108,14 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
 
 
 Route::middleware(['auth', 'role:3'])->prefix('resto/admin')->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('resto_dashboard');
+    // Route::get('/', [DashboardController::class, 'dashboard'])->name('resto_dashboard');
 
     Route::get('/restaurant/print', [RestaurantController::class, 'printRestaurants'])->name('resto_admin.restaurants');
     Route::post('/restaurant/print/{restaurant}', [RestaurantController::class, 'printRestaurantOrder'])->name('resto_print.restaurant.order');
 
 
     Route::controller(OrderController::class)->group(function () {
-        Route::get('/orders/list', 'index')->name('resto_orders.index');
+        Route::get('/', 'index')->name('resto_orders.index');
         Route::post('/orders/pay', 'duepay')->name('resto_orders.due.pay');
         Route::get('/orders/expedy/print/{order}', 'expedy_print')->name('resto_orders.expedy.print');
         Route::post('mark-as-pay', 'mark_pay')->name('resto_mark.pay');
