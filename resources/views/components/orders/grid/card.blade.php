@@ -47,6 +47,9 @@
                     <strong class="text-success fw-bold">{{ __('sentence.order_id') }}: # {{ $order->id }}</strong> <br>
                     <strong class="text-primary fw-bold">{{ $order->delivery_option == 'take_away' ? 'a emporter' : 'livraison a domicile', }}</strong>
                 </p>
+                @if ($order->payment_status =='failed')
+                <h4 class="text-danger">{{ __('sentence.cancelled_message') }}</h4>
+                @endif
             </div>
             <div class="col-md-5 col-5">
 

@@ -85,8 +85,14 @@
                                                                         </td>
                                                                         <td class="">{{ $order->total }}€</td>
                                                                         <td class="text-center">
-                                                                            <a href="{{ route('invoice', $order) }}"
+                                                                            @if ($order->payment_status == 'failed')
+                                                                               <span class="text-danger fw-bold">{{ __('sentence.order_cancelled') }}</span> <br>
+                                                                               <small>({{ __('sentence.payment_failed') }})</small>
+                                                                            @else
+                                                                                <a href="{{ route('invoice', $order) }}"
                                                                                 class="btn btn-invoice ">{{ __('sentence.invoice') }}</a>
+                                                                            @endif
+                                                                            
                                                                             <!-- Positioned to the right -->
                                                                         </td>
                                                                     </tr>

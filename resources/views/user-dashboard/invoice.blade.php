@@ -45,6 +45,9 @@
                                     {{-- <p class="mb-1">{{ $order->customer->address }}</p> --}}
                                     <p class="mb-1 text-colour">{{ $order->customer->email }}</p>
                                     {{-- <p   >{{ $order->customer->phone }}</p> --}}
+                                    @if ($order->payment_status == 'failed')
+                                    <h2 class="text-danger">{{ __('sentence.cancelled_message') }}</h2>
+                                    @endif
                                 </div>
                             </div>
 
@@ -65,7 +68,7 @@
 
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1">{{ __('sentence.Delivery_Time') }}:</h5>
+                                        <h5 class="font-size-15 mb-1">{{ __('sentence.delivery_time') }}:</h5>
                                         <p class="text-colour">{{ $order->time_option }}</p>
                                     </div>
 
