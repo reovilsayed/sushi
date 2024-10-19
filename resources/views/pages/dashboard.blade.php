@@ -1,6 +1,5 @@
 <x-layout>
 
-
     <div class="box_model">
         <div class="dsh_row row">
             <div class="left_chart">
@@ -34,6 +33,7 @@
             </div>
         </div>
     </div>
+
     @push('script')
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
@@ -41,39 +41,75 @@
                 const defaultOptions = {
                     chart: {
                         type: type,
-                        height: 225,
+                        height: 300,
                         redrawOnParentResize: true,
                         redrawOnWindowResize: true,
                         toolbar: {
-                            show: false
+                            show: false,
+                        },
+                        animations: {
+                            enabled: true,
+                            easing: 'easeinout',
+                            speed: 800,
+                            animateGradually: {
+                                enabled: true,
+                                delay: 150,
+                            },
+                        },
+                        dropShadow: {
+                            enabled: true,
+                            color: '#000',
+                            top: 10,
+                            left: 0,
+                            blur: 5,
+                            opacity: 0.15,
                         },
                     },
                     dataLabels: {
-                        enabled: false
+                        enabled: false,
                     },
                     xaxis: {
                         categories: categories,
                         labels: {
-                            show: true,
-                            rotate: 0,
                             style: {
-                                colors: "#000000",
-                                fontSize: "12px",
-                                fontFamily: "Cabin, sans-serif",
-                                fontWeight: 600,
+                                colors: "#666666",
+                                fontSize: "13px",
+                                fontFamily: "Roboto, sans-serif",
+                                fontWeight: 500,
                             },
+                        },
+                        axisBorder: {
+                            show: true,
+                            color: '#dddddd',
+                        },
+                        axisTicks: {
+                            show: true,
+                            borderType: 'solid',
+                            color: '#dddddd',
                         },
                     },
                     yaxis: {
                         labels: {
-                            show: true,
                             style: {
-                                colors: "#000000",
-                                fontSize: "12px",
-                                fontFamily: "Cabin, sans-serif",
+                                colors: "#666666",
+                                fontSize: "13px",
+                                fontFamily: "Roboto, sans-serif",
+                                fontWeight: 500,
+                            },
+                        },
+                        title: {
+                            text: '€ Value',
+                            style: {
+                                color: "#333333",
+                                fontSize: "16px",
+                                fontFamily: "Roboto, sans-serif",
                                 fontWeight: 600,
                             },
                         },
+                        axisBorder: {
+                            show: false,
+                        },
+                        tickAmount: 6,
                     },
                     tooltip: {
                         y: {
@@ -81,15 +117,36 @@
                                 return val.toFixed(2) + " €";
                             },
                         },
+                        theme: 'dark', // Dark themed tooltips for contrast
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Roboto, sans-serif',
+                        },
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        width: 4,
+                    },
+                    markers: {
+                        size: 5,
+                        colors: ["#ffffff"],
+                        strokeColors: ["#FF4560", "#00E396"],
+                        strokeWidth: 3,
+                        hover: {
+                            size: 8,
+                        },
+                    },
+                    grid: {
+                        borderColor: '#ebebeb',
+                        strokeDashArray: 4,
                     },
                     fill: {
-                        opacity: 1,
+                        type: 'gradient',
                         gradient: {
-                            shade: "light",
-                            type: "vertical",
-                            shadeIntensity: 0.5,
-                            opacityFrom: 0.7,
-                            opacityTo: 0.2,
+                            shade: 'dark',
+                            type: 'horizontal',
+                            gradientToColors: ['#FDD835', '#00E396'],
+                            stops: [0, 100],
                         },
                     },
                     responsive: [{
@@ -105,14 +162,14 @@
                 }).render();
             }
 
-            // Fetch and render the area chart for revenue
+            // Fetch and render the line chart for revenue
             $.ajax({
                 url: "/get-chart-data",
                 type: "GET",
                 success: function(response) {
                     const revenue = response.data.map(item => item.total_profit);
                     const dates = response.data.map(item => item.date);
-                    createChart('chart0', 'area', [{
+                    createChart('chart0', 'line', [{
                         name: "Revenue",
                         data: revenue,
                     }], dates);
@@ -122,12 +179,12 @@
                 },
             });
 
-            // Fetch and render the bar chart for sales and earnings
+            // Fetch and render the line chart for sales and earnings
             $.ajax({
                 url: "/get-chart-data-month",
                 type: "GET",
                 success: function(response) {
-                    createChart('chart1', 'bar', [{
+                    createChart('chart1', 'line', [{
                             name: "Vente",
                             data: response.data.sales
                         },
@@ -149,43 +206,17 @@
                         "{{ __('sentence.november') }}",
                         "{{ __('sentence.december') }}",
                     ], {
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: "55%",
-                                endingShape: "rounded",
-                                borderRadius: 12,
-                            },
-                        },
-                        yaxis: {
-                            tickAmount: 8,
-                            title: {
-                                text: "Per Month",
-                                style: {
-                                    color: "#525050",
-                                    fontSize: "20px",
-                                    fontFamily: "Cabin, sans-serif",
-                                    fontWeight: 600,
-                                },
-                            },
-                        },
-                        fill: {
-                            colors: ["#008FFB", "#90C1E7", "#D1E3F1"],
-                        },
                         legend: {
-                            fontSize: "14px",
-                            fontFamily: "Cabin, sans-serif",
+                            position: 'bottom',
+                            horizontalAlign: 'center',
+                            fontSize: '14px',
+                            fontFamily: 'Roboto, sans-serif',
                             fontWeight: 600,
                             labels: {
-                                colors: "#525050",
+                                colors: '#525050',
                             },
                             markers: {
-                                fillColors: ["#008FFB", "#90C1E7", "#D1E3F1"],
-                                radius: 12,
-                            },
-                            itemMargin: {
-                                horizontal: 30,
-                                vertical: 0
+                                radius: 10,
                             },
                         },
                     });

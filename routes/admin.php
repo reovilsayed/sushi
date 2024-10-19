@@ -103,6 +103,9 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     });
 
     Route::resource('/time-schedules', TimeScheduleController::class)->names('time_schedules');
+
+    Route::get('export-users', [CustomerController::class, 'exportUsers'])->name('export.users');
+
 });
 
 

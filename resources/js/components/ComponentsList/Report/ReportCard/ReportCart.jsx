@@ -201,7 +201,7 @@ export const ReportCard = ({ data }) => {
                             {data?.data?.total_generics}
                         </span>
                     </div> */}
-                    <div className="d-flex justify-content-between align-items-center pt-3">
+                    {/* <div className="d-flex justify-content-between align-items-center pt-3">
                         <span
                             className="hover_blue"
                             style={{
@@ -234,7 +234,7 @@ export const ReportCard = ({ data }) => {
                         >
                             {data?.data?.total_categories}
                         </span>
-                    </div>
+                    </div> */}
                     {/* <div className="d-flex justify-content-between align-items-center pt-3">
                         <span
                             className="hover_blue"

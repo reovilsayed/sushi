@@ -7,6 +7,8 @@ use App\Models\Restaurant;
 use App\Models\Role;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -210,4 +212,9 @@ class CustomerController extends Controller
     {
         return view('pages.customers.infoDeleteCustomer');
     }
+
+    public function exportUsers()
+{
+    return Excel::download(new UsersExport, 'customers.xlsx');
+}
 }

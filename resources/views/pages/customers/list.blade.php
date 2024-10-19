@@ -30,6 +30,9 @@
                 <div style="float"class="mt-2">
                     <a href="{{ route('customers.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add new
                         customer</a>
+
+                    <a href="{{ route('export.users') }}" class="btn btn-success">Export Customer</a>
+
                     {{-- @if (request()->has('due_customer') && request()->input('due_customer') == 1)
                         <a href="{{ route('customers.index') }}" class="btn btn-success"><i
                                 class="fa-solid fa-reply-all"></i> All Customers</a>
