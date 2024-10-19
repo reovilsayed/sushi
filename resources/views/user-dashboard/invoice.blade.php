@@ -65,7 +65,7 @@
 
                                     </div>
                                     <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1">{{ __('sentence.Delivery_Time') }}:</h5>
+                                        <h5 class="font-size-15 mb-1">{{ __('sentence.delivery_time') }}:</h5>
                                         <p class="text-colour">{{ $order->time_option }}</p>
                                     </div>
 
