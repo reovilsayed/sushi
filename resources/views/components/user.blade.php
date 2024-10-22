@@ -310,6 +310,8 @@
                                             method: 'POST',
                                             data: {
                                                 'longitude': longitude,
+                                                'city': city,
+                                                'postalCode': postalCode,
                                                 'latitude': latitude,
                                                 _token: '{{ csrf_token() }}' // Ensure you have CSRF token included
                                             },

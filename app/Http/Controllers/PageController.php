@@ -358,6 +358,12 @@ class PageController extends Controller
         if ($request->has('address')) {
             Session::put('address', $request->input('address'));
         }
+        if ($request->has('city')) {
+            Session::put('city', $request->input('city'));
+        }
+        if ($request->has('postalCode')) {
+            Session::put('postalCode', $request->input('postalCode'));
+        }
         
         $restaurant = Restaurant::find($request->input('restaurant'));
         return response()->json(['success' => true, 'restaurant'=>$restaurant]);

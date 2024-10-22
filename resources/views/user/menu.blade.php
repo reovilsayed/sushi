@@ -105,10 +105,9 @@
                     @if ($restaurant->delivery_option == 'both' || $restaurant->delivery_option == 'home_delivery')
                         <button class="Delivery" data-bs-toggle="modal"
                             data-bs-target="#exampleModal"><h2 class="mb-2" style="font-size: 26px;">{{ __('sentence.choose_delivery') }}</h2></button>
-                            <p style="font-size:18px; color:#ff883e;">{{ session()->get('address') }}</p>
+                            <p style="font-size:18px; color:#ff883e;">{{ session()->get('address') }}, {{ session()->get('postalCode') }}</p>
                     @endif
                 </div>
-
                 <div class="section-title col-md-3">
                     <form id="timeForm" action="{{ route('time_update') }}" method="POST">
                         @csrf

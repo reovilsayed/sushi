@@ -255,7 +255,7 @@ class OrderController extends Controller
 
         DB::commit();
 
-        session()->forget(['current_location', 'delivery_time', 'restaurent_id', 'address', 'restaurant', 'method', 'longitude', 'latitude']);
+        session()->forget(['current_location', 'delivery_time', 'restaurent_id', 'address', 'restaurant', 'method', 'longitude', 'latitude', 'city', 'postalCode']);
         Cart::clear();
 
 

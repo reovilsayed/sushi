@@ -3,6 +3,8 @@
         $restaurant = $firstItem ? App\Models\Restaurant::find($firstItem->attributes->restaurent) : null;
         $locations = explode(',', session()->get('current_location'));
         $address = session()->get('address');
+        $city = session()->get('city');
+        $postalCode = session()->get('postalCode');
         $extra_charge = Settings::setting('extra.charge');
 
         // $zone = $restaurant ? $restaurant->zones->get() : null;
@@ -220,13 +222,13 @@
                                             <div class="col-md-12">
                                                 <input type="text" name="city" class="form-control"
                                                     placeholder="{{ __('sentence.your_city') }}" required=""
-                                                    value="{{ auth()->user()->city ?? ($locations[0] ?? '') }}">
+                                                    value="{{ auth()->user()->city ?? $city }}">
 
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="post_code" class="form-control"
                                                     placeholder="{{ __('sentence.your_post_code') }}" required=""
-                                                    value={{ auth()->user()->post_code ?? ($locations[4] ?? '') }}>
+                                                    value={{ auth()->user()->post_code ?? $postalCode }}>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" id="number_type" name="phone"

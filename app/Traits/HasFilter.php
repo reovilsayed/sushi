@@ -35,8 +35,14 @@ trait HasFilter
         })->when(request()->has('date'), function ($q) {
             foreach (request()->date as $column => $dates) {
 
+                // if ($dates['from'] && $dates['to']) {
+                //     $q->whereBetween($column, [$dates['from'], $dates['to']]);
+                // }
                 if ($dates['from'] && $dates['to']) {
-                    $q->whereBetween($column, [$dates['from'], $dates['to']]);
+                    $from = Carbon::parse($dates['from'])->startOfDay();
+                    $to = Carbon::parse($dates['to'])->endOfDay();
+                    
+                    $q->whereBetween($column, [$from, $to]);
                 }
             }
         })
