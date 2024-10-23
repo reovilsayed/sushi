@@ -48,12 +48,12 @@
 
                                 <div class="col-md-12 col-12">
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
+                                        {{-- <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
                                             <div class="widget">
                                                 <p>{{ __('sentence.totalorders') }}: {{ $data['total']['count'] }}</p>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         {{-- @if (auth()->user()->role_id == 1)
                                             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                                 <div class="widget">
