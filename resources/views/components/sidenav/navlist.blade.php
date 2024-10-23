@@ -101,6 +101,7 @@
         <x-sidenav.nav name="{{ __('sentence.report') }}" :active="request()->is('admin/reports') ? 'menu-active' : ''" :href="route('reports.index')" :icon="[asset('images/chart-icon.svg'), asset('images/chart-icon.svg')]" />
         <x-sidenav.nav name="{{ __('sentence.settings') }}" :active="request()->is('admin/settings') ? 'menu-active' : ''" :href="route('settings.index')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
         <x-sidenav.nav name="{{ __('sentence.pages') }}" :active="request()->is('admin/pages') ? 'menu-active' : ''" :href="route('admin.pages')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
+        <x-sidenav.nav name="{{ __('sentence.Permission') }}" :active="request()->is('admin/permissions') ? 'menu-active' : ''" :href="route('permissions.index')" :icon="[asset('images/page-dark.svg'), asset('images/page-white.svg')]" />
         <x-sidenav.nav name="{{ __('sentence.slide') }}" :active="request()->is('admin/slider') ? 'menu-active' : ''" :href="route('slider.list')" :icon="[asset('images/slider-dark.svg'), asset('images/slider-white.svg')]" />
         
 

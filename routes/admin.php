@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RestaurantController;
@@ -90,7 +91,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
 
         $months = array_merge(array_slice($months, $currentMonth), array_slice($months, 0, $currentMonth));
 
-        dd($months);
+        // dd($months);
        
     });
 
@@ -104,5 +105,7 @@ Route::middleware(['auth', 'role:1'])->prefix('/admin')->group(function () {
     });
 
     Route::resource('/time-schedules', TimeScheduleController::class)->names('time_schedules');
+
+    Route::resource('/permissions', PermissionController::class)->names('permissions');
 
 });

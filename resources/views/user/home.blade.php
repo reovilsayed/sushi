@@ -1,3 +1,7 @@
+@php
+   $permission=Permission::where('status' == 'Active')->get();
+@endphp
+
 <x-user>
     @push('css')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
@@ -14,7 +18,7 @@
             }
         </style>
     @endpush
-
+        @dd($permission)
     <section class="Mainslide" style="padding: 0px 0;">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
             <div class="carousel-inner">
