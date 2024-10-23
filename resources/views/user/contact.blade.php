@@ -1,183 +1,197 @@
-<x-user>
-    @push('css')
-        <style>
-            .accordion {
-                --bs-accordion-color: #E4D4BF;
-                --bs-accordion-bg: transparent;
-                --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
-                --bs-accordion-border-color: transparent;
-                --bs-accordion-border-width: var(--bs-border-width);
-                --bs-accordion-border-radius: var(--bs-border-radius);
-                --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
-                --bs-accordion-btn-padding-x: 1.25rem;
-                --bs-accordion-btn-padding-y: 1rem;
-                --bs-accordion-btn-color: #E4D4BF;
-                --bs-accordion-btn-bg: transparent;
-                --bs-accordion-btn-icon: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cstyle%3Esvg%7Bfill:%23e4d48f%7D%3C/style%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z' /%3E%3C/svg%3E);
-                --bs-accordion-btn-icon-width: 1.25rem;
-                --bs-accordion-btn-icon-transform: rotate(-180deg);
-                --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
-                --bs-accordion-btn-active-icon: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cstyle%3Esvg%7Bfill:%23e4d48f%7D%3C/style%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z' /%3E%3C/svg%3E);
-                --bs-accordion-btn-focus-border-color: #86b7fe;
-                --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-                --bs-accordion-body-padding-x: 1.25rem;
-                --bs-accordion-body-padding-y: 1rem;
-                --bs-accordion-active-color: #E4D4BF;
-                --bs-accordion-active-bg: transparent;
-            }
+@php
+    $permissionActive = App\Models\Permission::where('key', 'contact')->where('status', 'Active')->first();
+@endphp
 
-            * {
-                font-family: "Montserrat", sans-serif !important;
-                font-optical-sizing: auto !important;
-                font-style: normal !important;
-            }
+@if ($permissionActive)
+    <div style="width: 100%; height: 100vh; overflow: hidden;">
+        <video src="{{ asset('images/dubai.mp4') }}" autoplay loop muted
+            style="width: 100%; height: 100%; object-fit: cover;"></video>
+    </div>
+@else
+    <x-user>
+        @push('css')
+            <style>
+                .accordion {
+                    --bs-accordion-color: #E4D4BF;
+                    --bs-accordion-bg: transparent;
+                    --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+                    --bs-accordion-border-color: transparent;
+                    --bs-accordion-border-width: var(--bs-border-width);
+                    --bs-accordion-border-radius: var(--bs-border-radius);
+                    --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+                    --bs-accordion-btn-padding-x: 1.25rem;
+                    --bs-accordion-btn-padding-y: 1rem;
+                    --bs-accordion-btn-color: #E4D4BF;
+                    --bs-accordion-btn-bg: transparent;
+                    --bs-accordion-btn-icon: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cstyle%3Esvg%7Bfill:%23e4d48f%7D%3C/style%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z' /%3E%3C/svg%3E);
+                    --bs-accordion-btn-icon-width: 1.25rem;
+                    --bs-accordion-btn-icon-transform: rotate(-180deg);
+                    --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
+                    --bs-accordion-btn-active-icon: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cstyle%3Esvg%7Bfill:%23e4d48f%7D%3C/style%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z' /%3E%3C/svg%3E);
+                    --bs-accordion-btn-focus-border-color: #86b7fe;
+                    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+                    --bs-accordion-body-padding-x: 1.25rem;
+                    --bs-accordion-body-padding-y: 1rem;
+                    --bs-accordion-active-color: #E4D4BF;
+                    --bs-accordion-active-bg: transparent;
+                }
 
-            .pmclr {
-                color: #e4d4bf !important;
-            }
+                * {
+                    font-family: "Montserrat", sans-serif !important;
+                    font-optical-sizing: auto !important;
+                    font-style: normal !important;
+                }
 
-            .card_hidden {
-                max-height: 180px !important;
-            }
+                .pmclr {
+                    color: #e4d4bf !important;
+                }
 
-            .hidden {
-                display: none;
-                overflow: none;
-            }
+                .card_hidden {
+                    max-height: 180px !important;
+                }
 
-            .card-list {
-                padding: 30px;
-                margin: 10px;
-                width: 100%;
-                position: relative;
-                max-height: 500px !important;
-                overflow: hidden;
-            }
+                .hidden {
+                    display: none;
+                    overflow: none;
+                }
 
-            .opbg {
-                background-color: rgba(0, 0, 0, 0.5) !important;
-            }
+                .card-list {
+                    padding: 30px;
+                    margin: 10px;
+                    width: 100%;
+                    position: relative;
+                    max-height: 500px !important;
+                    overflow: hidden;
+                }
 
-            .card-header:first-child {
-                border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0 !important;
-            }
+                .opbg {
+                    background-color: rgba(0, 0, 0, 0.5) !important;
+                }
 
-            .card-header {
-                padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
-                margin-bottom: 0;
-                color: var(--bs-card-cap-color);
-                background-color: var(--bs-card-cap-bg);
-                border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
-            }
+                .card-header:first-child {
+                    border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0 !important;
+                }
 
-            .icon-btn::after {
-                flex-shrink: 0 !important;
-                width: var(--bs-accordion-btn-icon-width) !important;
-                height: var(--bs-accordion-btn-icon-width) !important;
-                margin-left: auto !important;
-                content: "";
-                background-image: var(--bs-accordion-btn-icon) !important;
-                background-repeat: no-repeat !important;
-                background-size: var(--bs-accordion-btn-icon-width) !important;
-                transition: var(--bs-accordion-btn-icon-transition) !important;
-            }
+                .card-header {
+                    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+                    margin-bottom: 0;
+                    color: var(--bs-card-cap-color);
+                    background-color: var(--bs-card-cap-bg);
+                    border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+                }
 
-            .opbg {
-                background-color: rgba(0, 0, 0, 0.05);
-                padding: 20px;
-                border-radius: 8px;
-            }
+                .icon-btn::after {
+                    flex-shrink: 0 !important;
+                    width: var(--bs-accordion-btn-icon-width) !important;
+                    height: var(--bs-accordion-btn-icon-width) !important;
+                    margin-left: auto !important;
+                    content: "";
+                    background-image: var(--bs-accordion-btn-icon) !important;
+                    background-repeat: no-repeat !important;
+                    background-size: var(--bs-accordion-btn-icon-width) !important;
+                    transition: var(--bs-accordion-btn-icon-transition) !important;
+                }
 
-            .pmclr {
-                margin-bottom: 20px;
-            }
+                .opbg {
+                    background-color: rgba(0, 0, 0, 0.05);
+                    padding: 20px;
+                    border-radius: 8px;
+                }
 
-            .card-header {
-                padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
-                margin-bottom: 0;
-                color: var(--bs-card-cap-color);
-                background-color: var(--bs-card-cap-bg);
-                border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
-            }
+                .pmclr {
+                    margin-bottom: 20px;
+                }
 
-            .icons-list {
-                display: flex !important;
-                gap: 5px !important;
-            }
+                .card-header {
+                    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+                    margin-bottom: 0;
+                    color: var(--bs-card-cap-color);
+                    background-color: var(--bs-card-cap-bg);
+                    border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+                }
 
-            .icon-btn {
-                font-weight: 100;
-                cursor: pointer;
-                position: absolute;
-                top: 0;
-                right: 0;
-                z-index: 9999;
-                font-size: 52px !important;
-                padding: 10px;
-                transition: transform 0.3s ease !important;
-            }
+                .icons-list {
+                    display: flex !important;
+                    gap: 5px !important;
+                }
 
-            .icon-btn {
-                transform: rotate(180deg) !important;
-                /* Rotate the icon to show "+" when active */
-            }
+                .icon-btn {
+                    font-weight: 100;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 9999;
+                    font-size: 52px !important;
+                    padding: 10px;
+                    transition: transform 0.3s ease !important;
+                }
 
-            tbody,
-            td,
-            tfoot,
-            th,
-            thead,
-            tr {
-                border-color: inherit !important;
-                border-style: solid !important;
-                border-width: 0 !important;
-            }
-        </style>
-    @endpush
+                .icon-btn {
+                    transform: rotate(180deg) !important;
+                    /* Rotate the icon to show "+" when active */
+                }
 
-    @php
-        $restaurants = App\Models\Restaurant::all();
-    @endphp
-    <br> <br> <br>
-    <!-- Contact Section -->
-    <section id="contact" class="contact section bg-transparent">
-        <div class="row pmclr">
-            <div class="col-md-6">
-                <div id="card-list1" class="card-list opbg mb-5 card_hidden">
-                    @foreach ($restaurants as $item)
-                        <div class="card-header">
-                            <h3>{{ App::getLocale() =='ar' ? $item->name_ae : $item->name }}</h3>
-                            <p class="mb-3">{{ App::getLocale() =='ar' ? $item->address['address_ae'] : $item->address['address'] }}<br>{{ $item->address['post_code'] }} {{ App::getLocale() =='ar' ? $item->address['city_ae'] : $item->address['city'] }}</p>
-                            <h4 class="mb-3" style="color: #ba321c!important;">03 80 23 22 00</h4>
-                            <div class="icons-list">
-                                <span id="icon-btn1"
-                                    style="@if (session()->get('locale') == 'ar') left: 0; @else  right: 0; @endif"
-                                    class="icon-btn" onclick="toggleCard('card-list-content1', 'icon-btn1')">+</span>
+                tbody,
+                td,
+                tfoot,
+                th,
+                thead,
+                tr {
+                    border-color: inherit !important;
+                    border-style: solid !important;
+                    border-width: 0 !important;
+                }
+            </style>
+        @endpush
+
+        @php
+            $restaurants = App\Models\Restaurant::all();
+        @endphp
+        <br> <br> <br>
+        <!-- Contact Section -->
+        <section id="contact" class="contact section bg-transparent">
+            <div class="row pmclr">
+                <div class="col-md-6">
+                    <div id="card-list1" class="card-list opbg mb-5 card_hidden">
+                        @foreach ($restaurants as $item)
+                            <div class="card-header">
+                                <h3>{{ App::getLocale() == 'ar' ? $item->name_ae : $item->name }}</h3>
+                                <p class="mb-3">
+                                    {{ App::getLocale() == 'ar' ? $item->address['address_ae'] : $item->address['address'] }}<br>{{ $item->address['post_code'] }}
+                                    {{ App::getLocale() == 'ar' ? $item->address['city_ae'] : $item->address['city'] }}
+                                </p>
+                                <h4 class="mb-3" style="color: #ba321c!important;">03 80 23 22 00</h4>
+                                <div class="icons-list">
+                                    <span id="icon-btn1"
+                                        style="@if (session()->get('locale') == 'ar') left: 0; @else  right: 0; @endif"
+                                        class="icon-btn"
+                                        onclick="toggleCard('card-list-content1', 'icon-btn1')">+</span>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
-                    <div id="card-list-content1" class="card-list-content hidden">
-                        <p>{{ __('sentence.time_schedules') }}</p>
-                        <table style="text-align: left; width: 70%;">
-                            @foreach ($time_schedules as $time_schedule)
-                                <tr>
-                                    {!! App::getLocale() =='ar' ? $time_schedule->time_schedule_ae : $time_schedule->time_schedule !!}
-                                </tr>
-                            @endforeach
-                        </table>
+                        <div id="card-list-content1" class="card-list-content hidden">
+                            <p>{{ __('sentence.time_schedules') }}</p>
+                            <table style="text-align: left; width: 70%;">
+                                @foreach ($time_schedules as $time_schedule)
+                                    <tr>
+                                        {!! App::getLocale() == 'ar' ? $time_schedule->time_schedule_ae : $time_schedule->time_schedule !!}
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-6 p-3 d-flex justify-content-center">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2704.535575207828!2d5.0314998!3d47.3234108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f29d94bd63fdcb%3A0x5c3d38bb2bb2ac71!2s25%20Pl.%20Darcy%2C%2021000%20Dijon%2C%20France!5e0!3m2!1sen!2sae!4v1709789861376!5m2!1sen!2sae"
+                        width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
-            <div class="col-md-6 p-3 d-flex justify-content-center">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2704.535575207828!2d5.0314998!3d47.3234108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f29d94bd63fdcb%3A0x5c3d38bb2bb2ac71!2s25%20Pl.%20Darcy%2C%2021000%20Dijon%2C%20France!5e0!3m2!1sen!2sae!4v1709789861376!5m2!1sen!2sae"
-                    width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
 
-        {{-- <div class="row pmclr">
+            {{-- <div class="row pmclr">
             <div class="col-md-6">
                 <div id="card-list2" class="card-list opbg mb-5 card_hidden">
                     <div class="card-header">
@@ -244,59 +258,60 @@
             </div>
         </div> --}}
 
-    </section><!-- /Contact Section -->
+        </section><!-- /Contact Section -->
 
-    @push('js')
-        <script>
-            function initMapNOS() {
-                const locations = [{
-                        lat: 47.323430,
-                        lng: 5.031508
-                    }, // New York City
-                    {
-                        lat: 47.245721,
-                        lng: 6.028465
-                    }, // Los Angeles
-                    {
-                        lat: 47.631816,
-                        lng: 6.856420
-                    } // London
-                ];
+        @push('js')
+            <script>
+                function initMapNOS() {
+                    const locations = [{
+                            lat: 47.323430,
+                            lng: 5.031508
+                        }, // New York City
+                        {
+                            lat: 47.245721,
+                            lng: 6.028465
+                        }, // Los Angeles
+                        {
+                            lat: 47.631816,
+                            lng: 6.856420
+                        } // London
+                    ];
 
-                const map = new google.maps.Map(document.getElementById('map-nos'), {
-                    zoom: 7,
-                    center: locations[0]
-                });
-
-                locations.forEach((location) => {
-                    new google.maps.Marker({
-                        position: location,
-                        map: map
+                    const map = new google.maps.Map(document.getElementById('map-nos'), {
+                        zoom: 7,
+                        center: locations[0]
                     });
-                });
-            }
 
-            initMapNOS();
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            function toggleCard(contentId, iconId) {
-                var content = document.getElementById(contentId);
-                var icon = document.getElementById(iconId);
+                    locations.forEach((location) => {
+                        new google.maps.Marker({
+                            position: location,
+                            map: map
+                        });
+                    });
+                }
 
-                // Toggle the content visibility with jQuery
-                $(content).toggle("slow", function() {
-                    // Once the toggle is complete, check if it's visible
-                    if ($(content).is(":visible")) {
-                        icon.innerHTML = '-'; // Change icon to '-'
-                    } else {
-                        icon.innerHTML = '+'; // Change icon to '+'
-                    }
-                });
-            }
-        </script>
-    @endpush
+                initMapNOS();
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+                integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>
+                function toggleCard(contentId, iconId) {
+                    var content = document.getElementById(contentId);
+                    var icon = document.getElementById(iconId);
 
-</x-user>
+                    // Toggle the content visibility with jQuery
+                    $(content).toggle("slow", function() {
+                        // Once the toggle is complete, check if it's visible
+                        if ($(content).is(":visible")) {
+                            icon.innerHTML = '-'; // Change icon to '-'
+                        } else {
+                            icon.innerHTML = '+'; // Change icon to '+'
+                        }
+                    });
+                }
+            </script>
+        @endpush
+
+    </x-user>
+@endif

@@ -1,3 +1,16 @@
+@php
+    $permissionActive = App\Models\Permission::where('key', 'single_product')
+        ->where('status', 'Active')
+        ->first();
+@endphp
+
+@if ($permissionActive)
+<div style="width: 100%; height: 100vh; overflow: hidden;">
+    <video src="{{ asset('images/dubai.mp4') }}" autoplay loop muted
+        style="width: 100%; height: 100%; object-fit: cover;"></video>
+</div>
+
+@else
 <x-user>
     @push('css')
         <style>
@@ -331,3 +344,4 @@
         @endif
     @endpush
 </x-user>
+@endif
