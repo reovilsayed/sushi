@@ -34,7 +34,7 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-success" type="submit" style="float: right">
+                            <button class="btn btn-success" type="submit" style="float: left">
                                 <i class="fa fa-save"></i> {{ __('sentence.save') }}
                             </button>
                         </div>
